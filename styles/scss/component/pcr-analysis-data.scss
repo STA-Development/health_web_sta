@@ -1,0 +1,38 @@
+.analysis-wrapper{
+  padding: 24px ;
+  &__title{
+    margin-bottom: 14px;
+    font-family: SFProDisplay;
+    font-size: 22px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.27;
+    letter-spacing: normal;
+    color: #232325;
+  }
+  &__left-part{
+    display: flex;
+    justify-content: space-between;
+  }
+  &__right-part{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+  }
+  &__analysis-wrapper__results{
+    //border-radius: 5px;
+    //-webkit-backdrop-filter: blur(10px);
+    //backdrop-filter: blur(10px);
+    //border: solid 1px rgba(39, 48, 59, 0.18);
+    //background-color: #ffffff;
+  }
+  &__first-result{
+    width: 200px;
+    border-radius: 5px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: solid 1px rgba(39, 48, 59, 0.18);
+    background-color: #ffffff;
+  }
+}
