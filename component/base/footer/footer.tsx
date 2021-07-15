@@ -1,3 +1,4 @@
+import Image from "next/image"
 const Footer = ()=>{
     return (
         <div className="footer-wrapper">
@@ -36,10 +37,12 @@ const Footer = ()=>{
                             Uncertainty for SARSCoV-2 IgM is 0.83 with an average control value of6.90.
                         </p>
             </div>
-            <div className="doctor-info-wrapper">
-              <div>  Dr. Peter Blecher
+            <div className="doctor-info">
+                <Image priority={true} src="/signage.webp" alt="signage" width={"225"} height={"77px"} />
+              <div className="doctor-info-title">  Dr. Peter Blecher
                   FH Health Physician
               </div>
+
             </div>
             <div className="legal-notice">
                 <h4 className="legal-notice__title">Legal Notice</h4>
