@@ -1,70 +1,64 @@
-.footer-wrapper{
+.footer-wrapper {
   padding: 24px;
-}
+  .important-information {
+    &__title{
+      font-size: 22px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.27;
+      letter-spacing: normal;
+      color: #232325;
+      margin-bottom: 18px;
+    }
+    &__description {
+      font-size: 15px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -0.24px;
+      color: #232325;
+    }
+  }
+  .doctor-info {
+    margin: 30px 0;
+    display: flex;
+    align-items: center;
+    &__title {
+      width:160px;
+      font-size: 14px;
+      font-weight: bold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: normal;
+      color: #27303b;
+    }
+  }
+  .legal-notice {
+    &__title{
+      font-size: 22px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.27;
+      letter-spacing: normal;
+      color: #070d27;
+      margin-bottom: 8px;
+    }
+    &__description {
+      font-size: 10px;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: normal;
+      letter-spacing: -0.16px;
+      color: #070d27;
+    }
+    &__description:last-child {
+      margin-top: 16px;
+    }
+  }
 
-.important-information{
-  &__title{
-    font-size: 22px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.27;
-    letter-spacing: normal;
-    color: #232325;
-    margin-bottom: 18px;
-  }
-  &__description{
-    font-family: DMSans;
-    font-size: 15px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: -0.24px;
-    color: #232325;
-
-  }
-}
-.doctor-info{
-  margin: 30px 0;
-  display: flex;
-  align-items: center;
-  &__title{
-    width:160px;
-    font-family: PTSerif;
-    font-size: 14px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #27303b;
-  }
-}
-.legal-notice{
-  padding: 24px;
-  &__title{
-    font-family: SFProDisplay;
-    font-size: 22px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.27;
-    letter-spacing: normal;
-    color: #070d27;
-    margin-bottom: 8px;
-  }
-  &__description{
-    font-family: DMSans;
-    font-size: 10px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: -0.16px;
-    color: #070d27;
-  }
-  &__description:last-child{
-    margin-top: 16px;
-  }
 }
