@@ -1,12 +1,3 @@
-// specific styles
-$fhhealth-header-height: 64px;
-
-// margins
-$fhhealth-margin-sm: 8px;
-$fhhealth-margin-md: 16px;
-$fhhealth-margin-lg: 32px;
-$fhhealth-margin-xs: 64px;
-
 // colors
 $fhhealth-color-white: #ffffff;
 $fhhealth-color-dark-black: #232325;
@@ -15,6 +6,8 @@ $fhhealth-color-light-black: #070d27;
 
 $fhhealth-color-grey-bg: #f8f7f6;
 $fhhealth-color-grey-text: rgba(39, 48, 59, 0.6);
+$fhhealth-color-grey-border: rgba(39, 48, 59, 0.18);
+
 $fhhealth-color-orange: #d59936;
 
 $fhhealth-color-dark-blue-bg: #72b5fd;
@@ -43,6 +36,6 @@ $fhhealth-font-DM-regular: "DMSans-Regular", serif;
 
 // Medias
 $fhhealth-media-sm: 699.98px;
-$fhhealth-media-md: 899.98px;
+$fhhealth-media-md: 949.98px;
 $fhhealth-media-lg: 1199.98px;
 $fhhealth-media-extra-lg: 1599.98px;

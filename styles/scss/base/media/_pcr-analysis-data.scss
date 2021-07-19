@@ -1,0 +1,19 @@
+@media (max-width: $fhhealth-media-md) {
+  .analysis-wrapper {
+    padding: 24px;
+    &__top-part {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+    }
+    &__bottom-part {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      margin-top: 0;
+    }
+    &__parameter{
+      margin-top: 24px;
+    }
+  }
+}

@@ -11,10 +11,14 @@ import RapidInconclusiveIcon from "./icon/RapidInconclusiveIcon";
             </div>
             <div className="user-info">
                 <div className="left-column">
-                    <p className="field">FIRST NAME</p>
-                    <p className="answer user-main-answer">John</p>
-                    <p className="field">LAST NAME</p>
-                    <p className="answer user-main-answer">Johnson</p>
+                    <div className="field-answer-wrapper">
+                        <p className="field">FIRST NAME</p>
+                        <p className="answer user-main-answer">John</p>
+                    </div>
+                    <div className="field-answer-wrapper">
+                        <p className="field">LAST NAME</p>
+                        <p className="answer user-main-answer">Johnson</p>
+                    </div>
                 </div>
                 <div className="right-column">
                     <div className="right-column__first">

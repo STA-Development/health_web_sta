@@ -1,0 +1,54 @@
+@media (max-width: $fhhealth-media-md) {
+  .header-wrapper {
+
+    .test-type-wrapper {
+
+      .test-info {
+
+
+        &__result {
+
+        }
+
+        &__date {
+
+        }
+      }
+    }
+
+    .user-info {
+      flex-direction: column;
+      .left-column {
+        flex-direction: row;
+        .field-answer-wrapper:first-child {
+          margin-right: 76px;
+        }
+      }
+
+      .right-column {
+        width: 80%;
+        .right-column__first {
+
+          .right-column__first__top {
+
+          }
+
+          .right-column__first__bottom {
+
+            .right-column__first__bottom__left {
+
+            }
+
+            .right-column__first__bottom__right {
+
+            }
+          }
+        }
+
+        .right-column__second {
+
+        }
+      }
+    }
+  }
+}

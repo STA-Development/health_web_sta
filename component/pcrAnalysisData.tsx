@@ -3,7 +3,7 @@ const PcrAnalysisData = ()=>{
         <div className="analysis-wrapper">
             <h3 className="analysis-wrapper__title" >Test Analysis Data</h3>
             <div className="analysis-wrapper__top-part">
-                <div className="analysis-wrapper__top-fam">
+                <div className="analysis-wrapper__parameter">
                     <h3 className="analysis-wrapper__bottom-title">FAM</h3>
                     <div className="analysis-wrapper__results">
                         <div className="analysis-wrapper__first-result">E Gene</div>
@@ -14,7 +14,7 @@ const PcrAnalysisData = ()=>{
 
                 </div>
 
-                <div className="analysis-wrapper__bottom-call-red">
+                <div className="analysis-wrapper__parameter">
                     <h3 className="analysis-wrapper__bottom-title">Cal red 61</h3>
                     <div className="analysis-wrapper__results">
                         <span className="analysis-wrapper__first-result">RdRP Gene</span>
@@ -26,7 +26,7 @@ const PcrAnalysisData = ()=>{
             </div>
             <div className="analysis-wrapper__bottom-part">
 
-                <div className="analysis-wrapper__top-quasar">
+                <div className="analysis-wrapper__parameter">
                     <h3 className="analysis-wrapper__bottom-title">Quasar 670</h3>
                     <div className="analysis-wrapper__results">
                         <span className="analysis-wrapper__first-result">N gene</span>
@@ -35,7 +35,7 @@ const PcrAnalysisData = ()=>{
                         <span className="analysis-wrapper__forth-result">29.3</span>
                     </div>
                 </div>
-                <div className="analysis-wrapper__bottom-hex">
+                <div className="analysis-wrapper__parameter">
                     <h3 className="analysis-wrapper__bottom-title"> HEX</h3>
                     <div className="analysis-wrapper__results">
                         <span className="analysis-wrapper__first-result">IC</span>

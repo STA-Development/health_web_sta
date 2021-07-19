@@ -1,6 +1,8 @@
 .footer-wrapper {
-  padding: 24px;
+
   .important-information {
+    padding: 24px;
+    width: 75%;
     &__title{
       font-family: $fhhealth-font-SF-medium;
       font-size: 22px;
@@ -41,6 +43,8 @@
       padding-bottom: 20px;
   }
   .legal-notice {
+    padding: 24px;
+    width: 75%;
     &__title{
       font-size: 22px;
       font-weight: 500;
