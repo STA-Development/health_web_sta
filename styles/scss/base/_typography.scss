@@ -9,16 +9,6 @@
   font-style: normal;
 }
 
-@font-face {
-  font-family: "SF-Semibold";
-  src: url("/public/fonts/SF-Pro/SFProText-Semibold.eot");
-  src: url("/public/fonts/SF-Pro/SFProText-Semibold.eot?#iefix") format("embedded-opentype"),
-  url("/public/fonts/SF-Pro/SFProText-Semibold.woff2") format("woff2"),
-  url("/public/fonts/SF-Pro/SFProText-Semibold.woff") format("woff"),
-  url("/public/fonts/SF-Pro/SFProText-Semibold.ttf") format("truetype");
-  font-weight: 600;
-  font-style: normal;
-}
 
 @font-face {
   font-family: "SF-Medium";
@@ -32,25 +22,45 @@
 }
 
 @font-face {
-  font-family: "SF-Regular";
-  src: url("/public/fonts/SF-Pro/SFProText-Regular.eot");
-  src: url("/public/fonts/SF-Pro/SFProText-Regular.eot?#iefix") format("embedded-opentype"),
-  url("/public/fonts/SF-Pro/SFProText-Regular.woff2") format("woff2"),
-  url("/public/fonts/SF-Pro/SFProText-Regular.woff") format("woff"),
-  url("/public/fonts/SF-Pro/SFProText-Regular.ttf") format("truetype");
-  font-weight: 400;
+  font-family: "PTSerif-Bold";
+  src: url("/public/fonts/PT-Serif/PTSerif-Bold.eot");
+  src: url("/public/fonts/PT-Serif/PTSerif-Bold.eot?#iefix") format("embedded-opentype"),
+  url("/public/fonts/PT-Serif/PTSerif-Bold.woff2") format("woff2"),
+  url("/public/fonts/PT-Serif/PTSerif-Bold.woff") format("woff"),
+  url("/public/fonts/PT-Serif/PTSerif-Bold.ttf") format("truetype");
+  font-weight: 700;
   font-style: normal;
 }
 
-
+@font-face {
+  font-family: "DMSans-Bold";
+  src: url("/public/fonts/DM-Sans/DMSans-Bold.eot");
+  src: url("/public/fonts/DM-Sans/DMSans-Bold.eot?#iefix") format("embedded-opentype"),
+  url("/public/fonts/DM-Sans/DMSans-Bold.woff2") format("woff2"),
+  url("/public/fonts/DM-Sans/DMSans-Bold.woff") format("woff"),
+  url("/public/fonts/DM-Sans/DMSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
 
 @font-face {
-  font-family: "PTSerif-Bold";
-  src: url("/public/fonts/SF-Pro/SFProText-Regular.eot");
-  src: url("/public/fonts/SF-Pro/SFProText-Regular.eot?#iefix") format("embedded-opentype"),
-  url("/public/fonts/SF-Pro/SFProText-Regular.woff2") format("woff2"),
-  url("/public/fonts/SF-Pro/SFProText-Regular.woff") format("woff"),
-  url("/public/fonts/SF-Pro/SFProText-Regular.ttf") format("truetype");
+  font-family: "DMSans-Medium";
+  src: url("/public/fonts/DM-Sans/DMSans-Medium.eot");
+  src: url("/public/fonts/DM-Sans/DMSans-Medium.eot?#iefix") format("embedded-opentype"),
+  url("/public/fonts/DM-Sans/DMSans-Medium.woff2") format("woff2"),
+  url("/public/fonts/DM-Sans/DMSans-Medium.woff") format("woff"),
+  url("/public/fonts/DM-Sans/DMSans-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DMSans-Regular";
+  src: url("/public/fonts/DM-Sans/DMSans-Regular.eot");
+  src: url("/public/fonts/DM-Sans/DMSans-Regular.eot?#iefix") format("embedded-opentype"),
+  url("/public/fonts/DM-Sans/DMSans-Regular.woff2") format("woff2"),
+  url("/public/fonts/DM-Sans/DMSans-Regular.woff") format("woff"),
+  url("/public/fonts/DM-Sans/DMSans-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }

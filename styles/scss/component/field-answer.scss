@@ -1,4 +1,5 @@
 .field {
+  font-family: $fhhealth-font-DM-bold;
   opacity: 0.5;
   font-size: 8px;
   font-weight: bold;
@@ -8,6 +9,7 @@
   text-transform: uppercase;
 }
 .answer {
+  font-family: $fhhealth-font-PT-bold;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;

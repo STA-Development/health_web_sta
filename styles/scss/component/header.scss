@@ -14,6 +14,26 @@
       height: 100%;
       justify-content: space-between;
       margin-left: 20px;
+      &__result {
+        font-family: $fhhealth-font-SF-bold;
+        font-size: 34px;
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.18;
+        letter-spacing: normal;
+        color: #232325;
+      }
+      &__date {
+        font-family: $fhhealth-font-DM-medium;
+        font-size: 15px;
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.2;
+        letter-spacing: -0.24px;
+        color: rgba(39, 48, 59, 0.6);
+      }
     }
   }
   .user-info{

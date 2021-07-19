@@ -5,8 +5,8 @@ import RapidInconclusiveIcon from "./icon/RapidInconclusiveIcon";
             <div className="test-type-wrapper">
                 <RapidInconclusiveIcon/>
                 <div className="test-info">
-                    <p>  Inconclusive </p>
-                    <p>Date: Dec 18, 2020 @ 11:59am</p>
+                    <p className="test-info__result">  Inconclusive </p>
+                    <p className="test-info__date">Date: Dec 18, 2020 @ 11:59am</p>
                 </div>
             </div>
             <div className="user-info">

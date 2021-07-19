@@ -2,6 +2,7 @@
   padding: 24px;
   .important-information {
     &__title{
+      font-family: $fhhealth-font-SF-medium;
       font-size: 22px;
       font-weight: 500;
       font-stretch: normal;
@@ -12,6 +13,7 @@
       margin-bottom: 18px;
     }
     &__description {
+      font-family: $fhhealth-font-DM-regular;
       font-size: 15px;
       font-weight: normal;
       font-stretch: normal;
