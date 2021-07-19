@@ -38,6 +38,19 @@
   url("/public/fonts/SF-Pro/SFProText-Regular.woff2") format("woff2"),
   url("/public/fonts/SF-Pro/SFProText-Regular.woff") format("woff"),
   url("/public/fonts/SF-Pro/SFProText-Regular.ttf") format("truetype");
-  font-weight: 500;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
+@font-face {
+  font-family: "PTSerif-Bold";
+  src: url("/public/fonts/SF-Pro/SFProText-Regular.eot");
+  src: url("/public/fonts/SF-Pro/SFProText-Regular.eot?#iefix") format("embedded-opentype"),
+  url("/public/fonts/SF-Pro/SFProText-Regular.woff2") format("woff2"),
+  url("/public/fonts/SF-Pro/SFProText-Regular.woff") format("woff"),
+  url("/public/fonts/SF-Pro/SFProText-Regular.ttf") format("truetype");
+  font-weight: 400;
   font-style: normal;
 }
