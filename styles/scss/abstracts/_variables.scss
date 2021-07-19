@@ -1,6 +1,5 @@
 // specific styles
-$fhhealth-header-height: 100px;
-$fhhealth-footer-height: 80px;
+$fhhealth-header-height: 64px;
 
 // margins
 $fhhealth-margin-sm: 8px;
@@ -9,15 +8,27 @@ $fhhealth-margin-lg: 32px;
 $fhhealth-margin-xs: 64px;
 
 // colors
-$fhhealth-color-dark-blue: #27303b;
-$fhhealth-color-grey: #808080;
-$fhhealth-color-darkest-blue: #070d27;
-$fhhealth-color-dark-mint: #52c17c;
-$fhhealth-color-light-skin: #edd2a5;
-$fhhealth-color-dull-orange: #d59936;
-$fhhealth-color-red: #ff394d;
-$fhhealth-color-white: #fff;
-$fhhealth-color-light-blue: #007aff;
+$fhhealth-color-white: #ffffff;
+$fhhealth-color-dark-black: #232325;
+$fhhealth-color-black: #27303b;
+$fhhealth-color-light-black: #070d27;
+
+$fhhealth-color-grey-bg: #f8f7f6;
+$fhhealth-color-grey-text: rgba(39, 48, 59, 0.6);
+$fhhealth-color-orange: #d59936;
+
+$fhhealth-color-dark-blue-bg: #72b5fd;
+$fhhealth-color-blue-bg: #e6f1fc;
+$fhhealth-color-blue-btn: #007aff;
+
+$fhhealth-color-dark-red-bg: #ff7c89;
+$fhhealth-color-red-bg: #ffe2e5;
+$fhhealth-color-red-btn: #ff394d;
+
+$fhhealth-color-dark-green-bg: rgba(82, 193, 124, 0.6);
+$fhhealth-color-green-bg: rgba(82, 193, 124, 0.15);
+$fhhealth-color-green-btn: #52c17c;
+
 
 // font
 $fhhealth-font-SF-bold: "SF-Bold", serif;

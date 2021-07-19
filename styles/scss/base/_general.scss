@@ -10,34 +10,6 @@ a {
   text-decoration: none;
 }
 
-#__next {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-.main-content {
-  flex: 1;
-  background-color: #f6f6f6;
-}
-
-.custom-container {
-  max-width: 1920px;
-  padding: 0 64px;
-}
-.less-padding {
-  padding-right: $fhhealth-margin-lg;
-}
-
 .hidden {
   display: none;
-}
-
-.grecaptcha-badge {
-  visibility: hidden;
-}
-
-.error-message {
-  color: $fhhealth-color-red;
-  margin-top: $fhhealth-margin-md;
 }

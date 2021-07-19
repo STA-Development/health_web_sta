@@ -9,7 +9,7 @@
       font-style: normal;
       line-height: 1.27;
       letter-spacing: normal;
-      color: #232325;
+      color: $fhhealth-color-dark-black;
       margin-bottom: 18px;
     }
     &__description {
@@ -20,7 +20,7 @@
       font-style: normal;
       line-height: normal;
       letter-spacing: -0.24px;
-      color: #232325;
+      color: $fhhealth-color-dark-black;
     }
   }
   .doctor-info {
@@ -35,7 +35,7 @@
       font-style: normal;
       line-height: normal;
       letter-spacing: normal;
-      color: #27303b;
+      color: $fhhealth-color-black;
     }
     border-bottom: solid 1px rgba(39, 48, 59, 0.3);
       padding-bottom: 20px;
@@ -48,7 +48,7 @@
       font-style: normal;
       line-height: 1.27;
       letter-spacing: normal;
-      color: #070d27;
+      color: $fhhealth-color-light-black;
       margin-bottom: 8px;
     }
     &__description {
@@ -58,7 +58,7 @@
       font-style: normal;
       line-height: normal;
       letter-spacing: -0.16px;
-      color: #070d27;
+      color: $fhhealth-color-light-black;
     }
     &__description:last-child {
       margin-top: 16px;

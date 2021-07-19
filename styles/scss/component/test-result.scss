@@ -2,7 +2,7 @@
   width: 100%;
   height: 72px;
   margin: 1px 0 0;
-  background-color: #e6f1fc;
+  background-color: $fhhealth-color-blue-bg;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,7 +15,7 @@
     line-height: 1.25;
     letter-spacing: normal;
     text-align: center;
-    color: #232325;
+    color: $fhhealth-color-dark-black;
     text-transform: uppercase;
   }
 }
