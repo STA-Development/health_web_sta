@@ -1,52 +1,47 @@
-@media (max-width: $fhhealth-media-md) {
+@media (max-width: $fhhealth-media-sm) {
   .header-wrapper {
-
     .test-type-wrapper {
-
-      .test-info {
-
-
-        &__result {
-
-        }
-
-        &__date {
-
-        }
-      }
+      padding: 20px;
     }
-
     .user-info {
       flex-direction: column;
       .left-column {
+        padding: 20px 0 0 20px;
         flex-direction: row;
         .field-answer-wrapper:first-child {
           margin-right: 76px;
         }
       }
-
       .right-column {
         width: 80%;
         .right-column__first {
-
-          .right-column__first__top {
-
-          }
-
-          .right-column__first__bottom {
-
-            .right-column__first__bottom__left {
-
-            }
-
-            .right-column__first__bottom__right {
-
-            }
-          }
+          padding: 16px 0 4px 20px;
         }
+      }
+    }
+  }
+}
 
+@media (max-width: $fhhealth-media-xs) {
+  .header-wrapper {
+    .test-type-wrapper {
+    }
+    .user-info {
+      .left-column {
+        .field-answer-wrapper:first-child {
+        }
+      }
+      .right-column {
+        flex-direction: column;
+        width: 100%;
+        .right-column__first {
+          border-right: none;
+          border-bottom: solid 1px rgba(171, 182, 196, 0.25);
+          width: 100%;
+        }
         .right-column__second {
-
+          width: 100%;
+          padding: 16px 0 4px 20px;
         }
       }
     }

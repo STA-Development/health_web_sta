@@ -1,6 +1,5 @@
 .test-result-wrapper {
   width: 100%;
-  height: 72px;
   margin: 1px 0 0;
   background-color: $fhhealth-color-blue-bg;
   display: flex;
@@ -17,5 +16,6 @@
     text-align: center;
     color: $fhhealth-color-dark-black;
     text-transform: uppercase;
+    margin: 24px 24px;
   }
 }
