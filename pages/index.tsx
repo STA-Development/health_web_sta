@@ -52,7 +52,8 @@ export default function Home() {
     <div className="carcass">
         <Header/>
         <TestResult/>
-        <AntiBodyAnalysisData/>
+        {testResultState?.testResult.testType === "Antibody_All" && <AntiBodyAnalysisData/>}
+
         <LabInformation/>
         <Footer/>
     </div>

@@ -1,11 +1,15 @@
 import RapidInconclusiveIcon from "./icon/RapidInconclusiveIcon";
+import {TestResultContextStaticData} from "../../../static/TestResultContextStaticData";
+import {UseTestResultDataStateValue} from "../../../context/testResultContext";
+
  const Header = ()=>{
+     const {testResultState} = UseTestResultDataStateValue()
     return (
         <div className="header-wrapper">
             <div className="test-type-wrapper">
                 <RapidInconclusiveIcon/>
                 <div className="test-info">
-                    <p className="test-info__result">  Inconclusive </p>
+                    <p className="test-info__result">  {testResultState.testResult.result} </p>
                     <p className="test-info__date">Date: Dec 18, 2020 @ 11:59am</p>
                 </div>
             </div>
@@ -13,11 +17,11 @@ import RapidInconclusiveIcon from "./icon/RapidInconclusiveIcon";
                 <div className="left-column">
                     <div className="field-answer-wrapper">
                         <p className="field">FIRST NAME</p>
-                        <p className="answer user-main-answer">John</p>
+                        <p className="answer user-main-answer">{testResultState.testResult.firstName}</p>
                     </div>
                     <div className="field-answer-wrapper">
                         <p className="field">LAST NAME</p>
-                        <p className="answer user-main-answer">Johnson</p>
+                        <p className="answer user-main-answer">{testResultState.testResult.lastName}</p>
                     </div>
                 </div>
                 <div className="right-column">
