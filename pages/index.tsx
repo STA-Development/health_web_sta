@@ -53,7 +53,6 @@ export default function Home() {
         <Header/>
         <TestResult/>
         {testResultState?.testResult.testType === "Antibody_All" && <AntiBodyAnalysisData/>}
-
         <LabInformation/>
         <Footer/>
     </div>

@@ -31,7 +31,7 @@ export  interface  testResult {
     recollected: boolean
     result: string
     resultAnalysis: resultAnalysis[] | []
-    resultMetaData:resultMetaData | {}
+    resultMetaData:resultMetaData
     runNumber: number
     sortOrder: number
     templateId: string

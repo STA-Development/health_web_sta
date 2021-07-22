@@ -1,5 +1,4 @@
 import RapidInconclusiveIcon from "./icon/RapidInconclusiveIcon";
-import {TestResultContextStaticData} from "../../../static/TestResultContextStaticData";
 import {UseTestResultDataStateValue} from "../../../context/testResultContext";
 
  const Header = ()=>{

@@ -49,6 +49,7 @@
   display: flex;
   margin-top: 12px;
   &__left-part{
+    min-width: 50px;
     padding: 10px 20px;
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
@@ -66,14 +67,17 @@
     color: #070d27;
   }
   &__right-part{
-    padding: 10px 92px ;
+    padding: 10px 10px ;
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
-
     background-color: #ff394d;
+    min-width: 200px;
+    text-align: center;
   }
-  .green{
-    background-color: #56bd7e;;
-
-  }
+}
+.Positive{
+  background-color: #ff394d;
+}
+.Indeterminate{
+  background-color: #007aff;
 }

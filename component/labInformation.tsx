@@ -1,11 +1,14 @@
+import {UseTestResultDataStateValue} from "./../context/testResultContext";
+import moment from "moment";
 const LabInformation = ()=>{
+    const {testResultState} = UseTestResultDataStateValue()
     return (
         <div className="lab-info-wrapper">
             <div className="left-part-wrapper">
                 <div className="left-top-wrapper">
                     <div className="first-column">
                         <p className="field">date of test</p>
-                        <p className="answer test-answer">Dec 15, 7:30am</p>
+                        <p className="answer test-answer">{moment(testResultState.testResult.dateTime).format('MMMM Do, h:mm a')}</p>
 
                         <p className="field">test-type</p>
                         <p className="answer test-answer">Rapid Antigen</p>
@@ -13,7 +16,7 @@ const LabInformation = ()=>{
 
                     <div className="second-column">
                         <p className="field">date of results</p>
-                        <p className="answer test-answer">Dec 15, 11:59am</p>
+                        <p className="answer test-answer">{moment(testResultState.testResult.resultMetaData.resultDate).format('MMMM Do')}</p>
 
                         <p className="field">collection method</p>
                         <p className="answer test-answer">Nasal</p>
