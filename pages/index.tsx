@@ -23,7 +23,7 @@ export default function Home() {
     const getData = async ()=>{
         const token = await  getRecaptcha()
         try {
-            const response = await axios.get(`https://user-service-dot-opn-platform-dev.nn.r.appspot.com/user/api/public/v1/pcr-test-results/30286d6f7fb6fd55d9d9dd2975ad08bad3cb819bb51eca309228703f080b546df7a4efd8709197145db79a81099b8eb8`,{
+            const response = await axios.get(`https://user-service-dot-opn-platform-dev.nn.r.appspot.com/user/api/public/v1/pcr-test-results/2d7bd6650dd4232b4825016d0a529d68fd8ac98a9caefd14f6db876a1328b9e6b527d9ae01b5cb40038a4d70b0a89a5d`,{
                 headers: {
                     'opn-device-id':'pugkCDd0IxI-_K66hHDwo',
                     'opn-source':'FH_IOS',
@@ -53,6 +53,7 @@ export default function Home() {
         <Header/>
         <TestResult/>
         {testResultState?.testResult.testType === "Antibody_All" && <AntiBodyAnalysisData/>}
+        {testResultState?.testResult.testType ==="PCR" && <PcrAnalysisData/>}
         <LabInformation/>
         <Footer/>
     </div>

@@ -16,7 +16,7 @@ const LabInformation = ()=>{
 
                     <div className="second-column">
                         <p className="field">date of results</p>
-                        <p className="answer test-answer">{moment(testResultState.testResult.resultMetaData.resultDate).format('MMMM Do')}</p>
+                        <p className="answer test-answer">{moment(testResultState.testResult.resultMetaData.resultDate).format('MMMM Do, h:mm a')}</p>
 
                         <p className="field">collection method</p>
                         <p className="answer test-answer">Nasal</p>
