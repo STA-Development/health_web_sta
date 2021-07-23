@@ -1,12 +1,16 @@
-import RapidInconclusiveIcon from "./icon/RapidInconclusiveIcon";
 import {UseTestResultDataStateValue} from "../../../context/testResultContext";
+import AntiBodySVG from "./icon/anti-body";
+import PcrSvg from "./icon/pcrIcon";
 
  const Header = ()=>{
      const {testResultState} = UseTestResultDataStateValue()
     return (
         <div className="header-wrapper">
             <div className="test-type-wrapper">
-                <RapidInconclusiveIcon/>
+                {testResultState?.testResult.testType === "Antibody_All" && <AntiBodySVG style = {testResultState.testResult.style.toLowerCase()}/>}
+                {testResultState?.testResult.testType ==="PCR" && <PcrSvg style = {testResultState.testResult.style.toLowerCase()}/>}
+
+                {/*<RapidInconclusiveIcon/>*/}
                 <div className="test-info">
                     <p className="test-info__result">  {testResultState.testResult.result} </p>
                     <p className="test-info__date">Date: Dec 18, 2020 @ 11:59am</p>
@@ -27,10 +31,10 @@ import {UseTestResultDataStateValue} from "../../../context/testResultContext";
                     <div className="right-column__first">
                         <div className="right-column__first__top">
                             <p className="field">ADDRESS</p>
-                            <p className="answer user-secondary-answer">502 Alexandra Boulevard <br/>
-                                Suite 5053 <br/>
-                                Toronto, ON <br/>
-                                M4R 5T3
+                            <p className="answer user-secondary-answer">{testResultState.testResult.address}<br/>
+                                {/*Suite 5053 <br/>*/}
+                                {/*Toronto, ON <br/>*/}
+                                {/*M4R 5T3*/}
                             </p>
                         </div>
                         <div className="right-column__first__bottom">
@@ -43,16 +47,16 @@ import {UseTestResultDataStateValue} from "../../../context/testResultContext";
                             </div>
                             <div className="right-column__first__bottom__right">
                                 <p className="field">Phone</p>
-                                <p className="answer user-secondary-answer">(000)-000-0000</p>
+                                <p className="answer user-secondary-answer">{testResultState.testResult.phone}</p>
 
                                 <p className="field">OHIP</p>
-                                <p className="answer user-secondary-answer">000 000 000</p>
+                                <p className="answer user-secondary-answer">{testResultState.testResult.ohip}</p>
                             </div>
                         </div>
                     </div>
                     <div className="right-column__second">
                         <p className="field">date of birth</p>
-                        <p className="answer user-secondary-answer">April 20, 1989</p>
+                        <p className="answer user-secondary-answer">{testResultState.testResult.dateOfBirth}</p>
                         <p className="field">passport no.</p>
                         <p className="answer user-secondary-answer">ZE000059</p>
                         <p className="field">issuing country</p>

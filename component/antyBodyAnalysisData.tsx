@@ -5,7 +5,7 @@ const AntiBodyAnalysisData = ()=>{
         <div className="anti-body">
             <h3 className="anti-body__title">Test Analysis Data</h3>
             <p className="anti-body__description">Antibody Cut-off Index Values</p>
-            {testResultState.testResult.resultAnalysis.map((analysis,index,resultAnalysis)=>{
+            {testResultState.testResult.resultAnalysis[0].groups.map((analysis,index,resultAnalysis)=>{
                if(index>=resultAnalysis.length/2){
                    console.log(8888)
                    return(<div className="result-button" key={index}>

@@ -10,15 +10,15 @@ const PcrAnalysisData = ()=>{
             </div>
             <div className="analysis-wrapper__top-part">
                 {testResultState.testResult.resultAnalysis.map((analysis,index,resultAnalysis)=>{
-                    if(index<resultAnalysis.length/4){
+                    if(index<resultAnalysis.length/2){
                         return(
                             <div className="analysis-wrapper__parameter">
-                                <h3 className="analysis-wrapper__bottom-title">FAM</h3>
+                                <h3 className="analysis-wrapper__bottom-title">{analysis.channelName}</h3>
                                 <div className="analysis-wrapper__results">
-                                    <div className="analysis-wrapper__first-result">{analysis.label}</div>
-                                    <div className="analysis-wrapper__second-result">{analysis.value}</div>
+                                    <div className="analysis-wrapper__first-result">{analysis.groups[0].label}</div>
+                                    <div className="analysis-wrapper__second-result">{analysis.groups[0].value}</div>
                                     <div className="analysis-wrapper__third-result">C(t)</div>
-                                    <div className="analysis-wrapper__forth-result">{resultAnalysis[index+resultAnalysis.length/2].value}</div>
+                                    <div className="analysis-wrapper__forth-result">{analysis.groups[1].value}</div>
                                 </div>
                             </div>
                         )
@@ -29,15 +29,15 @@ const PcrAnalysisData = ()=>{
             </div>
             <div className="analysis-wrapper__bottom-part">
                 {testResultState.testResult.resultAnalysis.map((analysis,index,resultAnalysis)=>{
-                    if(index>=resultAnalysis.length/4 && index<resultAnalysis.length/2){
+                    if(index>=resultAnalysis.length/2){
                         return(
                             <div className="analysis-wrapper__parameter">
-                                <h3 className="analysis-wrapper__bottom-title">FAM</h3>
+                                <h3 className="analysis-wrapper__bottom-title">{analysis.channelName}</h3>
                                 <div className="analysis-wrapper__results">
-                                    <div className="analysis-wrapper__first-result">{analysis.label}</div>
-                                    <div className="analysis-wrapper__second-result">{analysis.value}</div>
+                                    <div className="analysis-wrapper__first-result">{analysis.groups[0].label}</div>
+                                    <div className="analysis-wrapper__second-result">{analysis.groups[0].value}</div>
                                     <div className="analysis-wrapper__third-result">C(t)</div>
-                                    <div className="analysis-wrapper__forth-result">{resultAnalysis[index+resultAnalysis.length/2].value}</div>
+                                    <div className="analysis-wrapper__forth-result">{analysis.groups[1].value}</div>
                                 </div>
                             </div>
                         )
