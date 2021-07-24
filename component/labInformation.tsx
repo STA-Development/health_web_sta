@@ -1,4 +1,5 @@
 import {UseTestResultDataStateValue} from "./../context/testResultContext";
+
 import moment from "moment";
 const LabInformation = ()=>{
     const {testResultState} = UseTestResultDataStateValue()
@@ -30,7 +31,7 @@ const LabInformation = ()=>{
             <div className="right-part-wrapper">
                 <div className="right-part-first-column">
                     <p className="field">collection nurse</p>
-                    <p className="answer test-answer">Daye Choi RPN</p>
+                    <p className="answer test-answer">{testResultState.testResult.registeredNursePractitioner}</p>
 
                     <p className="field">Testing Clinic</p>
                     <p className="answer test-answer">Daye Choi RPN</p>

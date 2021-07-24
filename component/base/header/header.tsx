@@ -40,7 +40,7 @@ import PcrSvg from "./icon/pcrIcon";
                         <div className="right-column__first__bottom">
                             <div className="right-column__first__bottom__left">
                                 <p className="field">Gender</p>
-                                <p className="answer user-secondary-answer">Male</p>
+                                <p className="answer user-secondary-answer">{testResultState.testResult.gender}</p>
 
                                 <p className="field">country</p>
                                 <p className="answer user-secondary-answer">Canada</p>
@@ -60,7 +60,7 @@ import PcrSvg from "./icon/pcrIcon";
                         <p className="field">passport no.</p>
                         <p className="answer user-secondary-answer">ZE000059</p>
                         <p className="field">issuing country</p>
-                        <p className="answer user-secondary-answer">Canada</p>
+                        <p className="answer user-secondary-answer">{testResultState.testResult.issuingCountry}</p>
                     </div>
                 </div>
             </div>

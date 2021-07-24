@@ -28,12 +28,16 @@ export  interface  testResult {
     deadline: string
     displayInResult: boolean
     firstName: string
+    gender:string
     equipment:string
     id: string
+    issuingCountry:string
+    importantInfo:string
     labId: string
     labName:string
     lastName: string
     linkedBarCodes: []
+    legalNotes:string
     organizationId: null
     ohip:string
     previousResult: string
@@ -44,6 +48,7 @@ export  interface  testResult {
     result: string
     resultAnalysis: resultAnalysis[] | []
     resultMetaData:resultMetaData | {}
+    registeredNursePractitioner:string
     runNumber: number
     sortOrder: number
     style:string
