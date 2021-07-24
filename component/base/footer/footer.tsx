@@ -3,13 +3,14 @@ import {UseTestResultDataStateValue} from "../../../context/testResultContext";
 
 const Footer = ()=> {
     const {testResultState} = UseTestResultDataStateValue()
+    function replaceHTMLWithLineBreaks(text:string) {
+        return text !== undefined ? text.replace(/<br\/>/gi, '\n') : "";
+    }
     return (
         <div className="footer-wrapper">
             <div className="important-information">
                 <p className="important-information__title">Important Information</p>
-                <p className='important-information__description'>
-                    {testResultState.testResult.importantInfo}
-                </p>
+                <div className="content" dangerouslySetInnerHTML={{__html: testResultState.testResult.importantInfo}}></div>
 
             </div>
             <div className="doctor-info">
@@ -22,7 +23,7 @@ const Footer = ()=> {
             </div>
             <div className="legal-notice">
                 <h4 className="legal-notice__title">Legal Notice</h4>
-                <p className="legal-notice__description"> {testResultState.testResult.legalNotes}</p>
+                <div className="content" dangerouslySetInnerHTML={{__html: testResultState.testResult.legalNotes}}></div>
             </div>
         </div>
     )
