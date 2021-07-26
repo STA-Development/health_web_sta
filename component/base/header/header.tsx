@@ -9,8 +9,6 @@ import PcrSvg from "./icon/pcrIcon";
             <div className="test-type-wrapper">
                 {testResultState?.testResult.testType === "Antibody_All" && <AntiBodySVG style = {testResultState.testResult.style.toLowerCase()}/>}
                 {testResultState?.testResult.testType ==="PCR" && <PcrSvg style = {testResultState.testResult.style.toLowerCase()}/>}
-
-                {/*<RapidInconclusiveIcon/>*/}
                 <div className="test-info">
                     <p className="test-info__result">  {testResultState.testResult.result} </p>
                     <p className="test-info__date">Date: Dec 18, 2020 @ 11:59am</p>
@@ -31,11 +29,7 @@ import PcrSvg from "./icon/pcrIcon";
                     <div className="right-column__first">
                         <div className="right-column__first__top">
                             <p className="field">ADDRESS</p>
-                            <p className="answer user-secondary-answer">{testResultState.testResult.address}<br/>
-                                {/*Suite 5053 <br/>*/}
-                                {/*Toronto, ON <br/>*/}
-                                {/*M4R 5T3*/}
-                            </p>
+                            <p className="answer user-secondary-answer">{testResultState.testResult.address}<br/></p>
                         </div>
                         <div className="right-column__first__bottom">
                             <div className="right-column__first__bottom__left">

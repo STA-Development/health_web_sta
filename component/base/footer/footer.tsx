@@ -11,7 +11,6 @@ const Footer = ()=> {
             <div className="important-information">
                 <p className="important-information__title">Important Information</p>
                 <div className="content" dangerouslySetInnerHTML={{__html: testResultState.testResult.importantInfo}}></div>
-
             </div>
             <div className="doctor-info">
                 <Image priority={true} src="/signage.webp" alt="signage" width={"225"} height={"77px"} />
@@ -19,7 +18,6 @@ const Footer = ()=> {
                     Dr. Peter Blecher <br/>
                     FH Health Physician
                 </div>
-
             </div>
             <div className="legal-notice">
                 <h4 className="legal-notice__title">Legal Notice</h4>
