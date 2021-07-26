@@ -1,15 +1,15 @@
-@media (max-width: $fhhealth-media-md) {
+@media (max-width: $fhhealth-media-sm) {
   .analysis-wrapper {
     padding: 24px;
     &__top-part {
       display: flex;
       flex-direction: column;
-      width: 50%;
+      width: fit-content;
     }
     &__bottom-part {
       display: flex;
       flex-direction: column;
-      width: 50%;
+      width: fit-content;
       margin-top: 0;
     }
     &__parameter{
