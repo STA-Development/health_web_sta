@@ -4,6 +4,7 @@
     padding: 24px;
     width: 88%;
     .content {
+
       a {
         color: blue;
       }
@@ -50,7 +51,7 @@
   .legal-notice {
     padding: 24px;
     width: 88%;
-    &__title{
+    h4{
       font-size: 22px;
       font-weight: 500;
       font-stretch: normal;
@@ -60,7 +61,7 @@
       color: $fhhealth-color-light-black;
       margin-bottom: 8px;
     }
-    &__description {
+    .content {
       font-size: 10px;
       font-weight: normal;
       font-stretch: normal;
@@ -69,7 +70,7 @@
       letter-spacing: -0.16px;
       color: $fhhealth-color-light-black;
     }
-    &__description:last-child {
+    .content:last-child {
       margin-top: 16px;
     }
   }

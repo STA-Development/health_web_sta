@@ -1,0 +1,11 @@
+@media (max-width: $fhhealth-media-sm) {
+  .test-result-wrapper {
+    .test-result-text {
+      font-family: $fhhealth-font-DM-bold;
+      font-size: 17px;
+      line-height: 1.29;
+      letter-spacing: 0.2px;
+      margin: 20px 26px;
+    }
+  }
+}

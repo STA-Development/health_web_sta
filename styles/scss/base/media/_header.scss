@@ -28,7 +28,10 @@
     }
     .user-info {
       .left-column {
+        padding: 20px 20px 0 20px;
+        justify-content: space-between;
         .field-answer-wrapper:first-child {
+          margin-right: 0;
         }
       }
       .right-column {
