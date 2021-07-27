@@ -1,0 +1,11 @@
+env: standard
+runtime: nodejs12
+service: default
+
+handlers:
+  - url: /public
+    static_dir: public
+
+  - url: /.*
+    secure: always
+    script: auto

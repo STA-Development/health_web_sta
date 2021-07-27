@@ -4,9 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "clear": "rm -rf .next && rm -rf dist",
+    "build": "npm run clear && next build && npm run copy:assets",
+    "start": "next start -p 8080",
+    "lint": "next lint",
+    "copy:assets": "mkdir dist && cp -R .next dist/.next && cp -R public dist/public && cp package.json dist && cp yarn.lock dist && cp app.yaml dist"
+
   },
   "dependencies": {
     "next": "11.0.1",
