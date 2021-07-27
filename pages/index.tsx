@@ -9,10 +9,15 @@ import {useEffect} from "react"
 import {UseTestResultDataStateValue} from "../context/testResultContext"
 import {TestResultContextStaticData} from "../static/TestResultContextStaticData"
 import {getTestResult} from "../manager/TestResultManager"
+export enum TestTypes {
+  AntibodyAll = "Antibody_All",
+  PCR = "PCR",
+  RapidAntigenAtHome = "RapidAntigenAtHome",
+}
 export default function Home() {
   const {testResultState, setTestResultState} = UseTestResultDataStateValue()
   const getRecaptcha = async () => {
-    const googleV3RecaptchaToken = await load("6LdsGa0bAAAAAAM-_eEL3JgFUnzF-4vBhj9HBxJ2").then(
+    const googleV3RecaptchaToken = await load(process.env.NEXT_PUBLIC_RECAPTCHA_V3_KEY?process.env.NEXT_PUBLIC_RECAPTCHA_V3_KEY:'').then(
       (recaptcha: ReCaptchaInstance) => {
         return recaptcha.execute("submit")
       },
@@ -42,8 +47,8 @@ export default function Home() {
     <div className="carcass">
       <Header />
       <TestResult />
-      {testResultState?.testResult.testType === "Antibody_All" && <AntiBodyAnalysisData />}
-      {testResultState?.testResult.testType === "PCR" && <PcrAnalysisData />}
+      {testResultState?.testResult.testType === TestTypes.AntibodyAll && <AntiBodyAnalysisData />}
+      {testResultState?.testResult.testType === TestTypes.PCR && <PcrAnalysisData />}
       <LabInformation />
       <Footer />
     </div>

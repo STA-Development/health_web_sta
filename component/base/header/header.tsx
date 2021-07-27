@@ -2,23 +2,23 @@ import {UseTestResultDataStateValue} from "../../../context/testResultContext"
 import AntiBodySVG from "./icon/anti-body"
 import PcrSvg from "./icon/pcrIcon"
 import RapidAtHome from "./icon/RapidAtHome"
-
+import {TestTypes} from "../../../pages/index"
 const Header = () => {
   const {testResultState} = UseTestResultDataStateValue()
   return (
     <div className="header-wrapper">
       <div className="test-type-wrapper">
-        {testResultState?.testResult.testType === "Antibody_All" && (
+        {testResultState?.testResult.testType === TestTypes.AntibodyAll && (
           <AntiBodySVG style={testResultState.testResult.style.toLowerCase()} />
         )}
-        {testResultState?.testResult.testType === "PCR" && (
+        {testResultState?.testResult.testType === TestTypes.PCR && (
           <PcrSvg style={testResultState.testResult.style.toLowerCase()} />
         )}
-        {testResultState?.testResult.testType === "RapidAntigenAtHome" && (
+        {testResultState?.testResult.testType === TestTypes.RapidAntigenAtHome && (
           <RapidAtHome style={testResultState.testResult.style?.toLowerCase()} />
         )}
 
-        {/*<RapidInconclusiveIcon/>*/}
+
         <div className="test-info">
           <p className="test-info__result"> {testResultState.testResult.result} </p>
           <p className="test-info__date">Date: Dec 18, 2020 @ 11:59am</p>
@@ -42,9 +42,6 @@ const Header = () => {
               <p className="answer user-secondary-answer">
                 {testResultState.testResult.address}
                 <br />
-                {/*Suite 5053 <br/>*/}
-                {/*Toronto, ON <br/>*/}
-                {/*M4R 5T3*/}
               </p>
             </div>
             <div className="right-column__first__bottom">
