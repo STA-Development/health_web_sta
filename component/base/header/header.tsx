@@ -17,8 +17,6 @@ const Header = () => {
         {testResultState?.testResult.testType === "RapidAntigenAtHome" && (
           <RapidAtHome style={testResultState.testResult.style?.toLowerCase()} />
         )}
-
-        {/*<RapidInconclusiveIcon/>*/}
         <div className="test-info">
           <p className="test-info__result"> {testResultState.testResult.result} </p>
           <p className="test-info__date">Date: Dec 18, 2020 @ 11:59am</p>
@@ -42,9 +40,6 @@ const Header = () => {
               <p className="answer user-secondary-answer">
                 {testResultState.testResult.address}
                 <br />
-                {/*Suite 5053 <br/>*/}
-                {/*Toronto, ON <br/>*/}
-                {/*M4R 5T3*/}
               </p>
             </div>
             <div className="right-column__first__bottom">
