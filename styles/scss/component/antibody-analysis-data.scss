@@ -1,22 +1,18 @@
 .anti-body{
   padding: 24px;
+  font-stretch: normal;
+  font-style: normal;
   &__title{
-    font-family: SFProDisplay;
+    font-family: $fhhealth-font-SF-medium;
     font-size: 22px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
     line-height: 1.27;
     letter-spacing: normal;
     color: #232325;
   }
   &__description{
     margin-top: 16px;
-    font-family: DMSans;
+    font-family: $fhhealth-font-DM-bold;
     font-size: 13px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
     line-height: 1.38;
     letter-spacing: -0.08px;
     color: #d59936;
@@ -24,22 +20,16 @@
   &__results-title{
     margin-top: 32px;
     margin-bottom: 12px;
-    font-family: DMSans;
     font-size: 17px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
+    font-family: $fhhealth-font-DM-medium;
     line-height: 1.29;
     letter-spacing: -0.41px;
     color: #070d27;
   }
   &__results-description{
     margin-bottom: 8px;
-    font-family: DMSans;
     font-size: 15px;
-    font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
+    font-family: $fhhealth-font-DM-medium;
     line-height: 1.2;
     letter-spacing: -0.24px;
     color: rgba(39, 48, 59, 0.6);
@@ -61,7 +51,6 @@
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
-
     letter-spacing: -0.41px;
     text-align: center;
     color: #070d27;
