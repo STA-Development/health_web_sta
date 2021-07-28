@@ -26,11 +26,14 @@
     }
   }
   .doctor-info {
-    margin: 30px 0 0 24px;
+    margin-top: 30px;
     display: flex;
     align-items: center;
-    border-bottom: solid 1px rgba(39, 48, 59, 0.3);
+    border-bottom: solid 1px $fhhealth-color-grey-border;
     padding-bottom: 20px;
+    &__signature {
+      margin-left: 24px;
+    }
     &__title {
       font-family: $fhhealth-font-PT-bold;
       width:160px;
