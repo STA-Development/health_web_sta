@@ -5,10 +5,12 @@ import Footer from "../component/base/footer/footer"
 import PcrAnalysisData from "../component/pcrAnalysisData"
 import AntiBodyAnalysisData from "../component/antyBodyAnalysisData"
 import {load, ReCaptchaInstance} from "recaptcha-v3"
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
 import {UseTestResultDataStateValue} from "../context/testResultContext"
 import {TestResultContextStaticData} from "../static/TestResultContextStaticData"
 import {getTestResult} from "../manager/TestResultManager"
+import {useRouter} from "next/router";
+
 export enum TestTypes {
   AntibodyAll = "Antibody_All",
   PCR = "PCR",
@@ -16,6 +18,9 @@ export enum TestTypes {
 }
 export default function Home() {
   const {testResultState, setTestResultState} = UseTestResultDataStateValue()
+  const router = useRouter()
+  const {testResultId} = router.query
+  const [resultId, setResultId] = useState<string>("");
   const getRecaptcha = async () => {
     const captchaToken = process.env.NEXT_PUBLIC_RECAPTCHA_V3_KEY;
     if(captchaToken) {
@@ -28,13 +33,19 @@ export default function Home() {
       console.error("Captcha token is undefined")
     }
   }
+  useEffect(() => {
+    if(testResultId) {
+      setResultId(testResultId as string)
+    }
+  }, [testResultId])
+
   const getData = async () => {
     const token = await getRecaptcha()
     try {
-      if(token){
+      if(token && testResultId){
         const response = await getTestResult(
             token,
-            "30286d6f7fb6fd55d9d9dd2975ad08bad3cb819bb51eca309228703f080b546df7a4efd8709197145db79a81099b8eb8",
+            resultId as string,
         )
         if (response.status === 200) {
           const data = response.data.data
@@ -48,9 +59,11 @@ export default function Home() {
 
   useEffect(() => {
     (async () => {
-      await getData()
+      if(resultId) {
+        await getData()
+      }
     })();
-  }, [])
+  }, [resultId])
   return (
     <div className="carcass">
       <Header />

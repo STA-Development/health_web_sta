@@ -15,7 +15,7 @@ const PcrAnalysisData = () => {
                   <div className="analysis-wrapper__first-result">{analysis.groups[0].label}</div>
                   <div className="analysis-wrapper__second-result">{analysis.groups[0].value}</div>
                   <div className="analysis-wrapper__third-result">C(t)</div>
-                  <div className="analysis-wrapper__forth-result">{analysis.groups[1].value}</div>
+                  <div className="analysis-wrapper__forth-result">{analysis.groups?.[1]?.value}</div>
                 </div>
               </div>
             )
@@ -32,7 +32,7 @@ const PcrAnalysisData = () => {
                   <div className="analysis-wrapper__first-result">{analysis.groups[0].label}</div>
                   <div className="analysis-wrapper__second-result">{analysis.groups[0].value}</div>
                   <div className="analysis-wrapper__third-result">C(t)</div>
-                  <div className="analysis-wrapper__forth-result">{analysis.groups[1].value}</div>
+                  <div className="analysis-wrapper__forth-result">{analysis.groups?.[1]?.value}</div>
                 </div>
               </div>
             )
