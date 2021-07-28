@@ -19,7 +19,7 @@ export default function Home() {
   const getRecaptcha = async () => {
     const captchaToken = process.env.NEXT_PUBLIC_RECAPTCHA_V3_KEY;
     if(captchaToken) {
-      return await load(process.env.NEXT_PUBLIC_RECAPTCHA_V3_KEY as string).then(
+      return await load(captchaToken as string).then(
         (recaptcha: ReCaptchaInstance) => {
           return recaptcha.execute("submit")
         },
@@ -31,13 +31,15 @@ export default function Home() {
   const getData = async () => {
     const token = await getRecaptcha()
     try {
-      const response = await getTestResult(
-        token,
-        "30286d6f7fb6fd55d9d9dd2975ad08bad3cb819bb51eca309228703f080b546df7a4efd8709197145db79a81099b8eb8",
-      )
-      if (response.status === 200) {
-        const data = response.data.data
-        setTestResultState({type: TestResultContextStaticData.UPDATE_TEST_RESULT, data})
+      if(token){
+        const response = await getTestResult(
+            token,
+            "30286d6f7fb6fd55d9d9dd2975ad08bad3cb819bb51eca309228703f080b546df7a4efd8709197145db79a81099b8eb8",
+        )
+        if (response.status === 200) {
+          const data = response.data.data
+          setTestResultState({type: TestResultContextStaticData.UPDATE_TEST_RESULT, data})
+        }
       }
     } catch (e) {
       console.log(e)
