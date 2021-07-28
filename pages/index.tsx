@@ -5,30 +5,52 @@ import Footer from "../component/base/footer/footer"
 import PcrAnalysisData from "../component/pcrAnalysisData"
 import AntiBodyAnalysisData from "../component/antyBodyAnalysisData"
 import {load, ReCaptchaInstance} from "recaptcha-v3"
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
 import {UseTestResultDataStateValue} from "../context/testResultContext"
 import {TestResultContextStaticData} from "../static/TestResultContextStaticData"
 import {getTestResult} from "../manager/TestResultManager"
+import {useRouter} from "next/router";
+
+export enum TestTypes {
+  AntibodyAll = "Antibody_All",
+  PCR = "PCR",
+  RapidAntigenAtHome = "RapidAntigenAtHome",
+}
 export default function Home() {
   const {testResultState, setTestResultState} = UseTestResultDataStateValue()
+  const router = useRouter()
+  const {testResultId} = router.query
+  const [resultId, setResultId] = useState<string>("");
   const getRecaptcha = async () => {
-    const googleV3RecaptchaToken = await load("6LdsGa0bAAAAAAM-_eEL3JgFUnzF-4vBhj9HBxJ2").then(
-      (recaptcha: ReCaptchaInstance) => {
-        return recaptcha.execute("submit")
-      },
-    )
-    return googleV3RecaptchaToken
+    const captchaToken = process.env.NEXT_PUBLIC_RECAPTCHA_V3_KEY;
+    if(captchaToken) {
+      return await load(captchaToken as string).then(
+        (recaptcha: ReCaptchaInstance) => {
+          return recaptcha.execute("submit")
+        },
+      )
+    } else {
+      console.error("Captcha token is undefined")
+    }
   }
+  useEffect(() => {
+    if(testResultId) {
+      setResultId(testResultId as string)
+    }
+  }, [testResultId])
+
   const getData = async () => {
     const token = await getRecaptcha()
     try {
-      const response = await getTestResult(
-        token,
-        "30286d6f7fb6fd55d9d9dd2975ad08bad3cb819bb51eca309228703f080b546df7a4efd8709197145db79a81099b8eb8",
-      )
-      if (response.status === 200) {
-        const data = response.data.data
-        setTestResultState({type: TestResultContextStaticData.UPDATE_TEST_RESULT, data})
+      if(token && testResultId){
+        const response = await getTestResult(
+            token,
+            resultId as string,
+        )
+        if (response.status === 200) {
+          const data = response.data.data
+          setTestResultState({type: TestResultContextStaticData.UPDATE_TEST_RESULT, data})
+        }
       }
     } catch (e) {
       console.log(e)
@@ -36,14 +58,18 @@ export default function Home() {
   }
 
   useEffect(() => {
-    getData()
-  }, [])
+    (async () => {
+      if(resultId) {
+        await getData()
+      }
+    })();
+  }, [resultId])
   return (
     <div className="carcass">
       <Header />
       <TestResult />
-      {testResultState?.testResult.testType === "Antibody_All" && <AntiBodyAnalysisData />}
-      {testResultState?.testResult.testType === "PCR" && <PcrAnalysisData />}
+      {testResultState?.testResult.testType === TestTypes.AntibodyAll && <AntiBodyAnalysisData />}
+      {testResultState?.testResult.testType === TestTypes.PCR && <PcrAnalysisData />}
       <LabInformation />
       <Footer />
     </div>

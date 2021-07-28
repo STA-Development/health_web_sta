@@ -3,6 +3,12 @@ import {UseTestResultDataStateValue} from "./../context/testResultContext"
 import moment from "moment"
 const LabInformation = () => {
   const {testResultState} = UseTestResultDataStateValue()
+  const changeDate = (data:string,format:string)=>{
+    if(data.length){
+      return moment(data).format(format)
+
+    }
+  }
   return (
     <div className="lab-info-wrapper">
       <div className="left-part-wrapper">
@@ -10,7 +16,7 @@ const LabInformation = () => {
           <div className="first-column">
             <p className="field">date of test</p>
             <p className="answer test-answer">
-              {moment(testResultState.testResult.dateTime).format("MMMM Do, h:mm a")}
+              {changeDate(testResultState.testResult.dateTime,"MMMM Do, h:mm a")}
             </p>
 
             <p className="field">test-type</p>
@@ -20,13 +26,12 @@ const LabInformation = () => {
           <div className="second-column">
             <p className="field">date of results</p>
             <p className="answer test-answer">
-              {moment(
+              {
                 testResultState?.testResult.resultMetaData &&
                   "resultDate" in testResultState?.testResult.resultMetaData &&
                   testResultState.testResult.resultMetaData?.resultDate
-                  ? testResultState.testResult.resultMetaData.resultDate
-                  : "",
-              ).format("MMMM Do, h:mm a")}
+                  ? changeDate(testResultState.testResult.resultMetaData.resultDate, "MMMM Do, h:mm a"):''
+              }
             </p>
 
             <p className="field">collection method</p>

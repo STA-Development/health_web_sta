@@ -3,18 +3,10 @@
     flex-direction: column;
     .left-part-wrapper {
       padding: 24px 0 12px 20px;
-      border: solid 1px rgba(171, 182, 196, 0.25);
-
+      border: solid 1px $fhhealth-color-lab-info-border;
       .left-top-wrapper {
-
         .first-column {
           width: 45%;
-          .test-answer {
-
-          }
-        }
-        .second-column {
-
         }
       }
     }
@@ -23,9 +15,6 @@
       width: 100%;
       .right-part-first-column {
         width: 45%;
-      }
-      .right-part-second-column {
-
       }
     }
   }

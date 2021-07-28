@@ -5,7 +5,6 @@ const PcrAnalysisData = () => {
   return (
     <div className="analysis-wrapper">
       <h3 className="analysis-wrapper__title">Test Analysis Data</h3>
-      <div className="analysis-wrapper__top-part"></div>
       <div className="analysis-wrapper__top-part">
         {testResultState.testResult.resultAnalysis.map((analysis, index, resultAnalysis) => {
           if (index < resultAnalysis.length / 2) {
@@ -16,7 +15,7 @@ const PcrAnalysisData = () => {
                   <div className="analysis-wrapper__first-result">{analysis.groups[0].label}</div>
                   <div className="analysis-wrapper__second-result">{analysis.groups[0].value}</div>
                   <div className="analysis-wrapper__third-result">C(t)</div>
-                  <div className="analysis-wrapper__forth-result">{analysis.groups[1].value}</div>
+                  <div className="analysis-wrapper__forth-result">{analysis.groups?.[1]?.value}</div>
                 </div>
               </div>
             )
@@ -33,7 +32,7 @@ const PcrAnalysisData = () => {
                   <div className="analysis-wrapper__first-result">{analysis.groups[0].label}</div>
                   <div className="analysis-wrapper__second-result">{analysis.groups[0].value}</div>
                   <div className="analysis-wrapper__third-result">C(t)</div>
-                  <div className="analysis-wrapper__forth-result">{analysis.groups[1].value}</div>
+                  <div className="analysis-wrapper__forth-result">{analysis.groups?.[1]?.value}</div>
                 </div>
               </div>
             )
