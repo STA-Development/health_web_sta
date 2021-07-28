@@ -17,12 +17,16 @@ export enum TestTypes {
 export default function Home() {
   const {testResultState, setTestResultState} = UseTestResultDataStateValue()
   const getRecaptcha = async () => {
-    const googleV3RecaptchaToken = await load(process.env.NEXT_PUBLIC_RECAPTCHA_V3_KEY?process.env.NEXT_PUBLIC_RECAPTCHA_V3_KEY:'').then(
-      (recaptcha: ReCaptchaInstance) => {
-        return recaptcha.execute("submit")
-      },
-    )
-    return googleV3RecaptchaToken
+    const captchaToken = process.env.NEXT_PUBLIC_RECAPTCHA_V3_KEY;
+    if(captchaToken) {
+      return await load(process.env.NEXT_PUBLIC_RECAPTCHA_V3_KEY as string).then(
+        (recaptcha: ReCaptchaInstance) => {
+          return recaptcha.execute("submit")
+        },
+      )
+    } else {
+      console.error("Captcha token is undefined")
+    }
   }
   const getData = async () => {
     const token = await getRecaptcha()
@@ -41,7 +45,9 @@ export default function Home() {
   }
 
   useEffect(() => {
-    getData()
+    (async () => {
+      await getData()
+    })();
   }, [])
   return (
     <div className="carcass">
