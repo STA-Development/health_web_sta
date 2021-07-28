@@ -1,0 +1,30 @@
+name: Validate Build
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: setup-nodejs
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+          registry-url: https://npm.pkg.github.com/
+          scope: "@OWNER"
+
+      - uses: ./.github/actions/deploy-gae
+        name: Validate Deployment
+        with:
+          only_validate_deployment: true
+        env:
+          dev_service_account: ${{ secrets.DEV_GCP_SERVICE_ACCOUNT }}
+
+      - name: Check Audits
+        uses: luisfontes19/npm-audit-action@v0.1.0
+        with:
+          fix: true # To create pull requests with npm audit fix
