@@ -5,7 +5,6 @@ const PcrAnalysisData = () => {
   return (
     <div className="analysis-wrapper">
       <h3 className="analysis-wrapper__title">Test Analysis Data</h3>
-      <div className="analysis-wrapper__top-part"></div>
       <div className="analysis-wrapper__top-part">
         {testResultState.testResult.resultAnalysis.map((analysis, index, resultAnalysis) => {
           if (index < resultAnalysis.length / 2) {
