@@ -1,9 +1,10 @@
 import {UseTestResultDataStateValue} from "./../context/testResultContext"
+import {TestTypes} from "../pages";
 
 const TestResult = () => {
     const {testResultState} = UseTestResultDataStateValue()
     return (
-    <div className={`test-result-wrapper wrapper__${testResultState.testResult.result.toLowerCase()}` }>
+    <div className={`test-result-wrapper wrapper__${testResultState?.testResult.testType === TestTypes.PCR && testResultState?.testResult.templateId === TestTypes.BioradAntiBody?'biorad-color': testResultState.testResult.result.toLowerCase()}` }>
       <p className="test-result-text">tested Inconclusive for sars-cov-2 (rapid Antigen)</p>
     </div>
   )
