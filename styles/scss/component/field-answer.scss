@@ -1,0 +1,33 @@
+.field {
+  font-family: $fhhealth-font-DM-bold;
+  opacity: 0.5;
+  font-size: 8px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  color: $fhhealth-color-black;
+  text-transform: uppercase;
+}
+.answer {
+  font-family: $fhhealth-font-PT-bold;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: $fhhealth-color-black;
+}
+.user-main-answer {
+  font-size: 32px;
+  margin: 8px 0 16px 0;
+}
+
+.user-secondary-answer {
+  font-size: 12px;
+  margin: 2px 0 12px 0;
+}
+
+.test-answer {
+  font-size: 14px;
+  margin: 2px 0 12px 0;
+}

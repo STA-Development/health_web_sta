@@ -1,0 +1,74 @@
+.anti-body{
+  padding: 24px;
+  font-stretch: normal;
+  font-style: normal;
+  background-color: $fhhealth-color-grey-bg;
+  border-bottom: 1px dashed $fhhealth-color-dashed-border;
+  &__title{
+    font-family: $fhhealth-font-SF-medium;
+    font-size: 22px;
+    line-height: 1.27;
+    letter-spacing: normal;
+    color: #232325;
+  }
+  &__description{
+    margin-top: 16px;
+    font-family: $fhhealth-font-DM-bold;
+    font-size: 13px;
+    line-height: 1.38;
+    letter-spacing: -0.08px;
+    color: #d59936;
+  }
+  &__results-title{
+    margin-top: 32px;
+    margin-bottom: 12px;
+    font-size: 17px;
+    font-family: $fhhealth-font-DM-medium;
+    line-height: 1.29;
+    letter-spacing: -0.41px;
+    color: #070d27;
+  }
+  &__results-description{
+    margin-bottom: 8px;
+    font-size: 15px;
+    font-family: $fhhealth-font-DM-medium;
+    line-height: 1.2;
+    letter-spacing: -0.24px;
+    color: $fhhealth-color-light-gray-text;
+  }
+}
+.result-button{
+  display: flex;
+  margin-top: 12px;
+  &__left-part{
+    min-width: 50px;
+    padding: 10px 20px;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: solid 1px $fhhealth-color-test-analysis-data-border;
+    background-color: #ffffff;
+    font-size: 17px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: -0.41px;
+    text-align: center;
+    color: #070d27;
+  }
+  &__right-part{
+    padding: 10px 10px ;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    background-color: #ffffff;
+    min-width: 200px;
+    text-align: center;
+  }
+}
+.Positive{
+  background-color: #ff394d;
+}
+.Indeterminate{
+  background-color: #007aff;
+}

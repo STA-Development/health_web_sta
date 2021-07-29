@@ -61,7 +61,7 @@ runs:
         echo "::endgroup::"
 
         echo "::group::Add Application Environment Variables"
-        gcloud secrets versions access latest --secret=FH_HEALTH_WEB_SECRETS > ./.env.local
+        gcloud secrets versions access latest --secret=FH_HEALTH_WEB_SECRETS > ./.env
         echo "::endgroup::"
 
         echo "::group::Build"

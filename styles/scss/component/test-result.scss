@@ -1,0 +1,21 @@
+.test-result-wrapper {
+  width: 100%;
+  margin: 1px 0 0;
+  background-color: $fhhealth-color-blue-bg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .test-result-text {
+    font-family: $fhhealth-font-DM-bold;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: normal;
+    text-align: center;
+    color: $fhhealth-color-dark-black;
+    text-transform: uppercase;
+    margin: 24px 24px;
+  }
+}

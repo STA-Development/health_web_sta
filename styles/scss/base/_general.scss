@@ -1,0 +1,15 @@
+html,
+body {
+  font-family: $fhhealth-font-DM-regular;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.hidden {
+  display: none;
+}

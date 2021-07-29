@@ -7,19 +7,33 @@
     "clear": "rm -rf .next && rm -rf dist",
     "build": "npm run clear && next build && npm run copy:assets",
     "start": "next start -p 8080",
-    "lint": "next lint",
-    "copy:assets": "mkdir dist && cp -R .next dist/.next && cp -R public dist/public && cp package.json dist && cp yarn.lock dist && cp app.yaml dist"
-
+    "copy:assets": "mkdir dist && cp -R .next dist/.next && cp -R public dist/public && cp package.json dist && cp yarn.lock dist && cp app.yaml dist",
+    "lint": "eslint --fix .",
+    "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "dependencies": {
+    "@zeit/next-sass": "^1.0.1",
+    "axios": "^0.21.1",
+    "moment": "^2.29.1",
     "next": "11.0.1",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "recaptcha-v3": "^1.9.1",
+    "sass": "^1.32.11"
   },
   "devDependencies": {
     "@types/react": "17.0.14",
-    "eslint": "7.30.0",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.30.0",
+    "eslint-config-airbnb": "^18.2.1",
     "eslint-config-next": "11.0.1",
+    "eslint-config-prettier": "^8.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.2",
+    "prettier": "^2.2.1",
     "typescript": "4.3.5"
   }
 }

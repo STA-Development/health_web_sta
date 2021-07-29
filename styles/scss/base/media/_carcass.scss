@@ -1,0 +1,15 @@
+@media (max-width: $fhhealth-media-lg) {
+  .carcass {
+    max-width: 827px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: $fhhealth-media-sm) {
+  .carcass {
+    max-width: 100%;
+    margin: 0;
+  }
+}

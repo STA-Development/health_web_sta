@@ -1,0 +1,67 @@
+.footer-wrapper {
+  font-stretch: normal;
+  font-style: normal;
+  .important-information {
+    padding: 24px;
+    width: 88%;
+    .content {
+      a {
+        color: blue;
+      }
+    }
+    &__title{
+      font-family: $fhhealth-font-SF-medium;
+      font-size: 22px;
+      line-height: 1.27;
+      letter-spacing: normal;
+      color: $fhhealth-color-dark-black;
+      margin-bottom: 18px;
+    }
+    &__description {
+      font-family: $fhhealth-font-DM-regular;
+      font-size: 15px;
+      line-height: normal;
+      letter-spacing: -0.24px;
+      color: $fhhealth-color-dark-black;
+    }
+  }
+  .doctor-info {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    border-bottom: solid 1px $fhhealth-color-solid-border;
+    padding-bottom: 20px;
+    &__signature {
+      margin-left: 24px;
+    }
+    &__title {
+      font-family: $fhhealth-font-PT-bold;
+      width:160px;
+      font-size: 14px;
+      line-height: normal;
+      letter-spacing: normal;
+      color: $fhhealth-color-black;
+    }
+  }
+  .legal-notice {
+    padding: 24px;
+    width: 88%;
+    color: $fhhealth-color-light-black;
+    h4 {
+      font-family: $fhhealth-font-SF-medium;
+      font-size: 22px;
+      line-height: 1.27;
+      letter-spacing: normal;
+      margin-bottom: 8px;
+    }
+    .content {
+      font-family: $fhhealth-font-DM-regular;
+      font-size: 10px;
+      line-height: normal;
+      letter-spacing: -0.16px;
+    }
+    .content:last-child {
+      margin-top: 16px;
+    }
+  }
+}
