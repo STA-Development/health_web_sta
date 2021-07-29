@@ -6,6 +6,19 @@
       line-height: 1.29;
       letter-spacing: 0.2px;
       margin: 20px 26px;
+
     }
   }
+}
+.wrapper__negative{
+  background-color: $fhhealth-color-green-bg;
+}
+.wrapper__positive{
+  background-color: $fhhealth-color-red-bg
+}
+.wrapper__inconclusive{
+  background-color: $fhhealth-color-blue-bg
+}
+.wrapper__presumptivepositive{
+  background-color: $fhhealth-color-red-bg
 }

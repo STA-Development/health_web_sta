@@ -66,9 +66,12 @@
     text-align: center;
   }
 }
-.Positive{
+.positive{
   background-color: #ff394d;
 }
-.Indeterminate{
+.indeterminate{
   background-color: #007aff;
+}
+.negative{
+  background-color:$fhhealth-color-green-btn;
 }
