@@ -11,9 +11,9 @@ const Header = () => {
         {testResultState?.testResult.testType === TestTypes.AntibodyAll && (
           <AntiBodySVG style={testResultState.testResult.style.toLowerCase()} />
         )}
-        {testResultState?.testResult.testType === TestTypes.PCR && (
-          <PcrSvg style={testResultState.testResult.style.toLowerCase()} />
-        )}
+        {testResultState?.testResult.testType === TestTypes.PCR && testResultState?.testResult.templateId === TestTypes.BioradAntiBody?<AntiBodySVG style={testResultState.testResult.style.toLowerCase()} />:
+            testResultState?.testResult.testType === TestTypes.PCR && <PcrSvg style={testResultState.testResult.style.toLowerCase()} />
+        }
         {testResultState?.testResult.testType === TestTypes.RapidAntigenAtHome && (
           <RapidAtHome style={testResultState.testResult.style?.toLowerCase()} />
         )}
