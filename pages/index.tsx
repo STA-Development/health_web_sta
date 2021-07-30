@@ -40,7 +40,7 @@ export default function Home() {
     if(testResultId) {
       setResultId(testResultId as string)
     }
-  }, [testResultId,testResultState])
+  }, [testResultId])
 
   const getData = async () => {
     const token = await getRecaptcha()
