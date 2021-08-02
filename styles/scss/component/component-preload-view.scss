@@ -28,6 +28,7 @@
     padding: 0;
     pointer-events: none;
     border-radius: 16px;
+    display: block;
 
     &_sm {
       height: 10px;
@@ -104,4 +105,33 @@
   .user-info .answer {
     margin: 2px 0 12px 0;
   }
+}
+.information-loader-wrapper{
+  padding: 24px;
+  margin-bottom: 200px;
+
+  span{
+  margin-bottom: 8px;
+}
+  span:last-of-type{
+    margin-top: 22px;
+  }
+}
+.notice-loader-wrapper{
+  padding: 24px;
+  span{
+    margin-bottom: 8px;
+  }
+  span:last-of-type{
+    margin-top: 22px;
+  }
+}
+.lab-info-wrapper{
+  span {
+    margin-top: 5px;
+    margin-bottom: 19px;
+  }
+}
+.small-margin-bt{
+  margin-bottom: 0px !important;
 }
