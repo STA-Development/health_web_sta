@@ -40,22 +40,58 @@
     &_lg {
       height: 32px;
     }
-
-    &_width-sm {
+// 1-50px    2-64px   3-74px   4-88px   5-110px
+// 6-144px   7-154px  8-164px  9-200px 10-240px
+// 11-250px 12-370px 13-390px 14-430px 15-640px
+    &_width-1 {
       width: 50px;
     }
-
-    &_width-md {
-      width: 150px;
+    &_width-2 {
+      width: 64px;
     }
-
-    &_width-lg {
+    &_width-3 {
+      width: 74px;
+    }
+    &_width-4 {
+      width: 88px;
+    }
+    &_width-5 {
+      width: 110px;
+    }
+    &_width-6 {
+      width: 144px;
+    }
+    &_width-7 {
+      width: 154px;
+    }
+    &_width-8 {
+      width: 164px;
+    }
+    &_width-9 {
+      width: 200px;
+    }
+    &_width-10 {
+      width: 240px;
+    }
+    &_width-11 {
       width: 250px;
+    }
+    &_width-12 {
+      width: 370px;
+    }
+    &_width-13 {
+      width: 390px;
+    }
+    &_width-14 {
+      width: 430px;
+    }
+    &_width-15 {
+      width: 640px;
     }
   }
 
   .user-logo {
-    width: 64px;
+    width: 72px;
     height: 64px;
     border-radius: 50%;
   }
