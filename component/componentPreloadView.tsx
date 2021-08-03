@@ -1,4 +1,5 @@
 import React from "react"
+import {TestTypes} from "../pages";
 
 const ComponentPreloadView = () => (
   <div className="preload carcass">
@@ -59,6 +60,9 @@ const ComponentPreloadView = () => (
           </div>
         </div>
       </div>
+    </div>
+    <div className={`test-result-wrapper wrapper__biorad-color` }>
+      <p className="test-result-text">tested Inconclusive for sars-cov-2 (rapid Antigen)</p>
     </div>
     <div className="test-result-wrapper"></div>
     <div className="preload__test-analysis-data">
