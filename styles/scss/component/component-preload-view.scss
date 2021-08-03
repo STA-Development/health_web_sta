@@ -169,3 +169,74 @@
 .small-margin-bt{
   margin-bottom: 0px !important;
 }
+
+
+@media (max-width: $fhhealth-media-sm) {
+  .preload {
+    .user-info {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .preload__test-analysis-data__content {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: $fhhealth-media-xs) {
+  .preload {
+    .preload {
+      &__lines {
+        // 1-35px    2-44px   3-52px   4-62px   5-78px
+        // 6-100px   7-108px  8-114px  9-140px 10-168px
+        // 11-175px 12-260px 13-274px 14-300px 15-450px
+        &_width-1 {
+          width: 35px;
+        }
+        &_width-2 {
+          width: 44px;
+        }
+        &_width-3 {
+          width: 52px;
+        }
+        &_width-4 {
+          width: 62px;
+        }
+        &_width-5 {
+          width: 78px;
+        }
+        &_width-6 {
+          width: 100px;
+        }
+        &_width-7 {
+          width: 108px;
+        }
+        &_width-8 {
+          width: 114px;
+        }
+        &_width-9 {
+          width: 140px;
+        }
+        &_width-10 {
+          width: 168px;
+        }
+        &_width-11 {
+          width: 175px;
+        }
+        &_width-12 {
+          width: 210px;
+        }
+        &_width-13 {
+          width: 260px;
+        }
+        &_width-14 {
+          width: 290px;
+        }
+        &_width-15 {
+          width: 330px;
+        }
+      }
+    }
+  }
+}
+
