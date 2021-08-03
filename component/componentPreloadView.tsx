@@ -47,18 +47,37 @@ const ComponentPreloadView = () => (
               </div>
             </div>
           </div>
+
+
           <div className="right-column__second">
             <p className="field">date of birth</p>
-            <span className="answer preload__style preload__lines preload__lines_sm" />
+            <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-4" />
             <p className="field">passport no.</p>
-            <p className="answer user-secondary-answer">ZE000059</p>
+            <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-4" />
             <p className="field">issuing country</p>
-            <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-1" />
+            <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-4" />
           </div>
         </div>
       </div>
     </div>
     <div className="test-result-wrapper"></div>
+    <div className="preload__test-analysis-data">
+      <h3 className="preload__test-analysis-data__title">Test Analysis Data</h3>
+      <div className="preload__test-analysis-data__content">
+        <div className="preload__test-analysis-data__content__half">
+          <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-5" />
+          <span className="answer preload__style preload__lines preload__lines_lg preload__lines_width-12 margins" />
+          <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-5" />
+          <span className="answer preload__style preload__lines preload__lines_lg preload__lines_width-12 margins" />
+        </div>
+        <div className="preload__test-analysis-data__content__half">
+          <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-5" />
+          <span className="answer preload__style preload__lines preload__lines_lg preload__lines_width-12 margins" />
+          <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-5" />
+          <span className="answer preload__style preload__lines preload__lines_lg preload__lines_width-12 margins" />
+        </div>
+      </div>
+    </div>
     <div className="lab-info-wrapper">
       <div className="left-part-wrapper">
         <div className="left-top-wrapper">

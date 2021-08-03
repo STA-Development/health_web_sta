@@ -105,6 +105,40 @@
   .user-info .answer {
     margin: 2px 0 12px 0;
   }
+
+  &__test-analysis-data {
+    display: flex;
+    flex-direction: column;
+    &__title {
+      padding: 24px 24px 14px 24px;
+      font-family: $fhhealth-font-SF-medium;
+      font-size: 22px;
+      font-weight: 500;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.27;
+      letter-spacing: normal;
+      color: $fhhealth-color-dark-black;
+    }
+    &__content {
+      display: flex;
+      flex-direction: row;
+      padding-left: 24px;
+      border-bottom: 1px dashed $fhhealth-color-dashed-border;
+      &__half {
+        display: flex;
+        flex-direction: column;
+        margin-right: 33px;
+        .margins {
+          margin-top: 13px;
+          margin-bottom: 28px;
+        }
+      }
+    }
+
+  }
+
+
 }
 .information-loader-wrapper{
   padding: 24px;
