@@ -26,9 +26,9 @@ const ComponentPreloadView = () => (
             <div className="right-column__first__top">
               <p className="field">ADDRESS</p>
               <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-7" />
-              <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-7" />
-              <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-7" />
-              <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-7" />
+              <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-2" />
+              <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-3" />
+              <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-1" />
             </div>
             <div className="right-column__first__bottom">
               <div className="right-column__first__bottom__left">
@@ -36,14 +36,14 @@ const ComponentPreloadView = () => (
                 <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-1" />
 
                 <p className="field">country</p>
-                <p className="answer user-secondary-answer">Canada</p>
+                <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-1" />
               </div>
               <div className="right-column__first__bottom__right">
                 <p className="field">Phone</p>
-                <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-1" />
+                <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-4" />
 
                 <p className="field">OHIP</p>
-                <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-1" />
+                <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-4" />
               </div>
             </div>
           </div>
