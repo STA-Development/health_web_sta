@@ -3,25 +3,41 @@ import AntiBodySVG from "./icon/anti-body"
 import PcrSvg from "./icon/pcrIcon"
 import RapidAtHome from "./icon/RapidAtHome"
 import {TestTypes} from "../../../pages/index"
+import moment from "moment"
 const Header = () => {
   const {testResultState} = UseTestResultDataStateValue()
+  const changeDate = (data: string, format: string) => {
+    if (data.length) {
+      return moment(data).format(format)
+    }
+  }
   return (
     <div className="header-wrapper">
       <div className="test-type-wrapper">
         {testResultState?.testResult.testType === TestTypes.AntibodyAll && (
           <AntiBodySVG style={testResultState.testResult.style.toLowerCase()} />
         )}
-        {testResultState?.testResult.testType === TestTypes.PCR && testResultState?.testResult.templateId === TestTypes.BioradAntiBody?<AntiBodySVG style={testResultState.testResult.style.toLowerCase()} />:
-            testResultState?.testResult.testType === TestTypes.PCR && <PcrSvg style={testResultState.testResult.style.toLowerCase()} />
-        }
+        {testResultState?.testResult.testType === TestTypes.PCR &&
+        testResultState?.testResult.templateId === TestTypes.BioradAntiBody ? (
+          <AntiBodySVG style={testResultState.testResult.style.toLowerCase()} />
+        ) : (
+          testResultState?.testResult.testType === TestTypes.PCR && (
+            <PcrSvg style={testResultState.testResult.style.toLowerCase()} />
+          )
+        )}
         {testResultState?.testResult.testType === TestTypes.RapidAntigenAtHome && (
           <RapidAtHome style={testResultState.testResult.style?.toLowerCase()} />
         )}
 
-
         <div className="test-info">
           <p className="test-info__result"> {testResultState.testResult.result} </p>
-          <p className="test-info__date">Date: Dec 18, 2020 @ 11:59am</p>
+          <p className="test-info__date">
+            {testResultState?.testResult.resultMetaData &&
+            "resultDate" in testResultState?.testResult.resultMetaData &&
+            testResultState.testResult.resultMetaData?.resultDate
+              ? changeDate(testResultState.testResult.resultMetaData.resultDate, "MMMM Do, h:mm a")
+              : ""}{" "}
+          </p>
         </div>
       </div>
       <div className="user-info">
