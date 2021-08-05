@@ -65,6 +65,22 @@
     min-width: 200px;
     text-align: center;
   }
+  &__left-part-value{
+    min-width: 50px;
+    padding: 10px 20px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: solid 1px $fhhealth-color-test-analysis-data-border;
+    border-left: none;
+    background-color: #ffffff;
+    font-size: 17px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    letter-spacing: -0.41px;
+    text-align: center;
+    color: #070d27;
+  }
 }
 .positive{
   background-color: #ff394d;

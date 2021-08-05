@@ -19,7 +19,7 @@ const Footer = () => {
           <div className="doctor-info__signature">
               <Image priority={true} src="/signage.webp" alt="signage" width={"225"} height={"77px"} />
           </div>
-        <div className="doctor-info-title">
+        <div className="doctor-info__title">
           Dr. Peter Blecher <br />
           FH Health Physician
         </div>

@@ -11,7 +11,7 @@ const BioradAntiBodyData = () => {
                         return (
                             <div className="result-button" key={index}>
                                 <div className="result-button__left-part">{analysis.label}</div>
-                                <div className="result-button__left-part">{analysis.value}</div>
+                                <div className="result-button__left-part-value">{analysis.value}</div>
                                 <div className={`result-button__right-part ${testResultState.testResult.result.toLowerCase()}`}>
                                     {testResultState.testResult.result}
                                 </div>

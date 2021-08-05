@@ -19,3 +19,35 @@
     margin: 24px 24px;
   }
 }
+.wrapper__negative{
+  background-color: $fhhealth-color-green-bg;
+}
+.wrapper__positive{
+  background-color: $fhhealth-color-red-bg
+}
+.wrapper__inconclusive{
+  background-color: $fhhealth-color-blue-bg
+}
+.wrapper__presumptivepositive{
+  background-color: $fhhealth-color-red-bg
+}
+.wrapper__biorad-color{
+  background-color:$fhhealth-color-neutral-bg;
+  border-bottom: 1px solid $fhhealth-color-test-analysis-data-border;
+}
+.span__negative{
+  background-color: $fhhealth-color-green-btn;
+  padding: 4px;
+}
+.span__positive{
+  background-color: $fhhealth-color-red-btn;
+  padding: 4px;
+}
+.span__inconclusive{
+  background-color: $fhhealth-color-blue-btn;
+  padding: 4px;
+}
+.span__presumptivepositive{
+  background-color: $fhhealth-color-red-btn;
+  padding: 4px;
+}

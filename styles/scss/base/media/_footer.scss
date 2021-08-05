@@ -6,6 +6,9 @@
     .doctor-info {
       flex-direction: column;
       align-items: flex-start;
+      &__signature {
+        margin-left: 20px;
+      }
       &__title {
         margin-top: 8px;
       }

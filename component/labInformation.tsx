@@ -38,10 +38,12 @@ const LabInformation = () => {
             <p className="answer test-answer">{testResultState.testResult.swabMethod}</p>
           </div>
         </div>
+        { testResultState?.testResult?.equipment &&
         <div className="left-bottom-wrapper">
           <p className="field">test equipment (health canada approved)</p>
           <p className="answer test-answer">{testResultState.testResult.equipment}</p>
         </div>
+        }
       </div>
       <div className="right-part-wrapper">
         <div className="right-part-first-column">
