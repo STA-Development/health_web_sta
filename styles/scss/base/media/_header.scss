@@ -7,7 +7,7 @@
       flex-direction: column;
       .left-column {
         padding: 20px 0 0 20px;
-        flex-direction: row;
+        flex-direction: column;
         .field-answer-wrapper:first-child {
           margin-right: 76px;
         }
@@ -31,7 +31,7 @@
         padding: 20px 20px 0 20px;
         justify-content: space-between;
         .field-answer-wrapper:first-child {
-          margin-right: 0;
+          margin-right: 10px;
         }
       }
       .right-column {
