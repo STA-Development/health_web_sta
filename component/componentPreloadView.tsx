@@ -1,5 +1,5 @@
 import React from "react"
-import {TestTypes} from "../pages";
+import {TestTypes} from "../pages"
 
 const ComponentPreloadView = () => (
   <div className="preload carcass">
@@ -49,7 +49,6 @@ const ComponentPreloadView = () => (
             </div>
           </div>
 
-
           <div className="right-column__second">
             <p className="field">date of birth</p>
             <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-4" />
@@ -61,8 +60,8 @@ const ComponentPreloadView = () => (
         </div>
       </div>
     </div>
-    <div className={`test-result-wrapper wrapper__biorad-color` }>
-      <p className="test-result-text">tested Inconclusive for sars-cov-2 (rapid Antigen)</p>
+    <div className={`test-result-wrapper wrapper__biorad-color padding `}>
+      <span className="answer preload__style preload__lines preload__lines_lg preload__lines_width-12" />
     </div>
     <div className="test-result-wrapper"></div>
     <div className="preload__test-analysis-data">
