@@ -1,7 +1,7 @@
 import Image from "next/image"
 const FooterMenu = () => {
     return (
-        <div className="Rectangle">
+        <div className="rectangle">
             <div>
                 <Image src="/fh-health-logos-hor-gold.svg" width={150} height={40}/>
             </div>

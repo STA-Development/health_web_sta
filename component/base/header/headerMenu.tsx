@@ -16,7 +16,7 @@ const HeaderMenu = () => {
                 <div>
                     <Image src="/group.svg" width={136} height={16}></Image>
                 </div>
-                <div className="Rectangle-13" onClick={openMenu}>
+                <div className="rectangle-13" onClick={openMenu}>
                     <Image src="/profile-user.svg" width={23} height={23}/>
                     {
                         isProfileMenuOpen &&
