@@ -13,3 +13,10 @@ a {
 .hidden {
   display: none;
 }
+
+.button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+}
