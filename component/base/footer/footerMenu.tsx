@@ -3,7 +3,7 @@ const FooterMenu = () => {
     return (
         <div className="rectangle">
             <div>
-                <Image src="/fh-health-logos-hor-gold.svg" width={150} height={40}/>
+                <Image src="/fh-health-logos-hor-gold.svg" width={150} height={40} alt="fh-health-logos"/>
             </div>
             <div>
                 <ul>

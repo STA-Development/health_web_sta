@@ -12,12 +12,13 @@ const HeaderMenu = () => {
     return (
         <div className="head">
             <div className="fullWidthMenu">
-                <div className="icon"><Image src="/back.svg" width={12} height={12}/></div>
+                <div className="icon">
+                    <Image src="/back.svg" width={12} height={12} alt="back arrow"/></div>
                 <div>
-                    <Image src="/group.svg" width={136} height={16}></Image>
+                    <Image src="/group.svg" width={136} height={16} alt="FH HEALTH"></Image>
                 </div>
                 <div className="rectangle-13" onClick={openMenu}>
-                    <Image src="/profile-user.svg" width={23} height={23}/>
+                    <Image src="/profile-user.svg" width={23} height={23} alt="user default avatar"/>
                     {
                         isProfileMenuOpen &&
                         <div onClick={logOutClick} className="logOut">
