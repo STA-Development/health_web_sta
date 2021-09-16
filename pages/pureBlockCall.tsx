@@ -9,7 +9,7 @@ export default function pureBlockCall() {
             </Notification>
             <PureBlock flow={false}>
                 <div>
-                    <Image src='/check.svg' width={64} height={64}/>
+                    <Image src='/check.svg' width={64} height={64} alt={"logo"}/>
                 </div>
                 <div>
                     <span className="header">Phone Number Verified!</span>

@@ -28,7 +28,7 @@ export default function Verify() {
         <>
             <PureBlock flow={true}>
                 <div>
-                    <Image src='/logo.svg' width={136} height={16}/>
+                    <Image src='/logo.svg' width={136} height={16} alt={"logo"}/>
                 </div>
                 <div>
                     <span className="header">SMS Verification</span>
