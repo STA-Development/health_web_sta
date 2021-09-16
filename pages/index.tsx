@@ -58,12 +58,12 @@ export default function Home() {
   }
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       if (resultId) {
         await getData()
       }
     })()
-  }, [resultId])
+  }, [getData, resultId])
   return (
     <>
       {testResultState.testResult.testType.length ? (

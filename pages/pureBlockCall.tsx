@@ -4,8 +4,8 @@ import Notification from "../component/notification";
 export default function pureBlockCall() {
     return (
         <>
-            <Notification type="warning" >
-                The code you entered is incorrect. Please try again
+            <Notification type="warning">
+                <>The code you entered is incorrect. Please try again</>
             </Notification>
             <PureBlock flow={false}>
                 <div>
