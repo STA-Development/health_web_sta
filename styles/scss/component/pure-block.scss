@@ -1,0 +1,90 @@
+.contentOutline {
+  max-width: 515px;
+  height: 366px;
+  margin-top: 80px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: solid 1px rgba(151, 151, 151, 0.25);
+  display: flex;
+  align-items: center;
+
+  &_flow {
+    height: auto;
+    padding: 48px 0;
+  }
+
+  .content {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    grid-row-gap: 24px;
+    padding: 0 20px;
+
+    &_flow {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      justify-content: flex-start;
+      align-items: flex-start;
+      flex: 1;
+      padding: 0 48px;
+    }
+
+    .header {
+      color: $fhhealth-color-dark-black;
+      font-weight: 500;
+      font-size: 32px;
+    }
+    .message {
+      font-size: 17px;
+      color: rgba(35, 35, 37, 0.6);
+      font-family: $fhhealth-font-DM-medium;
+      line-height: 1.29;
+    }
+    .inputGroup {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      grid-row-gap: 8px;
+
+      &_verify {
+        align-items: center;
+      }
+
+      em {
+        color: $fhhealth-color-red-btn;
+      }
+    }
+
+    .inputGroup__input {
+      padding: 16px;
+      border-radius: 2px;
+      border: 1px solid $fhhealth-color-grey-bg;
+    }
+
+    .inputGroup__resend {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 24px;
+    }
+
+    .inputGroup__button {
+      width: 100%;
+      font-size: 20px;
+      padding: 16px 0;
+      margin-top: 82px;
+      border-radius: 5px;
+      color: $fhhealth-color-white;
+      background-color: $fhhealth-color-light-gray-text;
+    }
+
+    .inputGroup__resend_button {
+      color: $fhhealth-color-blue-btn;
+      font-size: 14px;
+    }
+  }
+}

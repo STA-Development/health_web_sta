@@ -1,0 +1,11 @@
+<svg width="137" height="17" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient x1="10.4%" y1="50%" x2="142.5%" y2="50%" id="a">
+            <stop stop-color="#FCD390" offset="0%"/>
+            <stop stop-color="#B77B54" offset="100%"/>
+        </linearGradient>
+    </defs>
+    <path
+            d="M10.7 0v2.8H3.3v4h6.3v2.7H3.3V16H0V0h10.7zm59 0v2.8h-7.3v3.8h6.2v2.7h-6.1v3.9h7.3V16H59.2V0h10.5zM97 0v13.2h7.4V16H93.7V0H97zm21.3 0v2.8h-4.5V16h-3.3V2.8h-4.6V0h12.4zM19.5 0v6.6h5.9V0h3.3v16h-3.3V9.4h-6V16h-3.2V0h3.3zM43 0v6.6h6V0h3.2v16h-3.2V9.4h-6V16H40V0H43zM83 0l5.6 15v1h-3.3L84 12.2h-5.5L77.1 16h-3v-1l5.5-15H83zm43.9 0v6.6h6V0h3.2v16h-3.3V9.4h-5.9V16h-3.3V0h3.3zM81.2 4.3l-1.8 5.3h3.5l-1.7-5.3z"
+            transform="translate(.5 .5)" fill="url(#a)"/>
+</svg>
