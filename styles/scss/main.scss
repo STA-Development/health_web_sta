@@ -1,6 +1,6 @@
+@import "base/typography";
 @import "abstracts/variables";
 @import "base/general";
-@import "base/typography";
 @import "base/carcass";
 @import "component/header";
 @import "component/header-menu";
@@ -13,6 +13,7 @@
 @import "component/pcr-analysis-data";
 @import "component/antibody-analysis-data";
 @import "component/component-preload-view";
+@import "component/web-portal-results";
 @import "component/pure-block";
 @import "component/notification";
 @import "base/media/carcass";

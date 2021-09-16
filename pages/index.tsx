@@ -9,7 +9,7 @@ import {load, ReCaptchaInstance} from "recaptcha-v3"
 import {useEffect, useState} from "react"
 import {UseTestResultDataStateValue} from "../context/testResultContext"
 import {TestResultContextStaticData} from "../static/TestResultContextStaticData"
-import {getTestResult} from "../manager/TestResultManager"
+import testResultManager from "../manager/TestResultManager";
 import {useRouter} from "next/router"
 import ComponentPreloadView from "../component/componentPreloadView"
 import HeaderMenu from "../component/base/header/headerMenu";
@@ -48,7 +48,7 @@ export default function Home() {
     const token = await getRecaptcha()
     try {
       if (token && testResultId) {
-        const response = await getTestResult(token, resultId as string)
+        const response = await testResultManager.getTestResult(token, resultId as string)
         if (response.status === 200) {
           const data = response.data.data
           setTestResultState({type: TestResultContextStaticData.UPDATE_TEST_RESULT, data})

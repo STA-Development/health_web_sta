@@ -14,7 +14,7 @@ const getOrGenerateDeviceId = () => {
     localStorage.setItem("deviceId", newDeviceId)
   }
 }
-export const Axios = (token: string) => {
+export const Axios = (token?: string) => {
   const axiosInstance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_APP_BASE_URL,
     timeout: 0,
