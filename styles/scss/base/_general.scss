@@ -13,3 +13,14 @@ a {
 .hidden {
   display: none;
 }
+
+.input {
+  outline: none;
+}
+
+.button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+}

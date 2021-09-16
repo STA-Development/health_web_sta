@@ -3,6 +3,8 @@
 @import "base/general";
 @import "base/carcass";
 @import "component/header";
+@import "component/header-menu";
+@import "component/footer-menu";
 @import "utils/reset";
 @import "component/field-answer";
 @import "component/test-result";
@@ -12,10 +14,14 @@
 @import "component/antibody-analysis-data";
 @import "component/component-preload-view";
 @import "component/web-portal-results";
+@import "component/pure-block";
+@import "component/notification";
 @import "base/media/carcass";
 @import "base/media/pcr-analysis-data";
 @import "base/media/header";
 @import "base/media/footer";
+@import "base/media/header-menu";
+@import "base/media/footer-menu";
 @import "base/media/lab-information";
 @import "base/media/field-answer";
 @import "base/media/test-result";
