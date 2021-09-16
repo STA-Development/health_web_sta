@@ -1,13 +1,24 @@
 import Image from "next/image";
-import AntiBodySVG from "./base/header/icon/anti-body";
-import {TestTypes} from "../pages";
-import PcrSvg from "./base/header/icon/pcrIcon";
-import RapidAtHome from "./base/header/icon/RapidAtHome";
-const SingleTestResult = (props: any) => {
-
+import { useRouter } from 'next/router'
+import React from 'react';
+const SingleTestResult = (props: {
+    testName: string
+    patientName: string
+    testDate: string
+    backgroundClass: string
+    status:string
+    redirectUrl?:string
+}) => {
+    const router = useRouter()
+    const handleRedirect = (link: string | undefined) => {
+        if(link) {
+            router.push(link)
+        }
+    }
     return (
         <div className="single-result">
             <div className="left">
+                {/*TODO: Should be Used when endpoint will be connected*/}
                 {/*{testResultState?.testResult.testType === TestTypes.AntibodyAll && (*/}
                 {/*    <AntiBodySVG style={testResultState.testResult.style.toLowerCase()} />*/}
                 {/*)}*/}
@@ -30,7 +41,7 @@ const SingleTestResult = (props: any) => {
             </div>
             <div className="right">
                 <div className={`result-status ${props.backgroundClass}`}>{props.status.toUpperCase()}</div>
-                <Image onClick={} src="/next.svg" width={16} height={16}></Image>
+                <Image className="link-to-test" alt="next icon" onClick={() => handleRedirect(props.redirectUrl)} src="/next.svg" width={16} height={16} />
             </div>
         </div>
     )
