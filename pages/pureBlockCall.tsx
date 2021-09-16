@@ -1,8 +1,12 @@
 import PureBlock from "../component/pureBlock";
 import Image from "next/image";
+import Notification from "../component/notification";
 export default function pureBlockCall() {
     return (
         <>
+            <Notification type="warning" >
+                The code you entered is incorrect. Please try again
+            </Notification>
             <PureBlock flow={false}>
                 <div>
                     <Image src='/check.svg' width={64} height={64}/>

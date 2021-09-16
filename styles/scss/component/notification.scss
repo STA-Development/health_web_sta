@@ -1,0 +1,17 @@
+.notification {
+  width: 100%;
+  padding: 20px 36px 20px 24px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 0;
+  span {
+    margin-left: 24px;
+  }
+}
+.notif-warning {
+  background: $fhhealth-color-yellow;
+}
+.notif-error {
+  background: rgba(255, 57, 77, 0.25);
+}
