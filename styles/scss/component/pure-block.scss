@@ -49,14 +49,42 @@
       flex-direction: column;
       width: 100%;
       grid-row-gap: 8px;
+
+      &_verify {
+        align-items: center;
+      }
+
+      em {
+        color: $fhhealth-color-red-btn;
+      }
+    }
+
+    .inputGroup__input {
+      padding: 16px;
+      border-radius: 2px;
+      border: 1px solid $fhhealth-color-grey-bg;
+    }
+
+    .inputGroup__resend {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 24px;
     }
 
     .inputGroup__button {
+      width: 100%;
+      font-size: 20px;
       padding: 16px 0;
       margin-top: 82px;
       border-radius: 5px;
       color: $fhhealth-color-white;
       background-color: $fhhealth-color-light-gray-text;
+    }
+
+    .inputGroup__resend_button {
+      color: $fhhealth-color-blue-btn;
+      font-size: 14px;
     }
   }
 }
