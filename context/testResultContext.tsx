@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useReducer} from "react"
 import {ITestResultState, ITestResultActions} from "../types/context/testResultContext"
-import {TestResultContextReducer} from "../reducer/testResultReducer"
+import {TestResultContextReducer} from "../reducers/testResultReducer"
 
 const initialState: ITestResultState = {
   testResult: {
