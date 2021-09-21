@@ -35,17 +35,26 @@
   background-color:$fhhealth-color-neutral-bg;
   border-bottom: 1px solid $fhhealth-color-test-analysis-data-border;
 }
-.span__negative{
+.GREEN{
   background-color: $fhhealth-color-green-btn;
   padding: 4px;
 }
-.span__positive{
+.RED{
   background-color: $fhhealth-color-red-btn;
   padding: 4px;
 }
-.span__inconclusive{
+.YELLOW{
   background-color: $fhhealth-color-blue-btn;
   padding: 4px;
+}
+.GREEN-svg{
+  fill: $fhhealth-color-green-btn;
+}
+.RED-svg{
+  fill: $fhhealth-color-red-btn;
+}
+.YELLOW-svg {
+  fill: $fhhealth-color-blue-btn;
 }
 .span__presumptivepositive{
   background-color: $fhhealth-color-red-btn;

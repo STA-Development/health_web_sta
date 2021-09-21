@@ -1,6 +1,13 @@
 import Image from "next/image";
 import { useRouter } from 'next/router'
 import React from 'react';
+import TestResultIcon from "./base/header/icon/testResult";
+export enum TestTypes {
+    AntibodyAll = "Antibody_All",
+    PCR = "PCR",
+    RapidAntigenAtHome = "RapidAntigenAtHome",
+    BioradAntiBody = "Biorad-Anti-Body",
+}
 const SingleTestResult = (props: {
     testName: string
     patientName: string
@@ -8,6 +15,7 @@ const SingleTestResult = (props: {
     backgroundClass: string
     status:string
     redirectUrl?:string
+    testType:string
 }) => {
     const router = useRouter()
     const handleRedirect = (link: string | undefined) => {
@@ -18,21 +26,7 @@ const SingleTestResult = (props: {
     return (
         <div className="single-result">
             <div className="left">
-                {/*TODO: Should be Used when endpoint will be connected*/}
-                {/*{testResultState?.testResult.testType === TestTypes.AntibodyAll && (*/}
-                {/*    <AntiBodySVG style={testResultState.testResult.style.toLowerCase()} />*/}
-                {/*)}*/}
-                {/*{testResultState?.testResult.testType === TestTypes.PCR &&*/}
-                {/*testResultState?.testResult.templateId === TestTypes.BioradAntiBody ? (*/}
-                {/*    <AntiBodySVG style={testResultState.testResult.style.toLowerCase()} />*/}
-                {/*) : (*/}
-                {/*    testResultState?.testResult.testType === TestTypes.PCR && (*/}
-                {/*        <PcrSvg style={testResultState.testResult.style.toLowerCase()} />*/}
-                {/*    )*/}
-                {/*)}*/}
-                {/*{testResultState?.testResult.testType === TestTypes.RapidAntigenAtHome && (*/}
-                {/*    <RapidAtHome style={testResultState.testResult.style?.toLowerCase()} />*/}
-                {/*)}*/}
+                <TestResultIcon fillColor={`${props.backgroundClass}-svg`}/>
                 <div>
                     <span>{props.testName}</span>
                     <span>Patient: {props.patientName}</span>
