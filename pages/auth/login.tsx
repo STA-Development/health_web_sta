@@ -7,11 +7,19 @@ import InputMask, {InputState} from "react-input-mask";
 import firebase from "../../lib/firbase";
 import CircleLoader from "../../component/utils/CircleLoader";
 import ReactCodeInput from "react-verification-code-input";
+import {useRouter} from "next/router";
+
+interface IFirebaseAuthProps {
+    user?: {
+        getIdToken: () => Promise<string>
+    }
+}
 
 export default function Login() {
 
     const [phoneNumber, setPhoneNumber] = useState<string>("");
     const [inputMaskValue, setInputMaskValue] = useState<string>("");
+    const router = useRouter()
     const [verificationCode, setVerificationCode] = useState<string>("");
     const [isVerificationCodeSent, setIsVerificationCodeSent] = useState<boolean>(false);
     const [verificationResult, setVerificationResult] = useState<{
@@ -92,16 +100,16 @@ export default function Login() {
                 console.log(verificationResult);
                 verificationResult
                     .confirm(verificationCode)
-                    .then((result) => {
-                        // setIsVerificationLoading(true)
-                        // const user = result.user
-                        // if (user) {
-                        //     user.getIdToken().then((token: string) => {
-                        //         localStorage.setItem("accessToken", token)
-                        //         setAuthDataState({type: AuthContextStaticData.UPDATE_AUTH_TOKEN, token})
-                        //         // router.push(`/verification-result/${VerificationResults.success}`)
-                        //     })
-                        // }
+                    .then((result: IFirebaseAuthProps) => {
+                        setIsVerificationLoading(true)
+                        const user = result.user
+                        if (user) {
+                            user.getIdToken().then((token: string) => {
+                                localStorage.setItem("accessToken", token)
+                                setAuthDataState({type: AuthContextStaticData.UPDATE_AUTH_TOKEN, token})
+                                router.push(`/webPortalResults`)
+                            })
+                        }
                     })
                     .catch((err) => {
                         setIsVerificationLoading(true)
@@ -131,7 +139,7 @@ export default function Login() {
     return (
         <>
             <button className="hidden" id="re-captcha" />
-            <PureBlock flow={true}>
+            {!isVerificationCodeSent ? (<PureBlock flow={true}>
                 <div>
                     <Image src='/logo.svg' width={136} height={16} alt={"logo"}/>
                 </div>
@@ -178,8 +186,8 @@ export default function Login() {
                     )}
 
                 </div>
-            </PureBlock>
-            <PureBlock flow={true}>
+            </PureBlock>)
+            : (<PureBlock flow={true}>
                 <div>
                     <Image src='/logo.svg' width={136} height={16} alt={"logo"}/>
                 </div>
@@ -216,7 +224,7 @@ export default function Login() {
                         Verify Code
                     </button>
                 </div>
-            </PureBlock>
+            </PureBlock>)}
         </>
     )
 }
