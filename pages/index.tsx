@@ -26,7 +26,7 @@ export default function Home() {
   const {testResultState, setTestResultState} = UseTestResultDataStateValue()
   const router = useRouter()
   const {testResultId} = router.query
-
+  console.log(testResultId)
   const [resultId, setResultId] = useState<string>("")
   const getRecaptcha = async () => {
     const captchaToken = process.env.NEXT_PUBLIC_RECAPTCHA_V3_KEY
@@ -47,7 +47,13 @@ export default function Home() {
   const getData = async () => {
     const token = await getRecaptcha()
     try {
-      if (token && testResultId) {
+      if(token && localStorage.accessToken && testResultId) {
+        const response = await testResultManager.getSingleTestResult(token, resultId as string)
+        if (response.status === 200) {
+          const data = response.data.data
+          setTestResultState({type: TestResultContextStaticData.UPDATE_TEST_RESULT, data})
+        }
+      } else if (token && testResultId) {
         const response = await testResultManager.getTestResult(token, resultId as string)
         if (response.status === 200) {
           const data = response.data.data
@@ -70,7 +76,6 @@ export default function Home() {
     <>
       {testResultState.testResult.testType.length ? (
         <div>
-          <HeaderMenu />
           <div className="carcass">
             <Header />
             <TestResult />
@@ -86,7 +91,6 @@ export default function Home() {
             <LabInformation />
             <Footer />
           </div>
-          <FooterMenu />
         </div>
       ) : (
         <ComponentPreloadView />
