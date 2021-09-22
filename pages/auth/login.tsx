@@ -107,7 +107,7 @@ export default function Login() {
                             user.getIdToken().then((token: string) => {
                                 localStorage.setItem("accessToken", token)
                                 setAuthDataState({type: AuthContextStaticData.UPDATE_AUTH_TOKEN, token})
-                                router.push(`/webPortalResults`)
+                                router.push(`/webPortalResult`)
                             })
                         }
                     })

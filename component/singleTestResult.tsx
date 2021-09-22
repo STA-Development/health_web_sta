@@ -2,12 +2,6 @@ import Image from "next/image";
 import { useRouter } from 'next/router'
 import React from 'react';
 import TestResultIcon from "./base/header/icon/testResult";
-export enum TestTypes {
-    AntibodyAll = "Antibody_All",
-    PCR = "PCR",
-    RapidAntigenAtHome = "RapidAntigenAtHome",
-    BioradAntiBody = "Biorad-Anti-Body",
-}
 const SingleTestResult = (props: {
     testName: string
     patientName: string
@@ -15,7 +9,6 @@ const SingleTestResult = (props: {
     backgroundClass: string
     status:string
     redirectUrl?:string
-    testType:string
 }) => {
     const router = useRouter()
     const handleRedirect = (link: string | undefined) => {

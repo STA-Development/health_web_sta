@@ -37,6 +37,7 @@ const WebPortalResults = () => {
                 {results.map((test) =>
                     moment(test.testDateTime).format("YYYY-MM-DD") > moment().subtract(7, "days").format("YYYY-MM-DD") &&
                     <SingleTestResult
+                        key={test.id}
                         testName={test.name}
                         patientName={`${test.firstName} ${test.lastName}`}
                         testDate={moment(test.testDateTime).format("ddd, MMM DD, YYYY")}
