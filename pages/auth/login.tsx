@@ -8,6 +8,7 @@ import firebase from "../../lib/firbase";
 import CircleLoader from "../../component/utils/CircleLoader";
 import ReactCodeInput from "react-verification-code-input";
 import {useRouter} from "next/router";
+import Notification from "../../component/notification";
 
 interface IFirebaseAuthProps {
     user?: {
@@ -20,17 +21,20 @@ export default function Login() {
     const [phoneNumber, setPhoneNumber] = useState<string>("");
     const [inputMaskValue, setInputMaskValue] = useState<string>("");
     const router = useRouter()
-    const [verificationCode, setVerificationCode] = useState<string>("");
+    const [verificationCode, setVerificationCode] = useState    <string>("");
     const [isVerificationCodeSent, setIsVerificationCodeSent] = useState<boolean>(false);
     const [verificationResult, setVerificationResult] = useState<{
         confirm: (verificationCode: string) => Promise<object>
     }>()
     const [loading, setLoading] = useState<boolean>(false);
     const {authDataState, setAuthDataState} = UseAuthDataStateValue();
+    const [warningMessage, setWarningMessage] = useState<string>("");
     const [errMessage, setErrMessage] = useState<string>("");
     const [isVerificationLoading, setIsVerificationLoading] = useState<boolean>(false)
     const [timerDuration, setTimerDuration] = useState<number>(5);
     const [displayDuration, setDisplayDuration] = useState<number>(0);
+    const [loginButtonState, setLoginButtonState] = useState<boolean>(false);
+    const [verifyButtonState, setVerifyButtonState] = useState<boolean>(false);
 
     const startCountdown = () => {
         let duration = timerDuration;
@@ -76,7 +80,8 @@ export default function Login() {
                 .auth()
                 .signInWithPhoneNumber(phone ? phone : phoneNumber, authDataState.reCaptchaVerifier as any)
         } catch (e) {
-            setErrMessage(e.message)
+            setWarningMessage(e.message);
+
         }
     }
 
@@ -114,6 +119,7 @@ export default function Login() {
                     .catch((err) => {
                         setIsVerificationLoading(true)
                         // router.push(`/verification-result/${VerificationResults.failed}`)
+                        setErrMessage(err.message);
                     })
             }
         }
@@ -128,6 +134,19 @@ export default function Login() {
         setAuthDataState({type: AuthContextStaticData.UPDATE_RE_CAPTCHA, reCaptchaVerifier})
     }
 
+    const checkPhoneNumber = (value: string, type: string) => {
+        if (type === 'login') {
+            let maskValues = Array.from(value);
+            let pureNumber = maskValues.filter((char: string) => !isNaN(Number(char)) ? char : false);
+
+            if (pureNumber.length === 11) setLoginButtonState(true)
+            else setLoginButtonState(false);
+        } else  {
+            if (value.length === 6) setVerifyButtonState(true)
+            else setVerifyButtonState(false);
+        }
+    };
+
     useEffect(() => {
         getFirebaseCaptcha()
 
@@ -138,6 +157,17 @@ export default function Login() {
 
     return (
         <>
+            {
+                warningMessage ? (
+                    <Notification type='warning'>
+                        {warningMessage}
+                    </Notification>
+                ) : errMessage ? (
+                    <Notification type='error'>
+                        {errMessage}
+                    </Notification>
+                ) : ''
+            }
             <button className="hidden" id="re-captcha" />
             {!isVerificationCodeSent ? (<PureBlock flow={true}>
                 <div>
@@ -158,8 +188,10 @@ export default function Login() {
                     <InputMask
                         mask="+1(999)999-9999"
                         value={phoneNumber}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                            handlePhoneNumberChange(e.target.value)
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                handlePhoneNumberChange(e.target.value);
+                                checkPhoneNumber(e.target.value, 'login');
+                            }
                         }
                         beforeMaskedValueChange={beforeMaskedValueChange}
                     >
@@ -167,7 +199,7 @@ export default function Login() {
                             <input
                                 {...inputProps}
                                 type="tel"
-                                className="input inputGroup__input"
+                                className={warningMessage ? 'input inputGroup__input inputGroup__input_err' : 'input inputGroup__input'}
                                 placeholder="(555) 555 - 5555"
                                 aria-label="Phone Number"
                             />
@@ -179,7 +211,7 @@ export default function Login() {
                     ) : (
                     <button
                         onClick={handlePhoneSMSSend}
-                        className='button inputGroup__button'
+                        className={loginButtonState ? 'button inputGroup__button' : 'button inputGroup__button inputGroup__button_disabled'}
                     >
                         Next
                     </button>
@@ -204,7 +236,11 @@ export default function Login() {
                     <ReactCodeInput
                         type={"text"}
                         placeholder={["-", "-", "-", "-", "-", "-"]}
-                        onChange={handleVerificationCodeChange}
+                        onChange={value => {
+                            handleVerificationCodeChange(value);
+                            checkPhoneNumber(value, 'verify');
+                        }}
+                        className={errMessage ? 'codeInput-err' : ''}
                     />
                     {
                         displayDuration === 0 ? (
@@ -220,7 +256,10 @@ export default function Login() {
                             </div>
                         ) : <>{displayDuration}</>
                     }
-                    <button className='button inputGroup__button' onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleVerifyCode(e)}>
+                    <button
+                        className={verifyButtonState ? 'button inputGroup__button' : 'button inputGroup__button inputGroup__button_disabled'}
+                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleVerifyCode(e)}
+                    >
                         Verify Code
                     </button>
                 </div>

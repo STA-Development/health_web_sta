@@ -4,11 +4,19 @@ import {TestResultContextProvider} from "../context/testResultContext"
 import {AuthContextProvider} from "../context/AuthContext";
 import FooterMenu from "../component/base/footer/footerMenu";
 import HeaderMenu from "../component/base/header/headerMenu";
-import {useRouter} from "next/router";
+import Router, {useRouter} from "next/router";
+import {useEffect} from "react";
 
 function MyApp({Component, pageProps}: AppProps) {
 
     const isAuth = useRouter().route.indexOf("auth") <= -1;
+
+    useEffect(() => {
+        if (localStorage.getItem('accessToken')) {
+            Router.push('/webPortalResult');
+        }
+    }, []);
+
     return (
     <>
       <AuthContextProvider>
