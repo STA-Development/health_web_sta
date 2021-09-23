@@ -8,11 +8,6 @@ export const AuthContextReducer = (state: IAuthState, action: IAuthActions) => {
                 ...state,
                 authToken: action.token,
             }
-        case AuthContextStaticData.UPDATE_PATIENT_INFO:
-            return {
-                ...state,
-                patientInfo: action.patientInfo,
-            }
         case AuthContextStaticData.UPDATE_RE_CAPTCHA:
             return {
                 ...state,
