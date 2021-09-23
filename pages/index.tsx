@@ -26,7 +26,6 @@ export default function Home() {
   const {testResultState, setTestResultState} = UseTestResultDataStateValue()
   const router = useRouter()
   const {testResultId} = router.query
-  console.log(testResultId)
   const [resultId, setResultId] = useState<string>("")
   const getRecaptcha = async () => {
     const captchaToken = process.env.NEXT_PUBLIC_RECAPTCHA_V3_KEY

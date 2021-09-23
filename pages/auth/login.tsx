@@ -102,11 +102,9 @@ export default function Login() {
             getFirebaseCaptcha()
         } else {
             if (verificationResult) {
-                console.log(verificationResult);
                 verificationResult
                     .confirm(verificationCode)
                     .then((result: IFirebaseAuthProps) => {
-                        setIsVerificationLoading(true)
                         const user = result.user
                         if (user) {
                             user.getIdToken().then((token: string) => {
@@ -117,13 +115,11 @@ export default function Login() {
                         }
                     })
                     .catch((err) => {
-                        setIsVerificationLoading(true)
                         // router.push(`/verification-result/${VerificationResults.failed}`)
                         setErrMessage(err.message);
                     })
             }
         }
-        setIsVerificationLoading(false)
     }
 
     const getFirebaseCaptcha = () => {
