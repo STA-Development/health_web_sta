@@ -21,7 +21,7 @@ export default function Login() {
     const [phoneNumber, setPhoneNumber] = useState<string>("");
     const [inputMaskValue, setInputMaskValue] = useState<string>("");
     const router = useRouter()
-    const [verificationCode, setVerificationCode] = useState    <string>("");
+    const [verificationCode, setVerificationCode] = useState<string>("");
     const [isVerificationCodeSent, setIsVerificationCodeSent] = useState<boolean>(false);
     const [verificationResult, setVerificationResult] = useState<{
         confirm: (verificationCode: string) => Promise<object>

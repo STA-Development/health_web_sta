@@ -1,5 +1,4 @@
 import React from "react"
-import {TestTypes} from "../pages"
 
 const ComponentPreloadView = () => (
   <div className="preload carcass">

@@ -6,7 +6,7 @@ const testResultManager = {
   getTestResult(token: string, encryptedID: string) {
     return Axios(token).get(`/user/api/public/v1/pcr-test-results/${encryptedID}`)
   },
-  getSingleTestResult(token:string, id:string) {
+  getSingleTestResult(id:string) {
     return Axios().get(`/user/api/v1/pcr-test-results/${id}`)
   },
   getAllTestResults() {
