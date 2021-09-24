@@ -32,24 +32,3 @@ export const Axios = (token?: string) => {
 
   return axiosInstance
 }
-//
-//
-// export const Axios2 = (baseUrl: string) => {
-//   const axiosInstance = axios.create({
-//     baseURL: baseUrl,
-//     timeout: 0,
-//   })
-//
-//   axiosInstance.interceptors.request.use(function (config) {
-//     config.headers["opn-device-id"] = getOrGenerateDeviceId();
-//     config.headers["opn-request-id"] = generateRequestId();
-//     config.headers["opn-lang"] = "en";
-//     config.headers["opn-source"] = process.env.NEXT_PUBLIC_APP_SOURCE;
-//     config.headers["opn-app-version"] = process.env.NEXT_PUBLIC_APP_VERSION;
-//
-//
-//     return config;
-//   });
-//
-//   return axiosInstance;
-// }

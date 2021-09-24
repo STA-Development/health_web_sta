@@ -5,39 +5,20 @@ import {load, ReCaptchaInstance} from "recaptcha-v3"
 
 const initialState: IAuthState = {
     authToken: "",
-    patientInfo: {
-        city: "",
-        consentFileUrl: "",
-        country: "",
-        dateOfBirth: "",
-        email: "",
-        firstName: "",
-        homeAddress: "",
-        homeAddressUnit: "",
-        id: "",
-        lastName: "",
-        organizations: [],
-        patientPublicId: "",
-        phoneNumber: "",
-        photoUrl: "",
-        postalCode: "",
-        province: "",
-        trainingCompletedOn: null,
-    },
-    isPatientGetFailed: false,
     reCaptchaVerifier: "",
     phoneNumber: "",
     getGoogleV3RecaptchaToken: async () => {
         if (process.env.NEXT_PUBLIC_RECAPTCHA_V3_KEY) {
-
             const googleV3RecaptchaToken = await load(process.env.NEXT_PUBLIC_RECAPTCHA_V3_KEY).then(
                 (recaptcha: ReCaptchaInstance) => {
                     return recaptcha.execute("submit")
                 },
             )
             return googleV3RecaptchaToken
+        } else {
+            console.error("Recaptcha Key is not available")
+            return ''
         }
-        return ''
     },
 }
 

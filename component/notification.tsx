@@ -1,5 +1,5 @@
 import Image from "next/image";
-const Notification = (props: { type: string, children: object }) => {
+const Notification = (props: { type: string, children: string }) => {
     return (
         <div className={`notification ${props.type == "warning" ? "notify-warning" : "notify-error"}`} >
             {

@@ -1,8 +1,6 @@
 export interface IAuthState {
     authToken: string
-    patientInfo: PatientInfo
     reCaptchaVerifier: unknown
-    isPatientGetFailed: boolean
     getGoogleV3RecaptchaToken: () => Promise<string>
     phoneNumber: string
 }
@@ -31,10 +29,6 @@ export type IAuthActions =
     | {
     type: "UPDATE_AUTH_TOKEN"
     token: string
-}
-    | {
-    type: "UPDATE_PATIENT_INFO"
-    patientInfo: PatientInfo
 }
     | {
     type: "UPDATE_RE_CAPTCHA"
