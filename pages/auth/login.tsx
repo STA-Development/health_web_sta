@@ -102,22 +102,19 @@ export default function Login() {
             getFirebaseCaptcha()
         } else {
             if (verificationResult) {
-                verificationResult
-                    .confirm(verificationCode)
-                    .then((result: IFirebaseAuthProps) => {
-                        const user = result.user
-                        if (user) {
-                            user.getIdToken().then((token: string) => {
-                                localStorage.setItem("accessToken", token)
-                                setAuthDataState({type: AuthContextStaticData.UPDATE_AUTH_TOKEN, token})
-                                router.push(`/webPortalResult`)
-                            })
-                        }
-                    })
-                    .catch((err) => {
-                        // router.push(`/verification-result/${VerificationResults.failed}`)
-                        setErrMessage(err.message);
-                    })
+                try {
+                    const result: IFirebaseAuthProps = await verificationResult.confirm(verificationCode)
+                    const user = result.user
+                    if (user) {
+                        user.getIdToken().then((token: string) => {
+                            localStorage.setItem("accessToken", token)
+                            setAuthDataState({type: AuthContextStaticData.UPDATE_AUTH_TOKEN, token})
+                            router.push(`/webPortalResult`)
+                        })
+                    }
+                } catch (err) {
+                    setErrMessage(err.message);
+                }
             }
         }
     }
