@@ -6,14 +6,15 @@ import FooterMenu from "../component/base/footer/footerMenu";
 import HeaderMenu from "../component/base/header/headerMenu";
 import Router, {useRouter} from "next/router";
 import {useEffect} from "react";
+import {localStore} from "../utils/storage";
 
 function MyApp({Component, pageProps}: AppProps) {
 
     const isAuth = useRouter().route.indexOf("auth") <= -1;
 
     useEffect(() => {
-        if (localStorage.getItem('accessToken')) {
-            Router.push('/webPortalResult');
+        if (localStore(localStorage).getItem('accessToken')) {
+            console.log('test');
         }
     }, []);
 
