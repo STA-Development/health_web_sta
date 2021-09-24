@@ -19,24 +19,32 @@ interface IResult {
 const WebPortalResults = () => {
     const [results, setResults] = useState<IResult[]>([])
     const [single, setSingle] = useState<boolean>(false)
+    const renderResultsList = (isHistory: boolean) => {
+        return results.map((test: IResult, index: number) =>
+            <>
+                {
+                    isHistory && (index == 0 || moment(test.testDateTime).format("MMMM YYYY") != moment(results[index - 1].testDateTime).format("MMMM YYYY"))
+                    && <p className="result-date">{moment(test.testDateTime).format("MMMM YYYY")}</p>
+                }
+                {
+                    (isHistory || moment(test.testDateTime).format("YYYY-MM-DD") > moment().subtract(7, "days").format("YYYY-MM-DD")) &&
+                    <SingleTestResult
+                        testName={test.name}
+                        patientName={`${test.firstName} ${test.lastName}`}
+                        testDate={moment(test.testDateTime).format("ddd, MMM DD, YYYY")}
+                        backgroundClass={test.style}
+                        status={test.result}
+                        redirectUrl={test.id}
+                    />
+                }
+            </>
+        )
+    }
     const getData = async () => {
         let response = await testResultManager.getAllTestResults()
         if (response.status) {
             setResults(response.data.data)
         }
-    }
-    const renderResultsList = () => {
-        return results.map((test: IResult) =>
-            moment(test.testDateTime).format("YYYY-MM-DD") > moment().subtract(7, "days").format("YYYY-MM-DD") &&
-            <SingleTestResult
-                testName={test.name}
-                patientName={`${test.firstName} ${test.lastName}`}
-                testDate={moment(test.testDateTime).format("ddd, MMM DD, YYYY")}
-                backgroundClass={test.style}
-                status={test.result}
-                redirectUrl={test.id}
-            />
-        )
     }
 
     useEffect(() => {
@@ -48,28 +56,11 @@ const WebPortalResults = () => {
         <div className="web-portal-results">
             <ResultsHeader header="Latest Results"/>
             <TestResultContainer>
-                {renderResultsList()}
+                {renderResultsList(false)}
             </TestResultContainer>
             <ResultsHeader header="Result History"/>
             <TestResultContainer>
-                {results.map((test: IResult, index: number) =>
-                    <>
-                        {
-                            (index == 0 ||
-                                moment(test.testDateTime).format("MMMM YYYY") !=
-                                moment(results[index - 1].testDateTime).format("MMMM YYYY")) &&
-                            <p className="result-date">{moment(test.testDateTime).format("MMMM YYYY")}</p>
-                        }
-                        <SingleTestResult
-                            testName={test.name}
-                            patientName={`${test.firstName} ${test.lastName}`}
-                            testDate={moment(test.testDateTime).format("ddd, MMM DD, YYYY")}
-                            backgroundClass={test.style}
-                            status={test.result}
-                            redirectUrl={test.id}
-                        />
-                    </>
-                )}
+                {renderResultsList(true)}
             </TestResultContainer>
         </div>
     )

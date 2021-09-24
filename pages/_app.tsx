@@ -21,27 +21,28 @@ function MyApp({Component, pageProps}: AppProps) {
 
     useEffect(() => {
         const token = localStore(localStorage).getItem('accessToken')
-        let decodedToken:decodedToken
+        let decodedToken: decodedToken
         let isExpired
-        if(token) {
+        if (token) {
             decodedToken = jwt_decode(token)
-            isExpired = decodedToken.exp < new Date().getTime()
+            isExpired = decodedToken.exp * 1000 < new Date().getTime()
         }
-        if ((!localStore(localStorage).getItem('accessToken') && !isPublic) || isExpired) {
+        if ((!localStore(localStorage).getItem('accessToken') && !isPublic) || (isExpired && !isPublic)) {
             Router.push('/auth/login');
         }
     }, []);
 
     return (
-    <>
-      <AuthContextProvider>
-          {isAuth && <HeaderMenu />}
-          <TestResultContextProvider>
-              <Component {...pageProps} />
-          </TestResultContextProvider>
-          {isAuth && <FooterMenu />}
-      </AuthContextProvider>
-    </>
-  )
+        <>
+            <AuthContextProvider>
+                {isAuth && <HeaderMenu/>}
+                <TestResultContextProvider>
+                    <Component {...pageProps} />
+                </TestResultContextProvider>
+                {isAuth && <FooterMenu/>}
+            </AuthContextProvider>
+        </>
+    )
 }
+
 export default MyApp
