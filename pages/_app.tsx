@@ -6,7 +6,7 @@ import {AuthContextProvider} from "../context/AuthContext";
 import FooterMenu from "../component/base/footer/footerMenu";
 import HeaderMenu from "../component/base/header/headerMenu";
 import Router, {useRouter} from "next/router";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {localStore} from "../utils/storage";
 
 interface decodedToken {
@@ -16,8 +16,9 @@ interface decodedToken {
 
 function MyApp({Component, pageProps}: AppProps) {
 
+    const currentPage = useRouter().route
     const isAuth = useRouter().route.indexOf("auth") <= -1;
-    const isPublic = useRouter().route === '/';
+    const isPublic = currentPage === '/';
 
     useEffect(() => {
         const token = localStore(localStorage).getItem('accessToken')
@@ -35,7 +36,7 @@ function MyApp({Component, pageProps}: AppProps) {
     return (
         <>
             <AuthContextProvider>
-                {isAuth && <HeaderMenu/>}
+                {isAuth && <HeaderMenu />}
                 <TestResultContextProvider>
                     <Component {...pageProps} />
                 </TestResultContextProvider>
