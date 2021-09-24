@@ -13,7 +13,7 @@ const SingleTestResult = (props: {
     const router = useRouter()
     const handleRedirect = (link: string | undefined) => {
         if(link) {
-            router.push(`/?testResultId=${link}`)
+            router.push(`/my?testResultId=${link}`)
         }
     }
     return (

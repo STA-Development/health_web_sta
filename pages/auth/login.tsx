@@ -97,7 +97,6 @@ export default function Login() {
             getFirebaseCaptcha()
         } else {
             if (verificationResult) {
-                console.log(verificationResult);
                 verificationResult
                     .confirm(verificationCode)
                     .then((result: IFirebaseAuthProps) => {
