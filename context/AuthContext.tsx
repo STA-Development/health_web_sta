@@ -8,8 +8,8 @@ const initialState: IAuthState = {
     reCaptchaVerifier: "",
     phoneNumber: "",
     getGoogleV3RecaptchaToken: async () => {
-        if (process.env.NEXT_PUBLIC_RECAPTCHA_V3_KEY) {
-            const googleV3RecaptchaToken = await load(process.env.NEXT_PUBLIC_RECAPTCHA_V3_KEY).then(
+        if (process.env.RECAPTCHA_V3_KEY) {
+            const googleV3RecaptchaToken = await load(process.env.RECAPTCHA_V3_KEY).then(
                 (recaptcha: ReCaptchaInstance) => {
                     return recaptcha.execute("submit")
                 },

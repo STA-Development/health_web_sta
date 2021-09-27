@@ -3,15 +3,16 @@ import "firebase/auth"
 import "firebase/firestore"
 
 const clientCredentials = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL,
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-    storageBucket: process.env.NEXT_PUBLIC_APP_FIREBASE_STORAGEBUCKET,
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.FIREBASE_DATABASE_URL,
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    appId: process.env.FIREBASE_APP_ID,
+    storageBucket: process.env.APP_FIREBASE_STORAGEBUCKET,
 }
 
 if (!firebase.apps.length) {
+    console.log(clientCredentials)
     firebase.initializeApp(clientCredentials)
 }
 

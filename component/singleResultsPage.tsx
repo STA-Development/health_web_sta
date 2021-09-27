@@ -28,7 +28,7 @@ export default function SingleTestResultPage(props:{
     const {testResultId} = router.query
     const [resultId, setResultId] = useState<string>("")
     const getRecaptcha = async () => {
-        const captchaToken = process.env.NEXT_PUBLIC_RECAPTCHA_V3_KEY
+        const captchaToken = process.env.RECAPTCHA_V3_KEY
         if (captchaToken) {
             return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) => {
                 return recaptcha.execute("submit")

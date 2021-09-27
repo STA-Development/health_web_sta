@@ -10,7 +10,7 @@ const testResultManager = {
     return Axios().get(`/user/api/v1/pcr-test-results/${id}`)
   },
   getAllTestResults() {
-    return Axios().get(`${process.env.NEXT_PUBLIC_APP_RESERVATION_URL}/reservation/api/v1/test-results`)
+    return Axios().get(`${process.env.APP_RESERVATION_URL}/reservation/api/v1/test-results`)
   }
 }
 export default testResultManager
