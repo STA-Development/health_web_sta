@@ -31,7 +31,10 @@ function MyApp({Component, pageProps}: AppProps) {
         if ((!localStore(localStorage).getItem('accessToken') && !isPublic) || (isExpired && !isPublic)) {
             Router.push('/auth/login');
         }
-    }, []);
+        if (currentPage == '/') {
+            Router.push('/webPortalResult')
+        }
+    }, [isPublic]);
 
     return (
         <>
