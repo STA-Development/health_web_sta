@@ -12,6 +12,9 @@
   align-items: center;
   font-family: $fhhealth-font-DM-medium;
   position: relative;
+  .icon {
+    cursor: pointer;
+  }
 }
 .logOut{
   position: absolute;

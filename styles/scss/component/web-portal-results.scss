@@ -25,10 +25,17 @@
   border-bottom: none;
 }
 .result-date {
+  margin: 32px 0 24px 0;
   opacity: 0.6;
   font-size: 14px;
   font-weight: 500;
   color: $fhhealth-color-black;
+}
+.result-date:first-child {
+  margin: 0;
+}
+.test {
+  fill: #7f7a7a;
 }
 .single-result {
   width: 100%;
@@ -38,6 +45,10 @@
   border-bottom: solid 1px rgba(151, 151, 151, 0.25);
   padding: 10px 0;
   .left {
+    display: flex;
+    div {
+      margin-left: 12px;
+    }
     span {
       opacity: 0.6;
       font-size: 12px;

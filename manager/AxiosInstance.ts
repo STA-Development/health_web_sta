@@ -16,17 +16,17 @@ const getOrGenerateDeviceId = () => {
 }
 export const Axios = (token?: string) => {
   const axiosInstance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_APP_BASE_URL,
-    timeout: 0,
+    baseURL: process.env.APP_BASE_URL,
   })
 
   axiosInstance.interceptors.request.use(function (config) {
     config.headers["opn-device-id"] = getOrGenerateDeviceId();
     config.headers["opn-request-id"] = generateRequestId();
+    config.headers["authorization"] = `Bearer ${localStorage.accessToken}`
     config.headers["opn-lang"] = "en"
     config.headers["captcha-token"] = token
-    config.headers["opn-source"] = process.env.NEXT_PUBLIC_APP_SOURCE
-    config.headers["opn-app-version"] = process.env.NEXT_PUBLIC_APP_VERSION
+    config.headers["opn-source"] = process.env.APP_SOURCE
+    config.headers["opn-app-version"] = process.env.APP_VERSION
     return config
   })
 

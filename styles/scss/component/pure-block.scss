@@ -50,6 +50,19 @@
       width: 100%;
       grid-row-gap: 8px;
 
+      .codeInput-err input{
+        border: 1px solid $fhhealth-color-red-btn;
+
+        &:nth-child(even) {
+          border-left: 1px solid transparent;
+          border-right: 1px solid transparent;
+        }
+
+        &:last-child {
+          border-right: 1px solid $fhhealth-color-red-btn;
+        }
+      }
+
       &_verify {
         align-items: center;
       }
@@ -63,6 +76,10 @@
       padding: 16px;
       border-radius: 2px;
       border: 1px solid $fhhealth-color-grey-bg;
+
+      &_err {
+        border: 1px solid $fhhealth-color-red-btn;
+      }
     }
 
     .inputGroup__resend {
@@ -79,7 +96,12 @@
       margin-top: 82px;
       border-radius: 5px;
       color: $fhhealth-color-white;
-      background-color: $fhhealth-color-light-gray-text;
+      background-color: $fhhealth-color-blue-btn;
+
+      &_disabled {
+        background-color: $fhhealth-color-light-gray-text;
+        pointer-events: none;
+      }
     }
 
     .inputGroup__resend_button {

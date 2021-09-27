@@ -2,7 +2,7 @@ import {UseTestResultDataStateValue} from "../../../context/testResultContext"
 import AntiBodySVG from "./icon/anti-body"
 import PcrSvg from "./icon/pcrIcon"
 import RapidAtHome from "./icon/RapidAtHome"
-import {TestTypes} from "../../../pages/index"
+import {TestTypes} from "../../singleResultsPage"
 import moment from "moment"
 const Header = () => {
   const {testResultState} = UseTestResultDataStateValue()

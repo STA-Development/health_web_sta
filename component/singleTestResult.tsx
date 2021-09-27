@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useRouter } from 'next/router'
 import React from 'react';
+import TestResultIcon from "./base/header/icon/testResult";
 const SingleTestResult = (props: {
     testName: string
     patientName: string
@@ -12,27 +13,13 @@ const SingleTestResult = (props: {
     const router = useRouter()
     const handleRedirect = (link: string | undefined) => {
         if(link) {
-            router.push(link)
+            router.push(`/my?testResultId=${link}`)
         }
     }
     return (
         <div className="single-result">
             <div className="left">
-                {/*TODO: Should be Used when endpoint will be connected*/}
-                {/*{testResultState?.testResult.testType === TestTypes.AntibodyAll && (*/}
-                {/*    <AntiBodySVG style={testResultState.testResult.style.toLowerCase()} />*/}
-                {/*)}*/}
-                {/*{testResultState?.testResult.testType === TestTypes.PCR &&*/}
-                {/*testResultState?.testResult.templateId === TestTypes.BioradAntiBody ? (*/}
-                {/*    <AntiBodySVG style={testResultState.testResult.style.toLowerCase()} />*/}
-                {/*) : (*/}
-                {/*    testResultState?.testResult.testType === TestTypes.PCR && (*/}
-                {/*        <PcrSvg style={testResultState.testResult.style.toLowerCase()} />*/}
-                {/*    )*/}
-                {/*)}*/}
-                {/*{testResultState?.testResult.testType === TestTypes.RapidAntigenAtHome && (*/}
-                {/*    <RapidAtHome style={testResultState.testResult.style?.toLowerCase()} />*/}
-                {/*)}*/}
+                <TestResultIcon fillColor={`${props.backgroundClass}-svg`}/>
                 <div>
                     <span>{props.testName}</span>
                     <span>Patient: {props.patientName}</span>

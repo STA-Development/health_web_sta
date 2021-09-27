@@ -1,3 +1,17 @@
 module.exports = {
   reactStrictMode: true,
+  env: {
+    RECAPTCHA_V3_KEY: process.env.RECAPTCHA_V3_KEY,
+    APP_VERSION: process.env.APP_VERSION,
+    APP_BASE_URL: process.env.APP_BASE_URL,
+
+    APP_SOURCE: process.env.APP_SOURCE,
+    FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
+    APP_FIREBASE_STORAGEBUCKET: process.env.APP_FIREBASE_STORAGEBUCKET,
+    FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
+    FIREBASE_DATABASE_URL: process.env.FIREBASE_DATABASE_URL,
+    FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
+    FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
+    APP_RESERVATION_URL: process.env.APP_RESERVATION_URL,
+  },
 }

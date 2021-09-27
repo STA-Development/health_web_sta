@@ -14,7 +14,7 @@ const FooterMenu = () => {
             </div>
             <div className="helpBlock">
                 <p>Need help?</p>
-                <p>Live Chat available on <span><a href="fhhealth.com">fhhealth.com</a></span></p>
+                <p>Live Chat available on <span><a href="https://www.fhhealth.com/">fhhealth.com</a></span></p>
             </div>
         </div>
     )
