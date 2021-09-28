@@ -3,7 +3,7 @@ interface AntiBodyProps {
 }
 const AntiBodySVG = (props: AntiBodyProps) => {
   return (
-    <div className={`anti-body-${props.style}`}>
+    <div data-cy="result-icon" className={`anti-body-${props.style}`}>
       <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64">
         <g fill="#007AFF" fillRule="evenodd">
           <circle cx="32" cy="32" r="32" fillOpacity=".25" />

@@ -12,7 +12,10 @@ export const doLoginTest = (phoneNumber: string, verificationCode: string, isNon
   cy.log("clicked on Verify Code")
   cy.get('button[data-cy="verify"]').click()
 }
-
+export const checkSingleResult = (testStatus:string, testStyle:string) => {
+  cy.get("[data-cy='test-status']").should('contain.text', testStatus)
+  cy.get("[data-cy='result-icon']").invoke('attr', 'class').should('contain', testStyle)
+}
 // export const completeProfile = () => {
 //   cy.url()
 //     .should("contain", "/complete-profile", {timeout: 10000})
