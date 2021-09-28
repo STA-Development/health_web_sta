@@ -19,6 +19,7 @@ function MyApp({Component, pageProps}: AppProps) {
     const currentPage = useRouter().route
     const isAuth = useRouter().route.indexOf("auth") <= -1;
     const isPublic = currentPage === '/';
+    const router = useRouter()
 
     useEffect(() => {
         const token = localStore(localStorage).getItem('accessToken')
@@ -31,7 +32,7 @@ function MyApp({Component, pageProps}: AppProps) {
         if ((!localStore(localStorage).getItem('accessToken') && !isPublic) || (isExpired && !isPublic)) {
             Router.push('/auth/login');
         }
-        if (currentPage == '/') {
+        if (currentPage == '/' && Object.keys(router.query).length === 0) {
             Router.push('/webPortalResult')
         }
     }, [isPublic]);
