@@ -41,7 +41,9 @@ function MyApp({Component, pageProps}: AppProps) {
             <AuthContextProvider>
                 {isAuth && <HeaderMenu />}
                 <TestResultContextProvider>
-                    <Component {...pageProps} />
+                    <div className="main-content">
+                        <Component {...pageProps} />
+                    </div>
                 </TestResultContextProvider>
                 {isAuth && <FooterMenu/>}
             </AuthContextProvider>

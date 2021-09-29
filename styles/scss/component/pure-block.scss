@@ -1,7 +1,12 @@
+.loginCard-wrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
 .contentOutline {
   max-width: 515px;
   height: 366px;
-  margin-top: 80px;
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;
@@ -9,6 +14,7 @@
   border: solid 1px rgba(151, 151, 151, 0.25);
   display: flex;
   align-items: center;
+  background-color: $fhhealth-color-white;
 
   &_flow {
     height: auto;

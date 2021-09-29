@@ -161,102 +161,104 @@ export default function Login() {
                     </Notification>
                 ) : ''
             }
-            <button className="hidden" id="re-captcha" />
-            {!isVerificationCodeSent ? (<PureBlock flow={true}>
-                <div>
-                    <Image src='/logo.svg' width={136} height={16} alt={"logo"}/>
-                </div>
-                <div>
-                    <span className="header">Login</span>
-                </div>
-                <div>
-                    <span className="message">
-                        Enter your mobile number to secure your access
-                    </span>
-                </div>
-                <div className='inputGroup'>
-                    <span>
-                        Phone number <em>*</em>
-                    </span>
-                    <InputMask
-                        mask="+1(999)999-9999"
-                        value={phoneNumber}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                handlePhoneNumberChange(e.target.value);
-                                checkPhoneNumber(e.target.value, 'login');
+            <div className='loginCard-wrapper'>
+                <button className="hidden" id="re-captcha" />
+                {!isVerificationCodeSent ? (<PureBlock flow={true}>
+                    <div>
+                        <Image src='/logo.svg' width={136} height={16} alt={"logo"}/>
+                    </div>
+                    <div>
+                        <span className="header">Login</span>
+                    </div>
+                    <div>
+                        <span className="message">
+                            Enter your mobile number to secure your access
+                        </span>
+                    </div>
+                    <div className='inputGroup'>
+                        <span>
+                            Phone number <em>*</em>
+                        </span>
+                        <InputMask
+                            mask="+1(999)999-9999"
+                            value={phoneNumber}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                    handlePhoneNumberChange(e.target.value);
+                                    checkPhoneNumber(e.target.value, 'login');
+                                }
                             }
-                        }
-                        beforeMaskedValueChange={beforeMaskedValueChange}
-                    >
-                        {(inputProps: {value: string; onChange: () => void}) => (
-                            <input
-                                {...inputProps}
-                                type="tel"
-                                className={warningMessage ? 'input inputGroup__input inputGroup__input_err' : 'input inputGroup__input'}
-                                placeholder="(555) 555 - 5555"
-                                aria-label="Phone Number"
-                            />
+                            beforeMaskedValueChange={beforeMaskedValueChange}
+                        >
+                            {(inputProps: {value: string; onChange: () => void}) => (
+                                <input
+                                    {...inputProps}
+                                    type="tel"
+                                    className={warningMessage ? 'input inputGroup__input inputGroup__input_err' : 'input inputGroup__input'}
+                                    placeholder="(555) 555 - 5555"
+                                    aria-label="Phone Number"
+                                />
+                            )}
+                        </InputMask>
+
+                        {loading ? (
+                            <CircleLoader className="middle-loader" />
+                        ) : (
+                        <button
+                            onClick={handlePhoneSMSSend}
+                            className={loginButtonState ? 'button inputGroup__button' : 'button inputGroup__button inputGroup__button_disabled'}
+                        >
+                            Next
+                        </button>
                         )}
-                    </InputMask>
 
-                    {loading ? (
-                        <CircleLoader className="middle-loader" />
-                    ) : (
-                    <button
-                        onClick={handlePhoneSMSSend}
-                        className={loginButtonState ? 'button inputGroup__button' : 'button inputGroup__button inputGroup__button_disabled'}
-                    >
-                        Next
-                    </button>
-                    )}
-
-                </div>
-            </PureBlock>)
-            : (<PureBlock flow={true}>
-                <div>
-                    <Image src='/logo.svg' width={136} height={16} alt={"logo"}/>
-                </div>
-                <div>
-                    <span className="header">SMS Verification</span>
-                </div>
-                <div>
-                    <span className="message">
-                        A code has been sent to your Mobile Phone Number to login to the FH Health Web Portal.
-                        Please enter it below to continue.
-                    </span>
-                </div>
-                <div className='inputGroup inputGroup_verify'>
-                    <ReactCodeInput
-                        type={"text"}
-                        placeholder={["-", "-", "-", "-", "-", "-"]}
-                        onChange={value => {
-                            handleVerificationCodeChange(value);
-                            checkPhoneNumber(value, 'verify');
-                        }}
-                        className={errMessage ? 'codeInput-err' : ''}
-                    />
-                    {
-                        displayDuration === 0 ? (
-                            <div className='inputGroup__resend'>
-                                <span>Didn't receive the sms?</span>
-                                <br/>
-                                <button
-                                    onClick={startCountdown}
-                                    className='button inputGroup__resend_button'
-                                >
-                                    Resend
-                                </button>
-                            </div>
-                        ) : <>{displayDuration}</>
-                    }
-                    <button
-                        className={verifyButtonState ? 'button inputGroup__button' : 'button inputGroup__button inputGroup__button_disabled'}
-                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleVerifyCode(e)}
-                    >
-                        Verify Code
-                    </button>
-                </div>
-            </PureBlock>)}
+                    </div>
+                </PureBlock>)
+                : (<PureBlock flow={true}>
+                    <div>
+                        <Image src='/logo.svg' width={136} height={16} alt={"logo"}/>
+                    </div>
+                    <div>
+                        <span className="header">SMS Verification</span>
+                    </div>
+                    <div>
+                        <span className="message">
+                            A code has been sent to your Mobile Phone Number to login to the FH Health Web Portal.
+                            Please enter it below to continue.
+                        </span>
+                    </div>
+                    <div className='inputGroup inputGroup_verify'>
+                        <ReactCodeInput
+                            type={"text"}
+                            placeholder={["-", "-", "-", "-", "-", "-"]}
+                            onChange={value => {
+                                handleVerificationCodeChange(value);
+                                checkPhoneNumber(value, 'verify');
+                            }}
+                            className={errMessage ? 'codeInput-err' : ''}
+                        />
+                        {
+                            displayDuration === 0 ? (
+                                <div className='inputGroup__resend'>
+                                    <span>Didn't receive the sms?</span>
+                                    <br/>
+                                    <button
+                                        onClick={startCountdown}
+                                        className='button inputGroup__resend_button'
+                                    >
+                                        Resend
+                                    </button>
+                                </div>
+                            ) : <>{displayDuration}</>
+                        }
+                        <button
+                            className={verifyButtonState ? 'button inputGroup__button' : 'button inputGroup__button inputGroup__button_disabled'}
+                            onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleVerifyCode(e)}
+                        >
+                            Verify Code
+                        </button>
+                    </div>
+                </PureBlock>)}
+            </div>
         </>
     )
 }

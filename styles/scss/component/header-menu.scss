@@ -1,9 +1,12 @@
-.head{
+.header {
   width: 100%;
   display: flex;
   justify-content: center;
+  background-color: $fhhealth-color-white;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
 }
-.fullWidthMenu{
+
+.fullWidthMenu {
   width: calc((100% - 48px));
   display: flex;
   background: $fhhealth-color-white;
@@ -16,7 +19,8 @@
     cursor: pointer;
   }
 }
-.logOut{
+
+.logOut {
   position: absolute;
   width: 106px;
   height: 46px;
@@ -28,7 +32,9 @@
   justify-content: flex-end;
   padding-right: 8px;
   color: rgba(39, 48, 59, 0.6);
+  background-color: $fhhealth-color-white;
 }
+
 .rectangle-13 {
   cursor: pointer;
 }
