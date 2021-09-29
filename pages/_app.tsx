@@ -40,7 +40,7 @@ function MyApp({Component, pageProps}: AppProps) {
     return (
         <>
             <AuthContextProvider>
-                {isAuth && <HeaderMenu />}
+                {isAuth && !isPublic && <HeaderMenu />}
                 <TestResultContextProvider>
                     <Component {...pageProps} />
                 </TestResultContextProvider>
