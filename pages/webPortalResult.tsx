@@ -2,6 +2,7 @@ import ResultsHeader from "../component/resultsHeader";
 import TestResultContainer from "../component/testResultContainer"
 import SingleTestResult from "../component/singleTestResult";
 import {useEffect, useState} from "react";
+import SingleResultPreload from "../component/singleResultPreload";
 import moment from "moment";
 import testResultManager from "../manager/TestResultManager";
 
@@ -27,15 +28,16 @@ const WebPortalResults = () => {
                     && <p className="result-date">{moment(test.testDateTime).format("MMMM YYYY")}</p>
                 }
                 {
-                    (isHistory || moment(test.testDateTime).format("YYYY-MM-DD") > moment().subtract(7, "days").format("YYYY-MM-DD")) &&
-                    <SingleTestResult
-                        testName={test.name}
-                        patientName={`${test.firstName} ${test.lastName}`}
-                        testDate={moment(test.testDateTime).format("ddd, MMM DD, YYYY")}
-                        backgroundClass={test.style}
-                        status={test.result}
-                        redirectUrl={test.id}
-                    />
+                    (isHistory || moment(test.testDateTime).format("YYYY-MM-DD") > moment().subtract(7, "days").format("YYYY-MM-DD")) ?
+                        <SingleTestResult
+                            testName={test.name}
+                            patientName={`${test.firstName} ${test.lastName}`}
+                            testDate={moment(test.testDateTime).format("ddd, MMM DD, YYYY")}
+                            backgroundClass={test.style}
+                            status={test.result}
+                            redirectUrl={test.id}
+                        /> : <SingleResultPreload/>
+
                 }
             </>
         )
@@ -56,11 +58,17 @@ const WebPortalResults = () => {
         <div className="web-portal-results">
             <ResultsHeader header="Latest Results"/>
             <TestResultContainer>
-                {renderResultsList(false)}
+                {
+                    results.length > 0 ?
+                        renderResultsList(false) : <SingleResultPreload/>
+                }
             </TestResultContainer>
             <ResultsHeader header="Result History"/>
             <TestResultContainer>
-                {renderResultsList(true)}
+                {
+                    results.length > 0 ?
+                        renderResultsList(true) : <SingleResultPreload/>
+                }
             </TestResultContainer>
         </div>
     )
