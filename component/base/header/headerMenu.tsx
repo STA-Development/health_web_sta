@@ -8,8 +8,8 @@ import {UseAuthDataStateValue} from "../../../context/AuthContext";
 const HeaderMenu = () => {
     const router = useRouter();
     const [isProfileMenuOpen, setData] = useState(false);
-    const [currentPageUrl, setCurrentPageUrl] = useState<any>([]);
-    const currentPage = router.asPath;
+    const currentPage = useRouter().route
+    const showBackIcon = currentPage.includes('my');
     const {setAuthDataState} = UseAuthDataStateValue();
 
     const openMenu = () => {
@@ -17,10 +17,7 @@ const HeaderMenu = () => {
     }
 
     const handlePreviousPageClick = () => {
-        const lastVisitedPage = currentPageUrl.at(-2);
-        if(currentPageUrl.length >=2 && lastVisitedPage.indexOf('auth') <= 0) {
-            router.push(lastVisitedPage);
-        }
+        router.push('/webPortalResult');
     }
 
     const handleLogoutClick = () => {
@@ -41,15 +38,15 @@ const HeaderMenu = () => {
         router.push('/auth/login');
     }
 
-    useEffect(() => {
-        setCurrentPageUrl([...currentPageUrl, currentPage]);
-    },[currentPage]);
-
     return (
         <header className="header">
             <div className="fullWidthMenu">
                 <div className="icon">
-                    <Image onClick={handlePreviousPageClick} src="/back.svg" width={12} height={12} alt="back arrow"/></div>
+                    {
+                        showBackIcon &&
+                        <Image onClick={handlePreviousPageClick} src="/back.svg" width={12} height={12} alt="back arrow"/>
+                    }
+                </div>
                 <div>
                     <Image src="/group.svg" width={136} height={16} alt="FH HEALTH"/>
                 </div>

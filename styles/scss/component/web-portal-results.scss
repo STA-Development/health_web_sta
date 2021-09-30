@@ -79,11 +79,11 @@
       letter-spacing: 0.5px;
       color: $fhhealth-color-white;
     }
-    .link-to-test {
-      cursor: pointer;
-    }
     .danger {
       background-color: $fhhealth-color-red-btn;
     }
   }
+}
+.link-to-test {
+  cursor: pointer;
 }

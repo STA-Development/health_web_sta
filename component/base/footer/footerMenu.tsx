@@ -7,9 +7,9 @@ const FooterMenu = () => {
             </div>
             <div>
                 <ul>
-                    <li>Home</li>
-                    <li>Privacy Policy</li>
-                    <li>Terms of Service</li>
+                    <li><a href="https://www.fhhealth.com/">Home</a></li>
+                    <li><a href="https://www.fhhealth.com/privacy-policy">Privacy Policy</a></li>
+                    <li><a href="https://www.fhhealth.com/terms-of-service">Terms of Service</a></li>
                 </ul>
             </div>
             <div className="helpBlock">
