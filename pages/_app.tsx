@@ -20,6 +20,7 @@ function MyApp({Component, pageProps}: AppProps) {
     const isAuth = useRouter().route.indexOf("auth") <= -1;
     const isPublic = currentPage === '/';
     const router = useRouter()
+    const { query, isReady } = useRouter()
 
     useEffect(() => {
         const token = localStore(localStorage).getItem('accessToken')
@@ -29,11 +30,13 @@ function MyApp({Component, pageProps}: AppProps) {
             decodedToken = jwt_decode(token)
             isExpired = decodedToken.exp * 1000 < new Date().getTime()
         }
-        if ((!localStore(localStorage).getItem('accessToken') && !isPublic) || (isExpired && !isPublic)) {
-            Router.push('/auth/login');
-        }
-        if (currentPage == '/' && Object.keys(router.query).length === 0) {
-            Router.push('/webPortalResult')
+        if (isReady) {
+            if ((!localStore(localStorage).getItem('accessToken') && !isPublic) || (isExpired && !isPublic)) {
+                Router.push('/auth/login');
+            }
+            if (currentPage == '/' && router.asPath.indexOf('?')) {
+                Router.push('/webPortalResult')
+            }
         }
     }, [isPublic]);
 
