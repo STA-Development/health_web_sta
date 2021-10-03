@@ -18,23 +18,23 @@ interface IFirebaseAuthProps {
 
 export default function Login() {
 
-    const [phoneNumber, setPhoneNumber] = useState<string>("");
-    const [inputMaskValue, setInputMaskValue] = useState<string>("");
+    const [phoneNumber, setPhoneNumber] = useState<string>("")
+    const [inputMaskValue, setInputMaskValue] = useState<string>("")
     const router = useRouter()
-    const [verificationCode, setVerificationCode] = useState<string>("");
-    const [isVerificationCodeSent, setIsVerificationCodeSent] = useState<boolean>(false);
+    const [verificationCode, setVerificationCode] = useState<string>("")
+    const [isVerificationCodeSent, setIsVerificationCodeSent] = useState<boolean>(false)
     const [verificationResult, setVerificationResult] = useState<{
         confirm: (verificationCode: string) => Promise<object>
     }>()
-    const [loading, setLoading] = useState<boolean>(false);
-    const {authDataState, setAuthDataState} = UseAuthDataStateValue();
-    const [warningMessage, setWarningMessage] = useState<string>("");
-    const [errMessage, setErrMessage] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false)
+    const {authDataState, setAuthDataState} = UseAuthDataStateValue()
+    const [warningMessage, setWarningMessage] = useState<string>("")
+    const [errMessage, setErrMessage] = useState<string>("")
     const [isVerificationLoading, setIsVerificationLoading] = useState<boolean>(false)
-    const [timerDuration, setTimerDuration] = useState<number>(5);
-    const [displayDuration, setDisplayDuration] = useState<number>(0);
-    const [loginButtonState, setLoginButtonState] = useState<boolean>(false);
-    const [verifyButtonState, setVerifyButtonState] = useState<boolean>(false);
+    const [timerDuration, setTimerDuration] = useState<number>(20)
+    const [displayDuration, setDisplayDuration] = useState<number>(0)
+    const [loginButtonState, setLoginButtonState] = useState<boolean>(false)
+    const [verifyButtonState, setVerifyButtonState] = useState<boolean>(false)
 
     const startCountdown = () => {
         let duration = timerDuration;
@@ -42,6 +42,7 @@ export default function Login() {
             setDisplayDuration(duration);
             duration--;
             if (duration === -1) {
+                handlePhoneSMSSend();
                 clearInterval(timer);
             }
         }, 1000);
@@ -75,13 +76,13 @@ export default function Login() {
     }
 
     const sendSMSToPhoneNumber = async (phone?: string) => {
+        setWarningMessage('')
         try {
             return await firebase
                 .auth()
                 .signInWithPhoneNumber(phone ? phone : phoneNumber, authDataState.reCaptchaVerifier as any)
         } catch (e) {
             setWarningMessage(e.message);
-
         }
     }
 
@@ -97,6 +98,8 @@ export default function Login() {
     }
 
     const handleVerifyCode = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        setLoading(true)
+        setErrMessage('')
         e.preventDefault()
         if (!authDataState.reCaptchaVerifier) {
             getFirebaseCaptcha()
@@ -117,6 +120,7 @@ export default function Login() {
                 }
             }
         }
+        setLoading(false)
     }
 
     const getFirebaseCaptcha = () => {
@@ -161,7 +165,7 @@ export default function Login() {
                     </Notification>
                 ) : ''
             }
-            <div className='loginCard-wrapper'>
+            <div className='pure-block-wrapper'>
                 <button className="hidden" id="re-captcha" />
                 {!isVerificationCodeSent ? (<PureBlock flow={true}>
                     <div>
@@ -210,7 +214,6 @@ export default function Login() {
                             Next
                         </button>
                         )}
-
                     </div>
                 </PureBlock>)
                 : (<PureBlock flow={true}>
@@ -250,12 +253,16 @@ export default function Login() {
                                 </div>
                             ) : <>{displayDuration}</>
                         }
-                        <button
-                            className={verifyButtonState ? 'button inputGroup__button' : 'button inputGroup__button inputGroup__button_disabled'}
-                            onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleVerifyCode(e)}
-                        >
-                            Verify Code
-                        </button>
+                        { loading ? (
+                            <CircleLoader className="middle-loader" />
+                        ) : (
+                            <button
+                                className={verifyButtonState ? 'button inputGroup__button' : 'button inputGroup__button inputGroup__button_disabled'}
+                                onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleVerifyCode(e)}
+                            >
+                                Verify Code
+                            </button>
+                        )}
                     </div>
                 </PureBlock>)}
             </div>

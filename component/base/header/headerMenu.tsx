@@ -1,50 +1,45 @@
 import Image from "next/image"
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {AuthContextStaticData} from "../../../static/AuthContextStaticData";
 import {useRouter} from "next/router";
 import firebase from "../../../lib/firbase";
 import {UseAuthDataStateValue} from "../../../context/AuthContext";
 
 const HeaderMenu = () => {
-    const router = useRouter();
-    const [isProfileMenuOpen, setData] = useState(false);
+    const router = useRouter()
+    const [isProfileMenuOpen, setData] = useState(false)
     const currentPage = useRouter().route
-    const showBackIcon = currentPage.includes('my');
-    const {setAuthDataState} = UseAuthDataStateValue();
+    const showBackIcon = currentPage.includes('my')
+    const {setAuthDataState} = UseAuthDataStateValue()
 
     const openMenu = () => {
-        setData(!isProfileMenuOpen);
+        setData(!isProfileMenuOpen)
     }
 
     const handlePreviousPageClick = () => {
-        router.push('/webPortalResult');
+        router.push('/webPortalResult')
     }
 
-    const handleLogoutClick = () => {
-        firebase
-            .auth()
-            .signOut()
-            .then(
-                function(response) {
-                    console.log(response);
-                },
-                function(error) {
-                    console.log(error);
-                }
-            );
-        setAuthDataState({type: AuthContextStaticData.UPDATE_AUTH_TOKEN, token: ""});
-        localStorage.removeItem("selectedKitId");
-        localStorage.removeItem("accessToken");
-        router.push('/auth/login');
+    const handleLogoutClick = async () => {
+        try {
+            await firebase.auth().signOut();
+            setAuthDataState({type: AuthContextStaticData.UPDATE_AUTH_TOKEN, token: ""})
+            localStorage.removeItem("selectedKitId")
+            localStorage.removeItem("accessToken")
+            router.push('/auth/login')
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     return (
-        <header className="header">
+        <header className="main-header">
             <div className="fullWidthMenu">
                 <div className="icon">
                     {
                         showBackIcon &&
-                        <Image onClick={handlePreviousPageClick} src="/back.svg" width={12} height={12} alt="back arrow"/>
+                        <Image onClick={handlePreviousPageClick} src="/back.svg" width={12} height={12}
+                               alt="back arrow"/>
                     }
                 </div>
                 <div>
@@ -64,4 +59,4 @@ const HeaderMenu = () => {
     )
 }
 
-export default HeaderMenu;
+export default HeaderMenu

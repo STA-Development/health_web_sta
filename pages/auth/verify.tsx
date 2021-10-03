@@ -1,69 +1,65 @@
-import {useState} from 'react';
-import Image from "next/image";
-import PureBlock from "../../component/pureBlock";
-import ReactCodeInput from "react-verification-code-input";
+import {useEffect, useState} from 'react'
+import Image from "next/image"
+import PureBlock from "../../component/pureBlock"
+import CircleLoader from "../../component/utils/CircleLoader"
+import {load, ReCaptchaInstance} from "recaptcha-v3"
+import testResultManager from "../../manager/TestResultManager"
+import { useRouter } from 'next/router'
 
 export default function Verify() {
 
-    const [verificationCode, setVerificationCode] = useState<string>("");
-    const [timerDuration, setTimerDuration] = useState<number>(5);
-    const [displayDuration, setDisplayDuration] = useState<number>(0);
+    const [loading, setLoading] = useState(true)
+    const router = useRouter()
+    const {token} = router.query
 
-    const startCountdown = () => {
-        let duration = timerDuration;
-        const timer = setInterval(() => {
-            setDisplayDuration(duration);
-            duration--;
-            if (duration === -1) {
-                clearInterval(timer);
-            }
-        }, 1000);
-    };
-
-    const handleVerificationCodeChange = (verificationCode: string) => {
-        setVerificationCode(verificationCode)
+    const getRecaptcha = async () => {
+        const captchaToken = process.env.RECAPTCHA_V3_KEY
+        if (captchaToken) {
+            return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) => {
+                return recaptcha.execute("submit")
+            })
+        } else {
+            console.error("Captcha token is undefined")
+        }
     }
 
-    return (
-        <>
-            <PureBlock flow={true}>
-                <div>
-                    <Image src='/logo.svg' width={136} height={16} alt={"logo"}/>
-                </div>
-                <div>
-                    <span className="header">SMS Verification</span>
-                </div>
-                <div>
-                    <span className="message">
-                        A code has been sent to your Mobile Phone Number to login to the FH Health Web Portal.
-                        Please enter it below to continue.
-                    </span>
-                </div>
-                <div className='inputGroup inputGroup_verify'>
-                    <ReactCodeInput
-                        type={"text"}
-                        placeholder={["-", "-", "-", "-", "-", "-"]}
-                        onChange={handleVerificationCodeChange}
-                    />
-                    {
-                        displayDuration === 0 ? (
-                            <div className='inputGroup__resend'>
-                                <span>Didn't receive the sms?</span>
-                                <br/>
-                                <button
-                                    onClick={startCountdown}
-                                    className='button inputGroup__resend_button'
-                                >
-                                    Resend
-                                </button>
-                            </div>
-                        ) : <>{displayDuration}</>
+    useEffect(() => {
+        (async () => {
+            try {
+                const captchaToken = await getRecaptcha()
+                if(captchaToken && token) {
+                    const response = await testResultManager.checkVerification(captchaToken, token as string)
+                    if (response) {
+                        setLoading(false)
                     }
-                    <button className='button inputGroup__button'>
-                        Verify Code
-                    </button>
-                </div>
-            </PureBlock>
-        </>
+                } else {
+
+                }
+            } catch (e) {
+                console.log(e)
+            }
+        })()
+    }, [token])
+
+    return (
+        <div className='pure-block-wrapper'>
+            {loading ? (
+                <CircleLoader className='middle-loader'/>
+            ) : (
+                <PureBlock flow={false}>
+                    <div>
+                        <Image src='/check.svg' width={64} height={64} alt={"logo"}/>
+                    </div>
+                    <div>
+                        <span className="header">Phone Number Verified!</span>
+                    </div>
+                    <div>
+                        <span className="message">
+                        Your Mobile Phone Number has been verified. Your results will be sent to you via SMS as soon as they are available
+                        </span>
+                    </div>
+                </PureBlock>
+            )}
+        </div>
     )
 }
