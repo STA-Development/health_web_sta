@@ -30,7 +30,7 @@ const Header = () => {
         )}
 
         <div className="test-info">
-          <p className="test-info__result"> {testResultState.testResult.result} </p>
+          <p data-cy="test-status" className="test-info__result"> {testResultState.testResult.result} </p>
           <p className="test-info__date">
             {testResultState?.testResult.resultMetaData &&
             "resultDate" in testResultState?.testResult.resultMetaData &&

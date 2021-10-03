@@ -200,7 +200,7 @@ export default function Login() {
                                     className={warningMessage ? 'input inputGroup__input inputGroup__input_err' : 'input inputGroup__input'}
                                     placeholder="(555) 555 - 5555"
                                     aria-label="Phone Number"
-                                />
+                                data-cy='phoneNumber'/>
                             )}
                         </InputMask>
 
@@ -210,7 +210,7 @@ export default function Login() {
                         <button
                             onClick={handlePhoneSMSSend}
                             className={loginButtonState ? 'button inputGroup__button' : 'button inputGroup__button inputGroup__button_disabled'}
-                        >
+                        data-cy='next'>
                             Next
                         </button>
                         )}
@@ -258,7 +258,7 @@ export default function Login() {
                         ) : (
                             <button
                                 className={verifyButtonState ? 'button inputGroup__button' : 'button inputGroup__button inputGroup__button_disabled'}
-                                onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleVerifyCode(e)}
+                                onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleVerifyCode(e)}data-cy='verify'
                             >
                                 Verify Code
                             </button>

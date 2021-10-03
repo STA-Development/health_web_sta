@@ -1,0 +1,7 @@
+{
+  "nonExistentLogin": "nonExistentLogin@test.com",
+  "nonExistentPassword":"nonExistentPassword",
+  "existentLogin": "6505601115",
+  "existentPassword":"555555",
+  "date": "10/5/200"
+}

@@ -35,15 +35,9 @@ const HeaderMenu = () => {
     return (
         <header className="main-header">
             <div className="fullWidthMenu">
-                <div className="icon">
-                    {
-                        showBackIcon &&
-                        <Image onClick={handlePreviousPageClick} src="/back.svg" width={12} height={12}
-                               alt="back arrow"/>
-                    }
-                </div>
                 <div>
                     <Image src="/group.svg" width={136} height={16} alt="FH HEALTH"/>
+                    {showBackIcon && <Image onClick={handlePreviousPageClick} src="/back.svg" width={12} height={12} alt="back arrow"/>}
                 </div>
                 <div className="rectangle-13" onClick={openMenu}>
                     <Image src="/profile-user.svg" width={23} height={23} alt="user default avatar"/>

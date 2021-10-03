@@ -19,6 +19,8 @@ function MyApp({Component, pageProps}: AppProps) {
     const currentPage = useRouter().route
     const isAuth = useRouter().route.indexOf("auth") <= -1;
     const isPublic = currentPage === '/';
+    const router = useRouter()
+    const { query, isReady } = useRouter()
 
     useEffect(() => {
         const token = localStore(localStorage).getItem('accessToken')
@@ -28,18 +30,20 @@ function MyApp({Component, pageProps}: AppProps) {
             decodedToken = jwt_decode(token)
             isExpired = decodedToken.exp * 1000 < new Date().getTime()
         }
-        if ((!localStore(localStorage).getItem('accessToken') && !isPublic) || (isExpired && !isPublic)) {
-            Router.push('/auth/login');
-        }
-        if (currentPage == '/') {
-            Router.push('/webPortalResult')
+        if (isReady) {
+            if ((!localStore(localStorage).getItem('accessToken') && !isPublic) || (isExpired && !isPublic)) {
+                Router.push('/auth/login');
+            }
+            if (currentPage == '/' && router.asPath.indexOf('?')) {
+                Router.push('/webPortalResult')
+            }
         }
     }, [isPublic]);
 
     return (
         <>
             <AuthContextProvider>
-                {isAuth && <HeaderMenu />}
+                {isAuth && !isPublic && <HeaderMenu />}
                 <TestResultContextProvider>
                     <div className="main-content">
                         <Component {...pageProps} />
