@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
-export const doLoginTest = (phoneNumber: string, verificationCode: string, isNonExistUser?: boolean) => {
+export const doLoginTest = (phoneNumber: string, verificationCode: string) => {
+  cy.visit('auth/login')
+  cy.log("Go to login page")
   cy.log("entered phone number.")
   cy.get('input[data-cy="phoneNumber"]').type(phoneNumber)
   cy.log("clicked on Send Verification Code.")

@@ -3,7 +3,7 @@ import Image from "next/image";
 import ResultHeader from "./resultsHeader";
 export default function NoResults() {
     return(
-        <div className="web-portal-results">
+        <div className="web-portal-results" data-cy="no-tests">
             <PureBlock center={true} flow={false}>
                 <div>
                     <Image src='/search.svg' width={86} height={96} alt={"No Results"}/>
