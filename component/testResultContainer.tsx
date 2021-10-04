@@ -2,7 +2,7 @@ import {ReactChildren} from "react";
 
 const TestResultContainer = ({children, ...props}: any) => {
     return (
-        <div className="all-results">
+        <div data-cy={props["data-cy"]} className="all-results">
             {children}
         </div>
     )

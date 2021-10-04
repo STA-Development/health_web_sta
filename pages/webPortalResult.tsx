@@ -24,7 +24,7 @@ const WebPortalResults = () => {
     const [history, setHistory] = useState<boolean>(false)
     const renderResultsList = (isHistory: boolean) => {
         return results.map((test: IResult, index: number) => {
-            if (moment(test.testDateTime).format("YYYY-MM-DD") > moment().subtract(7, "days").format("YYYY-MM-DD")) {
+                if (moment(test.testDateTime).format("YYYY-MM-DD") > moment().subtract(7, "days").format("YYYY-MM-DD")) {
                     setLatestResults(true)
                 }
                 return <>
@@ -34,14 +34,14 @@ const WebPortalResults = () => {
                     }
                     {
                         (isHistory || moment(test.testDateTime).format("YYYY-MM-DD") > moment().subtract(7, "days").format("YYYY-MM-DD")) ?
-                        <SingleTestResult
-                            testName={test.name}
-                            patientName={`${test.firstName} ${test.lastName}`}
-                            testDate={moment(test.testDateTime).format("ddd, MMM DD, YYYY")}
-                            backgroundClass={test.style}
-                            status={test.result}
-                            redirectUrl={test.id}
-                        /> : <SingleResultPreload/>
+                            <SingleTestResult
+                                testName={test.name}
+                                patientName={`${test.firstName} ${test.lastName}`}
+                                testDate={moment(test.testDateTime).format("ddd, MMM DD, YYYY")}
+                                backgroundClass={test.style}
+                                status={test.result}
+                                redirectUrl={test.id}
+                            /> : <SingleResultPreload/>
 
                     }
                 </>
@@ -73,19 +73,19 @@ const WebPortalResults = () => {
                         <ResultsHeader header="Latest Results"/> &&
                         <TestResultContainer>
                             {
-                    results.length > 0 ?
-                        renderResultsList(false) : <SingleResultPreload/>
-                }
+                                results.length > 0 ?
+                                    renderResultsList(false) : <SingleResultPreload/>
+                            }
                         </TestResultContainer>
                     }
                     <ResultsHeader header="Result History"/>
-                    <TestResultContainer>
+                    <TestResultContainer data-cy="history-results">
                         {
-                    results.length > 0 ?
-                        renderResultsList(true) : <SingleResultPreload/>
-                }
+                            results.length > 0 ?
+                                renderResultsList(true) : <SingleResultPreload/>
+                        }
                     </TestResultContainer>
-                </div>) : <NoResults />
+                </div>) : <NoResults/>
             }
         </>
     )

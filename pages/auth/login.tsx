@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import Image from "next/image";
 import PureBlock from "../../component/pureBlock";
 import {UseAuthDataStateValue} from "../../context/AuthContext";
@@ -124,6 +124,7 @@ export default function Login() {
     }
 
     const getFirebaseCaptcha = () => {
+        firebase.auth().settings.appVerificationDisabledForTesting = process.env.APP_TESTING_MODE === "true";
         const reCaptchaVerifier = new firebase.auth.RecaptchaVerifier("re-captcha", {
             size: "invisible",
         })
