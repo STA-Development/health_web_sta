@@ -48,10 +48,14 @@ const WebPortalResults = () => {
             }
         )
     }
+
     const getData = async () => {
         let response = await testResultManager.getAllTestResults()
         if (response.status) {
             setResults(response.data.data)
+            if (response.data.data.length) {
+                setHistory(true)
+            }
         }
     }
 
@@ -59,10 +63,7 @@ const WebPortalResults = () => {
         (async () => {
             await getData()
         })()
-        if (results.length) {
-            setHistory(true)
-        }
-    }, [results])
+    }, [])
     return (
         <>
             {
