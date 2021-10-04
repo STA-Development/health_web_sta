@@ -1,6 +1,5 @@
 import {checkSingleResult, doLoginTest} from "../../helpers";
 
-
 describe('Check single result from list.', () => {
     it('Implement list check', () => {
         doLoginTest(Cypress.env('phoneNumber'), Cypress.env('verificationCode'))
