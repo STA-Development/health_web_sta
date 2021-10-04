@@ -1,6 +1,5 @@
 import {checkSingleResult, doLoginTest} from "../../helpers";
 
-// TODO: blocker from backend need more data for single test result
 
 describe('Check single result from list.', () => {
     it('Implement list check', () => {
