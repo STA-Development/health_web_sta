@@ -1,4 +1,8 @@
 @media (max-width: $fhhealth-media-sm) {
+  .web-portal-results {
+    padding: 0 16px;
+  }
+
   .test-result-wrapper {
     .test-result-text {
       font-family: $fhhealth-font-DM-bold;

@@ -1,6 +1,4 @@
 import {Axios} from "./AxiosInstance"
-import axios from "axios"
-
 
 const testResultManager = {
   getTestResult(token: string, encryptedID: string) {
@@ -11,6 +9,11 @@ const testResultManager = {
   },
   getAllTestResults() {
     return Axios().get(`${process.env.APP_RESERVATION_URL}/reservation/api/v1/test-results`)
+  },
+  checkVerification(captchaToken: string, smsToken: string) {
+    return Axios(captchaToken).put('/user/api/v1/verify', {
+      token: smsToken
+    })
   }
 }
 export default testResultManager

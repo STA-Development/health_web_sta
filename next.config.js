@@ -38,5 +38,6 @@ module.exports = {
     FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
     APP_RESERVATION_URL: process.env.APP_RESERVATION_URL,
+    APP_TESTING_MODE: process.env.APP_TESTING_MODE,
   },
 }

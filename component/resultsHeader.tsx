@@ -1,6 +1,6 @@
-const ResultHeader = (props: any) => {
+const ResultHeader = (props: { header:string, size?:number }) => {
     return (
-        <p className="result-header">{props.header}</p>
+        <p style={props.size?{fontSize: `${props.size}px`}:{}} className="result-header">{props.header}</p>
     )
 }
 export default ResultHeader

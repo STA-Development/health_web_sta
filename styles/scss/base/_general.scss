@@ -5,6 +5,20 @@ body {
   overflow-x: hidden;
 }
 
+#__next {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: $fhhealth-color-grey-bg;
+}
+
+.main-content {
+  max-width: 976px;
+  width: 100%;
+  margin: 0 auto;
+  flex-grow: 1;
+}
+
 a {
   color: inherit;
   text-decoration: none;

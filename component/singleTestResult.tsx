@@ -17,7 +17,7 @@ const SingleTestResult = (props: {
         }
     }
     return (
-        <div className="single-result">
+        <div onClick={() => handleRedirect(props.redirectUrl)} className="single-result link-to-test">
             <div className="left">
                 <TestResultIcon fillColor={`${props.backgroundClass}-svg`}/>
                 <div>
@@ -28,7 +28,7 @@ const SingleTestResult = (props: {
             </div>
             <div className="right">
                 <div className={`result-status ${props.backgroundClass}`}>{props.status.toUpperCase()}</div>
-                <Image className="link-to-test" alt="next icon" onClick={() => handleRedirect(props.redirectUrl)} src="/next.svg" width={16} height={16} />
+                <Image className="link-to-test" alt="next icon" src="/next.svg" width={16} height={16} />
             </div>
         </div>
     )

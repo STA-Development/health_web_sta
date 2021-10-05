@@ -1,17 +1,27 @@
 .notification {
-  width: 100%;
   padding: 20px 36px 20px 24px;
   position: absolute;
   display: flex;
   align-items: center;
+  width: 100%;
   top: 0;
+  left: 0;
+
+  .notification-wrapper {
+    max-width: 32px;
+    width: 100%;
+    height: 32px;
+  }
+
   span {
     margin-left: 24px;
   }
 }
+
 .notify-warning {
   background: $fhhealth-color-yellow;
 }
+
 .notify-error {
   background: rgba(255, 57, 77, 0.25);
 }
