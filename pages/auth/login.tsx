@@ -151,6 +151,7 @@ export default function Login() {
         return () => {
             setAuthDataState({type: AuthContextStaticData.UPDATE_RE_CAPTCHA, reCaptchaVerifier: ""})
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

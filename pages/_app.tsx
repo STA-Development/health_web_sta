@@ -21,7 +21,7 @@ function MyApp({Component, pageProps}: AppProps) {
     const isPublic = currentPage === '/';
     const router = useRouter()
     const { query, isReady } = useRouter()
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         const token = localStore(localStorage).getItem('accessToken')
         let decodedToken: decodedToken
@@ -38,6 +38,7 @@ function MyApp({Component, pageProps}: AppProps) {
                 Router.push('/webPortalResult')
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPublic]);
 
     return (
