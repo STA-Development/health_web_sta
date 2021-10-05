@@ -17,7 +17,7 @@ const HeaderMenu = () => {
     }
 
     const handlePreviousPageClick = () => {
-        router.push('/webPortalResult')
+        router.push('/results/list')
     }
 
     const handleLogoutClick = async () => {
@@ -42,7 +42,7 @@ const HeaderMenu = () => {
                     }
                 </div>
                 <div>
-                    <Image className="icon" src="/group.svg" width={136} height={16} alt="FH HEALTH" onClick={() => router.push("/webPortalResult")} />
+                    <Image className="icon" src="/group.svg" width={136} height={16} alt="FH HEALTH" onClick={() => router.push("/results/list")} />
                 </div>
                 <div className="rectangle-13" onClick={openMenu}>
                     <Image src="/profile-user.svg" width={23} height={23} alt="user default avatar"/>
