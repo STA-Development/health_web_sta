@@ -35,7 +35,7 @@ function MyApp({Component, pageProps}: AppProps) {
                 Router.push('/auth/login');
             }
             if (currentPage == '/' && router.asPath.indexOf('?')) {
-                Router.push('/webPortalResult')
+                Router.push('/results/list')
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
