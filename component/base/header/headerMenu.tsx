@@ -1,5 +1,6 @@
 import Image from "next/image"
 import {useRef, useState, useEffect} from "react";
+import {useClickAway} from 'react-use';
 import {AuthContextStaticData} from "../../../static/AuthContextStaticData";
 import {useRouter} from "next/router";
 import firebase from "../../../lib/firbase";
@@ -33,22 +34,9 @@ const HeaderMenu = () => {
         }
     }
 
-    useEffect(() => {
-        const checkIfClickedOutside = (e: any) => {
-            // If the menu is open and the clicked target is not within the menu,
-            // then close the menu
-            if (isProfileMenuOpen && ref.current && ref.current.contains(e.target)) {
-                setData(false)
-            }
-        }
-
-        document.addEventListener("mousedown", checkIfClickedOutside)
-
-        return () => {
-            // Cleanup the event listener
-            document.removeEventListener("mousedown", checkIfClickedOutside)
-        }
-    }, [isProfileMenuOpen])
+    useClickAway(ref, () => {
+        setData(false)
+    });
 
     return (
         <header className="main-header">
