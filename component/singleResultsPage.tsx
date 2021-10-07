@@ -70,7 +70,7 @@ export default function SingleTestResultPage(props:{
                 await getData()
             }
         })()
-    }, [resultId])
+    }, [resultId, getData])
     return (
         <>
             {testResultState.testResult.testType.length ? (
