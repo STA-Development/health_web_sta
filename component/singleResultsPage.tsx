@@ -70,6 +70,7 @@ export default function SingleTestResultPage(props:{
                 await getData()
             }
         })()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [resultId])
     return (
         <>

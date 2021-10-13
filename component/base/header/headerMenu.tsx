@@ -1,5 +1,6 @@
 import Image from "next/image"
-import {useState} from "react";
+import {useRef, useState, useEffect} from "react";
+import {useClickAway} from 'react-use';
 import {AuthContextStaticData} from "../../../static/AuthContextStaticData";
 import {useRouter} from "next/router";
 import firebase from "../../../lib/firbase";
@@ -7,6 +8,7 @@ import {UseAuthDataStateValue} from "../../../context/AuthContext";
 
 const HeaderMenu = () => {
     const router = useRouter()
+    const ref = useRef<HTMLDivElement>(null);
     const [isProfileMenuOpen, setData] = useState(false)
     const currentPage = useRouter().route
     const showBackIcon = currentPage.includes('my')
@@ -32,6 +34,10 @@ const HeaderMenu = () => {
         }
     }
 
+    useClickAway(ref, () => {
+        setData(false)
+    });
+
     return (
         <header className="main-header">
             <div className="fullWidthMenu">
@@ -44,7 +50,7 @@ const HeaderMenu = () => {
                 <div>
                     <Image className="icon" src="/group.svg" width={136} height={16} alt="FH HEALTH" onClick={() => router.push("/results/list")} />
                 </div>
-                <div className="rectangle-13" onClick={openMenu}>
+                <div ref={ref} className="rectangle-13" onClick={openMenu}>
                     <Image src="/profile-user.svg" width={23} height={23} alt="user default avatar"/>
                     {
                         isProfileMenuOpen &&

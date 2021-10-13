@@ -3,13 +3,13 @@ body {
   font-family: $fhhealth-font-DM-regular;
   height: 100%;
   overflow-x: hidden;
+  background-color: $fhhealth-color-grey-bg;
 }
 
 #__next {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: $fhhealth-color-grey-bg;
 }
 
 .main-content {
