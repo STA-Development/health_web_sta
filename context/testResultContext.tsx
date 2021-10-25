@@ -21,7 +21,7 @@ const initialState: ITestResultState = {
     resultAnalysis: [],
     phone: "",
     physician: "",
-    resultMetaData: {},
+    resultDate: "",
     registeredNursePractitioner: "",
     style: "",
     swabMethod: "",

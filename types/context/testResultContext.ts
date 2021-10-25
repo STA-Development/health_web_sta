@@ -7,12 +7,6 @@ export interface group {
   label: string
   value: string
 }
-export interface resultMetaData {
-  action: string
-  autoResult: string
-  notify: boolean
-  resultDate: string
-}
 export interface ITestResultState {
   testResult: testResult
 }
@@ -34,7 +28,7 @@ export interface testResult {
   phone: string
   result: string
   resultAnalysis: resultAnalysis[] | []
-  resultMetaData: resultMetaData | {}
+  resultDate: string
   registeredNursePractitioner: string
   style: string
   swabMethod: string

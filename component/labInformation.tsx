@@ -27,10 +27,9 @@ const LabInformation = () => {
             <p className="field">date of results</p>
             <p className="answer test-answer">
               {
-                testResultState?.testResult.resultMetaData &&
-                  "resultDate" in testResultState?.testResult.resultMetaData &&
-                  testResultState.testResult.resultMetaData?.resultDate
-                  ? changeDate(testResultState.testResult.resultMetaData.resultDate, "MMMM Do, h:mm a"):''
+                testResultState?.testResult &&
+                  testResultState.testResult?.resultDate
+                  ? changeDate(testResultState.testResult.resultDate, "MMMM Do, h:mm a"):''
               }
             </p>
 
