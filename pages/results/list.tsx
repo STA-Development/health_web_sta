@@ -24,9 +24,11 @@ const WebPortalResults = () => {
     const [history, setHistory] = useState<boolean>(false)
     const renderResultsList = (isHistory: boolean) => {
         return results.map((test: IResult, index: number) => {
+            if(!latestResults) {
                 if (moment(test.testDateTime).format("YYYY-MM-DD") > moment().subtract(7, "days").format("YYYY-MM-DD")) {
                     setLatestResults(true)
                 }
+            }
                 return <>
                     {
                         isHistory && (index == 0 || moment(test.testDateTime).format("MMMM YYYY") != moment(results[index - 1].testDateTime).format("MMMM YYYY"))
@@ -67,17 +69,21 @@ const WebPortalResults = () => {
     return (
         <>
             {
-                history ? (<div className="web-portal-results">
-                    {
-                        latestResults &&
-                        <ResultsHeader header="Latest Results"/> &&
-                        <TestResultContainer>
-                            {
-                                results.length > 0 ?
-                                    renderResultsList(false) : <SingleResultPreload/>
-                            }
-                        </TestResultContainer>
-                    }
+                history ? (
+                    <div className="web-portal-results">
+                        {
+                            latestResults &&
+                            <ResultsHeader header="Latest Results" />
+                        }
+                        {
+                            latestResults &&
+                            <TestResultContainer>
+                                {
+                                    results.length > 0 ?
+                                        renderResultsList(false) : <SingleResultPreload/>
+                                }
+                            </TestResultContainer>
+                        }
                     <ResultsHeader header="Result History"/>
                     <TestResultContainer data-cy="history-results">
                         {
