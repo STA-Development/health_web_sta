@@ -1,6 +1,11 @@
 @media (max-width: $fhhealth-media-sm) {
   .web-portal-results {
     padding: 0 16px;
+    .single-result {
+      .left {
+        line-height: 18px;
+      }
+    }
   }
 
   .test-result-wrapper {
