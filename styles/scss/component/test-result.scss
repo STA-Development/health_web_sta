@@ -20,7 +20,7 @@
   }
 }
 .wrapper__negative{
-  background-color: $fhhealth-color-green-bg;
+  background-color: $fhhealth-color-green-btn;
 }
 .wrapper__positive{
   background-color: $fhhealth-color-red-bg
@@ -56,7 +56,35 @@
 .YELLOW-svg {
   fill: $fhhealth-color-blue-btn;
 }
-.span__presumptivepositive{
-  background-color: $fhhealth-color-red-btn;
-  padding: 4px;
+.span {
+  &__presumptivepositive{
+    background-color: $fhhealth-color-red-btn;
+    padding: 4px;
+    border-radius: 4px;
+  }
+  &__negative {
+    background: rgba(82, 193, 124, 0.6);
+    padding: 4px;
+    border-radius: 4px;
+  }
+  &__positive {
+    background-color: rgba(255, 57, 77, 0.6);
+    padding: 4px;
+    border-radius: 4px;
+  }
+  &__inconclusive {
+    background-color: #549eec;
+    padding: 4px;
+    border-radius: 4px;
+  }
+  &__indeterminate {
+    background-color: #549eec;
+    padding: 4px;
+    border-radius: 4px;
+  }
+  &__invalid {
+    background-color: #549eec;
+    padding: 4px;
+    border-radius: 4px;
+  }
 }
