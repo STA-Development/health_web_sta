@@ -4,7 +4,7 @@ import {TestTypes} from "./singleResultsPage";
 const TestResult = () => {
     const {testResultState} = UseTestResultDataStateValue()
     const wrapperClassName = `test-result-wrapper wrapper__${testResultState?.testResult.testType === TestTypes.PCR && testResultState?.testResult.templateId === TestTypes.BioradAntiBody ? 'biorad-color' : testResultState.testResult.result?.toLowerCase()}`
-    const textClassName = `span__${testResultState?.testResult.testType === TestTypes.PCR && testResultState?.testResult.templateId === TestTypes.BioradAntiBody ? '' : testResultState.testResult.result?.toLowerCase()}`
+    const textClassName = `span_test_result span__${testResultState?.testResult.testType === TestTypes.PCR && testResultState?.testResult.templateId === TestTypes.BioradAntiBody ? '' : testResultState.testResult.result?.toLowerCase()}`
     return (
         <div
             className={wrapperClassName}>
