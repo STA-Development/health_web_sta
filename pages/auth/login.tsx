@@ -233,7 +233,7 @@ export default function Login() {
                     </div>
                     <div className='inputGroup inputGroup_verify'>
                         <ReactCodeInput
-                            type={"text"}
+                            type={"number"}
                             placeholder={["-", "-", "-", "-", "-", "-"]}
                             onChange={value => {
                                 handleVerificationCodeChange(value);
