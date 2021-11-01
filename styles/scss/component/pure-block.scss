@@ -1,11 +1,25 @@
 .pure-block-wrapper {
   height: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
 .centerX {
   justify-content: center;
+}
+
+.need-help-info {
+  text-align: center;
+  margin-top: 40px;
+  display: block;
+  color: rgba(39, 48, 59, 0.8);
+  font-size: 14px;
+
+  .link {
+    color: #007aff;
+    text-decoration: underline;
+  }
 }
 
 .contentOutline {
@@ -47,6 +61,7 @@
       color: $fhhealth-color-dark-black;
       font-weight: 500;
       font-size: 32px;
+      font-family: $fhhealth-font-SF-medium;
     }
     .message {
       font-size: 17px;
@@ -85,7 +100,7 @@
     .inputGroup__input {
       padding: 16px;
       border-radius: 2px;
-      border: 1px solid $fhhealth-color-grey-bg;
+      border: 1px solid $fhhealth-border-color;
 
       &_err {
         border: 1px solid $fhhealth-color-red-btn;
