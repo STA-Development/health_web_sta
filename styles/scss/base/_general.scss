@@ -37,4 +37,23 @@ a {
   outline: none;
   cursor: pointer;
   background-color: transparent;
+  padding: 0;
+}
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: $fhhealth-color-dark-grey-bg;
+  z-index: 9;
+}
+
+.modal__content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
 }

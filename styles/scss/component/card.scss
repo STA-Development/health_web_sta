@@ -1,0 +1,55 @@
+.card {
+  position: relative;
+  background-color: $fhhealth-color-white;
+  border-radius: 8px;
+  border: solid 1px rgba(151, 151, 151, 0.25);
+  max-width: 515px;
+}
+
+.card__body {
+  display: flex;
+  flex-direction: column;
+  padding: 68px 48px 48px;
+}
+
+.card__close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+
+.card__media {
+  background-color: $fhhealth-color-grey-bg;
+  border-radius: 5px;
+  object-fit: cover;
+
+  img {
+    object-fit: contain;
+  }
+}
+
+.card__content {
+  text-align: center;
+  margin-top: 32px;
+  margin-bottom: 48px;
+
+  h4 {
+    font-size: 24px;
+    margin-bottom: 12px;
+    color: $fhhealth-color-dark-black;
+  }
+
+  p {
+    font-size: 17px;
+    line-height: 1.29;
+    color: $fhhealth-color-light-gray-text;
+  }
+}
+
+.card__button {
+  background-color: #27303a;
+  color: $fhhealth-color-white;
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 16px 0;
+}
