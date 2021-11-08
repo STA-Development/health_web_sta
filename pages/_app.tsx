@@ -8,6 +8,7 @@ import HeaderMenu from "../component/base/header/headerMenu";
 import Router, {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import {localStore} from "../utils/storage";
+import ConferenceJoinView from "./conference/join";
 
 interface decodedToken {
     exp: number
@@ -18,6 +19,7 @@ function MyApp({Component, pageProps}: AppProps) {
 
     const currentPage = useRouter().route
     const isAuth = useRouter().route.indexOf("auth") <= -1;
+    const isConference = useRouter().route.includes("conference")
     const isPublic = currentPage === '/';
     const router = useRouter()
     const { query, isReady } = useRouter()
@@ -31,7 +33,7 @@ function MyApp({Component, pageProps}: AppProps) {
             isExpired = decodedToken.exp * 1000 < new Date().getTime()
         }
         if (isReady) {
-            if ((!localStore(localStorage).getItem('accessToken') && !isPublic) || (isExpired && !isPublic)) {
+            if (!isConference && (!localStore(localStorage).getItem('accessToken') && !isPublic) || (isExpired && !isPublic)) {
                 Router.push('/auth/login');
             }
             if (currentPage == '/' && router.asPath.indexOf('?')) {
@@ -44,13 +46,13 @@ function MyApp({Component, pageProps}: AppProps) {
     return (
         <>
             <AuthContextProvider>
-                {isAuth && !isPublic && <HeaderMenu />}
+                {isAuth && !isPublic && !isConference && <HeaderMenu />}
                 <TestResultContextProvider>
                     <div className="main-content">
                         <Component {...pageProps} />
                     </div>
                 </TestResultContextProvider>
-                {isAuth && <FooterMenu/>}
+                {isAuth && !isConference && <FooterMenu/>}
             </AuthContextProvider>
         </>
     )
