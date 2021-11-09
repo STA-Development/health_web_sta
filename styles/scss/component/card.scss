@@ -1,3 +1,8 @@
+.card-wrapper {
+  display: block;
+  text-align: center;
+}
+
 .card {
   position: relative;
   background-color: $fhhealth-color-white;
@@ -19,9 +24,12 @@
 }
 
 .card__media {
-  background-color: $fhhealth-color-grey-bg;
   border-radius: 5px;
-  object-fit: cover;
+  text-align: center;
+
+  &_with-bg {
+    background-color: $fhhealth-color-grey-bg;
+  }
 
   img {
     object-fit: contain;
@@ -32,18 +40,22 @@
   text-align: center;
   margin-top: 32px;
   margin-bottom: 48px;
+}
 
-  h4 {
-    font-size: 24px;
-    margin-bottom: 12px;
-    color: $fhhealth-color-dark-black;
-  }
+.card__content-title {
+  font-size: 24px;
+  margin-bottom: 12px;
+  color: $fhhealth-color-dark-black;
+}
 
-  p {
-    font-size: 17px;
-    line-height: 1.29;
-    color: $fhhealth-color-light-gray-text;
-  }
+.card__content-message, .card-wrapper__message {
+  font-size: 17px;
+  line-height: 1.29;
+  color: $fhhealth-color-light-gray-text;
+}
+
+.card-wrapper__message {
+  margin-top: 48px;
 }
 
 .card__button {

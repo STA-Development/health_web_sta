@@ -13,12 +13,12 @@ export default function KitNumberModal(props: { visibility?: boolean, closeModal
                 >
                     <Image src="/cross.svg" width={24} height={24} alt="close"/>
                 </button>
-                <div className='card__media'>
+                <div className='card__media card__media_with-bg'>
                     <Image src="/logo.svg" width={420} height={238} alt="Kit Number"/>
                 </div>
                 <div className='card__content'>
-                    <h4>Locate Kit Number</h4>
-                    <p>To find your kit number, please look at the card in your kit that says “Test Kit Number”.</p>
+                    <h4 className='card__content-title'>Locate Kit Number</h4>
+                    <p className='card__content-message'>To find your kit number, please look at the card in your kit that says “Test Kit Number”.</p>
                 </div>
                 <button className='button card__button'>
                     Ok

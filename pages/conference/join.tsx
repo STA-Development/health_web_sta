@@ -5,6 +5,7 @@ import {useState} from "react";
 import {UseAuthDataStateValue} from "../../context/AuthContext";
 import InputMask, {InputState} from "react-input-mask";
 import KitNumberModal from "../../component/testKitModal";
+import Card from "../../component/utils/Card";
 
 export default function ConferenceJoinView() {
     const [kitNumber, setKitNumber] = useState<string>("")
@@ -14,6 +15,7 @@ export default function ConferenceJoinView() {
     const [warningMessage, setWarningMessage] = useState<string>("")
     const [joinButtonState, setJoinButtonState] = useState<boolean>(false)
     const [kitNumberModalView, setKitNumberModalView] = useState<boolean>(false)
+    const [isLinkExpired, setIsLinkExpired] = useState<boolean>(false)
 
     const handleKitNumberChange = (kitNumber: string) => {
         setKitNumber(kitNumber);
@@ -59,66 +61,89 @@ export default function ConferenceJoinView() {
                 />
             }
             <div className='pure-block-wrapper'>
-                <PureBlock flow={true}>
-                    <div>
-                        <Image src='/logo.svg' width={136} height={16} alt={"logo"}/>
-                    </div>
-                    <div>
-                        <span className="header">Join Video Call</span>
-                    </div>
-                    <div>
+                {!isLinkExpired ? (
+                    <PureBlock flow={true}>
+                        <div>
+                            <Image src='/logo.svg' width={136} height={16} alt={"logo"}/>
+                        </div>
+                        <div>
+                            <span className="header">Join Video Call</span>
+                        </div>
+                        <div>
                                 <span className="message">
                                     In order to enter your consultation please locate the code on your kit.
                                 </span>
-                    </div>
-                    <div className='inputGroup'>
+                        </div>
+                        <div className='inputGroup'>
                                 <span>
                                     Test Kit Number <em>*</em>
                                 </span>
-                        <InputMask
-                            mask="+1(999)999-9999"
-                            value={kitNumber}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                handleKitNumberChange(e.target.value);
-                                checkKitNumber(e.target.value);
-                            }
-                            }
-                            beforeMaskedValueChange={beforeMaskedValueChange}
-                        >
-                            {(inputProps: {value: string; onChange: () => void}) => (
-                                <input
-                                    {...inputProps}
-                                    type="tel"
-                                    className={warningMessage ? 'input inputGroup__input inputGroup__input_err' : 'input inputGroup__input'}
-                                    placeholder="(555) 555 - 5555"
-                                    aria-label="Phone Number"
-                                    data-cy='testKitNumber'/>
-                            )}
-                        </InputMask>
-
-                        <div className='inputGroup__resend'>
-                            <span>Can't locate your test Kit number?</span>
-                            <br/>
-                            <button
-                                onClick={toggleKitNumberModal}
-                                className='button inputGroup__resend_button'
+                            <InputMask
+                                mask="+1(999)999-9999"
+                                value={kitNumber}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                    handleKitNumberChange(e.target.value);
+                                    checkKitNumber(e.target.value);
+                                }
+                                }
+                                beforeMaskedValueChange={beforeMaskedValueChange}
                             >
-                                Find kit number
-                            </button>
-                        </div>
+                                {(inputProps: {value: string; onChange: () => void}) => (
+                                    <input
+                                        {...inputProps}
+                                        type="tel"
+                                        className={warningMessage ? 'input inputGroup__input inputGroup__input_err' : 'input inputGroup__input'}
+                                        placeholder="(555) 555 - 5555"
+                                        aria-label="Phone Number"
+                                        data-cy='testKitNumber'/>
+                                )}
+                            </InputMask>
 
-                        {loading ? (
-                            <CircleLoader className="middle-loader" />
-                        ) : (
-                            <button
-                                onClick={() => {}}
-                                className={joinButtonState ? 'button inputGroup__button' : 'button inputGroup__button inputGroup__button_disabled'}
-                                data-cy='join'>
-                                Join Call
-                            </button>
-                        )}
+                            <div className='inputGroup__resend'>
+                                <span>Can't locate your test Kit number?</span>
+                                <br/>
+                                <button
+                                    onClick={toggleKitNumberModal}
+                                    className='button inputGroup__resend_button'
+                                >
+                                    Find kit number
+                                </button>
+                            </div>
+
+                            {loading ? (
+                                <CircleLoader className="middle-loader" />
+                            ) : (
+                                <button
+                                    onClick={() => {}}
+                                    className={joinButtonState ? 'button inputGroup__button' : 'button inputGroup__button inputGroup__button_disabled'}
+                                    data-cy='join'>
+                                    Join Call
+                                </button>
+                            )}
+                        </div>
+                    </PureBlock>
+                ) : (
+                    <div className='card-wrapper'>
+                        <Card>
+                            <div className='card__media'>
+                                <Image src='/error-cross.svg' height={64} width={64}/>
+                            </div>
+                            <div className='card__content'>
+                                <h4 className='card__content-title'>Sign-in Link has Expired</h4>
+                                <p className='card__content-message'>
+                                    Uh Oh, It seems this link has expired. <br/>
+                                    Please Visit <a href='#' className='em-link'>fhhealth.com</a> to to speak to a customer <br/>
+                                    service representative.
+                                </p>
+                            </div>
+                        </Card>
+
+                        <p className='card-wrapper__message'>
+                            Need help? <br/>
+                            Live Chat available on <a href='#' className='em-link'>fhhealth.com</a>
+                        </p>
                     </div>
-                </PureBlock>
+                )}
             </div>
         </>
     );
