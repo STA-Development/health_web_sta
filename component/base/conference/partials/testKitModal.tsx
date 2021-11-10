@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Modal from "./utils/Modal";
-import Card from "./utils/Card";
+import Modal from "../../../utils/Modal";
+import Card from "../../../utils/Card";
 
 export default function KitNumberModal(props: { visibility?: boolean, closeModal?: any}) {
 

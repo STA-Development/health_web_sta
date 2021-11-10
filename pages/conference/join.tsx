@@ -4,7 +4,7 @@ import PureBlock from "../../component/pureBlock";
 import {useState} from "react";
 import {UseAuthDataStateValue} from "../../context/AuthContext";
 import InputMask, {InputState} from "react-input-mask";
-import KitNumberModal from "../../component/testKitModal";
+import KitNumberModal from "../../component/base/conference/partials/testKitModal";
 import Card from "../../component/utils/Card";
 
 export default function ConferenceJoinView() {

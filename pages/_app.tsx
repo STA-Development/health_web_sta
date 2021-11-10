@@ -6,9 +6,9 @@ import {AuthContextProvider} from "../context/AuthContext";
 import FooterMenu from "../component/base/footer/footerMenu";
 import HeaderMenu from "../component/base/header/headerMenu";
 import Router, {useRouter} from "next/router";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {localStore} from "../utils/storage";
-import ConferenceJoinView from "./conference/join";
+import ConferenceHeader from "../component/utils/ConferenceHeader";
 
 interface decodedToken {
     exp: number
@@ -20,6 +20,7 @@ function MyApp({Component, pageProps}: AppProps) {
     const currentPage = useRouter().route
     const isAuth = useRouter().route.indexOf("auth") <= -1;
     const isConference = useRouter().route.includes("conference")
+    const isInChat = useRouter().route.includes("room")
     const isPublic = currentPage === '/';
     const router = useRouter()
     const { query, isReady } = useRouter()
@@ -33,7 +34,7 @@ function MyApp({Component, pageProps}: AppProps) {
             isExpired = decodedToken.exp * 1000 < new Date().getTime()
         }
         if (isReady) {
-            if (!isConference && (!localStore(localStorage).getItem('accessToken') && !isPublic) || (isExpired && !isPublic)) {
+            if (!isConference && (!localStore(localStorage).getItem('accessToken') && !isPublic) || (!isConference && isExpired && !isPublic)) {
                 Router.push('/auth/login');
             }
             if (currentPage == '/' && router.asPath.indexOf('?')) {
@@ -47,8 +48,9 @@ function MyApp({Component, pageProps}: AppProps) {
         <>
             <AuthContextProvider>
                 {isAuth && !isPublic && !isConference && <HeaderMenu />}
+                {isInChat && <ConferenceHeader/>}
                 <TestResultContextProvider>
-                    <div className="main-content">
+                    <div className={isConference ? 'main-content main-content_conference' : 'main-content'}>
                         <Component {...pageProps} />
                     </div>
                 </TestResultContextProvider>

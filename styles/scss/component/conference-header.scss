@@ -1,0 +1,36 @@
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $fhhealth-color-white;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  padding: 22px 24px;
+  z-index: 9;
+}
+
+.chat-header__logo {
+  margin: 10px auto 10px 10px;
+}
+
+.chat-header__logout {
+  width: 24px;
+  height: 24px;
+}
+
+.chat-header__items {
+  display: flex;
+  align-items: center;
+}
+
+.lang-switcher {
+  margin-right: 20px;
+
+  span {
+    margin-right: 6px;
+  }
+}
+
+.lang-switcher__current-lang {
+  display: flex;
+  align-items: center;
+}

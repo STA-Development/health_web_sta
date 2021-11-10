@@ -17,6 +17,11 @@ body {
   width: 100%;
   margin: 0 auto;
   flex-grow: 1;
+
+  &_conference {
+    margin: 0;
+    max-width: 100%;
+  }
 }
 
 a {
@@ -38,6 +43,18 @@ a {
   cursor: pointer;
   background-color: transparent;
   padding: 0;
+}
+
+.arrow-icon {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #302e2f;
+}
+
+.list {
+  list-style-type: none;
 }
 
 .modal {
