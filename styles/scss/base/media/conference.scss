@@ -1,0 +1,52 @@
+@media (max-width: $fhhealth-media-sm) {
+  .conference-header {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .conference-header__logo {
+    margin: auto;
+  }
+
+  .lang-switcher, .conference-header__logout {
+    display: none;
+  }
+
+  .conference-header__logout_mobile, .conference-header__chat-button {
+    display: block;
+  }
+
+  .video-wrapper {
+    width: 100%;
+    display: block;
+  }
+
+  .video-wrapper__content {
+    max-height: 318px;
+    margin: 108px auto auto;
+
+    h4 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 17px;
+    }
+  }
+
+  .chat-wrapper {
+    display: none;
+    width: 100%;
+  }
+
+  .mobile-chat {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    .chat-wrapper {
+      display: block;
+    }
+  }
+}

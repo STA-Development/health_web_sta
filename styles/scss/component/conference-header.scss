@@ -1,4 +1,4 @@
-.chat-header {
+.conference-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -8,18 +8,29 @@
   z-index: 9;
 }
 
-.chat-header__logo {
+.conference-header__logo {
   margin: 10px auto 10px 10px;
 }
 
-.chat-header__logout {
+.conference-header__logout {
+
+  &_mobile {
+    display: none;
+  }
+}
+
+.conference-header__items {
+  display: flex;
+  align-items: center;
+}
+
+.conference-header__items-button {
   width: 24px;
   height: 24px;
 }
 
-.chat-header__items {
-  display: flex;
-  align-items: center;
+.conference-header__chat-button {
+  display: none;
 }
 
 .lang-switcher {

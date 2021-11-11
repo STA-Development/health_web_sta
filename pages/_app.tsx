@@ -6,7 +6,7 @@ import {AuthContextProvider} from "../context/AuthContext";
 import FooterMenu from "../component/base/footer/footerMenu";
 import HeaderMenu from "../component/base/header/headerMenu";
 import Router, {useRouter} from "next/router";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {localStore} from "../utils/storage";
 import ConferenceHeader from "../component/utils/ConferenceHeader";
 
@@ -25,6 +25,13 @@ function MyApp({Component, pageProps}: AppProps) {
     const router = useRouter()
     const { query, isReady } = useRouter()
     // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    const [mobileChatView, setMobileChatView] = useState<boolean>(false)
+
+    const switchMobileChat = () => {
+        setMobileChatView(!mobileChatView)
+    }
+
     useEffect(() => {
         const token = localStore(localStorage).getItem('accessToken')
         let decodedToken: decodedToken
@@ -48,7 +55,7 @@ function MyApp({Component, pageProps}: AppProps) {
         <>
             <AuthContextProvider>
                 {isAuth && !isPublic && !isConference && <HeaderMenu />}
-                {isInChat && <ConferenceHeader/>}
+                {isInChat && <ConferenceHeader mobileChatView={mobileChatView} switchMobileChat={switchMobileChat}/>}
                 <TestResultContextProvider>
                     <div className={isConference ? 'main-content main-content_conference' : 'main-content'}>
                         <Component {...pageProps} />
