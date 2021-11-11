@@ -1,6 +1,15 @@
 import Image from "next/image"
+import {UseConfDataStateValue} from "../../../context/ConferenceContext";
 
 export default function ChatWrapper() {
+
+    const { setConfDataState } = UseConfDataStateValue()
+
+    const closeMobileChat = () => {
+        setConfDataState({
+            chatVisibility: false
+        })
+    }
 
     return (
         <div className='chat-wrapper'>
@@ -12,6 +21,17 @@ export default function ChatWrapper() {
             <div className='messenger'>
                 <div className='messenger__header'>
                     chat
+                </div>
+                <div className='messenger__header messenger__header_mobile'>
+                    <div className='conference-header__logo'>
+                        <Image src='/group.svg' alt='FH HEALTH' width={136} height={16}/>
+                    </div>
+                    <button
+                        onClick={closeMobileChat}
+                        className='button'
+                    >
+                        <Image src="/cross.svg" width={24} height={24} alt="close"/>
+                    </button>
                 </div>
                 <div className='messenger__body'>
 

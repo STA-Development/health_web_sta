@@ -8,12 +8,21 @@
     margin: auto;
   }
 
-  .lang-switcher, .conference-header__logout {
+  .lang-switcher,
+  .conference-header__logout,
+  .messenger__header,
+  .chat-wrapper__kit-info {
     display: none;
   }
 
-  .conference-header__logout_mobile, .conference-header__chat-button {
+  .conference-header__logout_mobile,
+  .conference-header__chat-button {
     display: block;
+  }
+
+  .messenger__header_mobile {
+    display: flex;
+    align-items: center;
   }
 
   .video-wrapper {
@@ -44,9 +53,16 @@
     position: fixed;
     top: 0;
     left: 0;
+    height: 100%;
+    width: 100%;
 
     .chat-wrapper {
       display: block;
+      height: 100%;
+    }
+
+    .messenger {
+      height: 100%;
     }
   }
 }

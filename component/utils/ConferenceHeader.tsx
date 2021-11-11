@@ -1,14 +1,23 @@
 import { useState } from "react"
 import Image from "next/image"
 import MobileChatView from "../base/conference/partials/mobileChatView";
+import {UseConfDataStateValue} from "../../context/ConferenceContext";
 
 enum Language {
     ENG = 'Eng',
     RUS = 'Rus'
 }
 
-const ConferenceHeader = (props: { mobileChatView: boolean, switchMobileChat: any }) => {
+const ConferenceHeader = () => {
     const [currentLanguage, setCurrentLanguage] = useState<string>(Language.ENG)
+
+    const { confDataState, setConfDataState } = UseConfDataStateValue()
+
+    const openMobileChat = () => {
+        setConfDataState({
+            chatVisibility: true
+        })
+    }
 
     return (
         <header className='conference-header'>
@@ -32,12 +41,12 @@ const ConferenceHeader = (props: { mobileChatView: boolean, switchMobileChat: an
                 </button>
                 <button
                     className='button conference-header__items-button conference-header__chat-button'
-                    onClick={props.switchMobileChat}
+                    onClick={openMobileChat}
                 >
                     <Image src='/chat-icon.svg'width={24} height={24}/>
                 </button>
             </div>
-            {props.mobileChatView && <MobileChatView/>}
+            {confDataState.chatVisibility && <MobileChatView/>}
         </header>
     )
 }

@@ -9,6 +9,7 @@ import Router, {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import {localStore} from "../utils/storage";
 import ConferenceHeader from "../component/utils/ConferenceHeader";
+import {ConferenceContextProvider} from "../context/ConferenceContext";
 
 interface decodedToken {
     exp: number
@@ -25,12 +26,6 @@ function MyApp({Component, pageProps}: AppProps) {
     const router = useRouter()
     const { query, isReady } = useRouter()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-
-    const [mobileChatView, setMobileChatView] = useState<boolean>(false)
-
-    const switchMobileChat = () => {
-        setMobileChatView(!mobileChatView)
-    }
 
     useEffect(() => {
         const token = localStore(localStorage).getItem('accessToken')
@@ -54,14 +49,16 @@ function MyApp({Component, pageProps}: AppProps) {
     return (
         <>
             <AuthContextProvider>
-                {isAuth && !isPublic && !isConference && <HeaderMenu />}
-                {isInChat && <ConferenceHeader mobileChatView={mobileChatView} switchMobileChat={switchMobileChat}/>}
-                <TestResultContextProvider>
-                    <div className={isConference ? 'main-content main-content_conference' : 'main-content'}>
-                        <Component {...pageProps} />
-                    </div>
-                </TestResultContextProvider>
-                {isAuth && !isConference && <FooterMenu/>}
+                <ConferenceContextProvider>
+                    {isAuth && !isPublic && !isConference && <HeaderMenu />}
+                    {isInChat && <ConferenceHeader/>}
+                    <TestResultContextProvider>
+                        <div className={isConference ? 'main-content main-content_conference' : 'main-content'}>
+                            <Component {...pageProps} />
+                        </div>
+                    </TestResultContextProvider>
+                    {isAuth && !isConference && <FooterMenu/>}
+                </ConferenceContextProvider>
             </AuthContextProvider>
         </>
     )

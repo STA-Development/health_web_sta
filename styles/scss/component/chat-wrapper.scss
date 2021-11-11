@@ -40,6 +40,17 @@
   color: $fhhealth-color-orange;
   text-transform: uppercase;
   border-bottom: 3px solid $fhhealth-color-orange;
+
+  &_mobile {
+    display: none;
+    border: none;
+    color: unset;
+
+    button {
+      position: absolute;
+      right: 20px;
+    }
+  }
 }
 
 .messenger__body {
