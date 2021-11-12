@@ -56,7 +56,7 @@ export default function Login() {
         setPhoneNumber(phoneNumber);
     };
 
-    const beforeMaskedValueChange = (newState: InputState) => {
+    const beforeMaskedValueChange = (newState: any) => {
         let {value} = newState
         let selection = newState.selection
         let cursorPosition = selection ? selection.start : null
@@ -193,7 +193,7 @@ export default function Login() {
                                     checkPhoneNumber(e.target.value, 'login');
                                 }
                             }
-                            beforeMaskedValueChange={beforeMaskedValueChange}
+                            beforeMaskedStateChange={beforeMaskedValueChange}
                         >
                             {(inputProps: {value: string; onChange: () => void}) => (
                                 <input
