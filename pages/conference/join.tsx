@@ -63,7 +63,7 @@ export default function ConferenceJoinView() {
             <div className='pure-block-wrapper'>
                 {!isLinkExpired ? (
                     <PureBlock flow={true}>
-                        <div>
+                        <div className='logo'>
                             <Image src='/logo.svg' width={136} height={16} alt={"logo"}/>
                         </div>
                         <div>
@@ -125,7 +125,7 @@ export default function ConferenceJoinView() {
                 ) : (
                     <div className='card-wrapper'>
                         <Card>
-                            <div className='card__media'>
+                            <div className='card__media card__media_sm'>
                                 <Image src='/error-cross.svg' height={64} width={64}/>
                             </div>
                             <div className='card__content'>

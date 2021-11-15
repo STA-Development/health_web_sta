@@ -24,8 +24,19 @@
 }
 
 .card__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 5px;
-  text-align: center;
+  width: 419px;
+  height: 238px;
+  max-width: 419px;
+  max-height: 238px;
+
+  &_sm {
+    width: auto;
+    height: auto;
+  }
 
   &_with-bg {
     background-color: $fhhealth-color-grey-bg;

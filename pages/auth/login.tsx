@@ -170,7 +170,7 @@ export default function Login() {
             <div className='pure-block-wrapper'>
                 <button className="hidden" id="re-captcha" />
                 {!isVerificationCodeSent ? (<PureBlock flow={true}>
-                    <div>
+                    <div className='logo'>
                         <Image src='/logo.svg' width={136} height={16} alt={"logo"}/>
                     </div>
                     <div>

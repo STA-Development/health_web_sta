@@ -98,6 +98,10 @@
       flex-direction: column;
       align-items: center;
       margin-top: 24px;
+
+      span {
+        color: rgba(35, 35, 37, 0.6);
+      }
     }
 
     .inputGroup__button {
@@ -110,7 +114,7 @@
       background-color: $fhhealth-color-blue-btn;
 
       &_disabled {
-        background-color: $fhhealth-color-light-gray-text;
+        background-color: $fhhealth-color-dark-grey-bg;
         pointer-events: none;
       }
     }

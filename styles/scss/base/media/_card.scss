@@ -1,0 +1,36 @@
+@media (max-width: $fhhealth-media-sm) {
+  .card {
+    max-width: 343px;
+    margin: 0 auto;
+  }
+
+  .card__close {
+    top: 16px;
+    right: 16px;
+  }
+
+  .card__body {
+    padding: 56px 32px 30px;
+  }
+
+  .card__media {
+    width: 279px;
+    height: 176px;
+    margin: 0 auto;
+
+    &_sm {
+      width: auto;
+      height: auto;
+    }
+  }
+
+  .card__content {
+    margin-bottom: 32px;
+  }
+}
+
+@media (max-width: $fhhealth-media-xs) {
+  .card-wrapper {
+    margin-top: 10%;
+  }
+}
