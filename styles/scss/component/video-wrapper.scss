@@ -1,0 +1,26 @@
+.video-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+}
+
+.video-wrapper__content {
+  text-align: center;
+
+  h4 {
+    font-size: 32px;
+    color: $fhhealth-color-dark-black;
+    margin: 37px 0 16px;
+  }
+
+  p {
+    font-size: 20px;
+    line-height: 1.25;
+    color: $fhhealth-color-light-gray-text;
+
+    &:last-child {
+      margin-top: 48px;
+    }
+  }
+}
