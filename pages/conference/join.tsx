@@ -3,7 +3,7 @@ import CircleLoader from "../../component/utils/CircleLoader";
 import PureBlock from "../../component/pureBlock";
 import {useState} from "react";
 import {UseAuthDataStateValue} from "../../context/AuthContext";
-import InputMask, {InputState} from "react-input-mask";
+import InputMask from "react-input-mask";
 import KitNumberModal from "../../component/base/conference/partials/testKitModal";
 import Card from "../../component/utils/Card";
 
@@ -18,21 +18,24 @@ export default function ConferenceJoinView() {
     const [isLinkExpired, setIsLinkExpired] = useState<boolean>(false)
 
     const handleKitNumberChange = (kitNumber: string) => {
-        setKitNumber(kitNumber);
+        setKitNumber(kitNumber)
     };
 
     const toggleKitNumberModal = () => {
-        setKitNumberModalView(!kitNumberModalView);
+        setKitNumberModalView(!kitNumberModalView)
     }
 
     const checkKitNumber = (value: string) => {
-        let maskValues = Array.from(value);
-        let pureNumber = maskValues.filter((char: string) => !isNaN(Number(char)) ? char : false);
-        if (pureNumber.length === 11) setJoinButtonState(true)
-        else setJoinButtonState(false);
+        let maskValues = Array.from(value)
+        let pureNumber = maskValues.filter((char: string) => !isNaN(Number(char)) ? char : false)
+        if (pureNumber.length === 11) {
+            setJoinButtonState(true)
+        } else {
+            setJoinButtonState(false)
+        }
     };
 
-    const beforeMaskedValueChange = (newState: InputState) => {
+    const beforeMaskedValueChange = (newState: any) => {
         let {value} = newState
         let selection = newState.selection
         let cursorPosition = selection ? selection.start : null
@@ -86,7 +89,7 @@ export default function ConferenceJoinView() {
                                     checkKitNumber(e.target.value);
                                 }
                                 }
-                                beforeMaskedValueChange={beforeMaskedValueChange}
+                                beforeMaskedStateChange={beforeMaskedValueChange}
                             >
                                 {(inputProps: {value: string; onChange: () => void}) => (
                                     <input
@@ -126,7 +129,7 @@ export default function ConferenceJoinView() {
                     <div className='card-wrapper'>
                         <Card>
                             <div className='card__media card__media_sm'>
-                                <Image src='/error-cross.svg' height={64} width={64}/>
+                                <Image src='/error-cross.svg' alt='kit number' height={64} width={64}/>
                             </div>
                             <div className='card__content'>
                                 <h4 className='card__content-title'>Sign-in Link has Expired</h4>

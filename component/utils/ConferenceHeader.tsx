@@ -43,7 +43,7 @@ const ConferenceHeader = () => {
                     className='button conference-header__items-button conference-header__chat-button'
                     onClick={openMobileChat}
                 >
-                    <Image src='/chat-icon.svg'width={24} height={24}/>
+                    <Image src='/chat-icon.svg' alt='open chat' width={24} height={24}/>
                 </button>
             </div>
             {confDataState.chatVisibility && <MobileChatView/>}
