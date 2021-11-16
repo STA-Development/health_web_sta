@@ -12,8 +12,6 @@ export default function VideoWrapper() {
                     <br/>
                     Health Professional is ready.
                 </p>
-                <br/>
-                <br/>
                 <p>Thank you for your patience!</p>
             </div>
         </div>

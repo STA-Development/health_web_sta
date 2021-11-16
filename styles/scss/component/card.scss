@@ -7,7 +7,7 @@
   position: relative;
   background-color: $fhhealth-color-white;
   border-radius: 8px;
-  border: solid 1px rgba(151, 151, 151, 0.25);
+  border: solid 1px $fhhealth-color-dark-gray-border;
   max-width: 515px;
 }
 
@@ -59,7 +59,7 @@
 }
 
 .card__button {
-  background-color: #27303a;
+  background-color: $fhhealth-color-black;
   color: $fhhealth-color-white;
   border-radius: 5px;
   font-size: 20px;

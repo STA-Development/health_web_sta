@@ -24,11 +24,11 @@ function MyApp({Component, pageProps}: AppProps) {
     const isInChat = useRouter().route.includes("room")
     const isPublic = currentPage === '/';
     const router = useRouter()
-    const { query, isReady } = useRouter()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const { isReady } = useRouter()
 
     useEffect(() => {
         const token = localStore(localStorage).getItem('accessToken')
+        const isAuthorized = token
         let decodedToken: decodedToken
         let isExpired
         if (token) {
@@ -36,14 +36,13 @@ function MyApp({Component, pageProps}: AppProps) {
             isExpired = decodedToken.exp * 1000 < new Date().getTime()
         }
         if (isReady) {
-            if (!isConference && (!localStore(localStorage).getItem('accessToken') && !isPublic) || (!isConference && isExpired && !isPublic)) {
+            if ((!isConference && !isAuthorized && !isPublic) || (!isConference && isExpired && !isPublic)) {
                 Router.push('/auth/login');
             }
             if (currentPage == '/' && router.asPath.indexOf('?')) {
                 Router.push('/results/list')
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPublic]);
 
     return (

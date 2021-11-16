@@ -18,18 +18,21 @@ export default function ConferenceJoinView() {
     const [isLinkExpired, setIsLinkExpired] = useState<boolean>(false)
 
     const handleKitNumberChange = (kitNumber: string) => {
-        setKitNumber(kitNumber);
+        setKitNumber(kitNumber)
     };
 
     const toggleKitNumberModal = () => {
-        setKitNumberModalView(!kitNumberModalView);
+        setKitNumberModalView(!kitNumberModalView)
     }
 
     const checkKitNumber = (value: string) => {
-        let maskValues = Array.from(value);
-        let pureNumber = maskValues.filter((char: string) => !isNaN(Number(char)) ? char : false);
-        if (pureNumber.length === 11) setJoinButtonState(true)
-        else setJoinButtonState(false);
+        let maskValues = Array.from(value)
+        let pureNumber = maskValues.filter((char: string) => !isNaN(Number(char)) ? char : false)
+        if (pureNumber.length === 11) {
+            setJoinButtonState(true)
+        } else {
+            setJoinButtonState(false)
+        }
     };
 
     const beforeMaskedValueChange = (newState: any) => {
@@ -126,7 +129,7 @@ export default function ConferenceJoinView() {
                     <div className='card-wrapper'>
                         <Card>
                             <div className='card__media'>
-                                <Image src='/error-cross.svg' height={64} width={64}/>
+                                <Image src='/error-cross.svg' alt='kit number' height={64} width={64}/>
                             </div>
                             <div className='card__content'>
                                 <h4 className='card__content-title'>Sign-in Link has Expired</h4>
