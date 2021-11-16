@@ -39,13 +39,13 @@ export default function ChatWrapper() {
                 <div className='messenger__footer'>
                     <div className='button messenger__footer-button'>
                         <label htmlFor='upload'>
-                            <Image src='/attach.svg' width={31} height={16}/>
+                            <Image src='/attach.svg' alt='upload' width={31} height={16}/>
                         </label>
                         <input type='file' id='upload'/>
                     </div>
                     <input className='input messenger__footer-input' placeholder='Send Message' type="text"/>
                     <div className='button messenger__footer-button'>
-                        <Image src='/send.svg' width={24} height={20}/>
+                        <Image src='/send.svg' alt='send' width={24} height={20}/>
                     </div>
                 </div>
             </div>

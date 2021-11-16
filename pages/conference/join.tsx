@@ -3,7 +3,7 @@ import CircleLoader from "../../component/utils/CircleLoader";
 import PureBlock from "../../component/pureBlock";
 import {useState} from "react";
 import {UseAuthDataStateValue} from "../../context/AuthContext";
-import InputMask, {InputState} from "react-input-mask";
+import InputMask from "react-input-mask";
 import KitNumberModal from "../../component/base/conference/partials/testKitModal";
 import Card from "../../component/utils/Card";
 
@@ -32,7 +32,7 @@ export default function ConferenceJoinView() {
         else setJoinButtonState(false);
     };
 
-    const beforeMaskedValueChange = (newState: InputState) => {
+    const beforeMaskedValueChange = (newState: any) => {
         let {value} = newState
         let selection = newState.selection
         let cursorPosition = selection ? selection.start : null
@@ -86,7 +86,7 @@ export default function ConferenceJoinView() {
                                     checkKitNumber(e.target.value);
                                 }
                                 }
-                                beforeMaskedValueChange={beforeMaskedValueChange}
+                                beforeMaskedStateChange={beforeMaskedValueChange}
                             >
                                 {(inputProps: {value: string; onChange: () => void}) => (
                                     <input
