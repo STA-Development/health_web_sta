@@ -20,3 +20,17 @@
     color: $fhhealth-color-light-gray-text;
   }
 }
+
+.video-wrapper__button {
+  width: 335px;
+  padding: 20px 0;
+  font-size: 20px;
+  max-width: 335px;
+  border-radius: 5px;
+  background-color: #202832;
+  color: $fhhealth-color-white;
+
+  &:active {
+    background-color: #323c48;
+  }
+}
