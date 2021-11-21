@@ -1,12 +1,28 @@
 import Image from "next/image"
 import {UseConfDataStateValue} from "../../../context/ConferenceContext";
+import Message from "./partials/message"
+import {useEffect, useState} from "react"
+import { IMessage, IQBMessage } from "../../../types/context/CnferenceContext"
 
 export default function ChatWrapper() {
 
-    const { setConfDataState } = UseConfDataStateValue()
+    const { confDataState, setConfDataState } = UseConfDataStateValue()
+    const [messages, setMessages] = useState<IMessage[]>([]);
+
+    useEffect(() => {
+        const shortenedMessage = confDataState.messages.map((messageData: IQBMessage) => {
+            return {
+                senderId: messageData.sender_id,
+                date: messageData.created_at,
+                message: messageData.message
+            }
+        })
+        setMessages([...shortenedMessage])
+    }, [confDataState.messages])
 
     const closeMobileChat = () => {
         setConfDataState({
+            ...confDataState,
             chatVisibility: false
         })
     }
@@ -34,7 +50,12 @@ export default function ChatWrapper() {
                     </button>
                 </div>
                 <div className='messenger__body'>
-
+                    {messages.map((message: any) => (
+                      <Message
+                        key={Math.random()}
+                        messageInfo={message}
+                      />
+                    ))}
                 </div>
                 <div className='messenger__footer'>
                     <div className='button messenger__footer-button'>

@@ -1,0 +1,35 @@
+.message {
+  display: flex;
+  margin: 20px 0 12px;
+
+  &_me {
+    justify-content: flex-end;
+
+    .message__text_me {
+      background-color: $fhhealth-color-carcass-border;
+      color: $fhhealth-color-black;
+    }
+
+    .message__date {
+      right: 0;
+    }
+  }
+}
+
+.message__body {
+  display: flex;
+  flex-direction: column;
+}
+
+.message_date {
+  margin-bottom: 20px;
+}
+
+.message__text {
+  font-size: 17px;
+  line-height: 22px;
+  color: $fhhealth-color-white;
+  padding: 2px 12px;
+  border-radius: 18px;
+  background-color: $fhhealth-color-black;
+}
