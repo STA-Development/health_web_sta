@@ -6,6 +6,7 @@ import {UseAuthDataStateValue} from "../../context/AuthContext";
 import InputMask from "react-input-mask";
 import KitNumberModal from "../../component/base/conference/partials/testKitModal";
 import Card from "../../component/utils/Card";
+import PermissionsModal from "../../component/base/conference/partials/permissionsModal"
 
 export default function ConferenceJoinView() {
     const [kitNumber, setKitNumber] = useState<string>("")
@@ -63,6 +64,7 @@ export default function ConferenceJoinView() {
                     closeModal={setKitNumberModalView}
                 />
             }
+            <PermissionsModal/>
             <div className='pure-block-wrapper'>
                 {!isLinkExpired ? (
                     <PureBlock flow={true}>
