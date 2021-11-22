@@ -14,7 +14,7 @@
   "dependencies": {
     "@types/react-input-mask": "^3.0.1",
     "@zeit/next-sass": "^1.0.1",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "cypress": "^8.7.0",
     "dotenv": "^10.0.0",
     "firebase": "^8.4.3",
@@ -35,7 +35,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-next": "12.0.1",
+    "eslint-config-next": "12.0.4",
     "eslint-config-prettier": "^8.2.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
