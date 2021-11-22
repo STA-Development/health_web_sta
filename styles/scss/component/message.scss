@@ -5,9 +5,11 @@
   &_me {
     justify-content: flex-end;
 
-    .message__text_me {
+    .message__text {
       background-color: $fhhealth-color-carcass-border;
       color: $fhhealth-color-black;
+      border-bottom-right-radius: unset;
+      border-bottom-left-radius: 18px;
     }
 
     .message__date {
@@ -29,7 +31,8 @@
   font-size: 17px;
   line-height: 22px;
   color: $fhhealth-color-white;
-  padding: 2px 12px;
+  padding: 8px 14px;
   border-radius: 18px;
+  border-bottom-left-radius: unset;
   background-color: $fhhealth-color-black;
 }

@@ -1,24 +1,14 @@
-import Image from "next/image"
-import {UseConfDataStateValue} from "../../../context/ConferenceContext";
-import Message from "./partials/message"
 import {useEffect, useState} from "react"
+// @ts-ignore
+import * as QB from "quickblox/quickblox"
+import Image from "next/image"
+import {UseConfDataStateValue} from "../../../context/ConferenceContext"
+import Message from "./partials/message"
 import { IMessage, IQBMessage } from "../../../types/context/CnferenceContext"
 
 export default function ChatWrapper() {
-
     const { confDataState, setConfDataState } = UseConfDataStateValue()
-    const [messages, setMessages] = useState<IMessage[]>([]);
-
-    useEffect(() => {
-        const shortenedMessage = confDataState.messages.map((messageData: IQBMessage) => {
-            return {
-                senderId: messageData.sender_id,
-                date: messageData.created_at,
-                message: messageData.message
-            }
-        })
-        setMessages([...shortenedMessage])
-    }, [confDataState.messages])
+    const [messages, setMessages] = useState<IMessage[]>([])
 
     const closeMobileChat = () => {
         setConfDataState({
@@ -26,6 +16,17 @@ export default function ChatWrapper() {
             chatVisibility: false
         })
     }
+
+    useEffect(() => {
+        const shortenedMessages = confDataState.messages?.map((messageData: IQBMessage) => {
+            return {
+                senderId: messageData.sender_id,
+                date: messageData.created_at,
+                message: messageData.message
+            }
+        })
+        setMessages([...shortenedMessages])
+    }, [confDataState.messages])
 
     return (
         <div className='chat-wrapper'>
@@ -50,7 +51,7 @@ export default function ChatWrapper() {
                     </button>
                 </div>
                 <div className='messenger__body'>
-                    {messages.map((message: any) => (
+                    {messages?.map((message: IMessage) => (
                       <Message
                         key={Math.random()}
                         messageInfo={message}

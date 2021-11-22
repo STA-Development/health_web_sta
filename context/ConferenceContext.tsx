@@ -1,7 +1,7 @@
-import React, {createContext, useContext, useEffect, useState} from "react"
+import React, {createContext, useContext, useState} from "react"
 // @ts-ignore
 import * as QB from "quickblox/quickblox"
-import {IConfState, IQBMessage} from "../types/context/CnferenceContext"
+import {IConfState} from "../types/context/CnferenceContext"
 
 const initialState: IConfState = {
     chatVisibility: false,

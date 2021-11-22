@@ -9,10 +9,10 @@ import {IQBMessage} from "../../types/context/CnferenceContext"
 
 export default function ConferenceRoomView() {
   const { confDataState, setConfDataState } = UseConfDataStateValue()
-  const dialogId = '618d82f02878560035338175'
-  const sessionToken = '3db4847ec9214ad348a03ddc9bac60b52200002b'
+  const dialogId = '616708512878560019334225'
+  const sessionToken = '91bed4578a7622cd4b9432c3a895a428b200002b'
 
-  const getSession = async () => {
+  const getSession = () => {
     QB.getSession(function(error: object, { session }: { session: { user_id: number } }) {
       if (error) {
         console.log(error)
@@ -28,7 +28,7 @@ export default function ConferenceRoomView() {
   const getMessagesList = () => {
     const chatParams = {
       chat_dialog_id: dialogId,
-      limit: 30,
+      limit: 0,
       mark_as_read: 0,
       skip: 0,
       sort_asc: 'date_sent'
@@ -55,29 +55,12 @@ export default function ConferenceRoomView() {
   useEffect(() => {
     QB.init(sessionToken, parseInt(`${process.env.QB_APP_ID}`), null, process.env.QB_ACCOUNT_KEY, QBConfig)
     getSession()
-
-    // const chatParams = {
-    //   chat_dialog_id: dialogId,
-    //   limit: 30,
-    //   mark_as_read: 0,
-    //   skip: 0,
-    //   sort_asc: 'date_sent'
-    // }
-    //
-    // QB.chat.message.list(chatParams, function(error: object, messages: object) {
-    //   if (error) {
-    //     console.log(error)
-    //   } else {
-    //     console.log(messages)
-    //   }
-    // });
-
   }, [])
 
   return (
       <div className='conference-wrapper'>
           <VideoWrapper/>
-          <ChatWrapper/>
+          <ChatWrapper />
       </div>
   )
 }
