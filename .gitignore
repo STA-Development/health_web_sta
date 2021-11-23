@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+.idea
 
 # testing
 /coverage
@@ -35,3 +36,7 @@ yarn-error.log*
 # vercel
 .vercel
 dist/
+
+#cypress
+/cypress/screenshots
+/cypress/videos

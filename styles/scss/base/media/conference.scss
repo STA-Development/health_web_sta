@@ -1,0 +1,72 @@
+@media (max-width: $fhhealth-media-sm) {
+  .conference-header {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .conference-header__logo {
+    margin: auto;
+  }
+
+  .lang-switcher,
+  .conference-header__logout,
+  .messenger__header,
+  .chat-wrapper__kit-info {
+    display: none;
+  }
+
+  .conference-header__logout_mobile,
+  .conference-header__chat-button {
+    display: block;
+  }
+
+  .messenger__header_mobile {
+    display: flex;
+    align-items: center;
+  }
+
+  .video-wrapper {
+    width: 100%;
+    display: block;
+  }
+
+  .video-wrapper__content {
+    max-height: 318px;
+    margin: 108px auto auto;
+
+    h4 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 17px;
+
+      &:last-child {
+        margin-top: 32px;
+      }
+    }
+  }
+
+  .chat-wrapper {
+    display: none;
+    width: 100%;
+  }
+
+  .mobile-chat {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+
+    .chat-wrapper {
+      display: block;
+      height: 100%;
+    }
+
+    .messenger {
+      height: 100%;
+    }
+  }
+}
