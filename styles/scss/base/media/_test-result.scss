@@ -2,6 +2,12 @@
   .web-portal-results {
     padding: 0 16px;
     margin: 50px auto 50px;
+    .single-result {
+      .left {
+        line-height: 18px;
+        align-items: center;
+      }
+    }
   }
 
   .test-result-wrapper {
