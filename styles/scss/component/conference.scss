@@ -1,0 +1,10 @@
+.conference-wrapper {
+  display: flex;
+  height: 100%;
+}
+
+.conference-header__chat-button,
+.conference-header__logout_mobile,
+.messenger__header_mobile {
+  display: none;
+}

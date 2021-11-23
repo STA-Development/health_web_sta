@@ -1,0 +1,67 @@
+.card-wrapper {
+  display: block;
+  text-align: center;
+}
+
+.card {
+  position: relative;
+  background-color: $fhhealth-color-white;
+  border-radius: 8px;
+  border: solid 1px $fhhealth-color-dark-gray-border;
+  max-width: 515px;
+}
+
+.card__body {
+  display: flex;
+  flex-direction: column;
+  padding: 68px 48px 48px;
+}
+
+.card__close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+
+.card__media {
+  border-radius: 5px;
+  text-align: center;
+
+  &_with-bg {
+    background-color: $fhhealth-color-grey-bg;
+  }
+
+  img {
+    object-fit: contain;
+  }
+}
+
+.card__content {
+  text-align: center;
+  margin-top: 32px;
+  margin-bottom: 48px;
+}
+
+.card__content-title {
+  font-size: 24px;
+  margin-bottom: 12px;
+  color: $fhhealth-color-dark-black;
+}
+
+.card__content-message, .card-wrapper__message {
+  font-size: 17px;
+  line-height: 1.29;
+  color: $fhhealth-color-light-gray-text;
+}
+
+.card-wrapper__message {
+  margin-top: 48px;
+}
+
+.card__button {
+  background-color: $fhhealth-color-black;
+  color: $fhhealth-color-white;
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 16px 0;
+}

@@ -16,6 +16,11 @@
 @import "component/web-portal-results";
 @import "component/pure-block";
 @import "component/notification";
+@import "component/card";
+@import "component/conference-header";
+@import "component/conference";
+@import "component/video-wrapper";
+@import "component/chat-wrapper";
 @import "base/media/carcass";
 @import "base/media/pcr-analysis-data";
 @import "base/media/header";
@@ -28,3 +33,4 @@
 @import "base/media/antibody-analysis-data";
 @import "base/media/login-view";
 @import "base/media/notification";
+@import "base/media/conference";
