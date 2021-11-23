@@ -1,3 +1,9 @@
 @media (max-width: $fhhealth-media-sm) {
-  
+  .main-footer {
+    text-align: left;
+    justify-content: normal;
+    div {
+      margin-left: 16px;
+    }
+  }
 }
