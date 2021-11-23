@@ -65,18 +65,18 @@
     background-color: $fhhealth-color-red-btn;
   }
   &__negative {
-    background: rgba(82, 193, 124, 0.6);
+    background: $fhhealth-color-green-btn;
   }
   &__positive {
-    background-color: rgba(255, 57, 77, 0.6);
+    background-color: $fhhealth-color-danger;
   }
   &__inconclusive {
-    background-color: #549eec;
+    background-color: $fhhealth-color-dark-blue-bg;
   }
   &__indeterminate {
-    background-color: #549eec;
+    background-color: $fhhealth-color-dark-blue-bg;
   }
   &__invalid {
-    background-color: #549eec;
+    background-color: $fhhealth-color-dark-blue-bg;
   }
 }

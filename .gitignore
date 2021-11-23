@@ -35,3 +35,10 @@ yarn-error.log*
 # vercel
 .vercel
 dist/
+
+#webstorm
+.idea
+
+#cypress
+/cypress/screenshots
+/cypress/videos
