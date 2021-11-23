@@ -16,6 +16,7 @@ export default function ConferenceJoinView() {
     const [warningMessage, setWarningMessage] = useState<string>("")
     const [joinButtonState, setJoinButtonState] = useState<boolean>(false)
     const [kitNumberModalView, setKitNumberModalView] = useState<boolean>(false)
+    const [isMediaModalAvailable, setIsMediaModalAvailable] = useState<boolean>(true)
     const [isLinkExpired, setIsLinkExpired] = useState<boolean>(false)
 
     const handleKitNumberChange = (kitNumber: string) => {
@@ -24,6 +25,10 @@ export default function ConferenceJoinView() {
 
     const toggleKitNumberModal = () => {
         setKitNumberModalView(!kitNumberModalView)
+    }
+
+    const closeMediaModal = () => {
+        setIsMediaModalAvailable(false)
     }
 
     const checkKitNumber = (value: string) => {
@@ -64,7 +69,7 @@ export default function ConferenceJoinView() {
                     closeModal={setKitNumberModalView}
                 />
             }
-            <PermissionsModal/>
+            { isMediaModalAvailable && <PermissionsModal closeModal={closeMediaModal}/>}
             <div className='pure-block-wrapper'>
                 {!isLinkExpired ? (
                     <PureBlock flow={true}>

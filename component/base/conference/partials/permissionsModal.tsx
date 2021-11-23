@@ -8,7 +8,7 @@ interface IMediaTypes {
   audio: boolean,
   video: boolean
 }
-export default function PermissionsModal() {
+export default function PermissionsModal(props: {closeModal: () => void}) {
   const [checkedItems, setCheckedItems] = useState<IMediaTypes>({
     audio: false, video: false
   })
@@ -18,6 +18,18 @@ export default function PermissionsModal() {
     } else {
       setCheckedItems({...checkedItems, audio: !checkedItems.audio})
     }
+  }
+
+  const handleMediaAcceptance = () => {
+    navigator.getUserMedia({
+      audio: true,
+      video: true
+    }, function(stream) {
+      stream.getTracks().forEach(x => x.stop());
+      if(stream.id) {
+        props.closeModal()
+      }
+    }, err => console.log(err));
   }
 
   return (
@@ -45,7 +57,7 @@ export default function PermissionsModal() {
             <div className={`checkbox-circle ${checkedItems.audio ? 'checkbox-circle_active' : ''}`} onClick={() => updateMediaCheckboxValue("audio")}/>
           </div>
         </div>
-        <button className={`button card__button ${doesObjectContainFalsyValue(checkedItems) ? 'button_disabled' : ''}`}>
+        <button className={`button card__button ${doesObjectContainFalsyValue(checkedItems) ? 'button_disabled' : ''}`} onClick={handleMediaAcceptance}>
           Return to Waiting Room
         </button>
       </Card>
