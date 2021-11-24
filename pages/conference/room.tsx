@@ -31,7 +31,6 @@ export default function ConferenceRoomView() {
   }
 
   const getSession = () => {
-    console.log(userToken)
     QB.init(userToken, parseInt(`${process.env.QB_APP_ID}`), null, process.env.QB_ACCOUNT_KEY, QBConfig)
     QB.getSession(function(error: object, { session }: { session: { user_id: number } }) {
       if (error) {
