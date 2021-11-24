@@ -1,4 +1,4 @@
-export default function ConferenceFinalView({ returnHome }: {returnHome?: any}) {
+export default function ConferenceFinalView({ returnHome }: {returnHome?: () => void}) {
 
   return (
     <div className='video-wrapper'>
