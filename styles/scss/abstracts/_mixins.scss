@@ -1,0 +1,38 @@
+@mixin setBorder($width, $color) {
+  border: $width solid $color;
+}
+
+@mixin setDisplay($display, $content, $items, $direction: unset) {
+  display: $display;
+  justify-content: $content;
+  align-items: $items;
+  flex-direction: $direction;
+}
+
+@mixin setPosition($position, $top, $bottom, $left, $right) {
+  position: $position;
+  top: $top;
+  bottom: $bottom;
+  left: $left;
+  right: $right;
+}
+
+@mixin setFontAppearance($family, $weight, $style, $stretch) {
+  font-family: $family;
+  font-weight: $weight;
+  font-style: $style;
+  font-stretch: $stretch;
+}
+
+@mixin setFontSizes($size, $height, $spacing) {
+  font-size: $size;
+  line-height: $height;
+  letter-spacing: $spacing;
+}
+
+@mixin setElementSize($width, $height) {
+  width: $width;
+  height: $height;
+  max-width: $width;
+  max-height: $height;
+}

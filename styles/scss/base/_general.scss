@@ -1,3 +1,5 @@
+@import '../abstracts/_mixins.scss';
+
 html,
 body {
   font-family: $fhhealth-font-DM-regular;
@@ -7,9 +9,8 @@ body {
 }
 
 #__next {
+  @include setDisplay(flex, unset, unset, column);
   height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 .main-content {
@@ -46,8 +47,6 @@ a {
 }
 
 .arrow-icon {
-  width: 0;
-  height: 0;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   border-top: 6px solid #302e2f;
@@ -58,9 +57,7 @@ a {
 }
 
 .modal {
-  position: absolute;
-  top: 0;
-  left: 0;
+  @include setPosition(absolute, 0, unset, 0, unset);
   height: 100%;
   width: 100%;
   background-color: $fhhealth-color-dark-grey-bg;
@@ -68,9 +65,7 @@ a {
 }
 
 .modal__content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include setDisplay(flex, center, center);
   height: 100%;
   width: 100%;
 }
@@ -78,4 +73,8 @@ a {
 .em-link {
   color: $fhhealth-color-orange;
   text-decoration: underline;
+}
+
+.grecaptcha-badge {
+  display: none;
 }
