@@ -1,3 +1,5 @@
+@import '../abstracts/mixins';
+
 .message {
   display: flex;
   margin: 20px 0 12px;
@@ -24,9 +26,7 @@
 }
 
 .message__body {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  @include setDisplay(flex, unset, flex-start, column);
 }
 
 .message_date {
@@ -34,8 +34,7 @@
 }
 
 .message__text {
-  font-size: 17px;
-  line-height: 22px;
+  @include setFontSizes(17px, 22px, unset);
   color: $fhhealth-color-white;
   padding: 8px 14px;
   border-radius: 18px;

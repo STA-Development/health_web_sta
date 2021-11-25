@@ -1,6 +1,7 @@
+@import '../abstracts/mixins';
+
 .footer-wrapper {
-  font-stretch: normal;
-  font-style: normal;
+  @include setFontAppearance(unset, unset, normal, normal);
   .important-information {
     padding: 24px;
     width: 88%;
@@ -10,36 +11,29 @@
       }
     }
     &__title{
-      font-family: $fhhealth-font-SF-medium;
-      font-size: 22px;
-      line-height: 1.27;
-      letter-spacing: normal;
+      @include setFontAppearance($fhhealth-font-SF-medium, unset, normal, normal);
+      @include setFontSizes(22px, 1.27, normal);
       color: $fhhealth-color-dark-black;
       margin-bottom: 18px;
     }
     &__description {
-      font-family: $fhhealth-font-DM-regular;
-      font-size: 15px;
-      line-height: normal;
-      letter-spacing: -0.24px;
+      @include setFontAppearance($fhhealth-font-DM-regular, unset, normal, normal);
+      @include setFontSizes(15px, -0.24, normal);
       color: $fhhealth-color-dark-black;
     }
   }
   .doctor-info {
+    @include setDisplay(flex, unset, center);
     margin-top: 30px;
-    display: flex;
-    align-items: center;
     border-bottom: solid 1px $fhhealth-color-solid-border;
     padding-bottom: 20px;
     &__signature {
       margin-left: 24px;
     }
     &__title {
-      font-family: $fhhealth-font-PT-bold;
-      width:160px;
-      font-size: 14px;
-      line-height: normal;
-      letter-spacing: normal;
+      @include setFontAppearance($fhhealth-font-PT-bold, unset, normal, normal);
+      @include setFontSizes(14px, normal, normal);
+      @include setElementSize(160px, auto);
       color: $fhhealth-color-black;
       padding-left: 20px;
       padding-top: 20px;
@@ -50,17 +44,13 @@
     width: 88%;
     color: $fhhealth-color-light-black;
     h4 {
-      font-family: $fhhealth-font-SF-medium;
-      font-size: 22px;
-      line-height: 1.27;
-      letter-spacing: normal;
+      @include setFontAppearance($fhhealth-font-SF-medium, unset, normal, normal);
+      @include setFontSizes(22px, 1.27, normal);
       margin-bottom: 8px;
     }
     .content {
-      font-family: $fhhealth-font-DM-regular;
-      font-size: 10px;
-      line-height: normal;
-      letter-spacing: -0.16px;
+      @include setFontAppearance($fhhealth-font-DM-regular, unset, normal, normal);
+      @include setFontSizes(10px, -0.16px, normal);
     }
     .content:last-child {
       margin-top: 16px;
