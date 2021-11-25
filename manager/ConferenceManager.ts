@@ -1,15 +1,18 @@
 import { Axios } from "./AxiosInstance"
-import {AxiosResponse} from "axios"
 
 const conferenceManager = {
-  getWaitingToken(captchaToken?: string, kitCode?: string) {
+  getWaitingToken(captchaToken: string, kitCode: string, appointmentToken: string) {
     return Axios({
       token: captchaToken,
-      baseURL: process.env.SCHEDULE_BASE_URL
-    }).get(`/scheduling/api/public/v1/kit-codes/${kitCode}`)
+      baseURL: process.env.SCHEDULE_BASE_URL,
+    }).get(`/scheduling/api/public/v1/kit-codes/${kitCode}`, {
+      headers: {
+        'appointment-id': appointmentToken
+      },
+    })
   },
 
-  getConferenceCredentials(waitingToken: AxiosResponse<string>) {
+  joinToDialog(waitingToken: string) {
     return Axios({
       baseURL: process.env.SCHEDULE_BASE_URL
     }).put('/scheduling/api/public/v1/appointment/waiting', {

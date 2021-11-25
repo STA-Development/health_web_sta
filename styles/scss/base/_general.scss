@@ -79,3 +79,14 @@ a {
   color: $fhhealth-color-orange;
   text-decoration: underline;
 }
+
+.grecaptcha-badge {
+  display: none;
+}
+
+.wrong-kit-code {
+  margin-top: 8px;
+  font-size: 14px;
+  color: $fhhealth-color-danger;
+  line-height: 1.4;
+}
