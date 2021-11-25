@@ -1,14 +1,16 @@
 import Image from "next/image"
 import CircleLoader from "../../component/utils/CircleLoader"
 import PureBlock from "../../component/pureBlock"
-import {useState} from "react"
-import KitNumberModal from "../../component/base/conference/partials/testKitModal"
-import Card from "../../component/utils/Card"
-import ReactCodeInput from "react-verification-code-input"
+import {useEffect, useState} from "react"
 import {useRouter} from "next/router"
+import ReactCodeInput from "react-verification-code-input"
 import {load, ReCaptchaInstance} from "recaptcha-v3"
 import conferenceManager from "../../manager/ConferenceManager"
 import {UseConfDataStateValue} from "../../context/ConferenceContext"
+import PermissionsModal from "../../component/base/conference/partials/permissionsModal"
+import {checkMediaDevicePermissions} from "../../utils/mediaPermissions"
+import KitNumberModal from "../../component/base/conference/partials/testKitModal"
+import Card from "../../component/utils/Card"
 
 export default function ConferenceJoinView() {
   const [kitNumber, setKitNumber] = useState<string>("")
@@ -17,6 +19,7 @@ export default function ConferenceJoinView() {
   const [joinButtonState, setJoinButtonState] = useState<boolean>(false)
   const [kitNumberModalView, setKitNumberModalView] = useState<boolean>(false)
   //TODO: We Should have one more endpoint for checking current appointmentToken expiration
+  const [isMediaModalAvailable, setIsMediaModalAvailable] = useState<boolean>(false)
   const [isLinkExpired, setIsLinkExpired] = useState<boolean>(false)
   const {confDataState, setConfDataState} = UseConfDataStateValue()
 
@@ -32,6 +35,9 @@ export default function ConferenceJoinView() {
     setKitNumberModalView(!kitNumberModalView)
   }
 
+  const closeMediaModal = () => {
+    setIsMediaModalAvailable(false)
+  }
   const checkKitNumber = (value: string) => {
     if (value.length === 6) {
       setJoinButtonState(true)
@@ -52,10 +58,10 @@ export default function ConferenceJoinView() {
   }
 
   const handleJoinClick = async () => {
-    setLoading(true);
+    setLoading(true)
     const captchaToken = await getRecaptcha()
     try {
-      if(captchaToken && kitNumber && appointmentToken) {
+      if (captchaToken && kitNumber && appointmentToken) {
         const result = await conferenceManager.getWaitingToken(captchaToken, kitNumber, appointmentToken as string)
         const waitingToken = result.data.data.waitingToken
         setConfDataState({
@@ -68,18 +74,25 @@ export default function ConferenceJoinView() {
           response: {
             data: {
               status: {
-                message: "Some Data was missed"
-              }
-            }
-          }
-        };
+                message: "Some Data was missed",
+              },
+            },
+          },
+        }
       }
     } catch (err) {
       setWarningMessage(err?.response?.data?.status?.message ? err?.response?.data?.status?.message : "Something Went Wrong")
     }
-    setLoading(false);
+    setLoading(false)
   }
 
+  useEffect(() => {
+    (async () => {
+      if (!await checkMediaDevicePermissions()) {
+        setIsMediaModalAvailable(true)
+      }
+    })()
+  }, [])
   return (
     <>
       {
@@ -88,7 +101,7 @@ export default function ConferenceJoinView() {
           visibility={kitNumberModalView}
           closeModal={setKitNumberModalView}
         />
-      }
+      }{isMediaModalAvailable && <PermissionsModal closeModal={closeMediaModal} />}
       <div className="pure-block-wrapper">
         {!isLinkExpired ? (
           <PureBlock flow={true}>

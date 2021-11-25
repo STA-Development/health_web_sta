@@ -80,6 +80,10 @@ a {
   text-decoration: underline;
 }
 
+.button_disabled {
+  background-color: $fhhealth-color-light-gray-text !important;
+  pointer-events: none !important;
+}
 .grecaptcha-badge {
   display: none;
 }
