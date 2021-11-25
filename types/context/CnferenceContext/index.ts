@@ -1,7 +1,8 @@
 export interface IConfState {
   chatVisibility: boolean,
   messages: IQBMessage[],
-  myPersonalId: number
+  myPersonalId: number,
+  waitingToken: string,
 }
 
 export interface IMessage {

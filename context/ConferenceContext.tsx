@@ -6,7 +6,8 @@ import {IConfState} from "../types/context/CnferenceContext"
 const initialState: IConfState = {
     chatVisibility: false,
     messages: [],
-    myPersonalId: 0
+    myPersonalId: 0,
+    waitingToken: "",
 }
 
 const initialConfContext: {

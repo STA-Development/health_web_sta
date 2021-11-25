@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, {FormEvent, useEffect, useState} from "react"
 // @ts-ignore
 import * as QB from "quickblox/quickblox"
 import Image from "next/image"
@@ -21,6 +21,11 @@ export default function ChatWrapper({ getMessageValue, sendMessage, messageToSen
             ...confDataState,
             chatVisibility: false
         })
+    }
+
+    const handleSendMessage = (event: FormEvent) => {
+        event.preventDefault()
+        sendMessage()
     }
 
     useEffect(() => {
@@ -65,7 +70,7 @@ export default function ChatWrapper({ getMessageValue, sendMessage, messageToSen
                   ))}
               </div>
               <div className='messenger__footer'>
-                  <form onSubmit={sendMessage}>
+                  <form onSubmit={handleSendMessage}>
                       <div className='button messenger__footer-button'>
                           <label htmlFor='upload'>
                               <Image src='/attach.svg' alt='upload' width={31} height={16}/>
