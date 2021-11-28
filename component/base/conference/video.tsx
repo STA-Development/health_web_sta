@@ -6,6 +6,7 @@ import NetworkConnectionLost from "./partials/networkConnectionLost";
 export default function VideoWrapper() {
     const condition = useNetworkState()
     const [isOnline, setIsOnline] = useState(true)
+    const [isConference, setIsConference] = useState(true)
 
     const retryConnecting = () => {
         if (condition.online) setIsOnline(true)
@@ -19,20 +20,28 @@ export default function VideoWrapper() {
 
     return (
         <>
-            {isOnline ? (
+            {isOnline && (
                 <div className='video-wrapper'>
-                    <div className='video-wrapper__content'>
-                        <RippleLoader/>
-                        <h4>You are in the waiting room</h4>
-                        <p>
-                            Your call will being as soon as the
-                            <br/>
-                            Health Professional is ready.
-                        </p>
-                        <p>Thank you for your patience!</p>
-                    </div>
+                    {isConference ? (
+                      <>
+                          <video id="videoStream"/>
+                          <video id="myVideoStream"/>
+                      </>
+                    ) : (
+                      <div className='video-wrapper__content'>
+                          <RippleLoader/>
+                          <h4>You are in the waiting room</h4>
+                          <p>
+                              Your call will being as soon as the
+                              <br/>
+                              Health Professional is ready.
+                          </p>
+                          <p>Thank you for your patience!</p>
+                      </div>
+                    )}
                 </div>
-            ) : <NetworkConnectionLost retry={retryConnecting}/>}
+            )}
+            {!isOnline && <NetworkConnectionLost retry={retryConnecting}/>}
         </>
     )
 }

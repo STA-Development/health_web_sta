@@ -3,10 +3,12 @@ import VideoWrapper from "../../component/base/conference/video"
 import ChatWrapper from "../../component/base/conference/chat"
 // @ts-ignore
 import * as QB from "quickblox/quickblox.js"
+import QBVideoConferencingClient from "../../utils/quickblox/quickblox-multiparty-video-conferencing-client-0.8.8.min"
 import {QBConfig} from "../../utils/quickblox/config"
 import {UseConfDataStateValue} from "../../context/ConferenceContext"
 import {IQBMessage} from "../../types/context/CnferenceContext"
 import conferenceManager from "../../manager/ConferenceManager"
+import Script from "next/script"
 
 export default function ConferenceRoomView() {
   const {confDataState, setConfDataState} = UseConfDataStateValue()
@@ -121,6 +123,63 @@ export default function ConferenceRoomView() {
       console.log(err)
     }
   }
+
+  function QBClient() {
+    const config = {
+      server: ""
+    }
+    const client = new QBVideoConferencingClient(config)
+    console.log(client, "CLIENT")
+
+    client
+      .createSession()
+      .then(() => {
+        console.log("SESSION CREATED")
+      })
+      .catch((error: object) => {
+        if (error) {
+          console.error(error, "SESSION ERROR")
+        }
+      });
+  }
+  const startVideoCall = () => {
+    /*const calleesIds = [4104]
+    const sessionType = QB.webrtc.CallType.VIDEO
+    const callSession = QB.webrtc.createNewSession(calleesIds, sessionType, null, null)
+
+    const mediaParams = {
+      audio: true,
+      video: true,
+      options: {
+        muted: true,
+        mirror: true,
+      },
+      elemId: "myVideoStream"
+    }
+
+    callSession.getUserMedia(mediaParams, function (error: object, stream: object) {
+      if (error) {
+        console.error(error, "VIDEO ERROR")
+      } else {
+        const extension = {}
+        callSession.call(extension, function (error: object) {
+          if (error) {
+            console.error(error, "CALL ERROR")
+          } else {
+            console.log(callSession, "CURRENT SESSION")
+          }
+        })
+        // QB.webrtc.onAcceptCallListener = function(session: any, userId: number, extension: object) {
+        //   console.log("ACCEPTED")
+        // }
+        QB.webrtc.onRemoteStreamListener = function(session: any, userID: number, remoteStream: object) {
+          console.log("REMOTE LISTENER")
+          callSession.attachMediaStream("videoStream", remoteStream);
+        }
+      }
+    })*/
+  }
+
   useEffect(() => {
     (async () => {
       if (confDataState.waitingToken.length) {
@@ -133,6 +192,8 @@ export default function ConferenceRoomView() {
     if (QB.chat) {
       connectToChat()
       getMessagesList()
+      startVideoCall()
+      QBClient()
     }
   }, [confDataState.myPersonalId])
 
@@ -150,6 +211,7 @@ export default function ConferenceRoomView() {
         sendMessage={sendMessage}
         messageToSend={messageToSend}
       />
+      <Script src="https://webrtc.github.io/adapter/adapter-latest.js"/>
     </div>
   )
 }
