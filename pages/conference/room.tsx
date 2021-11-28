@@ -3,18 +3,17 @@ import VideoWrapper from "../../component/base/conference/video"
 import ChatWrapper from "../../component/base/conference/chat"
 // @ts-ignore
 import * as QB from "quickblox/quickblox.js"
-import QBVideoConferencingClient from "../../utils/quickblox/quickblox-multiparty-video-conferencing-client-0.8.8.min"
 import {QBConfig} from "../../utils/quickblox/config"
 import {UseConfDataStateValue} from "../../context/ConferenceContext"
 import {IQBMessage} from "../../types/context/CnferenceContext"
 import conferenceManager from "../../manager/ConferenceManager"
-import Script from "next/script"
 
 export default function ConferenceRoomView() {
   const {confDataState, setConfDataState} = UseConfDataStateValue()
   const [dialogId, setDialogId] = useState<string>("")
   const [userToken, setUserToken] = useState<string>("")
   const [messageToSend, setMessageToSend] = useState<string>("")
+  const [isConference, setIsConference] = useState(false)
 
   const getMessageValue = (value: string) => {
     setMessageToSend(value)
@@ -24,7 +23,7 @@ export default function ConferenceRoomView() {
     QB.init(userToken, parseInt(`${process.env.QB_APP_ID}`), null, process.env.QB_ACCOUNT_KEY, QBConfig)
     QB.getSession(function(error: object, {session}: {session: {user_id: number}}) {
       if (error) {
-        console.log(error)
+        console.error(error)
       } else {
         setConfDataState({
           ...confDataState,
@@ -44,30 +43,28 @@ export default function ConferenceRoomView() {
 
     QB.chat.connect(userCredentials, function(error: object, contactList: object) {
       if (error) {
-        console.log(error)
+        console.error(error)
       } else {
-        console.log(contactList)
+        console.info(contactList)
       }
       try {
         QB.chat.muc.join(dialogJid, function(error2: string, result2: string) {
-          console.log("JOINED ", result2, error2)
+          console.info("JOINED ", result2, error2)
         })
       } catch (e) {
         if (e.name === "ChatNotConnectedError") {
-          console.log("CHAT NOT CONNECTED")
+          console.info("CHAT NOT CONNECTED")
         }
       }
 
-      function onMessage(userId: number, message: {body: string}) {
+      QB.chat.onMessageListener = function (userId: number, message: {body: string}) {
         getMessagesList()
-        console.log(message, "UPCOMING MESSAGE")
+        console.info(message, "UPCOMING MESSAGE")
       }
-
-      QB.chat.onMessageListener = onMessage
     })
 
     QB.chat.onDisconnectedListener = () => {
-      console.log("CHAT DISCONECTED")
+      console.info("CHAT DISCONECTED")
     }
   }
 
@@ -89,7 +86,7 @@ export default function ConferenceRoomView() {
       getMessagesList()
     } catch (e) {
       if (e.name === "ChatNotConnectedError") {
-        console.log(e, "ON_SEND_ERROR")
+        console.error(e, "ON_SEND_ERROR")
       }
     }
   }
@@ -120,33 +117,11 @@ export default function ConferenceRoomView() {
       setDialogId(confCredentials.data.data.dialogId)
       setUserToken(confCredentials.data.data.userToken)
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 
-  function QBClient() {
-    const config = {
-      server: ""
-    }
-    const client = new QBVideoConferencingClient(config)
-    console.log(client, "CLIENT")
-
-    client
-      .createSession()
-      .then(() => {
-        console.log("SESSION CREATED")
-      })
-      .catch((error: object) => {
-        if (error) {
-          console.error(error, "SESSION ERROR")
-        }
-      });
-  }
   const startVideoCall = () => {
-    /*const calleesIds = [4104]
-    const sessionType = QB.webrtc.CallType.VIDEO
-    const callSession = QB.webrtc.createNewSession(calleesIds, sessionType, null, null)
-
     const mediaParams = {
       audio: true,
       video: true,
@@ -157,27 +132,20 @@ export default function ConferenceRoomView() {
       elemId: "myVideoStream"
     }
 
-    callSession.getUserMedia(mediaParams, function (error: object, stream: object) {
-      if (error) {
-        console.error(error, "VIDEO ERROR")
-      } else {
-        const extension = {}
-        callSession.call(extension, function (error: object) {
-          if (error) {
-            console.error(error, "CALL ERROR")
-          } else {
-            console.log(callSession, "CURRENT SESSION")
-          }
-        })
-        // QB.webrtc.onAcceptCallListener = function(session: any, userId: number, extension: object) {
-        //   console.log("ACCEPTED")
-        // }
-        QB.webrtc.onRemoteStreamListener = function(session: any, userID: number, remoteStream: object) {
-          console.log("REMOTE LISTENER")
-          callSession.attachMediaStream("videoStream", remoteStream);
+    QB.webrtc.onCallListener = function(session: any, extension: object) {
+      setIsConference(true)
+      session.getUserMedia(mediaParams, function (error: object, stream: object) {
+        if (error) {
+          console.error(error)
+        } else {
+          session.accept(extension)
         }
-      }
-    })*/
+      })
+    }
+
+    QB.webrtc.onRemoteStreamListener = function(session: any, userID: number, remoteStream: object) {
+      session.attachMediaStream("videoStream", remoteStream);
+    };
   }
 
   useEffect(() => {
@@ -193,7 +161,6 @@ export default function ConferenceRoomView() {
       connectToChat()
       getMessagesList()
       startVideoCall()
-      QBClient()
     }
   }, [confDataState.myPersonalId])
 
@@ -205,13 +172,14 @@ export default function ConferenceRoomView() {
 
   return (
     <div className="conference-wrapper">
-      <VideoWrapper />
+      <VideoWrapper
+        isConference={isConference}
+      />
       <ChatWrapper
         getMessageValue={getMessageValue}
         sendMessage={sendMessage}
         messageToSend={messageToSend}
       />
-      <Script src="https://webrtc.github.io/adapter/adapter-latest.js"/>
     </div>
   )
 }

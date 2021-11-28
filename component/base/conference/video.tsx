@@ -3,10 +3,9 @@ import { useNetworkState } from "react-use";
 import {useEffect, useState} from "react";
 import NetworkConnectionLost from "./partials/networkConnectionLost";
 
-export default function VideoWrapper() {
+export default function VideoWrapper({ isConference }: { isConference?: boolean }) {
     const condition = useNetworkState()
     const [isOnline, setIsOnline] = useState(true)
-    const [isConference, setIsConference] = useState(true)
 
     const retryConnecting = () => {
         if (condition.online) setIsOnline(true)
