@@ -11,6 +11,7 @@ import PermissionsModal from "../../component/base/conference/partials/permissio
 import {checkMediaDevicePermissions} from "../../utils/mediaPermissions"
 import KitNumberModal from "../../component/base/conference/partials/testKitModal"
 import Card from "../../component/utils/Card"
+import {ConferenceContextStaticData} from "../../static/ConferenceContextStaticData"
 
 export default function ConferenceJoinView() {
   const [kitNumber, setKitNumber] = useState<string>("")
@@ -21,7 +22,7 @@ export default function ConferenceJoinView() {
   //TODO: We Should have one more endpoint for checking current appointmentToken expiration
   const [isMediaModalAvailable, setIsMediaModalAvailable] = useState<boolean>(false)
   const [isLinkExpired, setIsLinkExpired] = useState<boolean>(false)
-  const {confDataState, setConfDataState} = UseConfDataStateValue()
+  const { setConfDataState} = UseConfDataStateValue()
 
   const router = useRouter()
   const {appointmentToken} = router.query
@@ -64,11 +65,8 @@ export default function ConferenceJoinView() {
       if (captchaToken && kitNumber && appointmentToken) {
         const result = await conferenceManager.getWaitingToken(captchaToken, kitNumber, appointmentToken as string)
         const waitingToken = result.data.data.waitingToken
-        setConfDataState({
-          ...confDataState,
-          waitingToken,
-        })
-        router.push("/conference/room")
+        setConfDataState({ type: ConferenceContextStaticData.SET_WAITING_TOKEN, waitingToken })
+        await router.push("/conference/room")
       } else {
         throw {
           response: {

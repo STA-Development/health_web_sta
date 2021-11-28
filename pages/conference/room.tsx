@@ -1,12 +1,11 @@
 import {useEffect, useState} from "react"
 import VideoWrapper from "../../component/base/conference/video"
 import ChatWrapper from "../../component/base/conference/chat"
-// @ts-ignore
 import * as QB from "quickblox/quickblox.js"
 import {QBConfig} from "../../utils/quickblox/config"
 import {UseConfDataStateValue} from "../../context/ConferenceContext"
-import {IQBMessage} from "../../types/context/CnferenceContext"
 import conferenceManager from "../../manager/ConferenceManager"
+import {ConferenceContextStaticData} from "../../static/ConferenceContextStaticData"
 
 export default function ConferenceRoomView() {
   const {confDataState, setConfDataState} = UseConfDataStateValue()
@@ -25,10 +24,7 @@ export default function ConferenceRoomView() {
       if (error) {
         console.error(error)
       } else {
-        setConfDataState({
-          ...confDataState,
-          myPersonalId: session.user_id,
-        })
+        setConfDataState({ type: ConferenceContextStaticData.SET_PERSONAL_ID, id: session.user_id })
       }
     })
   }
@@ -45,11 +41,11 @@ export default function ConferenceRoomView() {
       if (error) {
         console.error(error)
       } else {
-        console.info(contactList)
+        console.info(contactList, "CONTACT LIST")
       }
       try {
-        QB.chat.muc.join(dialogJid, function(error2: string, result2: string) {
-          console.info("JOINED ", result2, error2)
+        QB.chat.muc.join(dialogJid, function(err: string, result: string) {
+          console.info("JOINED ", result, err)
         })
       } catch (e) {
         if (e.name === "ChatNotConnectedError") {
@@ -99,14 +95,11 @@ export default function ConferenceRoomView() {
       skip: 0,
     }
 
-    QB.chat.message.list(chatParams, function(error: object, messages: {items: IQBMessage[]}) {
+    QB.chat.message.list(chatParams, function(error: object, messages: {items: []}) {
       if (error) {
-        console.log(error)
+        console.error(error)
       } else {
-        setConfDataState({
-          ...confDataState,
-          messages: messages?.items,
-        })
+        setConfDataState({ type: ConferenceContextStaticData.SET_MESSAGES, messages: messages?.items })
       }
     })
   }
@@ -145,7 +138,7 @@ export default function ConferenceRoomView() {
 
     QB.webrtc.onRemoteStreamListener = function(session: any, userID: number, remoteStream: object) {
       session.attachMediaStream("videoStream", remoteStream);
-    };
+    }
   }
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react"
 import {UseConfDataStateValue} from "../../../../context/ConferenceContext"
-import { IMessage } from "../../../../types/context/CnferenceContext"
+import { IMessage } from "../../../../types/context/ConferenceContext"
 
 export default function Message({ messageInfo }: { messageInfo?: IMessage }) {
 

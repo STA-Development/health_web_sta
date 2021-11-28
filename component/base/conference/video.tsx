@@ -8,7 +8,9 @@ export default function VideoWrapper({ isConference }: { isConference?: boolean 
     const [isOnline, setIsOnline] = useState(true)
 
     const retryConnecting = () => {
-        if (condition.online) setIsOnline(true)
+        if (condition.online) {
+            setIsOnline(true)
+        }
     }
 
     useEffect(() => {

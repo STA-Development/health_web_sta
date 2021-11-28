@@ -1,7 +1,7 @@
-import React, {createContext, useContext, useState} from "react"
-// @ts-ignore
-import * as QB from "quickblox/quickblox"
-import {IConfState} from "../types/context/CnferenceContext"
+import React, {createContext, useContext, useReducer} from "react"
+import {IConfState} from "../types/context/ConferenceContext"
+import {ConferenceContextReducer} from "../reducers/ConferenceContextReducer"
+import {IConfActions} from "../types/context/ConferenceContext"
 
 const initialState: IConfState = {
     chatVisibility: false,
@@ -12,7 +12,7 @@ const initialState: IConfState = {
 
 const initialConfContext: {
     confDataState: IConfState,
-    setConfDataState: React.Dispatch<any>
+    setConfDataState: React.Dispatch<IConfActions>
 } = {
     confDataState: initialState,
     setConfDataState: () => ({})
@@ -21,7 +21,7 @@ const initialConfContext: {
 const ConferenceContext = createContext(initialConfContext)
 
 export function ConferenceContextProvider({ children }: any) {
-    const [confDataState, setConfDataState] = useState(initialState)
+    const [confDataState, setConfDataState] = useReducer(ConferenceContextReducer, initialState)
 
     return (
         <ConferenceContext.Provider value={{confDataState, setConfDataState}}>

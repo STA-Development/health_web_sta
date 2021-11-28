@@ -1,10 +1,10 @@
 import React, {FormEvent, useEffect, useState} from "react"
-// @ts-ignore
-import * as QB from "quickblox/quickblox"
+import * as QB from "quickblox/quickblox.js"
 import Image from "next/image"
 import {UseConfDataStateValue} from "../../../context/ConferenceContext"
 import Message from "./partials/message"
-import { IMessage, IQBMessage } from "../../../types/context/CnferenceContext"
+import { IMessage, IQBMessage } from "../../../types/context/ConferenceContext"
+import {ConferenceContextStaticData} from "../../../static/ConferenceContextStaticData"
 
 interface IChatWrapper {
     getMessageValue: (value: string) => void,
@@ -17,10 +17,7 @@ export default function ChatWrapper({ getMessageValue, sendMessage, messageToSen
     const [messages, setMessages] = useState<IMessage[]>([])
 
     const closeMobileChat = () => {
-        setConfDataState({
-            ...confDataState,
-            chatVisibility: false
-        })
+        setConfDataState({ type: ConferenceContextStaticData.TOGGLE_CHAT_VIEW, view: false })
     }
 
     const handleSendMessage = (event: FormEvent) => {
