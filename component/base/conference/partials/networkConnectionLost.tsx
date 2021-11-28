@@ -1,6 +1,6 @@
 import NetworkIcon from "../icon/networkIcon";
 
-export default function NetworkConnectionLost(props: {retry?: any}) {
+export default function NetworkConnectionLost(props: {retry?: () => void}) {
 
     return (
         <div className='video-wrapper'>

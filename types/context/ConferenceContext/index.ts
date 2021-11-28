@@ -5,6 +5,24 @@ export interface IConfState {
   waitingToken: string,
 }
 
+export type IConfActions =
+  | {
+  type: "TOGGLE_CHAT_VIEW"
+  view: boolean
+}
+  | {
+  type: "SET_PERSONAL_ID"
+  id: number
+}
+  | {
+  type: "SET_MESSAGES"
+  messages: []
+}
+  | {
+  type: "SET_WAITING_TOKEN"
+  waitingToken: string
+}
+
 export interface IMessage {
   senderId: number,
   date: string,

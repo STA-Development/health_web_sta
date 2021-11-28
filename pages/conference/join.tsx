@@ -11,6 +11,7 @@ import PermissionsModal from "../../component/base/conference/partials/permissio
 import {checkMediaDevicePermissions} from "../../utils/mediaPermissions"
 import KitNumberModal from "../../component/base/conference/partials/testKitModal"
 import Card from "../../component/utils/Card"
+import {ConferenceContextStaticData} from "../../static/ConferenceContextStaticData"
 
 export default function ConferenceJoinView() {
   const [kitNumber, setKitNumber] = useState<string>("")
@@ -64,10 +65,7 @@ export default function ConferenceJoinView() {
       if (captchaToken && kitNumber && appointmentToken) {
         const result = await conferenceManager.getWaitingToken(captchaToken, kitNumber, appointmentToken as string)
         const waitingToken = result.data.data.waitingToken
-        setConfDataState({
-          ...confDataState,
-          waitingToken,
-        })
+        setConfDataState({ type: ConferenceContextStaticData.SET_WAITING_TOKEN, waitingToken })
         router.push("/conference/room")
       } else {
         throw {

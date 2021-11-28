@@ -8,7 +8,9 @@ export default function VideoWrapper() {
     const [isOnline, setIsOnline] = useState(true)
 
     const retryConnecting = () => {
-        if (condition.online) setIsOnline(true)
+        if (condition.online) {
+            setIsOnline(true)
+        }
     }
 
     useEffect(() => {
