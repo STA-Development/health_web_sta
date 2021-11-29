@@ -1,21 +1,21 @@
+@import '../abstracts/mixins';
+
 .web-portal-results {
   max-width: 640px;
   margin: 48px auto 82px;
 }
 
 .result-header {
-  font-family: $fhhealth-font-DM-medium;
-  font-size: 22px;
-  font-weight: 500;
-  line-height: 1.27;
+  @include setFontAppearance($fhhealth-font-DM-medium, 500, normal, normal);
+  @include setFontSizes(22px, 1.27px, unset);
   color: $fhhealth-color-dark-black;
   margin-bottom: 16px;
   margin-top: 24px;
 }
 
 .all-results {
+  @include setBorder(1px, rgba(151, 151, 151, 0.25));
   width: auto;
-  border: solid 1px rgba(151, 151, 151, 0.25);
   padding: 16px 24px;
   border-radius: 8px;
   background-color: $fhhealth-color-white;
@@ -42,10 +42,8 @@
   fill: #7f7a7a;
 }
 .single-result {
+  @include setDisplay(flex, space-between, unset, center);
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   border-bottom: solid 1px rgba(151, 151, 151, 0.25);
   padding: 10px 0;
   .left {
@@ -69,8 +67,7 @@
     }
   }
   .right {
-    display: flex;
-    align-items: center;
+    @include setDisplay(flex, unset, center);
     .result-status {
       padding: 4px 8px;
       border-radius: 5px;

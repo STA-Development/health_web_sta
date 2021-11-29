@@ -1,31 +1,36 @@
+@import '../abstracts/mixins';
+
 .card-wrapper {
   display: block;
   text-align: center;
 }
 
 .card {
+  @include setBorder(1px, $fhhealth-color-dark-gray-border);
   position: relative;
   background-color: $fhhealth-color-white;
   border-radius: 8px;
-  border: solid 1px $fhhealth-color-dark-gray-border;
   max-width: 515px;
 }
 
 .card__body {
-  display: flex;
-  flex-direction: column;
+  @include setDisplay(flex, unset, unset, column);
   padding: 68px 48px 48px;
 }
 
 .card__close {
-  position: absolute;
-  top: 24px;
-  right: 24px;
+  @include setPosition(absolute, 24px, unset, unset, 24px);
 }
 
 .card__media {
+  @include setDisplay(flex, center, center);
+  @include setElementSize(419px, 238px);
   border-radius: 5px;
-  text-align: center;
+
+  &_sm {
+    width: auto;
+    height: auto;
+  }
 
   &_with-bg {
     background-color: $fhhealth-color-grey-bg;

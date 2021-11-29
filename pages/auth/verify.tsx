@@ -47,7 +47,7 @@ export default function Verify() {
                 <CircleLoader className='middle-loader'/>
             ) : (
                 <PureBlock flow={false}>
-                    <div>
+                    <div className='logo'>
                         <Image src='/check.svg' width={64} height={64} alt={"logo"}/>
                     </div>
                     <div>

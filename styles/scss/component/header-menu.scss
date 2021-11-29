@@ -1,18 +1,17 @@
+@import '../abstracts/mixins';
+
 .main-header {
+  @include setDisplay(flex, center, unset);
   width: 100%;
-  display: flex;
-  justify-content: center;
   background-color: $fhhealth-color-white;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
 }
 
 .fullWidthMenu {
+  @include setDisplay(flex, space-between, center);
   width: calc((100% - 48px));
-  display: flex;
   background: $fhhealth-color-white;
   min-height: 60px;
-  justify-content: space-between;
-  align-items: center;
   font-family: $fhhealth-font-DM-medium;
   position: relative;
   .icon {
@@ -21,15 +20,11 @@
 }
 
 .logOut {
-  position: absolute;
-  width: 106px;
-  height: 46px;
-  right: 0;
+  @include setPosition(absolute, unset, unset, unset, 0);
+  @include setElementSize(106px, 46px);
+  @include setBorder(1px, rgba(151, 151, 151, 0.25));
+  @include setDisplay(flex, flex-end, center);
   border-radius: 8px;
-  border: solid 1px rgba(151, 151, 151, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
   padding-right: 8px;
   color: rgba(39, 48, 59, 0.6);
   background-color: $fhhealth-color-white;

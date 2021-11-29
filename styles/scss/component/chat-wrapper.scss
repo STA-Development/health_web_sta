@@ -1,5 +1,8 @@
+@import "../abstracts/mixins";
+
 .chat-wrapper {
-  width: 30%;
+  width: 35%;
+  height: calc(100vh - 85px);
 }
 
 .chat-wrapper__kit-info {
@@ -27,8 +30,7 @@
 }
 
 .messenger {
-  display: flex;
-  flex-direction: column;
+  @include setDisplay(flex, unset, unset, column);
   height: calc(100% - 114px);
 }
 
@@ -47,21 +49,25 @@
     color: unset;
 
     button {
-      position: absolute;
-      right: 20px;
+      @include setPosition(absolute, unset, unset, unset, 20px);
     }
   }
 }
 
 .messenger__body {
+  overflow: scroll;
   background-color: #fafafa;
   height: 100%;
+  padding: 24px 16px;
 }
 
 .messenger__footer {
-  display: flex;
   height: 56px;
   box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.08);
+
+  form {
+    display: flex;
+  }
 }
 
 .messenger__footer-input {
@@ -77,13 +83,10 @@
 }
 
 .messenger__footer-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include setDisplay(flex, center, center);
+  @include setElementSize(56px, auto);
   background-color: #f9f8f6;
   padding: 20px 12px;
-  max-width: 56px;
-  width: 56px;
 
   input {
     display: none;

@@ -1,18 +1,13 @@
+@import '../abstracts/mixins';
+
 .test-result-wrapper {
+  @include setDisplay(flex, center, center);
   width: 100%;
   margin: 1px 0 0;
   background-color: $fhhealth-color-blue-bg;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   .test-result-text {
-    font-family: $fhhealth-font-DM-bold;
-    font-size: 20px;
-    font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.25;
-    letter-spacing: normal;
+    @include setFontAppearance($fhhealth-font-DM-bold, bold, normal, normal);
+    @include setFontSizes(20px, 1.25, normal);
     text-align: center;
     color: $fhhealth-color-dark-black;
     text-transform: uppercase;

@@ -14,7 +14,7 @@ export default function KitNumberModal(props: { visibility?: boolean, closeModal
                     <Image src="/cross.svg" width={24} height={24} alt="close"/>
                 </button>
                 <div className='card__media card__media_with-bg'>
-                    <Image src="/logo.svg" width={420} height={238} alt="Kit Number"/>
+                    <Image src="/kit-number-preview.svg" width={51} height={51} alt="Kit Number"/>
                 </div>
                 <div className='card__content'>
                     <h4 className='card__content-title'>Locate Kit Number</h4>
