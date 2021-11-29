@@ -3,14 +3,8 @@ import * as QB from "quickblox/quickblox.js"
 import Image from "next/image"
 import {UseConfDataStateValue} from "../../../context/ConferenceContext"
 import Message from "./partials/message"
-import { IMessage, IQBMessage } from "../../../types/context/ConferenceContext"
+import {IChatWrapper, IMessage, IQBMessage} from "../../../types/context/ConferenceContext"
 import {ConferenceContextStaticData} from "../../../static/ConferenceContextStaticData"
-
-interface IChatWrapper {
-    getMessageValue: (value: string) => void,
-    sendMessage: () => void,
-    messageToSend: string
-}
 
 export default function ChatWrapper({ getMessageValue, sendMessage, messageToSend }: IChatWrapper) {
     const { confDataState, setConfDataState } = UseConfDataStateValue()

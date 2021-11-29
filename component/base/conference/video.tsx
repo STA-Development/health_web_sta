@@ -1,16 +1,24 @@
-import RippleLoader from "./icon/rippleLoader";
-import { useNetworkState } from "react-use";
-import {useEffect, useState} from "react";
-import NetworkConnectionLost from "./partials/networkConnectionLost";
+import RippleLoader from "./icon/rippleLoader"
+import { useNetworkState } from "react-use"
+import {useEffect, useState} from "react"
+import NetworkConnectionLost from "./partials/networkConnectionLost"
+import ConferenceFinalView from "./partials/conferenceFinalView"
+import {useRouter} from "next/router"
 
 export default function VideoWrapper() {
     const condition = useNetworkState()
     const [isOnline, setIsOnline] = useState(true)
+    const [isConference, setIsConference] = useState(true)
+    const router = useRouter()
 
     const retryConnecting = () => {
         if (condition.online) {
             setIsOnline(true)
         }
+    }
+
+    const returnHome = () => {
+        router.push('/auth/login')
     }
 
     useEffect(() => {
@@ -21,7 +29,7 @@ export default function VideoWrapper() {
 
     return (
         <>
-            {isOnline ? (
+            {(isOnline && isConference) && (
                 <div className='video-wrapper'>
                     <div className='video-wrapper__content'>
                         <RippleLoader/>
@@ -34,7 +42,9 @@ export default function VideoWrapper() {
                         <p>Thank you for your patience!</p>
                     </div>
                 </div>
-            ) : <NetworkConnectionLost retry={retryConnecting}/>}
+            )}
+            {(isOnline && !isConference) && <ConferenceFinalView returnHome={returnHome}/>}
+            {!isOnline &&  <NetworkConnectionLost retry={retryConnecting}/>}
         </>
     )
 }

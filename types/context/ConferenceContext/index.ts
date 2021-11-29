@@ -34,3 +34,9 @@ export interface IQBMessage {
   created_at: string,
   message: string
 }
+
+export interface IChatWrapper {
+  getMessageValue: (value: string) => void,
+  sendMessage: () => void,
+  messageToSend: string
+}

@@ -45,7 +45,6 @@ const ConferenceHeader = () => {
                     <Image src='/chat-icon.svg' alt='open chat' width={24} height={24}/>
                 </button>
             </div>
-            {confDataState.chatVisibility && <MobileChatView/>}
         </header>
     )
 }
