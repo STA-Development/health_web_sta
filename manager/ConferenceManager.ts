@@ -12,11 +12,13 @@ const conferenceManager = {
     })
   },
 
-  joinToDialog(waitingToken: string) {
+  joinToDialog(captchaToken: string, waitingToken: string) {
     return Axios({
+      token: captchaToken,
       baseURL: process.env.SCHEDULE_BASE_URL
     }).put('/scheduling/api/public/v1/appointment/waiting', {
-      waitingToken
+      waitingToken,
+      tempUserToken: 'tempUserToken'
     })
   }
 }

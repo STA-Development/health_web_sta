@@ -5,7 +5,12 @@ import NetworkConnectionLost from "./partials/networkConnectionLost"
 import ConferenceFinalView from "./partials/conferenceFinalView"
 import {useRouter} from "next/router"
 
-export default function VideoWrapper({ isConference }: { isConference?: boolean }) {
+interface IVideoWrapper {
+    isConferenceStarted?: boolean,
+    isConferenceEnded?: boolean
+}
+
+export default function VideoWrapper({ isConferenceStarted, isConferenceEnded }: IVideoWrapper) {
     const condition = useNetworkState()
     const [isOnline, setIsOnline] = useState(true)
     const router = useRouter()
@@ -28,9 +33,9 @@ export default function VideoWrapper({ isConference }: { isConference?: boolean 
 
     return (
         <>
-            {isOnline && (
+            {(isOnline && !isConferenceEnded) && (
                 <div className='video-wrapper'>
-                    {isConference ? (
+                    {isConferenceStarted ? (
                       <>
                           <video id="videoStream"/>
                           <video id="myVideoStream"/>
@@ -49,7 +54,7 @@ export default function VideoWrapper({ isConference }: { isConference?: boolean 
                     )}
                 </div>
             )}
-            {(isOnline && !isConference) && <ConferenceFinalView returnHome={returnHome}/>}
+            {(isOnline && isConferenceEnded) && <ConferenceFinalView returnHome={returnHome}/>}
             {!isOnline &&  <NetworkConnectionLost retry={retryConnecting}/>}
         </>
     )

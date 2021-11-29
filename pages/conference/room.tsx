@@ -7,13 +7,26 @@ import {UseConfDataStateValue} from "../../context/ConferenceContext"
 import conferenceManager from "../../manager/ConferenceManager"
 import {ConferenceContextStaticData} from "../../static/ConferenceContextStaticData"
 import MobileChatView from "../../component/base/conference/partials/mobileChatView"
+import {load, ReCaptchaInstance} from "recaptcha-v3"
 
 export default function ConferenceRoomView() {
   const {confDataState, setConfDataState} = UseConfDataStateValue()
   const [dialogId, setDialogId] = useState<string>("")
   const [userToken, setUserToken] = useState<string>("")
   const [messageToSend, setMessageToSend] = useState<string>("")
-  const [isConference, setIsConference] = useState(false)
+  const [isConferenceStarted, setIsConferenceStarted] = useState(false)
+  const [isConferenceEnded, setIsConferenceEnded] = useState(false)
+
+  const getRecaptcha = async () => {
+    const captchaToken = process.env.RECAPTCHA_V3_KEY
+    if (captchaToken) {
+      return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) => {
+        return recaptcha.execute("submit")
+      })
+    } else {
+      console.error("Captcha token is undefined")
+    }
+  }
 
   const getMessageValue = (value: string) => {
     setMessageToSend(value)
@@ -61,7 +74,7 @@ export default function ConferenceRoomView() {
     })
 
     QB.chat.onDisconnectedListener = () => {
-      console.info("CHAT DISCONECTED")
+      console.info("CHAT DISCONNECTED")
     }
   }
 
@@ -106,8 +119,9 @@ export default function ConferenceRoomView() {
   }
 
   const joinToChat = async () => {
+    const captchaToken = await getRecaptcha()
     try {
-      const confCredentials = await conferenceManager.joinToDialog(confDataState.waitingToken)
+      const confCredentials = await conferenceManager.joinToDialog(captchaToken as string, confDataState.waitingToken)
       setDialogId(confCredentials.data.data.dialogId)
       setUserToken(confCredentials.data.data.userToken)
     } catch (err) {
@@ -127,7 +141,7 @@ export default function ConferenceRoomView() {
     }
 
     QB.webrtc.onCallListener = function(session: any, extension: object) {
-      setIsConference(true)
+      setIsConferenceStarted(true)
       session.getUserMedia(mediaParams, function (error: object, stream: object) {
         if (error) {
           console.error(error)
@@ -140,6 +154,11 @@ export default function ConferenceRoomView() {
     QB.webrtc.onRemoteStreamListener = function(session: any, userID: number, remoteStream: object) {
       session.attachMediaStream("videoStream", remoteStream);
     }
+
+    QB.webrtc.onStopCallListener = function(session: any, userId: number, extension: object) {
+      setIsConferenceStarted(false)
+      setIsConferenceEnded(true)
+    };
   }
 
   useEffect(() => {
@@ -167,7 +186,8 @@ export default function ConferenceRoomView() {
   return (
     <div className="conference-wrapper">
       <VideoWrapper
-        isConference={isConference}
+        isConferenceStarted={isConferenceStarted}
+        isConferenceEnded={isConferenceEnded}
       />
       <ChatWrapper
         getMessageValue={getMessageValue}
