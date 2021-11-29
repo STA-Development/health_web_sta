@@ -6,6 +6,7 @@ import {QBConfig} from "../../utils/quickblox/config"
 import {UseConfDataStateValue} from "../../context/ConferenceContext"
 import conferenceManager from "../../manager/ConferenceManager"
 import {ConferenceContextStaticData} from "../../static/ConferenceContextStaticData"
+import MobileChatView from "../../component/base/conference/partials/mobileChatView"
 
 export default function ConferenceRoomView() {
   const {confDataState, setConfDataState} = UseConfDataStateValue()
@@ -173,6 +174,11 @@ export default function ConferenceRoomView() {
         sendMessage={sendMessage}
         messageToSend={messageToSend}
       />
+      {confDataState.chatVisibility && <MobileChatView
+        getMessageValue={getMessageValue}
+        sendMessage={sendMessage}
+        messageToSend={messageToSend}
+      />}
     </div>
   )
 }
