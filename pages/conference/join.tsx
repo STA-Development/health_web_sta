@@ -114,8 +114,8 @@ export default function ConferenceJoinView() {
                     In order to enter your consultation please locate the code on your kit.
                 </span>
             </div>
-            <div className="inputGroup">
-              <span>
+            <div className="inputGroup inputGroup_kit-code">
+              <span className="kit-code-label">
                   Test Kit Number <em>*</em>
               </span>
               <ReactCodeInput
