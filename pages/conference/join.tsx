@@ -1,11 +1,13 @@
 import Image from "next/image";
 import CircleLoader from "../../component/utils/CircleLoader";
 import PureBlock from "../../component/pureBlock";
-import {useState} from "react";
+import {useEffect, useState} from "react"
 import {UseAuthDataStateValue} from "../../context/AuthContext";
 import InputMask from "react-input-mask";
 import KitNumberModal from "../../component/base/conference/partials/testKitModal";
 import Card from "../../component/utils/Card";
+import PermissionsModal from "../../component/base/conference/partials/permissionsModal"
+import {checkMediaDevicePermissions} from "../../utils/mediaPermissions"
 
 export default function ConferenceJoinView() {
     const [kitNumber, setKitNumber] = useState<string>("")
@@ -15,6 +17,7 @@ export default function ConferenceJoinView() {
     const [warningMessage, setWarningMessage] = useState<string>("")
     const [joinButtonState, setJoinButtonState] = useState<boolean>(false)
     const [kitNumberModalView, setKitNumberModalView] = useState<boolean>(false)
+    const [isMediaModalAvailable, setIsMediaModalAvailable] = useState<boolean>(false)
     const [isLinkExpired, setIsLinkExpired] = useState<boolean>(false)
 
     const handleKitNumberChange = (kitNumber: string) => {
@@ -23,6 +26,10 @@ export default function ConferenceJoinView() {
 
     const toggleKitNumberModal = () => {
         setKitNumberModalView(!kitNumberModalView)
+    }
+
+    const closeMediaModal = () => {
+        setIsMediaModalAvailable(false)
     }
 
     const checkKitNumber = (value: string) => {
@@ -54,6 +61,13 @@ export default function ConferenceJoinView() {
         }
     }
 
+    useEffect(() => {
+        (async () => {
+            if(!await checkMediaDevicePermissions()) {
+                setIsMediaModalAvailable(true)
+            }
+        })()
+    }, [])
     return (
         <>
             {
@@ -63,6 +77,7 @@ export default function ConferenceJoinView() {
                     closeModal={setKitNumberModalView}
                 />
             }
+            { isMediaModalAvailable && <PermissionsModal closeModal={closeMediaModal}/>}
             <div className='pure-block-wrapper'>
                 {!isLinkExpired ? (
                     <PureBlock flow={true}>

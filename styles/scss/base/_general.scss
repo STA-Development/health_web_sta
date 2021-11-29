@@ -79,3 +79,8 @@ a {
   color: $fhhealth-color-orange;
   text-decoration: underline;
 }
+
+.button_disabled {
+  background-color: $fhhealth-color-light-gray-text !important;
+  pointer-events: none !important;
+}
