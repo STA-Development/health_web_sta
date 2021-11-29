@@ -1,9 +1,9 @@
+@import '../abstracts/mixins';
+
 .main-footer {
+  @include setDisplay(grid, center, center);
   width: 100%;
   background-color: #27303b;
-  display: grid;
-  justify-content: center;
-  align-items: center;
   color: $fhhealth-color-white;
   grid-row-gap: 32px;
   padding: 32px 32px 32px 0;

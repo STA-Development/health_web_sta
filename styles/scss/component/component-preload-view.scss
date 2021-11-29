@@ -1,5 +1,6 @@
+@import '../abstracts/mixins';
+
 .preload {
-  //position: absolute;
   z-index: 99;
   background-color: #fff;
   @keyframes placeHolderShimmer {
@@ -114,27 +115,21 @@
   }
 
   &__test-analysis-data {
-    display: flex;
-    flex-direction: column;
+    @include setDisplay(flex, unset, unset, column);
     &__title {
+      @include setFontAppearance($fhhealth-font-SF-medium, 500, normal, normal);
       padding: 24px 24px 14px 24px;
-      font-family: $fhhealth-font-SF-medium;
       font-size: 22px;
-      font-weight: 500;
-      font-stretch: normal;
-      font-style: normal;
       line-height: 1.27;
       letter-spacing: normal;
       color: $fhhealth-color-dark-black;
     }
     &__content {
-      display: flex;
-      flex-direction: row;
+      @include setDisplay(flex, unset, unset, row);
       padding-left: 24px;
       border-bottom: 1px dashed $fhhealth-color-dashed-border;
       &__half {
-        display: flex;
-        flex-direction: column;
+        @include setDisplay(flex, unset, unset, column);
         margin-right: 33px;
         .margins {
           margin-top: 13px;
@@ -183,8 +178,7 @@
 @media (max-width: $fhhealth-media-sm) {
   .preload {
     .user-info {
-      display: flex;
-      flex-direction: column;
+      @include setDisplay(flex, unset, unset, column);
     }
   }
   .preload__test-analysis-data__content {
@@ -248,4 +242,3 @@
     }
   }
 }
-

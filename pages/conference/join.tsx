@@ -1,168 +1,183 @@
-import Image from "next/image";
-import CircleLoader from "../../component/utils/CircleLoader";
-import PureBlock from "../../component/pureBlock";
+import Image from "next/image"
+import CircleLoader from "../../component/utils/CircleLoader"
+import PureBlock from "../../component/pureBlock"
 import {useEffect, useState} from "react"
-import {UseAuthDataStateValue} from "../../context/AuthContext";
-import InputMask from "react-input-mask";
-import KitNumberModal from "../../component/base/conference/partials/testKitModal";
-import Card from "../../component/utils/Card";
+import {useRouter} from "next/router"
+import ReactCodeInput from "react-verification-code-input"
+import {load, ReCaptchaInstance} from "recaptcha-v3"
+import conferenceManager from "../../manager/ConferenceManager"
+import {UseConfDataStateValue} from "../../context/ConferenceContext"
 import PermissionsModal from "../../component/base/conference/partials/permissionsModal"
 import {checkMediaDevicePermissions} from "../../utils/mediaPermissions"
+import KitNumberModal from "../../component/base/conference/partials/testKitModal"
+import Card from "../../component/utils/Card"
+import {ConferenceContextStaticData} from "../../static/ConferenceContextStaticData"
 
 export default function ConferenceJoinView() {
-    const [kitNumber, setKitNumber] = useState<string>("")
-    const [inputMaskValue, setInputMaskValue] = useState<string>("")
-    const [loading, setLoading] = useState<boolean>(false)
-    const {authDataState, setAuthDataState} = UseAuthDataStateValue()
-    const [warningMessage, setWarningMessage] = useState<string>("")
-    const [joinButtonState, setJoinButtonState] = useState<boolean>(false)
-    const [kitNumberModalView, setKitNumberModalView] = useState<boolean>(false)
-    const [isMediaModalAvailable, setIsMediaModalAvailable] = useState<boolean>(false)
-    const [isLinkExpired, setIsLinkExpired] = useState<boolean>(false)
+  const [kitNumber, setKitNumber] = useState<string>("")
+  const [loading, setLoading] = useState<boolean>(false)
+  const [warningMessage, setWarningMessage] = useState<string>("")
+  const [joinButtonState, setJoinButtonState] = useState<boolean>(false)
+  const [kitNumberModalView, setKitNumberModalView] = useState<boolean>(false)
+  //TODO: We Should have one more endpoint for checking current appointmentToken expiration
+  const [isMediaModalAvailable, setIsMediaModalAvailable] = useState<boolean>(false)
+  const [isLinkExpired, setIsLinkExpired] = useState<boolean>(false)
+  const {confDataState, setConfDataState} = UseConfDataStateValue()
 
-    const handleKitNumberChange = (kitNumber: string) => {
-        setKitNumber(kitNumber)
-    };
+  const router = useRouter()
+  const {appointmentToken} = router.query
 
-    const toggleKitNumberModal = () => {
-        setKitNumberModalView(!kitNumberModalView)
+  const handleKitNumberChange = (kitNumber: string) => {
+    setKitNumber(kitNumber)
+    setWarningMessage("")
+  }
+
+  const toggleKitNumberModal = () => {
+    setKitNumberModalView(!kitNumberModalView)
+  }
+
+  const closeMediaModal = () => {
+    setIsMediaModalAvailable(false)
+  }
+  const checkKitNumber = (value: string) => {
+    if (value.length === 6) {
+      setJoinButtonState(true)
+    } else {
+      setJoinButtonState(false)
     }
+  }
 
-    const closeMediaModal = () => {
-        setIsMediaModalAvailable(false)
+  const getRecaptcha = async () => {
+    const captchaToken = process.env.RECAPTCHA_V3_KEY
+    if (captchaToken) {
+      return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) => {
+        return recaptcha.execute("submit")
+      })
+    } else {
+      console.error("Captcha token is undefined")
     }
+  }
 
-    const checkKitNumber = (value: string) => {
-        let maskValues = Array.from(value)
-        let pureNumber = maskValues.filter((char: string) => !isNaN(Number(char)) ? char : false)
-        if (pureNumber.length === 11) {
-            setJoinButtonState(true)
-        } else {
-            setJoinButtonState(false)
+  const handleJoinClick = async () => {
+    setLoading(true)
+    const captchaToken = await getRecaptcha()
+    try {
+      if (captchaToken && kitNumber && appointmentToken) {
+        const result = await conferenceManager.getWaitingToken(captchaToken, kitNumber, appointmentToken as string)
+        const waitingToken = result.data.data.waitingToken
+        setConfDataState({ type: ConferenceContextStaticData.SET_WAITING_TOKEN, waitingToken })
+        router.push("/conference/room")
+      } else {
+        throw {
+          response: {
+            data: {
+              status: {
+                message: "Some Data was missed",
+              },
+            },
+          },
         }
-    };
-
-    const beforeMaskedValueChange = (newState: any) => {
-        let {value} = newState
-        let selection = newState.selection
-        let cursorPosition = selection ? selection.start : null
-        setInputMaskValue(value)
-        if (value.endsWith("-")) {
-            if (cursorPosition === value.length) {
-                cursorPosition--
-                selection = {start: cursorPosition, end: cursorPosition}
-            }
-            value = value.slice(0, -1)
-        }
-
-        return {
-            value,
-            selection,
-        }
+      }
+    } catch (err) {
+      setWarningMessage(err?.response?.data?.status?.message ? err?.response?.data?.status?.message : "Something Went Wrong")
     }
+    setLoading(false)
+  }
 
-    useEffect(() => {
-        (async () => {
-            if(!await checkMediaDevicePermissions()) {
-                setIsMediaModalAvailable(true)
-            }
-        })()
-    }, [])
-    return (
-        <>
-            {
-                kitNumberModalView &&
-                <KitNumberModal
-                    visibility={kitNumberModalView}
-                    closeModal={setKitNumberModalView}
-                />
-            }
-            { isMediaModalAvailable && <PermissionsModal closeModal={closeMediaModal}/>}
-            <div className='pure-block-wrapper'>
-                {!isLinkExpired ? (
-                    <PureBlock flow={true}>
-                        <div className='logo'>
-                            <Image src='/logo.svg' width={136} height={16} alt={"logo"}/>
-                        </div>
-                        <div>
-                            <span className="header">Join Video Call</span>
-                        </div>
-                        <div>
-                                <span className="message">
-                                    In order to enter your consultation please locate the code on your kit.
-                                </span>
-                        </div>
-                        <div className='inputGroup'>
-                                <span>
-                                    Test Kit Number <em>*</em>
-                                </span>
-                            <InputMask
-                                mask="+1(999)999-9999"
-                                value={kitNumber}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                    handleKitNumberChange(e.target.value);
-                                    checkKitNumber(e.target.value);
-                                }
-                                }
-                                beforeMaskedStateChange={beforeMaskedValueChange}
-                            >
-                                {(inputProps: {value: string; onChange: () => void}) => (
-                                    <input
-                                        {...inputProps}
-                                        type="tel"
-                                        className={warningMessage ? 'input inputGroup__input inputGroup__input_err' : 'input inputGroup__input'}
-                                        placeholder="(555) 555 - 5555"
-                                        aria-label="Phone Number"
-                                        data-cy='testKitNumber'/>
-                                )}
-                            </InputMask>
-
-                            <div className='inputGroup__resend'>
-                                <span>Can't locate your test Kit number?</span>
-                                <br/>
-                                <button
-                                    onClick={toggleKitNumberModal}
-                                    className='button inputGroup__resend_button'
-                                >
-                                    Find kit number
-                                </button>
-                            </div>
-
-                            {loading ? (
-                                <CircleLoader className="middle-loader" />
-                            ) : (
-                                <button
-                                    onClick={() => {}}
-                                    className={joinButtonState ? 'button inputGroup__button' : 'button inputGroup__button inputGroup__button_disabled'}
-                                    data-cy='join'>
-                                    Join Call
-                                </button>
-                            )}
-                        </div>
-                    </PureBlock>
-                ) : (
-                    <div className='card-wrapper'>
-                        <Card>
-                            <div className='card__media card__media_sm'>
-                                <Image src='/error-cross.svg' alt='kit number' height={64} width={64}/>
-                            </div>
-                            <div className='card__content'>
-                                <h4 className='card__content-title'>Sign-in Link has Expired</h4>
-                                <p className='card__content-message'>
-                                    Uh Oh, It seems this link has expired. <br/>
-                                    Please Visit <a href='#' className='em-link'>fhhealth.com</a> to to speak to a customer <br/>
-                                    service representative.
-                                </p>
-                            </div>
-                        </Card>
-
-                        <p className='card-wrapper__message'>
-                            Need help? <br/>
-                            Live Chat available on <a href='#' className='em-link'>fhhealth.com</a>
-                        </p>
-                    </div>
-                )}
+  useEffect(() => {
+    (async () => {
+      if (!await checkMediaDevicePermissions()) {
+        setIsMediaModalAvailable(true)
+      }
+    })()
+  }, [])
+  return (
+    <>
+      {
+        kitNumberModalView &&
+        <KitNumberModal
+          visibility={kitNumberModalView}
+          closeModal={setKitNumberModalView}
+        />
+      }{isMediaModalAvailable && <PermissionsModal closeModal={closeMediaModal} />}
+      <div className="pure-block-wrapper">
+        {!isLinkExpired ? (
+          <PureBlock flow={true}>
+            <div className="logo">
+              <Image src="/logo.svg" width={136} height={16} alt={"logo"} />
             </div>
-        </>
-    );
+            <div>
+              <span className="header">Join Video Call</span>
+            </div>
+            <div>
+                <span className="message">
+                    In order to enter your consultation please locate the code on your kit.
+                </span>
+            </div>
+            <div className="inputGroup">
+              <span>
+                  Test Kit Number <em>*</em>
+              </span>
+              <ReactCodeInput
+                className={warningMessage ? "input inputGroup__input_err" : "input"}
+                type={"text"}
+                placeholder={["-", "-", "-", "-", "-", "-"]}
+                onChange={(value: string) => {
+                  handleKitNumberChange(value)
+                  checkKitNumber(value)
+                }}
+              />
+              {
+                warningMessage?.length ? (
+                  <p className="wrong-kit-code">{warningMessage}</p>
+                ) : ""
+              }
+              <div className="inputGroup__resend">
+                <span>Can't locate your test Kit number?</span>
+                <br />
+                <button
+                  onClick={toggleKitNumberModal}
+                  className="button inputGroup__resend_button"
+                >
+                  Find kit number
+                </button>
+              </div>
+
+              {loading ? (
+                <CircleLoader className="middle-loader" />
+              ) : (
+                <button
+                  onClick={() => handleJoinClick()}
+                  className={joinButtonState ? "button inputGroup__button" : "button inputGroup__button inputGroup__button_disabled"}
+                  data-cy="join">
+                  Join Call
+                </button>
+              )}
+            </div>
+          </PureBlock>
+        ) : (
+          <div className="card-wrapper">
+            <Card>
+              <div className="card__media card__media_sm">
+                <Image src="/error-cross.svg" alt="kit number" height={64} width={64} />
+              </div>
+              <div className="card__content">
+                <h4 className="card__content-title">Sign-in Link has Expired</h4>
+                <p className="card__content-message">
+                  Uh Oh, It seems this link has expired. <br />
+                  Please Visit <a href="#" className="em-link">fhhealth.com</a> to to speak to a customer <br />
+                  service representative.
+                </p>
+              </div>
+            </Card>
+
+            <p className="card-wrapper__message">
+              Need help? <br />
+              Live Chat available on <a href="#" className="em-link">fhhealth.com</a>
+            </p>
+          </div>
+        )}
+      </div>
+    </>
+  )
 }

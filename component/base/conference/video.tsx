@@ -12,7 +12,9 @@ export default function VideoWrapper() {
     const router = useRouter()
 
     const retryConnecting = () => {
-        if (condition.online) setIsOnline(true)
+        if (condition.online) {
+            setIsOnline(true)
+        }
     }
 
     const returnHome = () => {
