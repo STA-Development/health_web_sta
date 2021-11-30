@@ -10,6 +10,20 @@ import MobileChatView from "../../component/base/conference/partials/mobileChatV
 import {load, ReCaptchaInstance} from "recaptcha-v3"
 import { useRouter } from 'next/router'
 
+interface ICallListener {
+  getUserMedia: (mediaParams: { audio: boolean; video: boolean; options: { muted: boolean; mirror: boolean; }; elemId: string; }, cb: (error: Error) => void) => void
+  accept: (extension:  {save_to_history: number, dialog_id: string }) => void
+}
+
+interface ICallListenerExtension {
+  save_to_history: number
+  dialog_id: string
+}
+
+interface IRemoteStreamListener {
+  attachMediaStream: (streamType: string, remoteStream: object) => {}
+}
+
 export default function ConferenceRoomView() {
   const {confDataState, setConfDataState} = UseConfDataStateValue()
   const [dialogId, setDialogId] = useState<string>("")
@@ -19,10 +33,10 @@ export default function ConferenceRoomView() {
   const [isConferenceEnded, setIsConferenceEnded] = useState(false)
   const router = useRouter()
 
-  const getRecaptcha = async () => {
+  const getRecaptcha = () => {
     const captchaToken = process.env.RECAPTCHA_V3_KEY
     if (captchaToken) {
-      return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) => {
+      return load(captchaToken as string).then((recaptcha: ReCaptchaInstance) => {
         return recaptcha.execute("submit")
       })
     } else {
@@ -124,6 +138,7 @@ export default function ConferenceRoomView() {
     const captchaToken = await getRecaptcha()
     try {
       const confCredentials = await conferenceManager.joinToDialog(captchaToken as string, confDataState.waitingToken)
+      console.log(confCredentials,111)
       setDialogId(confCredentials.data.data.dialogId)
       setUserToken(confCredentials.data.data.userToken)
     } catch (err) {
@@ -142,9 +157,9 @@ export default function ConferenceRoomView() {
       elemId: "myVideoStream"
     }
 
-    QB.webrtc.onCallListener = function(session: any, extension: object) {
+    QB.webrtc.onCallListener = function(session: ICallListener, extension: ICallListenerExtension) {
       setIsConferenceStarted(true)
-      session.getUserMedia(mediaParams, function (error: object, stream: object) {
+      session.getUserMedia(mediaParams, function (error: object) {
         if (error) {
           console.error(error)
         } else {
@@ -153,11 +168,11 @@ export default function ConferenceRoomView() {
       })
     }
 
-    QB.webrtc.onRemoteStreamListener = function(session: any, userID: number, remoteStream: object) {
+    QB.webrtc.onRemoteStreamListener = function(session: IRemoteStreamListener, userID: number, remoteStream: object) {
       session.attachMediaStream("videoStream", remoteStream);
     }
 
-    QB.webrtc.onStopCallListener = function(session: any, userId: number, extension: object) {
+    QB.webrtc.onStopCallListener = function() {
       setIsConferenceStarted(false)
       setIsConferenceEnded(true)
     };
