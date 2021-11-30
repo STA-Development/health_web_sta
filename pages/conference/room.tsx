@@ -8,6 +8,21 @@ import conferenceManager from "../../manager/ConferenceManager"
 import {ConferenceContextStaticData} from "../../static/ConferenceContextStaticData"
 import MobileChatView from "../../component/base/conference/partials/mobileChatView"
 import {load, ReCaptchaInstance} from "recaptcha-v3"
+import { useRouter } from 'next/router'
+
+interface ICallListener {
+  getUserMedia: (mediaParams: { audio: boolean; video: boolean; options: { muted: boolean; mirror: boolean; }; elemId: string; }, cb: (error: Error) => void) => void
+  accept: (extension:  {save_to_history: number, dialog_id: string }) => void
+}
+
+interface ICallListenerExtension {
+  save_to_history: number
+  dialog_id: string
+}
+
+interface IRemoteStreamListener {
+  attachMediaStream: (streamType: string, remoteStream: object) => {}
+}
 
 export default function ConferenceRoomView() {
   const {confDataState, setConfDataState} = UseConfDataStateValue()
@@ -16,13 +31,13 @@ export default function ConferenceRoomView() {
   const [messageToSend, setMessageToSend] = useState<string>("")
   const [isConferenceStarted, setIsConferenceStarted] = useState(false)
   const [isConferenceEnded, setIsConferenceEnded] = useState(false)
+  const router = useRouter()
 
   const getRecaptcha = async () => {
     const captchaToken = process.env.RECAPTCHA_V3_KEY
     if (captchaToken) {
-      return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) => {
-        return recaptcha.execute("submit")
-      })
+      const recaptcha: ReCaptchaInstance = await load(captchaToken as string)
+      return await recaptcha.execute("submit")
     } else {
       console.error("Captcha token is undefined")
     }
@@ -51,7 +66,7 @@ export default function ConferenceRoomView() {
       password: userToken,
     }
 
-    QB.chat.connect(userCredentials, function(error: object, contactList: object) {
+    QB.chat.connect(userCredentials, (error: object, contactList: object) => {
       if (error) {
         console.error(error)
       } else {
@@ -67,7 +82,7 @@ export default function ConferenceRoomView() {
         }
       }
 
-      QB.chat.onMessageListener = function (userId: number, message: {body: string}) {
+      QB.chat.onMessageListener = (userId: number, message: {body: string}) => {
         getMessagesList()
         console.info(message, "UPCOMING MESSAGE")
       }
@@ -122,6 +137,7 @@ export default function ConferenceRoomView() {
     const captchaToken = await getRecaptcha()
     try {
       const confCredentials = await conferenceManager.joinToDialog(captchaToken as string, confDataState.waitingToken)
+      console.log(confCredentials,111)
       setDialogId(confCredentials.data.data.dialogId)
       setUserToken(confCredentials.data.data.userToken)
     } catch (err) {
@@ -140,9 +156,9 @@ export default function ConferenceRoomView() {
       elemId: "myVideoStream"
     }
 
-    QB.webrtc.onCallListener = function(session: any, extension: object) {
+    QB.webrtc.onCallListener = (session: ICallListener, extension: ICallListenerExtension) => {
       setIsConferenceStarted(true)
-      session.getUserMedia(mediaParams, function (error: object, stream: object) {
+      session.getUserMedia(mediaParams, function (error: object) {
         if (error) {
           console.error(error)
         } else {
@@ -151,11 +167,11 @@ export default function ConferenceRoomView() {
       })
     }
 
-    QB.webrtc.onRemoteStreamListener = function(session: any, userID: number, remoteStream: object) {
+    QB.webrtc.onRemoteStreamListener = (session: IRemoteStreamListener, userID: number, remoteStream: object) => {
       session.attachMediaStream("videoStream", remoteStream);
     }
 
-    QB.webrtc.onStopCallListener = function(session: any, userId: number, extension: object) {
+    QB.webrtc.onStopCallListener = () => {
       setIsConferenceStarted(false)
       setIsConferenceEnded(true)
     };
@@ -165,6 +181,8 @@ export default function ConferenceRoomView() {
     (async () => {
       if (confDataState.waitingToken.length) {
         await joinToChat()
+      } else {
+        await router.push(`/conference/join?appointmentToken=${localStorage.getItem("appointmentToken")}`)
       }
     })()
   }, [confDataState.waitingToken])

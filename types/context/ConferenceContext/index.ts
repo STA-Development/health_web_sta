@@ -1,8 +1,16 @@
+export interface IPatientInfo {
+  firstName: string
+  lastName: string
+  testType: string
+  kitCode: string
+}
+
 export interface IConfState {
   chatVisibility: boolean,
   messages: IQBMessage[],
   myPersonalId: number,
   waitingToken: string,
+  patientInfo: IPatientInfo
 }
 
 export type IConfActions =
@@ -21,6 +29,10 @@ export type IConfActions =
   | {
   type: "SET_WAITING_TOKEN"
   waitingToken: string
+}
+  | {
+  type: "UPDATE_PATIENT_INFO"
+  patientInfo: IPatientInfo
 }
 
 export interface IMessage {
