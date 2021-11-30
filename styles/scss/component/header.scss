@@ -1,79 +1,57 @@
-.header-wrapper{
-  display: flex;
-  flex-direction: column;
+@import '../abstracts/mixins';
+
+.header-wrapper {
+  @include setDisplay(flex, unset, unset, column);
   .test-type-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+    @include setDisplay(flex, flex-start, center, row);
     height: 64px;
     padding: 24px;
     .test-info{
-      display: flex;
-      flex-direction: column;
+      @include setDisplay(flex, space-between, unset, column);
       height: 100%;
-      justify-content: space-between;
       margin-left: 20px;
       &__result {
-        font-family: $fhhealth-font-SF-bold;
-        font-size: 34px;
-        font-weight: bold;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: 1.18;
-        letter-spacing: normal;
+        @include setFontAppearance($fhhealth-font-SF-bold, bold, normal, normal);
+        @include setFontSizes(34px, 1.18, normal);
         color: $fhhealth-color-dark-black;
       }
       &__date {
-        font-family: $fhhealth-font-DM-medium;
-        font-size: 15px;
-        font-weight: 500;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: 1.2;
-        letter-spacing: -0.24px;
+        @include setFontAppearance($fhhealth-font-DM-medium, 500, normal, normal);
+        @include setFontSizes(15px, 1.2, -0.24px);
         color:$fhhealth-color-light-gray-text;
       }
     }
   }
   .user-info{
-    display: flex;
-    flex-direction: row;
+    @include setDisplay(flex, unset, unset, row);
     border-top: solid 1px $fhhealth-color-solid-border;
     border-bottom: dashed 1px $fhhealth-color-dashed-border;
     .left-column {
-      display: flex;
-      flex-direction: column;
+      @include setDisplay(flex, unset, unset, column);
       min-width: 55%;
       border-right: solid 1px $fhhealth-color-solid-border;
       padding: 24px 0 20px 24px;
       .field-answer-wrapper {
-        display: flex;
-        flex-direction: column;
+        @include setDisplay(flex, unset, unset, column);
       }
     }
     .right-column {
-      display: flex;
-      flex-direction: row;
+      @include setDisplay(flex, unset, unset, row);
       width: 45%;
       .right-column__first {
         border-right: solid 1px $fhhealth-color-solid-border;
         padding: 16px 0 4px 16px;
         width: 60%;
         .right-column__first__top {
-          display: flex;
-          flex-direction: column;
+          @include setDisplay(flex, unset, unset, column);
         }
         .right-column__first__bottom {
-          display: flex;
-          flex-direction: row;
+          @include setDisplay(flex, unset, unset, column);
           .right-column__first__bottom__left {
-            display: flex;
-            flex-direction: column;
+            @include setDisplay(flex, unset, unset, column);
           }
           .right-column__first__bottom__right {
-            display: flex;
-            flex-direction: column;
+            @include setDisplay(flex, unset, unset, column);
             padding-left: 24px;
           }
         }

@@ -14,10 +14,13 @@ const getOrGenerateDeviceId = () => {
     localStorage.setItem("deviceId", newDeviceId)
   }
 }
-export const Axios = (token?: string) => {
-  const axiosInstance = axios.create({
-    baseURL: process.env.APP_BASE_URL,
-  })
+export const Axios = (parameters?: {
+  token?: string,
+  baseURL?: string
+}) => {
+  const token = parameters?.token
+  const baseURL = parameters?.baseURL || process.env.APP_BASE_URL
+  const axiosInstance = axios.create({ baseURL })
 
   axiosInstance.interceptors.request.use(function (config) {
     config.headers["opn-device-id"] = getOrGenerateDeviceId();

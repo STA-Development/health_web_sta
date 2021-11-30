@@ -1,31 +1,36 @@
+@import '../abstracts/mixins';
+
 .card-wrapper {
   display: block;
   text-align: center;
 }
 
 .card {
+  @include setBorder(1px, $fhhealth-color-dark-gray-border);
   position: relative;
   background-color: $fhhealth-color-white;
   border-radius: 8px;
-  border: solid 1px $fhhealth-color-dark-gray-border;
   max-width: 515px;
 }
 
 .card__body {
-  display: flex;
-  flex-direction: column;
+  @include setDisplay(flex, unset, unset, column);
   padding: 68px 48px 48px;
 }
 
 .card__close {
-  position: absolute;
-  top: 24px;
-  right: 24px;
+  @include setPosition(absolute, 24px, unset, unset, 24px);
 }
 
 .card__media {
+  @include setDisplay(flex, center, center);
+  @include setElementSize(419px, 238px);
   border-radius: 5px;
-  text-align: center;
+
+  &_sm {
+    width: auto;
+    height: auto;
+  }
 
   &_with-bg {
     background-color: $fhhealth-color-grey-bg;
@@ -36,11 +41,43 @@
   }
 }
 
+.card__header {
+  text-align: center;
+  margin-top: 0;
+  &-title {
+    font-size: 32px;
+    margin-bottom: 12px;
+    color: $fhhealth-color-dark-black;
+  }
+}
+
+
 .card__content {
   text-align: center;
   margin-top: 32px;
   margin-bottom: 48px;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    &-details {
+      margin-left: 24px;
+      text-align: left;
+      h4 {
+        font-size: 17px;
+        color: $fhhealth-color-dark-black;
+      }
+      p {
+        font-size: 15px;
+        margin-top: 8px;
+        color: $fhhealth-color-dark-black;
+        opacity: 0.6;
+      }
+    }
+  }
 }
+
 
 .card__content-title {
   font-size: 24px;
@@ -48,7 +85,7 @@
   color: $fhhealth-color-dark-black;
 }
 
-.card__content-message, .card-wrapper__message {
+.card__content-message, .card-wrapper__message, .card__header-message {
   font-size: 17px;
   line-height: 1.29;
   color: $fhhealth-color-light-gray-text;
@@ -64,4 +101,24 @@
   border-radius: 5px;
   font-size: 20px;
   padding: 16px 0;
+}
+
+.checkbox-circle {
+  border: 2px solid $fhhealth-color-carcass-border;
+  width: 22px;
+  margin-left: auto;
+  height: 22px;
+  border-radius: 10em;
+  cursor: pointer;
+  &_active {
+    background-color: $fhhealth-color-orange;
+    border-color: $fhhealth-color-orange;
+    &:before {
+      position: relative;
+      top: 4px;
+      left: 1px;
+      color: #fff;
+      content: '\2714';
+    }
+  }
 }

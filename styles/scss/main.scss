@@ -21,6 +21,8 @@
 @import "component/conference";
 @import "component/video-wrapper";
 @import "component/chat-wrapper";
+@import "component/message";
+@import "component/consultation";
 @import "base/media/carcass";
 @import "base/media/pcr-analysis-data";
 @import "base/media/header";
@@ -33,4 +35,6 @@
 @import "base/media/antibody-analysis-data";
 @import "base/media/login-view";
 @import "base/media/notification";
+@import "base/media/pure-block";
 @import "base/media/conference";
+@import "base/media/card";

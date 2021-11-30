@@ -1,7 +1,7 @@
+@import '../abstracts/mixins';
+
 .conference-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  @include setDisplay(flex, space-between, center);
   background-color: $fhhealth-color-white;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
   padding: 22px 24px;
@@ -13,13 +13,11 @@
 }
 
 .conference-header__items {
-  display: flex;
-  align-items: center;
+  @include setDisplay(flex, unset, center);
 }
 
 .conference-header__items-button {
-  width: 24px;
-  height: 24px;
+  @include setElementSize(24px, 24px);
 }
 
 .lang-switcher {
@@ -31,6 +29,5 @@
 }
 
 .lang-switcher__current-lang {
-  display: flex;
-  align-items: center;
+  @include setDisplay(flex, unset, center);
 }

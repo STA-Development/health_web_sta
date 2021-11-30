@@ -1,0 +1,61 @@
+@import "../abstracts/mixins";
+
+#videoStream {
+  @include setPosition(absolute, 2px, unset, 0, unset);
+  width: 100%;
+}
+
+#myVideoStream {
+  @include setPosition(absolute, 28px, unset, unset, 28px);
+  @include setElementSize(unset, 192px);
+  @include setBorder(4px, #ffffff8c);
+}
+
+.consultation {
+  background-color: $fhhealth-color-dark-black;
+  width: 100%;
+  height: 100%;
+
+  video {
+    border-radius: 5px;
+  }
+}
+
+.consultation__remote-content {
+  width: 100%;
+  height: 100%;
+}
+
+.call-menu {
+  @include setPosition(absolute, unset, 0, unset, unset);
+  background-color: $fhhealth-color-dark-black;
+  padding: 15px 0 20px;
+  width: 100%;
+}
+
+.call-menu__content {
+  @include setDisplay(flex, space-between, center);
+  @include setElementSize(182px, unset);
+  margin: 0 auto;
+}
+
+.call-menu__button {
+  @include setElementSize(75px, 75px);
+  border-radius: 5px;
+
+  &_mute {
+    background-color: $fhhealth-color-white;
+  }
+
+  &_end {
+    background-color: $fhhealth-color-red-btn;
+  }
+
+  &:active {
+    opacity: 0.5;
+  }
+
+  img {
+    object-fit: cover;
+  }
+}

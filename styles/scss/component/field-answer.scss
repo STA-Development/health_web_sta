@@ -1,22 +1,19 @@
+@import '../abstracts/mixins';
+
 .field {
-  font-family: $fhhealth-font-DM-bold;
+  @include setFontAppearance($fhhealth-font-DM-bold, bold, normal, normal);
   opacity: 0.5;
   font-size: 8px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
   color: $fhhealth-color-black;
   text-transform: uppercase;
 }
+
 .answer {
-  font-family: $fhhealth-font-PT-bold;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
+  @include setFontAppearance($fhhealth-font-PT-bold, bold, normal, normal);
+  @include setFontSizes(unset, normal, normal);
   color: $fhhealth-color-black;
 }
+
 .user-main-answer {
   font-size: 32px;
   margin: 8px 0 16px 0;

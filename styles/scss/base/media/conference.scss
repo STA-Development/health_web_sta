@@ -59,6 +59,7 @@
     left: 0;
     height: 100%;
     width: 100%;
+    z-index: 9;
 
     .chat-wrapper {
       display: block;
@@ -67,6 +68,14 @@
 
     .messenger {
       height: 100%;
+    }
+  }
+
+  .network-content {
+
+    h4 {
+      margin-top: 48px;
+      margin-bottom: 20px;
     }
   }
 }

@@ -1,8 +1,9 @@
+@import '../abstracts/mixins';
+
 .video-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 70%;
+  position: relative;
+  @include setDisplay(flex, center, center);
+  width: 65%;
 }
 
 .video-wrapper__content {
@@ -15,12 +16,25 @@
   }
 
   p {
-    font-size: 20px;
-    line-height: 1.25;
+    @include setFontSizes(20px, 1.25, unset);
     color: $fhhealth-color-light-gray-text;
 
     &:last-child {
       margin-top: 48px;
     }
+  }
+}
+
+.video-wrapper__button {
+  @include setElementSize(335px, auto);
+  padding: 20px 0;
+  font-size: 20px;
+  border-radius: 5px;
+  background-color: #202832;
+  color: $fhhealth-color-white;
+  margin-top: 48px;
+
+  &:active {
+    background-color: #323c48;
   }
 }
