@@ -106,7 +106,7 @@
 
     .inputGroup__resend {
       @include setDisplay(flex, unset, center, column);
-      margin-top: 24px;
+      margin-top: 32px;
 
       span {
         color: rgba(35, 35, 37, 0.6);
@@ -129,9 +129,9 @@
     }
 
     .inputGroup__resend_button {
-      color: $fhhealth-color-blue-btn;
-      text-decoration: underline;
-      font-size: 14px;
+      color: $fhhealth-color-dark-black;
+      font-size: 16px;
+      font-weight: 500;
     }
   }
 }

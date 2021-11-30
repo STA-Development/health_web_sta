@@ -37,15 +37,15 @@ export default function Login() {
     const [verifyButtonState, setVerifyButtonState] = useState<boolean>(false)
 
     const startCountdown = () => {
-        let duration = timerDuration;
+        let duration = timerDuration
         const timer = setInterval(() => {
-            setDisplayDuration(duration);
-            duration--;
+            setDisplayDuration(duration)
+            duration--
             if (duration === -1) {
-                handlePhoneSMSSend();
-                clearInterval(timer);
+                handlePhoneSMSSend()
+                clearInterval(timer)
             }
-        }, 1000);
+        }, 1000)
     };
 
     const handleVerificationCodeChange = (verificationCode: string) => {
@@ -80,8 +80,9 @@ export default function Login() {
         try {
             return await firebase
                 .auth()
-                .signInWithPhoneNumber(phone ? phone : phoneNumber, authDataState.reCaptchaVerifier as any)
+                .signInWithPhoneNumber(phone ? phone : phoneNumber, authDataState.reCaptchaVerifier as firebase.auth.RecaptchaVerifier)
         } catch (e) {
+            getFirebaseCaptcha()
             setWarningMessage(e.message);
         }
     }
@@ -116,6 +117,7 @@ export default function Login() {
                         })
                     }
                 } catch (err) {
+                    getFirebaseCaptcha()
                     setErrMessage(err.message);
                 }
             }
@@ -241,7 +243,7 @@ export default function Login() {
                             </div>
                             <div className='inputGroup inputGroup_verify'>
                                 <ReactCodeInput
-                                    type={"text"}
+                                    type={"number"}
                                     placeholder={["-", "-", "-", "-", "-", "-"]}
                                     onChange={value => {
                                         handleVerificationCodeChange(value);
@@ -252,13 +254,11 @@ export default function Login() {
                                 {
                                     displayDuration === 0 ? (
                                         <div className='inputGroup__resend'>
-                                            <span>Didn't receive the sms?</span>
-                                            <br/>
                                             <button
-                                                onClick={startCountdown}
-                                                className='button inputGroup__resend_button'
-                                            >
-                                                Resend
+                                        onClick={startCountdown}
+                                        className='button inputGroup__resend_button'
+                                    >
+                                        Resend code in 5
                                             </button>
                                         </div>
                                     ) : <>{displayDuration}</>
@@ -267,16 +267,15 @@ export default function Login() {
                                     <CircleLoader className="middle-loader"/>
                                 ) : (
                                     <button
-                                        className={verifyButtonState ? 'button inputGroup__button' : 'button inputGroup__button inputGroup__button_disabled'}
-                                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleVerifyCode(e)}
-                                        data-cy='verify'
-                                    >
-                                        Verify Code
-                                    </button>
-                                )}
-                            </div>
-                        </PureBlock>)}
-                </div>
+                                        className={(verifyButtonState && displayDuration === 0) ? 'button inputGroup__button' : 'button inputGroup__button inputGroup__button_disabled'}
+                                onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleVerifyCode(e)}
+                                data-cy='verify'
+                            >
+                                Verify Code
+                            </button>
+                        )}
+                    </div>
+                </PureBlock>)}</div>
             </div>
         </>
     )
