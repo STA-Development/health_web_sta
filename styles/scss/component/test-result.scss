@@ -15,7 +15,7 @@
   }
 }
 .wrapper__negative{
-  background-color: $fhhealth-color-green-bg;
+  background-color: $fhhealth-color-green-btn;
 }
 .wrapper__positive{
   background-color: $fhhealth-color-red-bg
@@ -51,7 +51,27 @@
 .YELLOW-svg {
   fill: $fhhealth-color-blue-btn;
 }
-.span__presumptivepositive{
-  background-color: $fhhealth-color-red-btn;
+.span_test_result {
   padding: 4px;
+  border-radius: 4px;
+}
+.span {
+  &__presumptivepositive{
+    background-color: $fhhealth-color-red-btn;
+  }
+  &__negative {
+    background: $fhhealth-color-green-btn;
+  }
+  &__positive {
+    background-color: $fhhealth-color-danger;
+  }
+  &__inconclusive {
+    background-color: $fhhealth-color-dark-blue-bg;
+  }
+  &__indeterminate {
+    background-color: $fhhealth-color-dark-blue-bg;
+  }
+  &__invalid {
+    background-color: $fhhealth-color-dark-blue-bg;
+  }
 }
