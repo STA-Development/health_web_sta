@@ -33,12 +33,11 @@ export default function ConferenceRoomView() {
   const [isConferenceEnded, setIsConferenceEnded] = useState(false)
   const router = useRouter()
 
-  const getRecaptcha = () => {
+  const getRecaptcha = async () => {
     const captchaToken = process.env.RECAPTCHA_V3_KEY
     if (captchaToken) {
-      return load(captchaToken as string).then((recaptcha: ReCaptchaInstance) => {
-        return recaptcha.execute("submit")
-      })
+      const recaptcha: ReCaptchaInstance = await load(captchaToken as string)
+      return await recaptcha.execute("submit")
     } else {
       console.error("Captcha token is undefined")
     }
