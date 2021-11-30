@@ -63,7 +63,7 @@
       font-family: $fhhealth-font-DM-medium;
     }
     .inputGroup {
-      @include setDisplay(flex, unset, center, column);
+      @include setDisplay(flex, unset, unset, column);
       width: 100%;
       grid-row-gap: 8px;
 
@@ -80,8 +80,12 @@
         }
       }
 
-      &_verify {
+      &_verify, &_kit-code {
         align-items: center;
+      }
+
+      &_kit-code .kit-code-label {
+        @include setElementSize(348px, unset);
       }
 
       em {
