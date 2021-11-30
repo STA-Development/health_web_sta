@@ -1,6 +1,7 @@
 @import '../abstracts/mixins';
 
 .video-wrapper {
+  position: relative;
   @include setDisplay(flex, center, center);
   width: 65%;
 }
@@ -36,4 +37,17 @@
   &:active {
     background-color: #323c48;
   }
+}
+
+#videoStream {
+  @include setPosition(absolute, 0, unset, 0, unset);
+  width: 100%;
+  height: 100%;
+}
+
+#myVideoStream {
+  @include setPosition(absolute, 28px, unset, unset, 28px);
+  @include setElementSize(unset, 192px);
+  @include setBorder(6px, $fhhealth-color-carcass-border);
+  border-radius: 5px;
 }

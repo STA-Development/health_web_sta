@@ -5,10 +5,14 @@ import NetworkConnectionLost from "./partials/networkConnectionLost"
 import ConferenceFinalView from "./partials/conferenceFinalView"
 import {useRouter} from "next/router"
 
-export default function VideoWrapper() {
+interface IVideoWrapper {
+    isConferenceStarted?: boolean,
+    isConferenceEnded?: boolean
+}
+
+export default function VideoWrapper({ isConferenceStarted, isConferenceEnded }: IVideoWrapper) {
     const condition = useNetworkState()
     const [isOnline, setIsOnline] = useState(true)
-    const [isConference, setIsConference] = useState(true)
     const router = useRouter()
 
     const retryConnecting = () => {
@@ -29,21 +33,28 @@ export default function VideoWrapper() {
 
     return (
         <>
-            {(isOnline && isConference) && (
+            {(isOnline && !isConferenceEnded) && (
                 <div className='video-wrapper'>
-                    <div className='video-wrapper__content'>
-                        <RippleLoader/>
-                        <h4>You are in the waiting room</h4>
-                        <p>
-                            Your call will being as soon as the
-                            <br/>
-                            Health Professional is ready.
-                        </p>
-                        <p>Thank you for your patience!</p>
-                    </div>
+                    {isConferenceStarted ? (
+                      <>
+                          <video id="videoStream"/>
+                          <video id="myVideoStream"/>
+                      </>
+                    ) : (
+                      <div className='video-wrapper__content'>
+                          <RippleLoader/>
+                          <h4>You are in the waiting room</h4>
+                          <p>
+                              Your call will being as soon as the
+                              <br/>
+                              Health Professional is ready.
+                          </p>
+                          <p>Thank you for your patience!</p>
+                      </div>
+                    )}
                 </div>
             )}
-            {(isOnline && !isConference) && <ConferenceFinalView returnHome={returnHome}/>}
+            {(isOnline && isConferenceEnded) && <ConferenceFinalView returnHome={returnHome}/>}
             {!isOnline &&  <NetworkConnectionLost retry={retryConnecting}/>}
         </>
     )

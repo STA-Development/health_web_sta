@@ -1,5 +1,4 @@
 import React, {FormEvent, useEffect, useState} from "react"
-import * as QB from "quickblox/quickblox.js"
 import Image from "next/image"
 import {UseConfDataStateValue} from "../../../context/ConferenceContext"
 import Message from "./partials/message"
@@ -33,9 +32,9 @@ export default function ChatWrapper({ getMessageValue, sendMessage, messageToSen
     return (
       <div className='chat-wrapper'>
           <div className='chat-wrapper__kit-info'>
-              <h4>FH @ Home Travel (Kit Name)</h4>
+              <h4>{confDataState.patientInfo.testType} ({confDataState.patientInfo.kitCode})</h4>
               <p>Patient</p>
-              <h5>John Doe</h5>
+              <h5>{confDataState.patientInfo.firstName} {confDataState.patientInfo.lastName}</h5>
           </div>
           <div className='messenger'>
               <div className='messenger__header'>

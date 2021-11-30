@@ -63,7 +63,7 @@
       font-family: $fhhealth-font-DM-medium;
     }
     .inputGroup {
-      @include setDisplay(flex, unset, unset, column);
+      @include setDisplay(flex, unset, center, column);
       width: 100%;
       grid-row-gap: 8px;
 
