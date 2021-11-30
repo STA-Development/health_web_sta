@@ -23,6 +23,11 @@ export const ConferenceContextReducer = (state: IConfState, action: IConfActions
         ...state,
         waitingToken: action.waitingToken,
       }
+    case ConferenceContextStaticData.UPDATE_PATIENT_INFO:
+      return {
+        ...state,
+        patientInfo: action.patientInfo,
+      }
     default:
       return state
   }

@@ -8,6 +8,12 @@ const initialState: IConfState = {
     messages: [],
     myPersonalId: 0,
     waitingToken: "",
+    patientInfo: {
+        firstName: "",
+        lastName: "",
+        testType: "",
+        kitCode: ""
+    }
 }
 
 const initialConfContext: {

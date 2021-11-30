@@ -8,6 +8,7 @@ import conferenceManager from "../../manager/ConferenceManager"
 import {ConferenceContextStaticData} from "../../static/ConferenceContextStaticData"
 import MobileChatView from "../../component/base/conference/partials/mobileChatView"
 import {load, ReCaptchaInstance} from "recaptcha-v3"
+import { useRouter } from 'next/router'
 
 export default function ConferenceRoomView() {
   const {confDataState, setConfDataState} = UseConfDataStateValue()
@@ -16,6 +17,7 @@ export default function ConferenceRoomView() {
   const [messageToSend, setMessageToSend] = useState<string>("")
   const [isConferenceStarted, setIsConferenceStarted] = useState(false)
   const [isConferenceEnded, setIsConferenceEnded] = useState(false)
+  const router = useRouter()
 
   const getRecaptcha = async () => {
     const captchaToken = process.env.RECAPTCHA_V3_KEY
@@ -165,6 +167,8 @@ export default function ConferenceRoomView() {
     (async () => {
       if (confDataState.waitingToken.length) {
         await joinToChat()
+      } else {
+        await router.push(`/conference/join?appointmentToken=${localStorage.getItem("appointmentToken")}`)
       }
     })()
   }, [confDataState.waitingToken])
