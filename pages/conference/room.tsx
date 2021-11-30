@@ -67,7 +67,7 @@ export default function ConferenceRoomView() {
       password: userToken,
     }
 
-    QB.chat.connect(userCredentials, function(error: object, contactList: object) {
+    QB.chat.connect(userCredentials, (error: object, contactList: object) => {
       if (error) {
         console.error(error)
       } else {
@@ -83,7 +83,7 @@ export default function ConferenceRoomView() {
         }
       }
 
-      QB.chat.onMessageListener = function (userId: number, message: {body: string}) {
+      QB.chat.onMessageListener = (userId: number, message: {body: string}) => {
         getMessagesList()
         console.info(message, "UPCOMING MESSAGE")
       }
@@ -157,7 +157,7 @@ export default function ConferenceRoomView() {
       elemId: "myVideoStream"
     }
 
-    QB.webrtc.onCallListener = function(session: ICallListener, extension: ICallListenerExtension) {
+    QB.webrtc.onCallListener = (session: ICallListener, extension: ICallListenerExtension) => {
       setIsConferenceStarted(true)
       session.getUserMedia(mediaParams, function (error: object) {
         if (error) {
@@ -168,11 +168,11 @@ export default function ConferenceRoomView() {
       })
     }
 
-    QB.webrtc.onRemoteStreamListener = function(session: IRemoteStreamListener, userID: number, remoteStream: object) {
+    QB.webrtc.onRemoteStreamListener = (session: IRemoteStreamListener, userID: number, remoteStream: object) => {
       session.attachMediaStream("videoStream", remoteStream);
     }
 
-    QB.webrtc.onStopCallListener = function() {
+    QB.webrtc.onStopCallListener = () => {
       setIsConferenceStarted(false)
       setIsConferenceEnded(true)
     };
