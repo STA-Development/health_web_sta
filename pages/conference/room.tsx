@@ -9,13 +9,27 @@ import {ConferenceContextStaticData} from "../../static/ConferenceContextStaticD
 import MobileChatView from "../../component/base/conference/partials/mobileChatView"
 import {load, ReCaptchaInstance} from "recaptcha-v3"
 
+interface ICallSession {
+  stop: (value: object) => void,
+  mute: (value: string) => void,
+  unmute: (value: string) => void
+}
+
+const callSessionInitialState = {
+  stop: (value: object) => {},
+  mute: (value: string) => {},
+  unmute: (value: string) => {}
+}
+
 export default function ConferenceRoomView() {
   const {confDataState, setConfDataState} = UseConfDataStateValue()
   const [dialogId, setDialogId] = useState<string>("")
   const [userToken, setUserToken] = useState<string>("")
   const [messageToSend, setMessageToSend] = useState<string>("")
-  const [isConferenceStarted, setIsConferenceStarted] = useState(false)
-  const [isConferenceEnded, setIsConferenceEnded] = useState(false)
+  const [isConferenceStarted, setIsConferenceStarted] = useState<boolean>(false)
+  const [isConferenceEnded, setIsConferenceEnded] = useState<boolean>(false)
+  const [callSession, setCallSession] = useState<ICallSession>(callSessionInitialState)
+  const [isMuted, setIsMuted] = useState<boolean>(false)
 
   const getRecaptcha = async () => {
     const captchaToken = process.env.RECAPTCHA_V3_KEY
@@ -30,6 +44,23 @@ export default function ConferenceRoomView() {
 
   const getMessageValue = (value: string) => {
     setMessageToSend(value)
+  }
+
+  const triggerCallEnd = () => {
+    const extension = {}
+    callSession.stop(extension)
+    setIsConferenceStarted(false)
+    setIsConferenceEnded(true)
+  }
+
+  const switchAudioState = () => {
+    if (isMuted) {
+      setIsMuted(false)
+      callSession.unmute("audio")
+    } else {
+      setIsMuted(true)
+      callSession.mute("audio")
+    }
   }
 
   const getSession = () => {
@@ -59,7 +90,11 @@ export default function ConferenceRoomView() {
       }
       try {
         QB.chat.muc.join(dialogJid, function(err: string, result: string) {
-          console.info("JOINED ", result, err)
+          if (err) {
+            console.error(err)
+          } else {
+            console.info("JOINED ", result)
+          }
         })
       } catch (e) {
         if (e.name === "ChatNotConnectedError") {
@@ -142,7 +177,8 @@ export default function ConferenceRoomView() {
 
     QB.webrtc.onCallListener = function(session: any, extension: object) {
       setIsConferenceStarted(true)
-      session.getUserMedia(mediaParams, function (error: object, stream: object) {
+      setCallSession(session)
+      session.getUserMedia(mediaParams, function (error: object) {
         if (error) {
           console.error(error)
         } else {
@@ -152,13 +188,13 @@ export default function ConferenceRoomView() {
     }
 
     QB.webrtc.onRemoteStreamListener = function(session: any, userID: number, remoteStream: object) {
-      session.attachMediaStream("videoStream", remoteStream);
+      session.attachMediaStream("videoStream", remoteStream)
     }
 
-    QB.webrtc.onStopCallListener = function(session: any, userId: number, extension: object) {
+    QB.webrtc.onStopCallListener = function() {
       setIsConferenceStarted(false)
       setIsConferenceEnded(true)
-    };
+    }
   }
 
   useEffect(() => {
@@ -188,6 +224,8 @@ export default function ConferenceRoomView() {
       <VideoWrapper
         isConferenceStarted={isConferenceStarted}
         isConferenceEnded={isConferenceEnded}
+        triggerCallEnd={triggerCallEnd}
+        switchAudioState={switchAudioState}
       />
       <ChatWrapper
         getMessageValue={getMessageValue}
