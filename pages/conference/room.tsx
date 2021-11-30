@@ -11,8 +11,11 @@ import {load, ReCaptchaInstance} from "recaptcha-v3"
 import { useRouter } from 'next/router'
 
 interface ICallListener {
-  getUserMedia: (mediaParams: { audio: boolean; video: boolean; options: { muted: boolean; mirror: boolean; }; elemId: string; }, cb: (error: Error) => void) => void
-  accept: (extension:  {save_to_history: number, dialog_id: string }) => void
+  getUserMedia: (mediaParams: { audio: boolean, video: boolean, options: { muted: boolean, mirror: boolean }, elemId: string, }, cb: (error: Error) => void) => void
+  accept: (extension:  {save_to_history: number, dialog_id: string }) => void,
+  stop: (value: object) => void,
+  mute: (value: string) => void,
+  unmute: (value: string) => void
 }
 
 interface ICallListenerExtension {
@@ -24,13 +27,23 @@ interface IRemoteStreamListener {
   attachMediaStream: (streamType: string, remoteStream: object) => {}
 }
 
+const callSessionInitialState = {
+  getUserMedia: (mediaParams: { audio: boolean, video: boolean, options: { muted: boolean, mirror: boolean }, elemId: string, }, cb: (error: Error) => void) => {},
+  accept: (extension:  {save_to_history: number, dialog_id: string }) => {},
+  stop: (value: object) => {},
+  mute: (value: string) => {},
+  unmute: (value: string) => {}
+}
+
 export default function ConferenceRoomView() {
   const {confDataState, setConfDataState} = UseConfDataStateValue()
   const [dialogId, setDialogId] = useState<string>("")
   const [userToken, setUserToken] = useState<string>("")
   const [messageToSend, setMessageToSend] = useState<string>("")
-  const [isConferenceStarted, setIsConferenceStarted] = useState(false)
-  const [isConferenceEnded, setIsConferenceEnded] = useState(false)
+  const [isConferenceStarted, setIsConferenceStarted] = useState<boolean>(false)
+  const [isConferenceEnded, setIsConferenceEnded] = useState<boolean>(false)
+  const [callSession, setCallSession] = useState<ICallListener>(callSessionInitialState)
+  const [isMuted, setIsMuted] = useState<boolean>(false)
   const router = useRouter()
 
   const getRecaptcha = async () => {
@@ -45,6 +58,23 @@ export default function ConferenceRoomView() {
 
   const getMessageValue = (value: string) => {
     setMessageToSend(value)
+  }
+
+  const triggerCallEnd = () => {
+    const extension = {}
+    callSession.stop(extension)
+    setIsConferenceStarted(false)
+    setIsConferenceEnded(true)
+  }
+
+  const switchAudioState = () => {
+    if (isMuted) {
+      setIsMuted(false)
+      callSession.unmute("audio")
+    } else {
+      setIsMuted(true)
+      callSession.mute("audio")
+    }
   }
 
   const getSession = () => {
@@ -74,7 +104,11 @@ export default function ConferenceRoomView() {
       }
       try {
         QB.chat.muc.join(dialogJid, function(err: string, result: string) {
-          console.info("JOINED ", result, err)
+          if (err) {
+            console.error(err)
+          } else {
+            console.info("JOINED ", result)
+          }
         })
       } catch (e) {
         if (e.name === "ChatNotConnectedError") {
@@ -137,7 +171,6 @@ export default function ConferenceRoomView() {
     const captchaToken = await getRecaptcha()
     try {
       const confCredentials = await conferenceManager.joinToDialog(captchaToken as string, confDataState.waitingToken)
-      console.log(confCredentials,111)
       setDialogId(confCredentials.data.data.dialogId)
       setUserToken(confCredentials.data.data.userToken)
     } catch (err) {
@@ -158,6 +191,7 @@ export default function ConferenceRoomView() {
 
     QB.webrtc.onCallListener = (session: ICallListener, extension: ICallListenerExtension) => {
       setIsConferenceStarted(true)
+      setCallSession(session)
       session.getUserMedia(mediaParams, function (error: object) {
         if (error) {
           console.error(error)
@@ -206,6 +240,8 @@ export default function ConferenceRoomView() {
       <VideoWrapper
         isConferenceStarted={isConferenceStarted}
         isConferenceEnded={isConferenceEnded}
+        triggerCallEnd={triggerCallEnd}
+        switchAudioState={switchAudioState}
       />
       <ChatWrapper
         getMessageValue={getMessageValue}

@@ -28,7 +28,8 @@ const conferenceManager = {
       token: captchaToken,
       baseURL: process.env.SCHEDULE_BASE_URL
     }).put('/scheduling/api/public/v1/appointment/waiting', {
-      waitingToken
+      waitingToken,
+      tempUserToken: 'tempUserToken'
     })
   }
 }

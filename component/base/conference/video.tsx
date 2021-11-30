@@ -4,13 +4,16 @@ import {useEffect, useState} from "react"
 import NetworkConnectionLost from "./partials/networkConnectionLost"
 import ConferenceFinalView from "./partials/conferenceFinalView"
 import {useRouter} from "next/router"
+import Consultation from "./partials/consultation"
 
 interface IVideoWrapper {
     isConferenceStarted?: boolean,
-    isConferenceEnded?: boolean
+    isConferenceEnded?: boolean,
+    triggerCallEnd?: () => void,
+    switchAudioState?: () => void
 }
 
-export default function VideoWrapper({ isConferenceStarted, isConferenceEnded }: IVideoWrapper) {
+export default function VideoWrapper({ isConferenceStarted, isConferenceEnded, triggerCallEnd, switchAudioState }: IVideoWrapper) {
     const condition = useNetworkState()
     const [isOnline, setIsOnline] = useState(true)
     const router = useRouter()
@@ -36,10 +39,10 @@ export default function VideoWrapper({ isConferenceStarted, isConferenceEnded }:
             {(isOnline && !isConferenceEnded) && (
                 <div className='video-wrapper'>
                     {isConferenceStarted ? (
-                      <>
-                          <video id="videoStream"/>
-                          <video id="myVideoStream"/>
-                      </>
+                      <Consultation
+                        triggerCallEnd={triggerCallEnd}
+                        switchAudioState={switchAudioState}
+                      />
                     ) : (
                       <div className='video-wrapper__content'>
                           <RippleLoader/>
