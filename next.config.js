@@ -29,6 +29,7 @@ module.exports = {
     RECAPTCHA_V3_KEY: process.env.RECAPTCHA_V3_KEY,
     APP_VERSION: process.env.APP_VERSION,
     APP_BASE_URL: process.env.APP_BASE_URL,
+    SCHEDULE_BASE_URL: process.env.SCHEDULE_BASE_URL,
     APP_DOMAIN: process.env.APP_DOMAIN,
     APP_SOURCE: process.env.APP_SOURCE,
     FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
@@ -39,5 +40,9 @@ module.exports = {
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
     APP_RESERVATION_URL: process.env.APP_RESERVATION_URL,
     APP_TESTING_MODE: process.env.APP_TESTING_MODE,
+    QB_APP_ID: process.env.QB_APP_ID,
+    QB_ACCOUNT_KEY: process.env.QB_ACCOUNT_KEY,
+    QB_API_DOMAIN: process.env.QB_API_DOMAIN,
+    QB_CHAT_DOMAIN: process.env.QB_CHAT_DOMAIN
   },
 }

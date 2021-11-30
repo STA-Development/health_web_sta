@@ -2,6 +2,7 @@ import { useState } from "react"
 import Image from "next/image"
 import MobileChatView from "../base/conference/partials/mobileChatView";
 import {UseConfDataStateValue} from "../../context/ConferenceContext";
+import { ConferenceContextStaticData } from "../../static/ConferenceContextStaticData"
 
 enum Language {
     ENG = 'Eng',
@@ -14,9 +15,7 @@ const ConferenceHeader = () => {
     const { confDataState, setConfDataState } = UseConfDataStateValue()
 
     const openMobileChat = () => {
-        setConfDataState({
-            chatVisibility: true
-        })
+        setConfDataState({ type: ConferenceContextStaticData.TOGGLE_CHAT_VIEW, view: true })
     }
 
     return (
@@ -46,7 +45,6 @@ const ConferenceHeader = () => {
                     <Image src='/chat-icon.svg' alt='open chat' width={24} height={24}/>
                 </button>
             </div>
-            {confDataState.chatVisibility && <MobileChatView/>}
         </header>
     )
 }
