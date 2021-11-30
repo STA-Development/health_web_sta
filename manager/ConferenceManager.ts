@@ -12,6 +12,17 @@ const conferenceManager = {
     })
   },
 
+  getAppointmentInfo(captchaToken: string, appointmentToken: string) {
+    return Axios({
+      token: captchaToken,
+      baseURL: process.env.SCHEDULE_BASE_URL,
+    }).get(`/scheduling/api/public/v1/appointment`, {
+      headers: {
+        'appointment-id': appointmentToken
+      },
+    })
+  },
+
   joinToDialog(captchaToken: string, waitingToken: string) {
     return Axios({
       token: captchaToken,
