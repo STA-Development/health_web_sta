@@ -28,7 +28,7 @@ module.exports = {
   env: {
     RECAPTCHA_V3_KEY: process.env.RECAPTCHA_V3_KEY,
     APP_VERSION: process.env.APP_VERSION,
-    APP_BASE_URL: process.env.APP_BASE_URL,
+    USER_SERVICE_URL: process.env.USER_SERVICE_URL,
     SCHEDULE_SERVICE_URL: process.env.SCHEDULE_SERVICE_URL,
     APP_DOMAIN: process.env.APP_DOMAIN,
     APP_SOURCE: process.env.APP_SOURCE,
