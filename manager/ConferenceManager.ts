@@ -7,7 +7,7 @@ const conferenceManager = {
       baseURL: process.env.SCHEDULE_SERVICE_URL,
     }).get(`/scheduling/api/public/v1/kit-codes/${kitCode}`, {
       headers: {
-        'appointment-id': appointmentToken
+        'appointment-token': appointmentToken
       },
     })
   },
@@ -18,7 +18,7 @@ const conferenceManager = {
       baseURL: process.env.SCHEDULE_SERVICE_URL,
     }).get(`/scheduling/api/public/v1/appointment`, {
       headers: {
-        'appointment-id': appointmentToken
+        'appointment-token': appointmentToken
       },
     })
   },
@@ -28,8 +28,7 @@ const conferenceManager = {
       token: captchaToken,
       baseURL: process.env.SCHEDULE_SERVICE_URL
     }).put('/scheduling/api/public/v1/appointment/waiting', {
-      waitingToken,
-      tempUserToken: 'tempUserToken'
+      waitingToken
     })
   }
 }
