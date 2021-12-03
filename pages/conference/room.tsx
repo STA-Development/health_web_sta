@@ -103,7 +103,7 @@ export default function ConferenceRoomView() {
         console.info(contactList, "CONTACT LIST")
       }
       try {
-        QB.chat.muc.join(dialogJid, function(err: string, result: string) {
+        QB.chat.muc.join(dialogJid, (err: string, result: string) => {
           if (err) {
             console.error(err)
           } else {
@@ -142,7 +142,6 @@ export default function ConferenceRoomView() {
     const dialogJid = QB.chat.helpers.getRoomJidFromDialogId(dialogId)
     try {
       QB.chat.send(dialogJid, message)
-      getMessagesList()
     } catch (e) {
       if (e.name === "ChatNotConnectedError") {
         console.error(e, "ON_SEND_ERROR")
@@ -158,13 +157,22 @@ export default function ConferenceRoomView() {
       skip: 0,
     }
 
-    QB.chat.message.list(chatParams, function(error: object, messages: {items: []}) {
+    QB.chat.message.list(chatParams, (error: object, messages: {items: []}) => {
       if (error) {
         console.error(error)
       } else {
         setConfDataState({ type: ConferenceContextStaticData.SET_MESSAGES, messages: messages?.items })
       }
     })
+
+    // QB.content.list((error: object, data: { items: [] }) => {
+    //   if (error) {
+    //     console.error(error)
+    //   } else {
+    //     console.info(data)
+    //     setConfDataState({ type: ConferenceContextStaticData.SET_MESSAGES, messages: data.items })
+    //   }
+    // })
   }
 
   const joinToChat = async () => {

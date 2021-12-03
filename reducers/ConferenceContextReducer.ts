@@ -28,6 +28,11 @@ export const ConferenceContextReducer = (state: IConfState, action: IConfActions
         ...state,
         patientInfo: action.patientInfo,
       }
+    case ConferenceContextStaticData.SET_MESSAGE_ERROR:
+      return {
+        ...state,
+        error: action.error,
+      }
     default:
       return state
   }

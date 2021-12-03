@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react"
 import {UseConfDataStateValue} from "../../../../context/ConferenceContext"
 import { IMessage } from "../../../../types/context/ConferenceContext"
+import MessageError from "./messageError"
 
 export default function Message({ messageInfo }: { messageInfo?: IMessage }) {
 
@@ -23,9 +24,9 @@ export default function Message({ messageInfo }: { messageInfo?: IMessage }) {
     const day = alteredDate.split(',')[0].split('/')[1]
 
     if (new Date().getDate() === parseInt(day)) {
-      setMessageDate(`Today, ${time}`)
+      setMessageDate(`Today, ${time.split(' ')[1].split(':').slice(0, 2).join(':')} ${time.split(' ')[2]}`)
     } else if (new Date().getDate() - parseInt(day) === 1) {
-      setMessageDate(`Yesterday, ${time}`)
+      setMessageDate(`Yesterday, ${time.split(' ')[1].split(':').slice(0, 2).join(':')} ${time.split(' ')[2]}`)
     } else {
       setMessageDate(alteredDate)
     }
@@ -41,6 +42,7 @@ export default function Message({ messageInfo }: { messageInfo?: IMessage }) {
       <div className="message__body">
         <span className="message_date">{messageDate}</span>
         <span className="message__text">{messageInfo?.message}</span>
+        {isMyText && confDataState.error && <MessageError text="Couldn’t Send. Click to try again." />}
       </div>
     </div>
   )

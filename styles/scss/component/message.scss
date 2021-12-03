@@ -41,3 +41,13 @@
   border-bottom-left-radius: unset;
   background-color: $fhhealth-color-black;
 }
+
+.message-error {
+  @include setDisplay(flex, unset, center);
+  color: $fhhealth-color-dark-red-bg;
+  font-size: 12px;
+
+  span {
+    padding-left: 8px;
+  }
+}

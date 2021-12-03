@@ -10,7 +10,8 @@ export interface IConfState {
   messages: IQBMessage[],
   myPersonalId: number,
   waitingToken: string,
-  patientInfo: IPatientInfo
+  patientInfo: IPatientInfo,
+  error: boolean
 }
 
 export type IConfActions =
@@ -33,6 +34,10 @@ export type IConfActions =
   | {
   type: "UPDATE_PATIENT_INFO"
   patientInfo: IPatientInfo
+}
+  | {
+  type: "SET_MESSAGE_ERROR"
+  error: boolean
 }
 
 export interface IMessage {
