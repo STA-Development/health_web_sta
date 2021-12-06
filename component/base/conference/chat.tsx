@@ -1,13 +1,12 @@
-import React, {FormEvent, useEffect, useState} from "react"
+import React, { FormEvent } from "react"
 import Image from "next/image"
 import {UseConfDataStateValue} from "../../../context/ConferenceContext"
 import Message from "./partials/message"
-import {IChatWrapper, IMessage, IQBMessage} from "../../../types/context/ConferenceContext"
+import {IChatWrapper, IQBMessage} from "../../../types/context/ConferenceContext"
 import {ConferenceContextStaticData} from "../../../static/ConferenceContextStaticData"
 
 export default function ChatWrapper({ getMessageValue, sendMessage, messageToSend }: IChatWrapper) {
     const { confDataState, setConfDataState } = UseConfDataStateValue()
-    const [messages, setMessages] = useState<IMessage[]>([])
 
     const closeMobileChat = () => {
         setConfDataState({ type: ConferenceContextStaticData.TOGGLE_CHAT_VIEW, view: false })
@@ -17,17 +16,6 @@ export default function ChatWrapper({ getMessageValue, sendMessage, messageToSen
         event.preventDefault()
         sendMessage()
     }
-
-    useEffect(() => {
-        const shortenedMessages = confDataState.messages?.map((messageData: IQBMessage) => {
-            return {
-                senderId: messageData.sender_id,
-                date: messageData.created_at,
-                message: messageData.message
-            }
-        })
-        setMessages(shortenedMessages)
-    }, [confDataState.messages])
 
     return (
       <div className='chat-wrapper'>
@@ -52,7 +40,7 @@ export default function ChatWrapper({ getMessageValue, sendMessage, messageToSen
                   </button>
               </div>
               <div className='messenger__body'>
-                  {messages?.map((message: IMessage) => (
+                  {confDataState.messages?.map((message: IQBMessage) => (
                     <Message
                       key={Math.random()}
                       messageInfo={message}

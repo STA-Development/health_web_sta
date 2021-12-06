@@ -25,7 +25,7 @@ export type IConfActions =
 }
   | {
   type: "SET_MESSAGES"
-  messages: []
+  messages: IQBMessage[]
 }
   | {
   type: "SET_WAITING_TOKEN"
@@ -40,16 +40,11 @@ export type IConfActions =
   error: boolean
 }
 
-export interface IMessage {
-  senderId: number,
-  date: string,
-  message: string
-}
-
 export interface IQBMessage {
   sender_id: number,
-  created_at: string,
-  message: string
+  created_at: Date,
+  message: string,
+  hasError: boolean
 }
 
 export interface IChatWrapper {

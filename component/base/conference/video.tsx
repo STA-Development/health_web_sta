@@ -5,8 +5,6 @@ import NetworkConnectionLost from "./partials/networkConnectionLost"
 import ConferenceFinalView from "./partials/conferenceFinalView"
 import {useRouter} from "next/router"
 import Consultation from "./partials/consultation"
-import {ConferenceContextStaticData} from "../../../static/ConferenceContextStaticData"
-import {UseConfDataStateValue} from "../../../context/ConferenceContext"
 
 interface IVideoWrapper {
     isConferenceStarted?: boolean,
@@ -16,7 +14,6 @@ interface IVideoWrapper {
 }
 
 export default function VideoWrapper({ isConferenceStarted, isConferenceEnded, triggerCallEnd, switchAudioState }: IVideoWrapper) {
-    const { setConfDataState } = UseConfDataStateValue()
     const condition = useNetworkState()
     const [isOnline, setIsOnline] = useState(true)
     const router = useRouter()
@@ -34,7 +31,6 @@ export default function VideoWrapper({ isConferenceStarted, isConferenceEnded, t
     useEffect(() => {
         if (!condition.online) {
             setIsOnline(false)
-            setConfDataState({ type: ConferenceContextStaticData.SET_MESSAGE_ERROR, error: true })
         }
     }, [condition.online])
 

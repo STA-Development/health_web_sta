@@ -1,16 +1,16 @@
 import {useEffect, useState} from "react"
 import {UseConfDataStateValue} from "../../../../context/ConferenceContext"
-import { IMessage } from "../../../../types/context/ConferenceContext"
+import { IQBMessage } from "../../../../types/context/ConferenceContext"
 import MessageError from "./messageError"
 
-export default function Message({ messageInfo }: { messageInfo?: IMessage }) {
+export default function Message({ messageInfo }: { messageInfo?: IQBMessage }) {
 
   const { confDataState } = UseConfDataStateValue()
   const [isMyText, setIsMyText] = useState<boolean>(false)
   const [messageDate, setMessageDate] = useState<string>('')
 
   const compareSenderIds = () => {
-    if (messageInfo?.senderId === confDataState.myPersonalId) {
+    if (messageInfo?.sender_id === confDataState.myPersonalId) {
       setIsMyText(true)
     } else {
       setIsMyText(false)
@@ -18,7 +18,7 @@ export default function Message({ messageInfo }: { messageInfo?: IMessage }) {
   }
 
   const formatDate = () => {
-    const date = new Date(`${messageInfo?.date}`)
+    const date = new Date(`${messageInfo?.created_at}`)
     const alteredDate = date.toLocaleString()
     const time = alteredDate.split(',')[1]
     const day = alteredDate.split(',')[0].split('/')[1]
@@ -42,7 +42,7 @@ export default function Message({ messageInfo }: { messageInfo?: IMessage }) {
       <div className="message__body">
         <span className="message_date">{messageDate}</span>
         <span className="message__text">{messageInfo?.message}</span>
-        {isMyText && confDataState.error && <MessageError text="Couldn’t Send. Click to try again." />}
+        {isMyText && messageInfo?.hasError && <MessageError text="Couldn’t Send. Click to try again." />}
       </div>
     </div>
   )

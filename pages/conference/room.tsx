@@ -9,6 +9,7 @@ import {ConferenceContextStaticData} from "../../static/ConferenceContextStaticD
 import MobileChatView from "../../component/base/conference/partials/mobileChatView"
 import {load, ReCaptchaInstance} from "recaptcha-v3"
 import { useRouter } from 'next/router'
+import {useNetworkState} from "react-use"
 
 interface ICallListener {
   getUserMedia: (mediaParams: { audio: boolean, video: boolean, options: { muted: boolean, mirror: boolean }, elemId: string, }, cb: (error: Error) => void) => void
@@ -45,6 +46,7 @@ export default function ConferenceRoomView() {
   const [callSession, setCallSession] = useState<ICallListener>(callSessionInitialState)
   const [isMuted, setIsMuted] = useState<boolean>(false)
   const router = useRouter()
+  const condition = useNetworkState()
 
   const getRecaptcha = async () => {
     const captchaToken = process.env.RECAPTCHA_V3_KEY
@@ -116,9 +118,11 @@ export default function ConferenceRoomView() {
         }
       }
 
-      QB.chat.onMessageListener = (userId: number, message: {body: string}) => {
-        getMessagesList()
-        console.info(message, "UPCOMING MESSAGE")
+      QB.chat.onMessageListener = (userId: number, message: object) => {
+        if (userId !== confDataState.myPersonalId) {
+          getMessagesList()
+          console.info(message, "UPCOMING MESSAGE")
+        }
       }
     })
 
@@ -140,6 +144,23 @@ export default function ConferenceRoomView() {
     }
 
     const dialogJid = QB.chat.helpers.getRoomJidFromDialogId(dialogId)
+
+    const newMessage = {
+      sender_id: confDataState.myPersonalId,
+      created_at: new Date(),
+      message: messageToSend,
+      hasError: false
+    }
+
+    if (!condition.online) {
+      setConfDataState({
+        type: ConferenceContextStaticData.SET_MESSAGES,
+        messages: [...confDataState.messages, {...newMessage, hasError: true}]
+      })
+    } else {
+      setConfDataState({ type: ConferenceContextStaticData.SET_MESSAGES, messages: [...confDataState.messages, newMessage] })
+    }
+
     try {
       QB.chat.send(dialogJid, message)
     } catch (e) {
@@ -164,15 +185,6 @@ export default function ConferenceRoomView() {
         setConfDataState({ type: ConferenceContextStaticData.SET_MESSAGES, messages: messages?.items })
       }
     })
-
-    // QB.content.list((error: object, data: { items: [] }) => {
-    //   if (error) {
-    //     console.error(error)
-    //   } else {
-    //     console.info(data)
-    //     setConfDataState({ type: ConferenceContextStaticData.SET_MESSAGES, messages: data.items })
-    //   }
-    // })
   }
 
   const joinToChat = async () => {
