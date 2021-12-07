@@ -53,7 +53,6 @@ export default function ChatWrapper({ getMessageValue, sendMessage, messageToSen
                           <label htmlFor='upload'>
                               <Image src='/attach.svg' alt='upload' width={31} height={16}/>
                           </label>
-                          <input type='file' id='upload'/>
                       </div>
                       <input
                         onChange={(e) => getMessageValue(e.target.value)}
