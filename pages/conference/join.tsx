@@ -197,7 +197,7 @@ export default function ConferenceJoinView() {
                 <h4 className="card__content-title">Sign-in Link has Expired</h4>
                 <p className="card__content-message">
                   Uh Oh, It seems this link has expired. <br />
-                  Please Visit <a href="#" className="em-link">fhhealth.com</a> to to speak to a customer <br />
+                  Please Visit <a href="https://www.fhhealth.com/" className="em-link">fhhealth.com</a> to to speak to a customer <br />
                   service representative.
                 </p>
               </div>
@@ -205,7 +205,7 @@ export default function ConferenceJoinView() {
 
             <p className="card-wrapper__message">
               Need help? <br />
-              Live Chat available on <a href="#" className="em-link">fhhealth.com</a>
+              Live Chat available on <a href="https://www.fhhealth.com/" className="em-link">fhhealth.com</a>
             </p>
           </div>
         )}
