@@ -4,9 +4,7 @@ try {
   const url = new URL(process.env.APP_DOMAIN)
   domains.push(url.hostname)
 } catch (_) {
-  console.error(
-      `APP_DOMAIN is not defined or is invalid url: ${process.env.APP_DOMAIN}`,
-  )
+  console.error(`APP_DOMAIN is not defined or is invalid url: ${process.env.APP_DOMAIN}`)
 }
 
 // Use default image load for local
@@ -43,6 +41,7 @@ module.exports = {
     QB_APP_ID: process.env.QB_APP_ID,
     QB_ACCOUNT_KEY: process.env.QB_ACCOUNT_KEY,
     QB_API_DOMAIN: process.env.QB_API_DOMAIN,
-    QB_CHAT_DOMAIN: process.env.QB_CHAT_DOMAIN
+    QB_CHAT_DOMAIN: process.env.QB_CHAT_DOMAIN,
+    VIRTUAL_TEST_MODE: process.env.VIRTUAL_TEST_MODE,
   },
 }
