@@ -119,6 +119,7 @@ export default function ConferenceRoomView() {
         QB.chat.muc.join(dialogJid, (err: string, result: string) => {
           if (err) {
             console.error(err)
+            setIsError(true)
           } else {
             console.info("JOINED ", result)
           }
