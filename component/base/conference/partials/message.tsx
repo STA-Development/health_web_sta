@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react"
+import { format } from "date-fns"
 import {UseConfDataStateValue} from "../../../../context/ConferenceContext"
 import { IQBMessage } from "../../../../types/context/ConferenceContext"
 import MessageError from "./messageError"
@@ -19,17 +20,13 @@ export default function Message({ messageInfo }: { messageInfo?: IQBMessage }) {
 
   const formatDate = () => {
     const date = new Date(`${messageInfo?.created_at}`)
-    const time = date.toLocaleString().split(',')[1]
-    const day = date.toLocaleString().split(',')[0].split('/')[1]
-    const timeToDisplay = {
-      time: time.split(' ')[1].split(':').slice(0, 2).join(':'),
-      dayTime: time.split(' ')[2]
-    }
+    const time = format(date, "hh:mmaaaaa'm'")
+    const day = format(date, "dd-MM-yyyy").split("-")[0].split("")[1]
 
     if (new Date().getDate() === parseInt(day)) {
-      setMessageDate(`Today, ${timeToDisplay.time} ${timeToDisplay.dayTime}`)
+      setMessageDate(`Today, ${time}`)
     } else if (new Date().getDate() - parseInt(day) === 1) {
-      setMessageDate(`Yesterday, ${timeToDisplay.time} ${timeToDisplay.dayTime}`)
+      setMessageDate(`Yesterday, ${time}`)
     } else {
       setMessageDate(date.toLocaleString())
     }
