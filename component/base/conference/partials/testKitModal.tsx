@@ -2,13 +2,13 @@ import Image from "next/image";
 import Modal from "../../../utils/Modal";
 import Card from "../../../utils/Card";
 
-export default function KitNumberModal(props: { visibility?: boolean, closeModal?: any}) {
+export default function KitNumberModal({ visibility, closeModal }: { visibility: boolean, closeModal: (value: boolean) => void}) {
 
     return (
         <Modal>
             <Card>
                 <button
-                    onClick={() => props.closeModal(!props.visibility)}
+                    onClick={() => closeModal(!visibility)}
                     className='button card__close'
                 >
                     <Image src="/cross.svg" width={24} height={24} alt="close"/>
