@@ -19,16 +19,19 @@ export default function Message({ messageInfo }: { messageInfo?: IQBMessage }) {
 
   const formatDate = () => {
     const date = new Date(`${messageInfo?.created_at}`)
-    const alteredDate = date.toLocaleString()
-    const time = alteredDate.split(',')[1]
-    const day = alteredDate.split(',')[0].split('/')[1]
+    const time = date.toLocaleString().split(',')[1]
+    const day = date.toLocaleString().split(',')[0].split('/')[1]
+    const timeToDisplay = {
+      time: time.split(' ')[1].split(':').slice(0, 2).join(':'),
+      dayTime: time.split(' ')[2]
+    }
 
     if (new Date().getDate() === parseInt(day)) {
-      setMessageDate(`Today, ${time.split(' ')[1].split(':').slice(0, 2).join(':')} ${time.split(' ')[2]}`)
+      setMessageDate(`Today, ${timeToDisplay.time} ${timeToDisplay.dayTime}`)
     } else if (new Date().getDate() - parseInt(day) === 1) {
-      setMessageDate(`Yesterday, ${time.split(' ')[1].split(':').slice(0, 2).join(':')} ${time.split(' ')[2]}`)
+      setMessageDate(`Yesterday, ${timeToDisplay.time} ${timeToDisplay.dayTime}`)
     } else {
-      setMessageDate(alteredDate)
+      setMessageDate(date.toLocaleString())
     }
   }
 
