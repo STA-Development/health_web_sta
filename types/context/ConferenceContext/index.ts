@@ -50,5 +50,6 @@ export interface IQBMessage {
 export interface IChatWrapper {
   getMessageValue: (value: string) => void,
   sendMessage: () => void,
-  messageToSend: string
+  messageToSend: string,
+  loading: boolean
 }
