@@ -92,7 +92,6 @@ export default function ConferenceRoomView() {
       })
     } catch (e) {
       console.error(e)
-      alert(e)
     }
   }
 
@@ -122,7 +121,6 @@ export default function ConferenceRoomView() {
         if (e.name === "ChatNotConnectedError") {
           console.info("CHAT NOT CONNECTED")
         }
-        alert(e)
       }
 
       QB.chat.onMessageListener = (userId: number, message: object) => {
