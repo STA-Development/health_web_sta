@@ -45,6 +45,7 @@ export default function ConferenceRoomView() {
   const [isConferenceEnded, setIsConferenceEnded] = useState<boolean>(false)
   const [callSession, setCallSession] = useState<ICallListener>(callSessionInitialState)
   const [isMuted, setIsMuted] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const router = useRouter()
   const condition = useNetworkState()
 
@@ -80,14 +81,19 @@ export default function ConferenceRoomView() {
   }
 
   const getSession = () => {
-    QB.init(userToken, parseInt(`${process.env.QB_APP_ID}`), null, process.env.QB_ACCOUNT_KEY, QBConfig)
-    QB.getSession(function(error: object, {session}: {session: {user_id: number}}) {
-      if (error) {
-        console.error(error)
-      } else {
-        setConfDataState({ type: ConferenceContextStaticData.SET_PERSONAL_ID, id: session.user_id })
-      }
-    })
+    try {
+      QB.init(userToken, parseInt(`${process.env.QB_APP_ID}`), null, process.env.QB_ACCOUNT_KEY, QBConfig)
+      QB.getSession(function(error: object, {session}: {session: {user_id: number}}) {
+        if (error) {
+          console.error(error)
+        } else {
+          setConfDataState({ type: ConferenceContextStaticData.SET_PERSONAL_ID, id: session.user_id })
+        }
+      })
+    } catch (e) {
+      console.error(e)
+      alert(e)
+    }
   }
 
   const connectToChat = () => {
@@ -116,6 +122,7 @@ export default function ConferenceRoomView() {
         if (e.name === "ChatNotConnectedError") {
           console.info("CHAT NOT CONNECTED")
         }
+        alert(e)
       }
 
       QB.chat.onMessageListener = (userId: number, message: object) => {
@@ -188,6 +195,7 @@ export default function ConferenceRoomView() {
   }
 
   const joinToChat = async () => {
+    setLoading(true)
     const captchaToken = await getRecaptcha()
     try {
       const confCredentials = await conferenceManager.joinToDialog(captchaToken as string, confDataState.waitingToken)
@@ -196,6 +204,7 @@ export default function ConferenceRoomView() {
     } catch (err) {
       console.error(err)
     }
+    setLoading(false)
   }
 
   const startVideoCall = () => {
@@ -267,11 +276,13 @@ export default function ConferenceRoomView() {
         getMessageValue={getMessageValue}
         sendMessage={sendMessage}
         messageToSend={messageToSend}
+        loading={loading}
       />
       {confDataState.chatVisibility && <MobileChatView
         getMessageValue={getMessageValue}
         sendMessage={sendMessage}
         messageToSend={messageToSend}
+        loading={loading}
       />}
     </div>
   )

@@ -4,8 +4,9 @@ import {UseConfDataStateValue} from "../../../context/ConferenceContext"
 import Message from "./partials/message"
 import {IChatWrapper, IQBMessage} from "../../../types/context/ConferenceContext"
 import {ConferenceContextStaticData} from "../../../static/ConferenceContextStaticData"
+import ChatWrapperPreload from "./partials/chatWrapperPreload"
 
-export default function ChatWrapper({ getMessageValue, sendMessage, messageToSend }: IChatWrapper) {
+export default function ChatWrapper({ getMessageValue, sendMessage, messageToSend, loading }: IChatWrapper) {
     const { confDataState, setConfDataState } = UseConfDataStateValue()
 
     const closeMobileChat = () => {
@@ -17,7 +18,9 @@ export default function ChatWrapper({ getMessageValue, sendMessage, messageToSen
         sendMessage()
     }
 
-    return (
+    return loading ? (
+      <ChatWrapperPreload />
+    ) : (
       <div className='chat-wrapper'>
           <div className='chat-wrapper__kit-info'>
               <h4>{confDataState.patientInfo.testType} ({confDataState.patientInfo.kitCode})</h4>
