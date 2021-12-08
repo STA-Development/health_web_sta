@@ -10,15 +10,20 @@
     color: $fhhealth-color-dark-black;
   }
   &__top-part{
-    @include setDisplay(flex, space-between, unset);
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: minmax(200px, max-content) repeat(auto-fill, 400px);
     padding: 0 24px;
   }
   &__bottom-part{
-    @include setDisplay(flex, space-between, unset);
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: minmax(200px, max-content) repeat(auto-fill, 400px);
     padding: 24px 24px 24px 24px;
   }
   &__results{
     display: flex;
+    margin-right: 10px;
     border-top: solid 1px $fhhealth-color-test-analysis-data-border;
     border-bottom: solid 1px $fhhealth-color-test-analysis-data-border;
     border-radius: 5px;

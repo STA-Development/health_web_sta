@@ -19,7 +19,7 @@ export const Axios = (parameters?: {
   baseURL?: string
 }) => {
   const token = parameters?.token
-  const baseURL = parameters?.baseURL || process.env.APP_BASE_URL
+  const baseURL = parameters?.baseURL || process.env.USER_SERVICE_URL
   const axiosInstance = axios.create({ baseURL })
 
   axiosInstance.interceptors.request.use(function (config) {

@@ -4,17 +4,29 @@ const conferenceManager = {
   getWaitingToken(captchaToken: string, kitCode: string, appointmentToken: string) {
     return Axios({
       token: captchaToken,
-      baseURL: process.env.SCHEDULE_BASE_URL,
+      baseURL: process.env.SCHEDULE_SERVICE_URL,
     }).get(`/scheduling/api/public/v1/kit-codes/${kitCode}`, {
       headers: {
-        'appointment-id': appointmentToken
+        'appointment-token': appointmentToken
       },
     })
   },
 
-  joinToDialog(waitingToken: string) {
+  getAppointmentInfo(captchaToken: string, appointmentToken: string) {
     return Axios({
-      baseURL: process.env.SCHEDULE_BASE_URL
+      token: captchaToken,
+      baseURL: process.env.SCHEDULE_SERVICE_URL,
+    }).get(`/scheduling/api/public/v1/appointment`, {
+      headers: {
+        'appointment-token': appointmentToken
+      },
+    })
+  },
+
+  joinToDialog(captchaToken: string, waitingToken: string) {
+    return Axios({
+      token: captchaToken,
+      baseURL: process.env.SCHEDULE_SERVICE_URL
     }).put('/scheduling/api/public/v1/appointment/waiting', {
       waitingToken
     })

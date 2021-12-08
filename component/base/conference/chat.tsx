@@ -1,20 +1,13 @@
-import React, {FormEvent, useEffect, useState} from "react"
-import * as QB from "quickblox/quickblox.js"
+import React, { FormEvent } from "react"
 import Image from "next/image"
 import {UseConfDataStateValue} from "../../../context/ConferenceContext"
 import Message from "./partials/message"
-import { IMessage, IQBMessage } from "../../../types/context/ConferenceContext"
+import {IChatWrapper, IQBMessage} from "../../../types/context/ConferenceContext"
 import {ConferenceContextStaticData} from "../../../static/ConferenceContextStaticData"
+import ChatWrapperPreload from "./partials/chatWrapperPreload"
 
-interface IChatWrapper {
-    getMessageValue: (value: string) => void,
-    sendMessage: () => void,
-    messageToSend: string
-}
-
-export default function ChatWrapper({ getMessageValue, sendMessage, messageToSend }: IChatWrapper) {
+export default function ChatWrapper({ getMessageValue, sendMessage, messageToSend, loading }: IChatWrapper) {
     const { confDataState, setConfDataState } = UseConfDataStateValue()
-    const [messages, setMessages] = useState<IMessage[]>([])
 
     const closeMobileChat = () => {
         setConfDataState({ type: ConferenceContextStaticData.TOGGLE_CHAT_VIEW, view: false })
@@ -25,23 +18,14 @@ export default function ChatWrapper({ getMessageValue, sendMessage, messageToSen
         sendMessage()
     }
 
-    useEffect(() => {
-        const shortenedMessages = confDataState.messages?.map((messageData: IQBMessage) => {
-            return {
-                senderId: messageData.sender_id,
-                date: messageData.created_at,
-                message: messageData.message
-            }
-        })
-        setMessages(shortenedMessages)
-    }, [confDataState.messages])
-
-    return (
+    return loading ? (
+      <ChatWrapperPreload />
+    ) : (
       <div className='chat-wrapper'>
           <div className='chat-wrapper__kit-info'>
-              <h4>FH @ Home Travel (Kit Name)</h4>
+              <h4>{confDataState.patientInfo.testType} ({confDataState.patientInfo.kitCode})</h4>
               <p>Patient</p>
-              <h5>John Doe</h5>
+              <h5>{confDataState.patientInfo.firstName} {confDataState.patientInfo.lastName}</h5>
           </div>
           <div className='messenger'>
               <div className='messenger__header'>
@@ -59,7 +43,7 @@ export default function ChatWrapper({ getMessageValue, sendMessage, messageToSen
                   </button>
               </div>
               <div className='messenger__body'>
-                  {messages?.map((message: IMessage) => (
+                  {confDataState.messages?.map((message: IQBMessage) => (
                     <Message
                       key={Math.random()}
                       messageInfo={message}
@@ -72,7 +56,6 @@ export default function ChatWrapper({ getMessageValue, sendMessage, messageToSen
                           <label htmlFor='upload'>
                               <Image src='/attach.svg' alt='upload' width={31} height={16}/>
                           </label>
-                          <input type='file' id='upload'/>
                       </div>
                       <input
                         onChange={(e) => getMessageValue(e.target.value)}

@@ -8,7 +8,7 @@ const testResultManager = {
     return Axios().get(`/user/api/v1/pcr-test-results/${id}`)
   },
   getAllTestResults() {
-    return Axios().get(`${process.env.APP_RESERVATION_URL}/reservation/api/v1/test-results`)
+    return Axios().get(`${process.env.RESERVATION_SERVICE_URL}/reservation/api/v1/test-results`)
   },
   checkVerification(captchaToken: string, smsToken: string) {
     return Axios({token: captchaToken}).put('/user/api/v1/verify', {

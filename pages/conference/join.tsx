@@ -12,6 +12,7 @@ import {checkMediaDevicePermissions} from "../../utils/mediaPermissions"
 import KitNumberModal from "../../component/base/conference/partials/testKitModal"
 import Card from "../../component/utils/Card"
 import {ConferenceContextStaticData} from "../../static/ConferenceContextStaticData"
+import {IPatientInfo} from "../../types/context/ConferenceContext"
 
 export default function ConferenceJoinView() {
   const [kitNumber, setKitNumber] = useState<string>("")
@@ -22,7 +23,8 @@ export default function ConferenceJoinView() {
   //TODO: We Should have one more endpoint for checking current appointmentToken expiration
   const [isMediaModalAvailable, setIsMediaModalAvailable] = useState<boolean>(false)
   const [isLinkExpired, setIsLinkExpired] = useState<boolean>(false)
-  const {confDataState, setConfDataState} = UseConfDataStateValue()
+  const [patientInfo, setPatientInfo] = useState<IPatientInfo>({firstName: "", kitCode: "", lastName: "", testType: ""})
+  const { setConfDataState } = UseConfDataStateValue()
 
   const router = useRouter()
   const {appointmentToken} = router.query
@@ -65,8 +67,10 @@ export default function ConferenceJoinView() {
       if (captchaToken && kitNumber && appointmentToken) {
         const result = await conferenceManager.getWaitingToken(captchaToken, kitNumber, appointmentToken as string)
         const waitingToken = result.data.data.waitingToken
+        localStorage.setItem("appointmentToken", appointmentToken as string)
         setConfDataState({ type: ConferenceContextStaticData.SET_WAITING_TOKEN, waitingToken })
-        router.push("/conference/room")
+        setConfDataState({type: ConferenceContextStaticData.UPDATE_PATIENT_INFO, patientInfo: {...patientInfo, kitCode: kitNumber}})
+        await router.push("/conference/room")
       } else {
         throw {
           response: {
@@ -84,6 +88,26 @@ export default function ConferenceJoinView() {
     setLoading(false)
   }
 
+  const getAppointmentInfo = async () => {
+    try {
+      const captchaToken = await getRecaptcha()
+      if(captchaToken && appointmentToken) {
+        const result = await conferenceManager.getAppointmentInfo(captchaToken, appointmentToken as string)
+        const patientInfo = {
+          firstName: result.data.data.firstName,
+          lastName: result.data.data.lastName,
+          testType: result.data.data.testType,
+          kitCode: '',
+        }
+        setPatientInfo(patientInfo)
+        setIsLinkExpired(false);
+      }
+
+    } catch (err) {
+      setIsLinkExpired(true)
+    }
+  }
+
   useEffect(() => {
     (async () => {
       if (!await checkMediaDevicePermissions()) {
@@ -91,6 +115,14 @@ export default function ConferenceJoinView() {
       }
     })()
   }, [])
+
+  useEffect(() => {
+    (async () => {
+      if(appointmentToken?.length) {
+        await getAppointmentInfo();
+      }
+    })()
+  }, [appointmentToken])
   return (
     <>
       {
@@ -114,8 +146,8 @@ export default function ConferenceJoinView() {
                     In order to enter your consultation please locate the code on your kit.
                 </span>
             </div>
-            <div className="inputGroup">
-              <span>
+            <div className="inputGroup inputGroup_kit-code">
+              <span className="kit-code-label">
                   Test Kit Number <em>*</em>
               </span>
               <ReactCodeInput
@@ -165,7 +197,7 @@ export default function ConferenceJoinView() {
                 <h4 className="card__content-title">Sign-in Link has Expired</h4>
                 <p className="card__content-message">
                   Uh Oh, It seems this link has expired. <br />
-                  Please Visit <a href="#" className="em-link">fhhealth.com</a> to to speak to a customer <br />
+                  Please Visit <a href="https://www.fhhealth.com/" className="em-link">fhhealth.com</a> to to speak to a customer <br />
                   service representative.
                 </p>
               </div>
@@ -173,7 +205,7 @@ export default function ConferenceJoinView() {
 
             <p className="card-wrapper__message">
               Need help? <br />
-              Live Chat available on <a href="#" className="em-link">fhhealth.com</a>
+              Live Chat available on <a href="https://www.fhhealth.com/" className="em-link">fhhealth.com</a>
             </p>
           </div>
         )}

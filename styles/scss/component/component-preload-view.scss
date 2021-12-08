@@ -25,6 +25,10 @@
     position: relative;
   }
 
+  &.chat-wrapper {
+    z-index: unset;
+  }
+
   .preload__lines {
     padding: 0;
     pointer-events: none;

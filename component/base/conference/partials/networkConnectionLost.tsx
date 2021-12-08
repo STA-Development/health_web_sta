@@ -1,6 +1,6 @@
 import NetworkIcon from "../icon/networkIcon";
 
-export default function NetworkConnectionLost(props: {retry?: () => void}) {
+export default function NetworkConnectionLost({ retry }: {retry?: any}) {
 
     return (
         <div className='video-wrapper'>
@@ -12,9 +12,7 @@ export default function NetworkConnectionLost(props: {retry?: () => void}) {
                     <br/>
                     Cellular data is turned on, then try again.
                 </p>
-                <br/>
-                <br/>
-                <button onClick={props.retry} className='button video-wrapper__button'>
+                <button onClick={retry} className='button video-wrapper__button'>
                     Retry
                 </button>
             </div>

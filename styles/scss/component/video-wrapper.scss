@@ -1,6 +1,7 @@
 @import '../abstracts/mixins';
 
 .video-wrapper {
+  position: relative;
   @include setDisplay(flex, center, center);
   width: 65%;
 }
@@ -31,6 +32,7 @@
   border-radius: 5px;
   background-color: #202832;
   color: $fhhealth-color-white;
+  margin-top: 48px;
 
   &:active {
     background-color: #323c48;
