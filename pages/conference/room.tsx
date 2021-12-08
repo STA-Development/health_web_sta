@@ -10,6 +10,7 @@ import MobileChatView from "../../component/base/conference/partials/mobileChatV
 import {load, ReCaptchaInstance} from "recaptcha-v3"
 import { useRouter } from 'next/router'
 import {useNetworkState} from "react-use"
+import ErrorNotification from "../../component/base/conference/partials/errorNotification"
 
 interface ICallListener {
   getUserMedia: (mediaParams: { audio: boolean, video: boolean, options: { muted: boolean, mirror: boolean }, elemId: string, }, cb: (error: Error) => void) => void
@@ -46,6 +47,7 @@ export default function ConferenceRoomView() {
   const [callSession, setCallSession] = useState<ICallListener>(callSessionInitialState)
   const [isMuted, setIsMuted] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
+  const [isError, setIsError] = useState<boolean>(false)
   const router = useRouter()
   const condition = useNetworkState()
 
@@ -56,6 +58,7 @@ export default function ConferenceRoomView() {
       return await recaptcha.execute("submit")
     } else {
       console.error("Captcha token is undefined")
+      setIsError(true)
     }
   }
 
@@ -86,12 +89,14 @@ export default function ConferenceRoomView() {
       QB.getSession(function(error: object, {session}: {session: {user_id: number}}) {
         if (error) {
           console.error(error)
+          setIsError(true)
         } else {
           setConfDataState({ type: ConferenceContextStaticData.SET_PERSONAL_ID, id: session.user_id })
         }
       })
     } catch (e) {
       console.error(e)
+      setIsError(true)
     }
   }
 
@@ -106,6 +111,7 @@ export default function ConferenceRoomView() {
     QB.chat.connect(userCredentials, (error: object, contactList: object) => {
       if (error) {
         console.error(error)
+        setIsError(true)
       } else {
         console.info(contactList, "CONTACT LIST")
       }
@@ -113,6 +119,7 @@ export default function ConferenceRoomView() {
         QB.chat.muc.join(dialogJid, (err: string, result: string) => {
           if (err) {
             console.error(err)
+            setIsError(true)
           } else {
             console.info("JOINED ", result)
           }
@@ -121,6 +128,7 @@ export default function ConferenceRoomView() {
         if (e.name === "ChatNotConnectedError") {
           console.info("CHAT NOT CONNECTED")
         }
+        setIsError(true)
       }
 
       QB.chat.onMessageListener = (userId: number, message: object) => {
@@ -186,6 +194,7 @@ export default function ConferenceRoomView() {
     QB.chat.message.list(chatParams, (error: object, messages: {items: []}) => {
       if (error) {
         console.error(error)
+        setIsError(true)
       } else {
         setConfDataState({ type: ConferenceContextStaticData.SET_MESSAGES, messages: messages?.items })
       }
@@ -201,6 +210,7 @@ export default function ConferenceRoomView() {
       setUserToken(confCredentials.data.data.userToken)
     } catch (err) {
       console.error(err)
+      setIsError(true)
     }
     setLoading(false)
   }
@@ -222,6 +232,7 @@ export default function ConferenceRoomView() {
       session.getUserMedia(mediaParams, function (error: object) {
         if (error) {
           console.error(error)
+          setIsError(true)
         } else {
           session.accept(extension)
         }
@@ -282,6 +293,7 @@ export default function ConferenceRoomView() {
         messageToSend={messageToSend}
         loading={loading}
       />}
+      <ErrorNotification isError={isError} setErrorState={setIsError} />
     </div>
   )
 }

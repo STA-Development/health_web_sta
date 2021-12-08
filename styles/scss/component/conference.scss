@@ -1,4 +1,7 @@
+@import "../abstracts/mixins";
+
 .conference-wrapper {
+  position: relative;
   display: flex;
   height: 100%;
 }
@@ -7,4 +10,45 @@
 .conference-header__logout_mobile,
 .messenger__header_mobile {
   display: none;
+}
+
+@-webkit-keyframes slideToLeft {
+  from { -webkit-transform: translateX(105%); }
+  to { -webkit-transform: translateX(-5%); }
+}
+
+@-webkit-keyframes slideToRight {
+  from { -webkit-transform: translateX(-5%); }
+  to { -webkit-transform: translateX(105%); }
+}
+
+.notification-wrapper {
+  @include setPosition(absolute, 0, unset, unset, 0);
+  z-index: 9;
+}
+
+.error-notification {
+  @include setDisplay(flex, center, center);
+  background-color: $fhhealth-color-dark-grey-bg;
+  padding: 20px;
+  border-radius: 5px;
+  animation: slideToRight 0.5s ease-in forwards;
+
+  &_active {
+    animation: slideToLeft 0.5s ease-out forwards;
+  }
+
+  span {
+    @include setPosition(absolute, -9px, 0, -9px, 0);
+    background-color: $fhhealth-color-dark-grey-bg;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+  }
+
+  p {
+    color: $fhhealth-color-white;
+    margin-left: 10px;
+  }
 }
