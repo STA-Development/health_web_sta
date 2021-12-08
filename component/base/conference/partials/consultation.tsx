@@ -1,11 +1,18 @@
 import Image from "next/image"
+import {useState} from "react"
 
 interface ICallActions {
-  triggerCallEnd?: () => void,
-  switchAudioState?: () => void
+  triggerCallEnd: () => void,
+  switchAudioState: () => void
 }
 
 export default function Consultation({ triggerCallEnd, switchAudioState }: ICallActions) {
+  const [isMuted, setIsMuted] = useState<boolean>(false)
+
+  const toggleAudioState = () => {
+    switchAudioState()
+    setIsMuted(!isMuted)
+  }
 
   return (
     <div className="consultation">
@@ -14,16 +21,19 @@ export default function Consultation({ triggerCallEnd, switchAudioState }: ICall
       <div className="call-menu">
           <div className="call-menu__content">
             <button
-              onClick={switchAudioState}
+              onClick={toggleAudioState}
               className="button call-menu__button call-menu__button_mute"
             >
-              <Image src="/mic.svg" alt="mute" width={24} height={38}/>
+              {
+                isMuted ? <Image src="/mic-off.svg" alt="mute" width={24} height={38}/> :
+                  <Image src="/mic-on.svg" alt="mute" width={24} height={38}/>
+              }
             </button>
             <button
               onClick={triggerCallEnd}
               className="button call-menu__button call-menu__button_end"
             >
-              <Image src="/telephone.svg" alt="mute" width={32} height={32}/>
+              <Image src="/end-call.svg" alt="mute" width={32} height={32}/>
             </button>
           </div>
       </div>
