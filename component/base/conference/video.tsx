@@ -9,8 +9,8 @@ import Consultation from "./partials/consultation"
 interface IVideoWrapper {
     isConferenceStarted?: boolean,
     isConferenceEnded?: boolean,
-    triggerCallEnd?: () => void,
-    switchAudioState?: () => void
+    triggerCallEnd: () => void,
+    switchAudioState: () => void
 }
 
 export default function VideoWrapper({ isConferenceStarted, isConferenceEnded, triggerCallEnd, switchAudioState }: IVideoWrapper) {

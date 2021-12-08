@@ -10,7 +10,8 @@ export interface IConfState {
   messages: IQBMessage[],
   myPersonalId: number,
   waitingToken: string,
-  patientInfo: IPatientInfo
+  patientInfo: IPatientInfo,
+  error: boolean
 }
 
 export type IConfActions =
@@ -24,7 +25,7 @@ export type IConfActions =
 }
   | {
   type: "SET_MESSAGES"
-  messages: []
+  messages: IQBMessage[]
 }
   | {
   type: "SET_WAITING_TOKEN"
@@ -34,17 +35,16 @@ export type IConfActions =
   type: "UPDATE_PATIENT_INFO"
   patientInfo: IPatientInfo
 }
-
-export interface IMessage {
-  senderId: number,
-  date: string,
-  message: string
+  | {
+  type: "SET_MESSAGE_ERROR"
+  error: boolean
 }
 
 export interface IQBMessage {
   sender_id: number,
-  created_at: string,
-  message: string
+  created_at: Date,
+  message: string,
+  hasError: boolean
 }
 
 export interface IChatWrapper {

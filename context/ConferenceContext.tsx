@@ -13,7 +13,8 @@ const initialState: IConfState = {
         lastName: "",
         testType: "",
         kitCode: ""
-    }
+    },
+    error: false
 }
 
 const initialConfContext: {
