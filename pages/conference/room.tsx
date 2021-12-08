@@ -180,7 +180,6 @@ export default function ConferenceRoomView() {
       if (e.name === "ChatNotConnectedError") {
         console.error(e, "ON_SEND_ERROR")
       }
-      setIsError(true)
     }
   }
 
