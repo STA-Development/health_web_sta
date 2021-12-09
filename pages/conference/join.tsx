@@ -1,37 +1,42 @@
-import Image from "next/image"
-import CircleLoader from "component/utils/CircleLoader"
-import PureBlock from "component/pureBlock"
-import {useEffect, useState} from "react"
-import {useRouter} from "next/router"
-import ReactCodeInput from "react-verification-code-input"
-import {load, ReCaptchaInstance} from "recaptcha-v3"
-import conferenceManager from "manager/ConferenceManager"
-import {UseConfDataStateValue} from "context/ConferenceContext"
-import PermissionsModal from "component/base/conference/partials/permissionsModal"
-import {checkMediaDevicePermissions} from "utils/mediaPermissions"
-import KitNumberModal from "component/base/conference/partials/testKitModal"
-import Card from "component/utils/Card"
-import {ConferenceContextStaticData} from "static/ConferenceContextStaticData"
-import {IPatientInfo} from "types/context/ConferenceContext"
+import Image from 'next/image'
+import CircleLoader from '@fh-health/component/utils/CircleLoader'
+import PureBlock from '@fh-health/component/pureBlock'
+import {useEffect, useState} from 'react'
+import {useRouter} from 'next/router'
+import ReactCodeInput from 'react-verification-code-input'
+import {load, ReCaptchaInstance} from 'recaptcha-v3'
+import conferenceManager from '@fh-health/manager/ConferenceManager'
+import {UseConfDataStateValue} from '@fh-health/context/ConferenceContext'
+import PermissionsModal from '@fh-health/component/base/conference/partials/permissionsModal'
+import {checkMediaDevicePermissions} from '@fh-health/utils/mediaPermissions'
+import KitNumberModal from '@fh-health/component/base/conference/partials/testKitModal'
+import Card from '@fh-health/component/utils/Card'
+import {ConferenceContextStaticData} from '@fh-health/static/ConferenceContextStaticData'
+import {IPatientInfo} from '@fh-health/types/context/ConferenceContext'
 
 export default function ConferenceJoinView() {
-  const [kitNumber, setKitNumber] = useState<string>("")
+  const [kitNumber, setKitNumber] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
-  const [warningMessage, setWarningMessage] = useState<string>("")
+  const [warningMessage, setWarningMessage] = useState<string>('')
   const [joinButtonState, setJoinButtonState] = useState<boolean>(false)
   const [kitNumberModalView, setKitNumberModalView] = useState<boolean>(false)
   // TODO: We Should have one more endpoint for checking current appointmentToken expiration
   const [isMediaModalAvailable, setIsMediaModalAvailable] = useState<boolean>(false)
   const [isLinkExpired, setIsLinkExpired] = useState<boolean>(false)
-  const [patientInfo, setPatientInfo] = useState<IPatientInfo>({firstName: "", kitCode: "", lastName: "", testType: ""})
-  const { setConfDataState } = UseConfDataStateValue()
+  const [patientInfo, setPatientInfo] = useState<IPatientInfo>({
+    firstName: '',
+    kitCode: '',
+    lastName: '',
+    testType: '',
+  })
+  const {setConfDataState} = UseConfDataStateValue()
 
   const router = useRouter()
   const {appointmentToken} = router.query
 
   const handleKitNumberChange = (kitNumber: string) => {
     setKitNumber(kitNumber)
-    setWarningMessage("")
+    setWarningMessage('')
   }
 
   const toggleKitNumberModal = () => {
@@ -52,10 +57,11 @@ export default function ConferenceJoinView() {
   const getRecaptcha = async () => {
     const captchaToken = process.env.RECAPTCHA_V3_KEY
     if (captchaToken) {
-      return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) => recaptcha.execute("submit"))
-    } 
-      console.error("Captcha token is undefined")
-    
+      return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) =>
+        recaptcha.execute('submit'),
+      )
+    }
+    console.error('Captcha token is undefined')
   }
 
   const handleJoinClick = async () => {
@@ -63,25 +69,36 @@ export default function ConferenceJoinView() {
     const captchaToken = await getRecaptcha()
     try {
       if (captchaToken && kitNumber && appointmentToken) {
-        const result = await conferenceManager.getWaitingToken(captchaToken, kitNumber, appointmentToken as string)
+        const result = await conferenceManager.getWaitingToken(
+          captchaToken,
+          kitNumber,
+          appointmentToken as string,
+        )
         const {waitingToken} = result.data.data
-        localStorage.setItem("appointmentToken", appointmentToken as string)
-        setConfDataState({ type: ConferenceContextStaticData.SET_WAITING_TOKEN, waitingToken })
-        setConfDataState({type: ConferenceContextStaticData.UPDATE_PATIENT_INFO, patientInfo: {...patientInfo, kitCode: kitNumber}})
-        await router.push("/conference/room")
+        localStorage.setItem('appointmentToken', appointmentToken as string)
+        setConfDataState({type: ConferenceContextStaticData.SET_WAITING_TOKEN, waitingToken})
+        setConfDataState({
+          type: ConferenceContextStaticData.UPDATE_PATIENT_INFO,
+          patientInfo: {...patientInfo, kitCode: kitNumber},
+        })
+        await router.push('/conference/room')
       } else {
         throw {
           response: {
             data: {
               status: {
-                message: "Some Data was missed",
+                message: 'Some Data was missed',
               },
             },
           },
         }
       }
     } catch (err) {
-      setWarningMessage(err?.response?.data?.status?.message ? err?.response?.data?.status?.message : "Something Went Wrong")
+      setWarningMessage(
+        err?.response?.data?.status?.message
+          ? err?.response?.data?.status?.message
+          : 'Something Went Wrong',
+      )
     }
     setLoading(false)
   }
@@ -89,8 +106,11 @@ export default function ConferenceJoinView() {
   const getAppointmentInfo = async () => {
     try {
       const captchaToken = await getRecaptcha()
-      if(captchaToken && appointmentToken) {
-        const result = await conferenceManager.getAppointmentInfo(captchaToken, appointmentToken as string)
+      if (captchaToken && appointmentToken) {
+        const result = await conferenceManager.getAppointmentInfo(
+          captchaToken,
+          appointmentToken as string,
+        )
         const patientInfo = {
           firstName: result.data.data.firstName,
           lastName: result.data.data.lastName,
@@ -100,36 +120,32 @@ export default function ConferenceJoinView() {
         setPatientInfo(patientInfo)
         setIsLinkExpired(false)
       }
-
     } catch (err) {
       setIsLinkExpired(true)
     }
   }
 
   useEffect(() => {
-    (async () => {
-      if (!await checkMediaDevicePermissions()) {
+    ;(async () => {
+      if (!(await checkMediaDevicePermissions())) {
         setIsMediaModalAvailable(true)
       }
     })()
   }, [])
 
   useEffect(() => {
-    (async () => {
-      if(appointmentToken?.length) {
+    ;(async () => {
+      if (appointmentToken?.length) {
         await getAppointmentInfo()
       }
     })()
   }, [appointmentToken])
   return (
     <>
-      {
-        kitNumberModalView &&
-        <KitNumberModal
-          visibility={kitNumberModalView}
-          closeModal={setKitNumberModalView}
-        />
-      }{isMediaModalAvailable && <PermissionsModal closeModal={closeMediaModal} />}
+      {kitNumberModalView && (
+        <KitNumberModal visibility={kitNumberModalView} closeModal={setKitNumberModalView} />
+      )}
+      {isMediaModalAvailable && <PermissionsModal closeModal={closeMediaModal} />}
       <div className="pure-block-wrapper">
         {!isLinkExpired ? (
           <div>
@@ -142,27 +158,23 @@ export default function ConferenceJoinView() {
               </div>
               <div>
                 <span className="message">
-                    In order to enter your consultation please locate the code on your kit.
+                  In order to enter your consultation please locate the code on your kit.
                 </span>
               </div>
               <div className="inputGroup inputGroup_kit-code">
-              <span className="kit-code-label">
+                <span className="kit-code-label">
                   Test Kit Number <em>*</em>
-              </span>
+                </span>
                 <ReactCodeInput
-                  className={warningMessage ? "input inputGroup__input_err" : "input"}
+                  className={warningMessage ? 'input inputGroup__input_err' : 'input'}
                   type="text"
-                  placeholder={["-", "-", "-", "-", "-", "-"]}
+                  placeholder={['-', '-', '-', '-', '-', '-']}
                   onChange={(value: string) => {
                     handleKitNumberChange(value)
                     checkKitNumber(value)
                   }}
                 />
-                {
-                  warningMessage?.length ? (
-                    <p className="wrong-kit-code">{warningMessage}</p>
-                  ) : ""
-                }
+                {warningMessage?.length ? <p className="wrong-kit-code">{warningMessage}</p> : ''}
                 <div className="inputGroup__resend">
                   <span>Can't locate your test Kit number?</span>
                   <br />
@@ -179,8 +191,13 @@ export default function ConferenceJoinView() {
                 ) : (
                   <button
                     onClick={() => handleJoinClick()}
-                    className={joinButtonState ? "button inputGroup__button" : "button inputGroup__button inputGroup__button_disabled"}
-                    data-cy="join">
+                    className={
+                      joinButtonState
+                        ? 'button inputGroup__button'
+                        : 'button inputGroup__button inputGroup__button_disabled'
+                    }
+                    data-cy="join"
+                  >
                     Join Call
                   </button>
                 )}
@@ -197,7 +214,11 @@ export default function ConferenceJoinView() {
                 <h4 className="card__content-title">Sign-in Link has Expired</h4>
                 <p className="card__content-message">
                   Uh Oh, It seems this link has expired. <br />
-                  Please Visit <a href="https://www.fhhealth.com/" className="em-link">fhhealth.com</a> to to speak to a customer <br />
+                  Please Visit{' '}
+                  <a href="https://www.fhhealth.com/" className="em-link">
+                    fhhealth.com
+                  </a>{' '}
+                  to to speak to a customer <br />
                   service representative.
                 </p>
               </div>
@@ -205,7 +226,10 @@ export default function ConferenceJoinView() {
 
             <p className="card-wrapper__message">
               Need help? <br />
-              Live Chat available on <a href="https://www.fhhealth.com/" className="em-link">fhhealth.com</a>
+              Live Chat available on{' '}
+              <a href="https://www.fhhealth.com/" className="em-link">
+                fhhealth.com
+              </a>
             </p>
           </div>
         )}

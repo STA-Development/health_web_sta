@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import {UseTestResultDataStateValue} from 'context/testResultContext'
+import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
 
 const Footer = () => {
   const {testResultState} = UseTestResultDataStateValue()

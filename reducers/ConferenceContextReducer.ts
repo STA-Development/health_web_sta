@@ -1,5 +1,5 @@
-import {IConfActions, IConfState} from "types/context/ConferenceContext"
-import {ConferenceContextStaticData} from "static/ConferenceContextStaticData"
+import {IConfActions, IConfState} from '@fh-health/types/context/ConferenceContext'
+import {ConferenceContextStaticData} from '@fh-health/static/ConferenceContextStaticData'
 
 export const ConferenceContextReducer = (state: IConfState, action: IConfActions) => {
   switch (action.type) {

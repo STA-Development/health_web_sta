@@ -1,5 +1,5 @@
-import {UseTestResultDataStateValue} from "context/testResultContext"
-import {guid} from "utils/guid"
+import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
+import {guid} from 'utils/guid'
 
 const PcrAnalysisData = () => {
   const {testResultState} = UseTestResultDataStateValue()

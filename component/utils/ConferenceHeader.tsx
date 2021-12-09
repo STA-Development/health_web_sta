@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import Image from 'next/image'
-import {UseConfDataStateValue} from 'context/ConferenceContext'
+import {UseConfDataStateValue} from '@fh-health/context/ConferenceContext'
 import {ConferenceContextStaticData} from 'static/ConferenceContextStaticData'
 
 enum Language {

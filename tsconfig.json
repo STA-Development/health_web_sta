@@ -20,7 +20,13 @@
     "jsx": "preserve",
     "baseUrl": "./",
     "paths": {
-      "@fh-health/pages/*": ["pages/*"]
+      "@fh-health/context/*": ["context/*"],
+      "@fh-health/component/*": ["component/*"],
+      "@fh-health/manager/*": ["manager/*"],
+      "@fh-health/static/*": ["static/*"],
+      "@fh-health/reducers/*": ["reducers/*"],
+      "@fh-health/types/*": ["types/*"],
+      "@fh-health/utils/*": ["utils/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

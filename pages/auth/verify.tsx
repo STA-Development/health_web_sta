@@ -1,9 +1,9 @@
 import {useEffect, useState} from 'react'
 import Image from 'next/image'
-import PureBlock from 'component/pureBlock'
-import CircleLoader from 'component/utils/CircleLoader'
+import PureBlock from '@fh-health/component/pureBlock'
+import CircleLoader from '@fh-health/component/utils/CircleLoader'
 import {load, ReCaptchaInstance} from 'recaptcha-v3'
-import testResultManager from 'manager/TestResultManager'
+import testResultManager from '@fh-health/manager/TestResultManager'
 import {useRouter} from 'next/router'
 
 export default function Verify() {

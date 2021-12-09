@@ -1,4 +1,4 @@
-import {UseTestResultDataStateValue} from "context/testResultContext"
+import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
 const AntiBodyAnalysisData = () => {
   const {testResultState} = UseTestResultDataStateValue()
   return (
@@ -23,7 +23,7 @@ const AntiBodyAnalysisData = () => {
       <p className="anti-body__results-description">
         0.8 - &#60; 1.0 = Indeterminate <br />
         ≥ 1.0 = Positive <br />
-        &#62; 0.8 = Negative{" "}
+        &#62; 0.8 = Negative{' '}
       </p>
     </div>
   )

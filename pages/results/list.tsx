@@ -1,11 +1,11 @@
-import ResultsHeader from 'component/resultsHeader'
-import TestResultContainer from 'component/testResultContainer'
-import SingleTestResult from 'component/singleTestResult'
-import NoResults from 'component/noResults'
+import ResultsHeader from '@fh-health/component/resultsHeader'
+import TestResultContainer from '@fh-health/component/testResultContainer'
+import SingleTestResult from '@fh-health/component/singleTestResult'
+import NoResults from '@fh-health/component/noResults'
 import {useEffect, useState} from 'react'
-import SingleResultPreload from 'component/singleResultPreload'
+import SingleResultPreload from '@fh-health/component/singleResultPreload'
 import moment from 'moment'
-import testResultManager from 'manager/TestResultManager'
+import testResultManager from '@fh-health/manager/TestResultManager'
 
 interface IResult {
   detailsAvailable: boolean

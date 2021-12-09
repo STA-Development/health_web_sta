@@ -1,12 +1,11 @@
-import {useEffect, useState} from "react"
-import { format } from "date-fns"
-import {UseConfDataStateValue} from "context/ConferenceContext"
-import { IQBMessage } from "types/context/ConferenceContext"
-import MessageError from "./messageError"
+import {useEffect, useState} from 'react'
+import {format} from 'date-fns'
+import {UseConfDataStateValue} from '@fh-health/context/ConferenceContext'
+import {IQBMessage} from 'types/context/ConferenceContext'
+import MessageError from './messageError'
 
-export default function Message({ messageInfo }: { messageInfo?: IQBMessage }) {
-
-  const { confDataState } = UseConfDataStateValue()
+export default function Message({messageInfo}: {messageInfo?: IQBMessage}) {
+  const {confDataState} = UseConfDataStateValue()
   const [isMyText, setIsMyText] = useState<boolean>(false)
   const [messageDate, setMessageDate] = useState<string>('')
 
@@ -21,7 +20,7 @@ export default function Message({ messageInfo }: { messageInfo?: IQBMessage }) {
   const formatDate = () => {
     const date = new Date(`${messageInfo?.created_at}`)
     const time = format(date, "hh:mmaaaaa'm'")
-    const day = format(date, "dd-MM-yyyy").split("-")[0].split("")[1]
+    const day = format(date, 'dd-MM-yyyy').split('-')[0].split('')[1]
 
     if (new Date().getDate() === parseInt(day)) {
       setMessageDate(`Today, ${time}`)
@@ -42,7 +41,9 @@ export default function Message({ messageInfo }: { messageInfo?: IQBMessage }) {
       <div className="message__body">
         <span className="message_date">{messageDate}</span>
         <span className="message__text">{messageInfo?.message}</span>
-        {isMyText && messageInfo?.hasError && <MessageError text="Couldn’t Send. Click to try again." />}
+        {isMyText && messageInfo?.hasError && (
+          <MessageError text="Couldn’t Send. Click to try again." />
+        )}
       </div>
     </div>
   )

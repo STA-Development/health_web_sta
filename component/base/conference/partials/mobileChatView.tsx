@@ -1,11 +1,10 @@
-import {IChatWrapper} from "types/context/ConferenceContext"
-import ChatWrapper from "../chat"
+import {IChatWrapper} from '@fh-health/types/context/ConferenceContext'
+import ChatWrapper from '../chat'
 
 export default function MobileChatView(props: IChatWrapper) {
-
-    return (
-        <div className='mobile-chat'>
-            <ChatWrapper {...props}/>
-        </div>
-    )
+  return (
+    <div className="mobile-chat">
+      <ChatWrapper {...props} />
+    </div>
+  )
 }

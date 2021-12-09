@@ -4,7 +4,7 @@ import {useClickAway} from 'react-use'
 import {AuthContextStaticData} from 'static/AuthContextStaticData'
 import {useRouter} from 'next/router'
 import firebase from 'lib/firbase'
-import {UseAuthDataStateValue} from 'context/AuthContext'
+import {UseAuthDataStateValue} from '@fh-health/context/AuthContext'
 
 const HeaderMenu = () => {
   const router = useRouter()

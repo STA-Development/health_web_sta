@@ -1,32 +1,32 @@
-import React, {createContext, useContext, useReducer} from "react"
-import {ITestResultState, ITestResultActions} from "types/context/testResultContext"
-import {TestResultContextReducer} from "reducers/testResultReducer"
+import React, {createContext, useContext, useReducer} from 'react'
+import {ITestResultState, ITestResultActions} from 'types/context/testResultContext'
+import {TestResultContextReducer} from '@fh-health/reducers/testResultReducer'
 
 const initialState: ITestResultState = {
   testResult: {
-    address: "",
-    dateTime: "",
-    dateOfBirth: "",
-    equipment: "",
-    firstName: "",
-    gender: "",
-    id: "",
-    issuingCountry: "",
-    importantInfo: "",
-    labName: "",
-    lastName: "",
-    legalNotes: "",
-    ohip: "",
-    result: "",
+    address: '',
+    dateTime: '',
+    dateOfBirth: '',
+    equipment: '',
+    firstName: '',
+    gender: '',
+    id: '',
+    issuingCountry: '',
+    importantInfo: '',
+    labName: '',
+    lastName: '',
+    legalNotes: '',
+    ohip: '',
+    result: '',
     resultAnalysis: [],
-    phone: "",
-    physician: "",
-    resultDate: "",
-    registeredNursePractitioner: "",
-    style: "",
-    swabMethod: "",
-    templateId: "",
-    testType: "",
+    phone: '',
+    physician: '',
+    resultDate: '',
+    registeredNursePractitioner: '',
+    style: '',
+    swabMethod: '',
+    templateId: '',
+    testType: '',
   },
 }
 

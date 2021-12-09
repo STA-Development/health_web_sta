@@ -1,15 +1,15 @@
 import '../styles/scss/main.scss'
 import type {AppProps} from 'next/app'
-import {TestResultContextProvider} from 'context/testResultContext'
+import {TestResultContextProvider} from '@fh-health/context/testResultContext'
 import jwt_decode from 'jwt-decode'
-import {AuthContextProvider} from 'context/AuthContext'
-import FooterMenu from 'component/base/footer/footerMenu'
-import HeaderMenu from 'component/base/header/headerMenu'
+import {AuthContextProvider} from '@fh-health/context/AuthContext'
+import FooterMenu from '@fh-health/component/base/footer/footerMenu'
+import HeaderMenu from '@fh-health/component/base/header/headerMenu'
 import Router, {useRouter} from 'next/router'
 import {useEffect} from 'react'
 import {localStore} from 'utils/storage'
-import ConferenceHeader from 'component/utils/ConferenceHeader'
-import {ConferenceContextProvider} from 'context/ConferenceContext'
+import ConferenceHeader from '@fh-health/component/utils/ConferenceHeader'
+import {ConferenceContextProvider} from '@fh-health/context/ConferenceContext'
 
 interface decodedToken {
   exp: number

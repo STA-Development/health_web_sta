@@ -1,12 +1,11 @@
-import {UseTestResultDataStateValue} from "context/testResultContext"
+import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
 
-import moment from "moment"
+import moment from 'moment'
 const LabInformation = () => {
   const {testResultState} = UseTestResultDataStateValue()
-  const changeDate = (data:string,format:string)=>{
-    if(data.length){
+  const changeDate = (data: string, format: string) => {
+    if (data.length) {
       return moment(data).format(format)
-
     }
   }
   return (
@@ -16,7 +15,7 @@ const LabInformation = () => {
           <div className="first-column">
             <p className="field">date of test</p>
             <p className="answer test-answer">
-              {changeDate(testResultState.testResult.dateTime,"MMMM Do, h:mm a")}
+              {changeDate(testResultState.testResult.dateTime, 'MMMM Do, h:mm a')}
             </p>
 
             <p className="field">test-type</p>
@@ -26,23 +25,21 @@ const LabInformation = () => {
           <div className="second-column">
             <p className="field">date of results</p>
             <p className="answer test-answer">
-              {
-                testResultState?.testResult &&
-                  testResultState.testResult?.resultDate
-                  ? changeDate(testResultState.testResult.resultDate, "MMMM Do, h:mm a"):''
-              }
+              {testResultState?.testResult && testResultState.testResult?.resultDate
+                ? changeDate(testResultState.testResult.resultDate, 'MMMM Do, h:mm a')
+                : ''}
             </p>
 
             <p className="field">collection method</p>
             <p className="answer test-answer">{testResultState.testResult.swabMethod}</p>
           </div>
         </div>
-        { testResultState?.testResult?.equipment &&
-        <div className="left-bottom-wrapper">
-          <p className="field">test equipment (health canada approved)</p>
-          <p className="answer test-answer">{testResultState.testResult.equipment}</p>
-        </div>
-        }
+        {testResultState?.testResult?.equipment && (
+          <div className="left-bottom-wrapper">
+            <p className="field">test equipment (health canada approved)</p>
+            <p className="answer test-answer">{testResultState.testResult.equipment}</p>
+          </div>
+        )}
       </div>
       <div className="right-part-wrapper">
         <div className="right-part-first-column">

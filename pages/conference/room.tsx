@@ -1,16 +1,16 @@
 import {useEffect, useState} from 'react'
-import VideoWrapper from 'component/base/conference/video'
-import ChatWrapper from 'component/base/conference/chat'
+import VideoWrapper from '@fh-health/component/base/conference/video'
+import ChatWrapper from '@fh-health/component/base/conference/chat'
 import * as QB from 'quickblox/quickblox.js'
 import {QBConfig} from 'utils/quickblox/config'
-import {UseConfDataStateValue} from 'context/ConferenceContext'
-import conferenceManager from 'manager/ConferenceManager'
-import {ConferenceContextStaticData} from 'static/ConferenceContextStaticData'
-import MobileChatView from 'component/base/conference/partials/mobileChatView'
+import {UseConfDataStateValue} from '@fh-health/context/ConferenceContext'
+import conferenceManager from '@fh-health/manager/ConferenceManager'
+import {ConferenceContextStaticData} from '@fh-health/static/ConferenceContextStaticData'
+import MobileChatView from '@fh-health/component/base/conference/partials/mobileChatView'
 import {load, ReCaptchaInstance} from 'recaptcha-v3'
 import {useRouter} from 'next/router'
 import {useNetworkState} from 'react-use'
-import ErrorNotification from 'component/base/conference/partials/errorNotification'
+import ErrorNotification from '@fh-health/component/base/conference/partials/errorNotification'
 
 interface ICallListener {
   getUserMedia: (

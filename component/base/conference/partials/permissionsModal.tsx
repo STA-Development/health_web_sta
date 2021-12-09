@@ -1,19 +1,20 @@
-import Modal from "component/utils/Modal"
-import Card from "component/utils/Card"
-import Image from "next/image"
-import {useState} from "react"
-import {doesObjectContainFalsyValue} from "utils/falsyValuesOfObject"
+import Modal from '@fh-health/component/utils/Modal'
+import Card from '@fh-health/component/utils/Card'
+import Image from 'next/image'
+import {useState} from 'react'
+import {doesObjectContainFalsyValue} from '@fh-health/utils/falsyValuesOfObject'
 
 interface IMediaTypes {
-  audio: boolean,
+  audio: boolean
   video: boolean
 }
 export default function PermissionsModal(props: {closeModal: () => void}) {
   const [checkedItems, setCheckedItems] = useState<IMediaTypes>({
-    audio: false, video: false
+    audio: false,
+    video: false,
   })
   const updateMediaCheckboxValue = (updatedMedia: string) => {
-    if(updatedMedia === "video") {
+    if (updatedMedia === 'video') {
       setCheckedItems({...checkedItems, video: !checkedItems.video})
     } else {
       setCheckedItems({...checkedItems, audio: !checkedItems.audio})
@@ -21,43 +22,60 @@ export default function PermissionsModal(props: {closeModal: () => void}) {
   }
 
   const handleMediaAcceptance = () => {
-    navigator.getUserMedia({
-      audio: true,
-      video: true
-    }, (stream) => {
-      stream.getTracks().forEach(x => x.stop())
-      if(stream.id) {
-        props.closeModal()
-      }
-    }, err => console.log(err))
+    navigator.getUserMedia(
+      {
+        audio: true,
+        video: true,
+      },
+      (stream) => {
+        stream.getTracks().forEach((x) => x.stop())
+        if (stream.id) {
+          props.closeModal()
+        }
+      },
+      (err) => console.log(err),
+    )
   }
 
   return (
     <Modal>
       <Card>
-        <div className='card__header'>
-          <h4 className='card__header-title'>Permissions</h4>
-          <p className='card__header-message'>In order to participate in your appointments, we’ll need you to allow the following:</p>
+        <div className="card__header">
+          <h4 className="card__header-title">Permissions</h4>
+          <p className="card__header-message">
+            In order to participate in your appointments, we’ll need you to allow the following:
+          </p>
         </div>
-        <div className='card__content'>
+        <div className="card__content">
           <div className="card__content__item">
-            <Image src='/camera.svg' width={40} height={40} alt="camera"/>
+            <Image src="/camera.svg" width={40} height={40} alt="camera" />
             <div className="card__content__item-details">
               <h4>Camera</h4>
               <p>So your provider can see you</p>
             </div>
-            <div className={`checkbox-circle ${checkedItems.video ? 'checkbox-circle_active' : ''}`} onClick={() => updateMediaCheckboxValue("video")}/>
+            <div
+              className={`checkbox-circle ${checkedItems.video ? 'checkbox-circle_active' : ''}`}
+              onClick={() => updateMediaCheckboxValue('video')}
+            />
           </div>
           <div className="card__content__item">
-            <Image src='/mic.svg' width={40} height={40} alt="microphone"/>
+            <Image src="/mic.svg" width={40} height={40} alt="microphone" />
             <div className="card__content__item-details">
               <h4>Microphone</h4>
               <p>So your provider can hear you</p>
             </div>
-            <div className={`checkbox-circle ${checkedItems.audio ? 'checkbox-circle_active' : ''}`} onClick={() => updateMediaCheckboxValue("audio")}/>
+            <div
+              className={`checkbox-circle ${checkedItems.audio ? 'checkbox-circle_active' : ''}`}
+              onClick={() => updateMediaCheckboxValue('audio')}
+            />
           </div>
         </div>
-        <button className={`button card__button ${doesObjectContainFalsyValue(checkedItems) ? 'button_disabled' : ''}`} onClick={handleMediaAcceptance}>
+        <button
+          className={`button card__button ${
+            doesObjectContainFalsyValue(checkedItems) ? 'button_disabled' : ''
+          }`}
+          onClick={handleMediaAcceptance}
+        >
           Return to Waiting Room
         </button>
       </Card>

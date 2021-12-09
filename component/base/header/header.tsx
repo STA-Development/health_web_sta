@@ -1,5 +1,5 @@
-import {UseTestResultDataStateValue} from 'context/testResultContext'
-import {TestTypes} from 'component/singleResultsPage'
+import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
+import {TestTypes} from '@fh-health/component/singleResultsPage'
 import moment from 'moment'
 import AntiBodySVG from './icon/anti-body'
 import PcrSvg from './icon/pcrIcon'
