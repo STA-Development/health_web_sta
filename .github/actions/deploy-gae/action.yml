@@ -64,12 +64,12 @@ runs:
         gcloud secrets versions access latest --secret=FH_HEALTH_WEB_SECRETS > ./.env
         echo "::endgroup::"
 
+        echo "::group::Run Eslint"
+        yarn run lint
+        echo "::endgroup::"
+        
         echo "::group::Build"
         yarn build
-        echo "::endgroup::"
-
-        echo "::group::Lint"
-        yarn lint
         echo "::endgroup::"
 
         if [[ $ONLY_VALIDATE_DEPLOYMENT == 'false' ]]; then

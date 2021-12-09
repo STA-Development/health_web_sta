@@ -8,7 +8,8 @@
     "build": "npm run clear && next build && npm run copy:assets",
     "start": "next start -p 8080",
     "copy:assets": "mkdir dist && cp -R .next dist/.next && cp -R public dist/public && cp package.json dist && cp yarn.lock dist && cp app.yaml dist",
-    "lint": "eslint --fix .",
+    "lint": "eslint ./ --ext js,jsx,ts,tsx",
+    "lint-fix": "eslint --fix .",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "dependencies": {
