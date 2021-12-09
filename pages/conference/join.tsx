@@ -20,7 +20,7 @@ export default function ConferenceJoinView() {
   const [warningMessage, setWarningMessage] = useState<string>("")
   const [joinButtonState, setJoinButtonState] = useState<boolean>(false)
   const [kitNumberModalView, setKitNumberModalView] = useState<boolean>(false)
-  //TODO: We Should have one more endpoint for checking current appointmentToken expiration
+  // TODO: We Should have one more endpoint for checking current appointmentToken expiration
   const [isMediaModalAvailable, setIsMediaModalAvailable] = useState<boolean>(false)
   const [isLinkExpired, setIsLinkExpired] = useState<boolean>(false)
   const [patientInfo, setPatientInfo] = useState<IPatientInfo>({firstName: "", kitCode: "", lastName: "", testType: ""})
@@ -52,12 +52,10 @@ export default function ConferenceJoinView() {
   const getRecaptcha = async () => {
     const captchaToken = process.env.RECAPTCHA_V3_KEY
     if (captchaToken) {
-      return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) => {
-        return recaptcha.execute("submit")
-      })
-    } else {
+      return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) => recaptcha.execute("submit"))
+    } 
       console.error("Captcha token is undefined")
-    }
+    
   }
 
   const handleJoinClick = async () => {
@@ -66,7 +64,7 @@ export default function ConferenceJoinView() {
     try {
       if (captchaToken && kitNumber && appointmentToken) {
         const result = await conferenceManager.getWaitingToken(captchaToken, kitNumber, appointmentToken as string)
-        const waitingToken = result.data.data.waitingToken
+        const {waitingToken} = result.data.data
         localStorage.setItem("appointmentToken", appointmentToken as string)
         setConfDataState({ type: ConferenceContextStaticData.SET_WAITING_TOKEN, waitingToken })
         setConfDataState({type: ConferenceContextStaticData.UPDATE_PATIENT_INFO, patientInfo: {...patientInfo, kitCode: kitNumber}})
@@ -100,7 +98,7 @@ export default function ConferenceJoinView() {
           kitCode: '',
         }
         setPatientInfo(patientInfo)
-        setIsLinkExpired(false);
+        setIsLinkExpired(false)
       }
 
     } catch (err) {
@@ -119,7 +117,7 @@ export default function ConferenceJoinView() {
   useEffect(() => {
     (async () => {
       if(appointmentToken?.length) {
-        await getAppointmentInfo();
+        await getAppointmentInfo()
       }
     })()
   }, [appointmentToken])
@@ -135,9 +133,9 @@ export default function ConferenceJoinView() {
       <div className="pure-block-wrapper">
         {!isLinkExpired ? (
           <div>
-            <PureBlock flow={true}>
+            <PureBlock flow>
               <div className="logo">
-                <Image src="/logo.svg" width={136} height={16} alt={"logo"} />
+                <Image src="/logo.svg" width={136} height={16} alt="logo" />
               </div>
               <div>
                 <span className="header">Join Video Call</span>
@@ -153,7 +151,7 @@ export default function ConferenceJoinView() {
               </span>
                 <ReactCodeInput
                   className={warningMessage ? "input inputGroup__input_err" : "input"}
-                  type={"text"}
+                  type="text"
                   placeholder={["-", "-", "-", "-", "-", "-"]}
                   onChange={(value: string) => {
                     handleKitNumberChange(value)

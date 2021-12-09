@@ -1,9 +1,9 @@
-import {UseTestResultDataStateValue} from "context/testResultContext"
-import AntiBodySVG from "./icon/anti-body"
-import PcrSvg from "./icon/pcrIcon"
-import RapidAtHome from "./icon/RapidAtHome"
-import {TestTypes} from "component/singleResultsPage"
-import moment from "moment"
+import {UseTestResultDataStateValue} from 'context/testResultContext'
+import {TestTypes} from 'component/singleResultsPage'
+import moment from 'moment'
+import AntiBodySVG from './icon/anti-body'
+import PcrSvg from './icon/pcrIcon'
+import RapidAtHome from './icon/RapidAtHome'
 const Header = () => {
   const {testResultState} = UseTestResultDataStateValue()
   const changeDate = (data: string, format: string) => {
@@ -25,17 +25,17 @@ const Header = () => {
             <PcrSvg style={testResultState.testResult.style.toLowerCase()} />
           )
         )}
-        {testResultState?.testResult.testType === TestTypes.RapidAntigenAtHome && (
-          <RapidAtHome style={testResultState.testResult.style?.toLowerCase()} />
-        )}
+        {testResultState?.testResult.testType === TestTypes.RapidAntigenAtHome && <RapidAtHome />}
 
         <div className="test-info">
-          <p data-cy="test-status" className="test-info__result"> {testResultState.testResult.result} </p>
+          <p data-cy="test-status" className="test-info__result">
+            {' '}
+            {testResultState.testResult.result}{' '}
+          </p>
           <p className="test-info__date">
-            {testResultState?.testResult &&
-            testResultState?.testResult.resultDate
-              ? changeDate(testResultState.testResult.resultDate, "MMMM Do, h:mm a")
-              : ""}{" "}
+            {testResultState?.testResult && testResultState?.testResult.resultDate
+              ? changeDate(testResultState.testResult.resultDate, 'MMMM Do, h:mm a')
+              : ''}{' '}
           </p>
         </div>
       </div>

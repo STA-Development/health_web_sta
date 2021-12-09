@@ -17,23 +17,23 @@
  */
 import * as dotenv from 'dotenv'
 
-module.exports = (on: any, config: any) => {
-    // `on` is used to hook into various events Cypress emits
-    // `config` is the resolved Cypress config
+module.exports = (_on: any, config: any) => {
+  // `on` is used to hook into various events Cypress emits
+  // `config` is the resolved Cypress config
 
-    // Read e2e env. file, show error is not found
-    const fileConfig = dotenv.config({path: __dirname + '/../../.env.e2e'})
-    if (fileConfig.error) {
-        console.log('Error loading e2e config file')
-        console.log(fileConfig.error)
-        return null
-    }
-    const envConfig = fileConfig.parsed
+  // Read e2e env. file, show error is not found
+  const fileConfig = dotenv.config({path: `${__dirname}/../../.env.e2e`})
+  if (fileConfig.error) {
+    console.log('Error loading e2e config file')
+    console.log(fileConfig.error)
+    return null
+  }
+  const envConfig = fileConfig.parsed
 
-    // Apply values from .env file to cypress config
-    for (const envKey in envConfig) {
-        config.env[envKey] = envConfig[envKey]
-    }
+  // Apply values from .env file to cypress config
+  for (const envKey in envConfig) {
+    config.env[envKey] = envConfig[envKey]
+  }
 
-    return config
+  return config
 }

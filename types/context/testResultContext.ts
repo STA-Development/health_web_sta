@@ -36,6 +36,6 @@ export interface testResult {
   testType: string
 }
 export type ITestResultActions = {
-  type: "UPDATE_TEST_RESULT"
+  type: 'UPDATE_TEST_RESULT'
   data: testResult
 }

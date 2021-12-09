@@ -1,9 +1,9 @@
 import React, { FormEvent } from "react"
 import Image from "next/image"
 import {UseConfDataStateValue} from "context/ConferenceContext"
-import Message from "./partials/message"
 import {IChatWrapper, IQBMessage} from "types/context/ConferenceContext"
 import {ConferenceContextStaticData} from "static/ConferenceContextStaticData"
+import Message from "./partials/message"
 import ChatWrapperPreload from "./partials/chatWrapperPreload"
 
 export default function ChatWrapper({ getMessageValue, sendMessage, messageToSend, loading }: IChatWrapper) {

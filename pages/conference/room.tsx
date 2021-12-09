@@ -1,22 +1,30 @@
-import {useEffect, useState} from "react"
-import VideoWrapper from "component/base/conference/video"
-import ChatWrapper from "component/base/conference/chat"
-import * as QB from "quickblox/quickblox.js"
-import {QBConfig} from "utils/quickblox/config"
-import {UseConfDataStateValue} from "context/ConferenceContext"
-import conferenceManager from "manager/ConferenceManager"
-import {ConferenceContextStaticData} from "static/ConferenceContextStaticData"
-import MobileChatView from "component/base/conference/partials/mobileChatView"
-import {load, ReCaptchaInstance} from "recaptcha-v3"
-import { useRouter } from 'next/router'
-import {useNetworkState} from "react-use"
-import ErrorNotification from "component/base/conference/partials/errorNotification"
+import {useEffect, useState} from 'react'
+import VideoWrapper from 'component/base/conference/video'
+import ChatWrapper from 'component/base/conference/chat'
+import * as QB from 'quickblox/quickblox.js'
+import {QBConfig} from 'utils/quickblox/config'
+import {UseConfDataStateValue} from 'context/ConferenceContext'
+import conferenceManager from 'manager/ConferenceManager'
+import {ConferenceContextStaticData} from 'static/ConferenceContextStaticData'
+import MobileChatView from 'component/base/conference/partials/mobileChatView'
+import {load, ReCaptchaInstance} from 'recaptcha-v3'
+import {useRouter} from 'next/router'
+import {useNetworkState} from 'react-use'
+import ErrorNotification from 'component/base/conference/partials/errorNotification'
 
 interface ICallListener {
-  getUserMedia: (mediaParams: { audio: boolean, video: boolean, options: { muted: boolean, mirror: boolean }, elemId: string, }, cb: (error: Error) => void) => void
-  accept: (extension:  {save_to_history: number, dialog_id: string }) => void,
-  stop: (value: object) => void,
-  mute: (value: string) => void,
+  getUserMedia: (
+    mediaParams: {
+      audio: boolean
+      video: boolean
+      options: {muted: boolean; mirror: boolean}
+      elemId: string
+    },
+    cb: (error: Error) => void,
+  ) => void
+  accept: (extension: {save_to_history: number; dialog_id: string}) => void
+  stop: (value: object) => void
+  mute: (value: string) => void
   unmute: (value: string) => void
 }
 
@@ -26,22 +34,22 @@ interface ICallListenerExtension {
 }
 
 interface IRemoteStreamListener {
-  attachMediaStream: (streamType: string, remoteStream: object) => {}
+  attachMediaStream: (streamType: string, remoteStream: object) => void
 }
 
 const callSessionInitialState = {
-  getUserMedia: (mediaParams: { audio: boolean, video: boolean, options: { muted: boolean, mirror: boolean }, elemId: string, }, cb: (error: Error) => void) => {},
-  accept: (extension:  {save_to_history: number, dialog_id: string }) => {},
-  stop: (value: object) => {},
-  mute: (value: string) => {},
-  unmute: (value: string) => {}
+  getUserMedia: () => null,
+  accept: () => null,
+  stop: () => null,
+  mute: () => null,
+  unmute: () => null,
 }
 
 export default function ConferenceRoomView() {
   const {confDataState, setConfDataState} = UseConfDataStateValue()
-  const [dialogId, setDialogId] = useState<string>("")
-  const [userToken, setUserToken] = useState<string>("")
-  const [messageToSend, setMessageToSend] = useState<string>("")
+  const [dialogId, setDialogId] = useState<string>('')
+  const [userToken, setUserToken] = useState<string>('')
+  const [messageToSend, setMessageToSend] = useState<string>('')
   const [isConferenceStarted, setIsConferenceStarted] = useState<boolean>(false)
   const [isConferenceEnded, setIsConferenceEnded] = useState<boolean>(false)
   const [callSession, setCallSession] = useState<ICallListener>(callSessionInitialState)
@@ -55,11 +63,10 @@ export default function ConferenceRoomView() {
     const captchaToken = process.env.RECAPTCHA_V3_KEY
     if (captchaToken) {
       const recaptcha: ReCaptchaInstance = await load(captchaToken as string)
-      return await recaptcha.execute("submit")
-    } else {
-      console.error("Captcha token is undefined")
-      setIsError(true)
+      return await recaptcha.execute('submit')
     }
+    console.error('Captcha token is undefined')
+    setIsError(true)
   }
 
   const getMessageValue = (value: string) => {
@@ -70,29 +77,38 @@ export default function ConferenceRoomView() {
     const extension = {}
     callSession.stop(extension)
     setIsConferenceStarted(false)
-    setConfDataState({ type: ConferenceContextStaticData.SET_CONSULTATION_STATE, isConsultationStarted: false })
+    setConfDataState({
+      type: ConferenceContextStaticData.SET_CONSULTATION_STATE,
+      isConsultationStarted: false,
+    })
     setIsConferenceEnded(true)
   }
 
   const switchAudioState = () => {
     if (isMuted) {
       setIsMuted(false)
-      callSession.unmute("audio")
+      callSession.unmute('audio')
     } else {
       setIsMuted(true)
-      callSession.mute("audio")
+      callSession.mute('audio')
     }
   }
 
   const getSession = () => {
     try {
-      QB.init(userToken, parseInt(`${process.env.QB_APP_ID}`), null, process.env.QB_ACCOUNT_KEY, QBConfig)
-      QB.getSession(function(error: object, {session}: {session: {user_id: number}}) {
+      QB.init(
+        userToken,
+        parseInt(`${process.env.QB_APP_ID}`),
+        null,
+        process.env.QB_ACCOUNT_KEY,
+        QBConfig,
+      )
+      QB.getSession((error: object, {session}: {session: {user_id: number}}) => {
         if (error) {
           console.error(error)
           setIsError(true)
         } else {
-          setConfDataState({ type: ConferenceContextStaticData.SET_PERSONAL_ID, id: session.user_id })
+          setConfDataState({type: ConferenceContextStaticData.SET_PERSONAL_ID, id: session.user_id})
         }
       })
     } catch (e) {
@@ -102,7 +118,10 @@ export default function ConferenceRoomView() {
   }
 
   const connectToChat = () => {
-    const userId = QB.chat.helpers.getUserJid(confDataState.myPersonalId, parseInt(`${process.env.APP_ID}`))
+    const userId = QB.chat.helpers.getUserJid(
+      confDataState.myPersonalId,
+      parseInt(`${process.env.APP_ID}`),
+    )
     const dialogJid = QB.chat.helpers.getRoomJidFromDialogId(dialogId)
     const userCredentials = {
       jid: userId,
@@ -114,7 +133,7 @@ export default function ConferenceRoomView() {
         console.error(error)
         setIsError(true)
       } else {
-        console.info(contactList, "CONTACT LIST")
+        console.info(contactList, 'CONTACT LIST')
       }
       try {
         QB.chat.muc.join(dialogJid, (err: string, result: string) => {
@@ -122,12 +141,12 @@ export default function ConferenceRoomView() {
             console.error(err)
             setIsError(true)
           } else {
-            console.info("JOINED ", result)
+            console.info('JOINED ', result)
           }
         })
       } catch (e) {
-        if (e.name === "ChatNotConnectedError") {
-          console.info("CHAT NOT CONNECTED")
+        if (e.name === 'ChatNotConnectedError') {
+          console.info('CHAT NOT CONNECTED')
         }
         setIsError(true)
       }
@@ -135,20 +154,20 @@ export default function ConferenceRoomView() {
       QB.chat.onMessageListener = (userId: number, message: object) => {
         if (userId !== confDataState.myPersonalId) {
           getMessagesList()
-          console.info(message, "UPCOMING MESSAGE")
+          console.info(message, 'UPCOMING MESSAGE')
         }
       }
     })
 
     QB.chat.onDisconnectedListener = () => {
-      console.info("CHAT DISCONNECTED")
+      console.info('CHAT DISCONNECTED')
     }
   }
 
   const sendMessage = () => {
-    setMessageToSend("")
+    setMessageToSend('')
     const message = {
-      type: "groupchat",
+      type: 'groupchat',
       body: messageToSend,
       extension: {
         save_to_history: 1,
@@ -163,23 +182,26 @@ export default function ConferenceRoomView() {
       sender_id: confDataState.myPersonalId,
       created_at: new Date(),
       message: messageToSend,
-      hasError: false
+      hasError: false,
     }
 
     if (!condition.online) {
       setConfDataState({
         type: ConferenceContextStaticData.SET_MESSAGES,
-        messages: [...confDataState.messages, {...newMessage, hasError: true}]
+        messages: [...confDataState.messages, {...newMessage, hasError: true}],
       })
     } else {
-      setConfDataState({ type: ConferenceContextStaticData.SET_MESSAGES, messages: [...confDataState.messages, newMessage] })
+      setConfDataState({
+        type: ConferenceContextStaticData.SET_MESSAGES,
+        messages: [...confDataState.messages, newMessage],
+      })
     }
 
     try {
       QB.chat.send(dialogJid, message)
     } catch (e) {
-      if (e.name === "ChatNotConnectedError") {
-        console.error(e, "ON_SEND_ERROR")
+      if (e.name === 'ChatNotConnectedError') {
+        console.error(e, 'ON_SEND_ERROR')
       }
     }
   }
@@ -197,7 +219,10 @@ export default function ConferenceRoomView() {
         console.error(error)
         setIsError(true)
       } else {
-        setConfDataState({ type: ConferenceContextStaticData.SET_MESSAGES, messages: messages?.items })
+        setConfDataState({
+          type: ConferenceContextStaticData.SET_MESSAGES,
+          messages: messages?.items,
+        })
       }
     })
   }
@@ -206,7 +231,10 @@ export default function ConferenceRoomView() {
     setLoading(true)
     const captchaToken = await getRecaptcha()
     try {
-      const confCredentials = await conferenceManager.joinToDialog(captchaToken as string, confDataState.waitingToken)
+      const confCredentials = await conferenceManager.joinToDialog(
+        captchaToken as string,
+        confDataState.waitingToken,
+      )
       setDialogId(confCredentials.data.data.dialogId)
       setUserToken(confCredentials.data.data.userToken)
     } catch (err) {
@@ -224,14 +252,17 @@ export default function ConferenceRoomView() {
         muted: true,
         mirror: true,
       },
-      elemId: "myVideoStream"
+      elemId: 'myVideoStream',
     }
 
     QB.webrtc.onCallListener = (session: ICallListener, extension: ICallListenerExtension) => {
       setIsConferenceStarted(true)
-      setConfDataState({ type: ConferenceContextStaticData.SET_CONSULTATION_STATE, isConsultationStarted: true })
+      setConfDataState({
+        type: ConferenceContextStaticData.SET_CONSULTATION_STATE,
+        isConsultationStarted: true,
+      })
       setCallSession(session)
-      session.getUserMedia(mediaParams, function (error: object) {
+      session.getUserMedia(mediaParams, (error: object) => {
         if (error) {
           console.error(error)
           setIsError(true)
@@ -241,23 +272,32 @@ export default function ConferenceRoomView() {
       })
     }
 
-    QB.webrtc.onRemoteStreamListener = (session: IRemoteStreamListener, userID: number, remoteStream: object) => {
-      session.attachMediaStream("videoStream", remoteStream);
+    QB.webrtc.onRemoteStreamListener = (
+      session: IRemoteStreamListener,
+      _userID: number,
+      remoteStream: object,
+    ) => {
+      session.attachMediaStream('videoStream', remoteStream)
     }
 
     QB.webrtc.onStopCallListener = () => {
       setIsConferenceStarted(false)
-      setConfDataState({ type: ConferenceContextStaticData.SET_CONSULTATION_STATE, isConsultationStarted: false })
+      setConfDataState({
+        type: ConferenceContextStaticData.SET_CONSULTATION_STATE,
+        isConsultationStarted: false,
+      })
       setIsConferenceEnded(true)
-    };
+    }
   }
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       if (confDataState.waitingToken.length) {
         await joinToChat()
       } else {
-        await router.push(`/conference/join?appointmentToken=${localStorage.getItem("appointmentToken")}`)
+        await router.push(
+          `/conference/join?appointmentToken=${localStorage.getItem('appointmentToken')}`,
+        )
       }
     })()
   }, [confDataState.waitingToken])
@@ -290,12 +330,14 @@ export default function ConferenceRoomView() {
         messageToSend={messageToSend}
         loading={loading}
       />
-      {confDataState.chatVisibility && <MobileChatView
-        getMessageValue={getMessageValue}
-        sendMessage={sendMessage}
-        messageToSend={messageToSend}
-        loading={loading}
-      />}
+      {confDataState.chatVisibility && (
+        <MobileChatView
+          getMessageValue={getMessageValue}
+          sendMessage={sendMessage}
+          messageToSend={messageToSend}
+          loading={loading}
+        />
+      )}
       <ErrorNotification isError={isError} setErrorState={setIsError} />
     </div>
   )

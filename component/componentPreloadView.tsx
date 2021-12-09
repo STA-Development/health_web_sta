@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 
 const ComponentPreloadView = () => (
   <div className="preload carcass">
@@ -59,10 +59,10 @@ const ComponentPreloadView = () => (
         </div>
       </div>
     </div>
-    <div className={`test-result-wrapper wrapper__biorad-color padding `}>
+    <div className="test-result-wrapper wrapper__biorad-color padding ">
       <span className="answer preload__style preload__lines preload__lines_lg preload__lines_width-12" />
     </div>
-    <div className="test-result-wrapper"></div>
+    <div className="test-result-wrapper" />
     <div className="preload__test-analysis-data">
       <h3 className="preload__test-analysis-data__title">Test Analysis Data</h3>
       <div className="preload__test-analysis-data__content">
@@ -94,7 +94,8 @@ const ComponentPreloadView = () => (
             <p className="field">date of results</p>
             <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-5" />
             <p className="field">collection method</p>
-            <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-5" />{" "}
+            <span className="answer preload__style preload__lines preload__lines_sm preload__lines_width-5" />
+            {' '}
           </div>
         </div>
         <div className="left-bottom-wrapper">

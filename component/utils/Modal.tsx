@@ -1,12 +1,9 @@
-const Modal = (props: { children?: JSX.Element }) => {
-
-    return (
-        <div className='modal'>
-            <div className='modal__content'>
-                {props.children}
-            </div>
-        </div>
-    )
-}
+const Modal = (props: { children?: JSX.Element }) => (
+  <div className="modal">
+    <div className="modal__content">
+      {props.children}
+    </div>
+  </div>
+)
 
 export default Modal

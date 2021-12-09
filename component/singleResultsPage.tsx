@@ -9,7 +9,7 @@ import {load, ReCaptchaInstance} from "recaptcha-v3"
 import {useEffect, useState} from "react"
 import {UseTestResultDataStateValue} from "context/testResultContext"
 import {TestResultContextStaticData} from "static/TestResultContextStaticData"
-import testResultManager from "manager/TestResultManager";
+import testResultManager from "manager/TestResultManager"
 import {useRouter} from "next/router"
 import ComponentPreloadView from "component/componentPreloadView"
 
@@ -30,12 +30,10 @@ export default function SingleTestResultPage(props:{
     const getRecaptcha = async () => {
         const captchaToken = process.env.RECAPTCHA_V3_KEY
         if (captchaToken) {
-            return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) => {
-                return recaptcha.execute("submit")
-            })
-        } else {
+            return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) => recaptcha.execute("submit"))
+        } 
             console.error("Captcha token is undefined")
-        }
+        
     }
     useEffect(() => {
         if (testResultId) {
@@ -49,13 +47,13 @@ export default function SingleTestResultPage(props:{
             if(!props.isPublicUser) {
                 const response = await testResultManager.getSingleTestResult(resultId as string)
                 if (response.status === 200) {
-                    const data = response.data.data
+                    const {data} = response.data
                     setTestResultState({type: TestResultContextStaticData.UPDATE_TEST_RESULT, data})
                 }
             } else if (token && testResultId) {
                 const response = await testResultManager.getTestResult(token, resultId as string)
                 if (response.status === 200) {
-                    const data = response.data.data
+                    const {data} = response.data
                     setTestResultState({type: TestResultContextStaticData.UPDATE_TEST_RESULT, data})
                 }
             }

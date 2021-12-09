@@ -1,18 +1,15 @@
 import axios from "axios"
 import {guid} from "utils/guid"
 
-const generateRequestId = () => {
-  return guid();
-
-}
+const generateRequestId = () => guid()
 const getOrGenerateDeviceId = () => {
-  const deviceId = localStorage.getItem("deviceId");
+  const deviceId = localStorage.getItem("deviceId")
   if(deviceId){
     return deviceId
-  } else {
-    const newDeviceId = guid();
+  } 
+    const newDeviceId = guid()
     localStorage.setItem("deviceId", newDeviceId)
-  }
+  
 }
 export const Axios = (parameters?: {
   token?: string,
@@ -22,9 +19,9 @@ export const Axios = (parameters?: {
   const baseURL = parameters?.baseURL || process.env.USER_SERVICE_URL
   const axiosInstance = axios.create({ baseURL })
 
-  axiosInstance.interceptors.request.use(function (config) {
-    config.headers["opn-device-id"] = getOrGenerateDeviceId();
-    config.headers["opn-request-id"] = generateRequestId();
+  axiosInstance.interceptors.request.use((config) => {
+    config.headers["opn-device-id"] = getOrGenerateDeviceId()
+    config.headers["opn-request-id"] = generateRequestId()
     config.headers["opn-lang"] = "en"
     config.headers["captcha-token"] = token
     config.headers["opn-source"] = process.env.APP_SOURCE

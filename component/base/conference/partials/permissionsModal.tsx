@@ -1,5 +1,5 @@
-import Modal from "component/utils/Modal";
-import Card from "component/utils/Card";
+import Modal from "component/utils/Modal"
+import Card from "component/utils/Card"
 import Image from "next/image"
 import {useState} from "react"
 import {doesObjectContainFalsyValue} from "utils/falsyValuesOfObject"
@@ -24,12 +24,12 @@ export default function PermissionsModal(props: {closeModal: () => void}) {
     navigator.getUserMedia({
       audio: true,
       video: true
-    }, function(stream) {
-      stream.getTracks().forEach(x => x.stop());
+    }, (stream) => {
+      stream.getTracks().forEach(x => x.stop())
       if(stream.id) {
         props.closeModal()
       }
-    }, err => console.log(err));
+    }, err => console.log(err))
   }
 
   return (
@@ -41,7 +41,7 @@ export default function PermissionsModal(props: {closeModal: () => void}) {
         </div>
         <div className='card__content'>
           <div className="card__content__item">
-            <Image src='/camera.svg' width={40} height={40} alt={"camera"}/>
+            <Image src='/camera.svg' width={40} height={40} alt="camera"/>
             <div className="card__content__item-details">
               <h4>Camera</h4>
               <p>So your provider can see you</p>
@@ -49,7 +49,7 @@ export default function PermissionsModal(props: {closeModal: () => void}) {
             <div className={`checkbox-circle ${checkedItems.video ? 'checkbox-circle_active' : ''}`} onClick={() => updateMediaCheckboxValue("video")}/>
           </div>
           <div className="card__content__item">
-            <Image src='/mic.svg' width={40} height={40} alt={"microphone"}/>
+            <Image src='/mic.svg' width={40} height={40} alt="microphone"/>
             <div className="card__content__item-details">
               <h4>Microphone</h4>
               <p>So your provider can hear you</p>

@@ -27,14 +27,14 @@ export interface PatientInfo {
 
 export type IAuthActions =
     | {
-    type: "UPDATE_AUTH_TOKEN"
+    type: 'UPDATE_AUTH_TOKEN'
     token: string
 }
     | {
-    type: "UPDATE_RE_CAPTCHA"
+    type: 'UPDATE_RE_CAPTCHA'
     reCaptchaVerifier: unknown
 }
     | {
-    type: "UPDATE_PHONE_NUMBER"
+    type: 'UPDATE_PHONE_NUMBER'
     phoneNumber: string
 }

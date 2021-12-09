@@ -1,11 +1,8 @@
-import Image from "next/image"
-import {UseTestResultDataStateValue} from "context/testResultContext"
+import Image from 'next/image'
+import {UseTestResultDataStateValue} from 'context/testResultContext'
 
 const Footer = () => {
   const {testResultState} = UseTestResultDataStateValue()
-  function replaceHTMLWithLineBreaks(text: string) {
-    return text !== undefined ? text.replace(/<br\/>/gi, "\n") : ""
-  }
   return (
     <div className="footer-wrapper">
       <div className="important-information">
@@ -16,9 +13,9 @@ const Footer = () => {
         />
       </div>
       <div className="doctor-info">
-          <div className="doctor-info__signature">
-              <Image priority={true} src="/signage.webp" alt="signage" width={"225"} height={"77px"} />
-          </div>
+        <div className="doctor-info__signature">
+          <Image priority src="/signage.webp" alt="signage" width="225" height="77px" />
+        </div>
         <div className="doctor-info__title">
           Dr. Peter Blecher <br />
           FH Health Physician

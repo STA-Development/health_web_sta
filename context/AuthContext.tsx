@@ -10,15 +10,13 @@ const initialState: IAuthState = {
     getGoogleV3RecaptchaToken: async () => {
         if (process.env.RECAPTCHA_V3_KEY) {
             const googleV3RecaptchaToken = await load(process.env.RECAPTCHA_V3_KEY).then(
-                (recaptcha: ReCaptchaInstance) => {
-                    return recaptcha.execute("submit")
-                },
+                (recaptcha: ReCaptchaInstance) => recaptcha.execute("submit"),
             )
             return googleV3RecaptchaToken
-        } else {
+        } 
             console.error("Recaptcha Key is not available")
             return ''
-        }
+        
     },
 }
 

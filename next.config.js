@@ -10,16 +10,16 @@ try {
 // Use default image load for local
 let images = {}
 // Use public folder with static loaded when building for GCP hosting
-if (process.env.NODE_ENV !== "development") {
+if (process.env.NODE_ENV !== 'development') {
   images = {
     domains,
-    loader: "imgix",
+    loader: 'imgix',
     path: `${process.env.APP_DOMAIN}/public`,
   }
 }
 
 module.exports = {
-  basePath: "",
+  basePath: '',
   poweredByHeader: false,
   images,
   reactStrictMode: true,

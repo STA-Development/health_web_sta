@@ -1,5 +1,5 @@
 import {UseTestResultDataStateValue} from "context/testResultContext"
-import {TestTypes} from "component/singleResultsPage";
+import {TestTypes} from "component/singleResultsPage"
 
 const TestResult = () => {
     const {testResultState} = UseTestResultDataStateValue()

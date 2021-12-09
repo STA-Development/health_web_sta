@@ -1,11 +1,11 @@
-//TODO: uncomment line after backend blocker fixed
+// TODO: uncomment line after backend blocker fixed
 
-import {checkSingleResult, doLoginTest} from "../../helpers";
+import {doLoginTest} from '../../helpers'
 
-describe("Check single result from result list", () => {
-    it('Check Negative result', () => {
-        doLoginTest(Cypress.env('phoneNumber'), Cypress.env('verificationCode'))
-        cy.get(".all-results").find('.GREEN').click()
-        // checkSingleResult('Negative', 'green')
-    })
+describe('Check single result from result list', () => {
+  it('Check Negative result', () => {
+    doLoginTest(Cypress.env('phoneNumber'), Cypress.env('verificationCode'))
+    cy.get('.all-results').find('.GREEN').click()
+    // checkSingleResult('Negative', 'green')
+  })
 })

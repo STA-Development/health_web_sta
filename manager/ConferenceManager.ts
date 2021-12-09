@@ -1,4 +1,4 @@
-import { Axios } from "./AxiosInstance"
+import { Axios } from './AxiosInstance'
 
 const conferenceManager = {
   getWaitingToken(captchaToken: string, kitCode: string, appointmentToken: string) {
@@ -7,7 +7,7 @@ const conferenceManager = {
       baseURL: process.env.SCHEDULE_SERVICE_URL,
     }).get(`/scheduling/api/public/v1/kit-codes/${kitCode}`, {
       headers: {
-        'appointment-token': appointmentToken
+        'appointment-token': appointmentToken,
       },
     })
   },
@@ -16,9 +16,9 @@ const conferenceManager = {
     return Axios({
       token: captchaToken,
       baseURL: process.env.SCHEDULE_SERVICE_URL,
-    }).get(`/scheduling/api/public/v1/appointment`, {
+    }).get('/scheduling/api/public/v1/appointment', {
       headers: {
-        'appointment-token': appointmentToken
+        'appointment-token': appointmentToken,
       },
     })
   },
@@ -26,11 +26,11 @@ const conferenceManager = {
   joinToDialog(captchaToken: string, waitingToken: string) {
     return Axios({
       token: captchaToken,
-      baseURL: process.env.SCHEDULE_SERVICE_URL
+      baseURL: process.env.SCHEDULE_SERVICE_URL,
     }).put('/scheduling/api/public/v1/appointment/waiting', {
-      waitingToken
+      waitingToken,
     })
-  }
+  },
 }
 
 export default conferenceManager
