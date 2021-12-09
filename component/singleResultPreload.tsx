@@ -1,5 +1,4 @@
 import React from "react"
-import TestResultIcon from "./base/header/icon/testResult";
 import Image from "next/image";
 
 const SingleResultPreload = () => (

@@ -1,4 +1,4 @@
-import SingleTestResultPage from "../component/singleResultsPage"
+import SingleTestResultPage from "component/singleResultsPage"
 export default function Public() {
   return(
     <SingleTestResultPage isPublicUser={true} />

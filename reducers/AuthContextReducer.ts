@@ -1,5 +1,5 @@
-import {IAuthActions, IAuthState} from "../types/context/AuthContext"
-import {AuthContextStaticData} from "../static/AuthContextStaticData"
+import {IAuthActions, IAuthState} from "types/context/AuthContext"
+import {AuthContextStaticData} from "static/AuthContextStaticData"
 
 export const AuthContextReducer = (state: IAuthState, action: IAuthActions) => {
     switch (action.type) {

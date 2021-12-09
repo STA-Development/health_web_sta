@@ -1,5 +1,3 @@
-import {ReactChildren} from "react";
-
 const TestResultContainer = ({children, ...props}: any) => {
     return (
         <div data-cy={props["data-cy"]} className="all-results">
@@ -7,4 +5,5 @@ const TestResultContainer = ({children, ...props}: any) => {
         </div>
     )
 }
+
 export default TestResultContainer

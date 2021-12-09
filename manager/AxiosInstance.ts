@@ -1,5 +1,5 @@
 import axios from "axios"
-import {guid} from "../utils/guid"
+import {guid} from "utils/guid"
 
 const generateRequestId = () => {
   return guid();

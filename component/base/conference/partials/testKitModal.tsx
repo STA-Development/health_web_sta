@@ -1,6 +1,6 @@
 import Image from "next/image";
-import Modal from "../../../utils/Modal";
-import Card from "../../../utils/Card";
+import Modal from "component/utils/Modal";
+import Card from "component/utils/Card";
 
 export default function KitNumberModal({ visibility, closeModal }: { visibility: boolean, closeModal: (value: boolean) => void}) {
 

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useRouter } from 'next/router'
 import React from 'react';
-import TestResultIcon from "./base/header/icon/testResult";
+import TestResultIcon from "component/base/header/icon/testResult";
 const SingleTestResult = (props: {
     testName: string
     patientName: string

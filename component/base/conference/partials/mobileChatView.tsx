@@ -1,5 +1,5 @@
 import ChatWrapper from "../chat";
-import {IChatWrapper} from "../../../../types/context/ConferenceContext"
+import {IChatWrapper} from "types/context/ConferenceContext"
 
 export default function MobileChatView(props: IChatWrapper) {
 

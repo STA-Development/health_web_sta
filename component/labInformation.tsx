@@ -1,4 +1,4 @@
-import {UseTestResultDataStateValue} from "./../context/testResultContext"
+import {UseTestResultDataStateValue} from "context/testResultContext"
 
 import moment from "moment"
 const LabInformation = () => {

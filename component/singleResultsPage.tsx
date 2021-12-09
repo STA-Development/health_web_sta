@@ -1,17 +1,17 @@
-import Header from "../component/base/header/header"
-import TestResult from "../component/testResult"
-import LabInformation from "../component/labInformation"
-import Footer from "../component/base/footer/footer"
-import PcrAnalysisData from "../component/pcrAnalysisData"
-import BioradAntiBodyData from "../component/bioradAntiBodyData"
-import AntiBodyAnalysisData from "../component/antyBodyAnalysisData"
+import Header from "component/base/header/header"
+import TestResult from "component/testResult"
+import LabInformation from "component/labInformation"
+import Footer from "component/base/footer/footer"
+import PcrAnalysisData from "component/pcrAnalysisData"
+import BioradAntiBodyData from "component/bioradAntiBodyData"
+import AntiBodyAnalysisData from "component/antyBodyAnalysisData"
 import {load, ReCaptchaInstance} from "recaptcha-v3"
 import {useEffect, useState} from "react"
-import {UseTestResultDataStateValue} from "../context/testResultContext"
-import {TestResultContextStaticData} from "../static/TestResultContextStaticData"
-import testResultManager from "../manager/TestResultManager";
+import {UseTestResultDataStateValue} from "context/testResultContext"
+import {TestResultContextStaticData} from "static/TestResultContextStaticData"
+import testResultManager from "manager/TestResultManager";
 import {useRouter} from "next/router"
-import ComponentPreloadView from "../component/componentPreloadView"
+import ComponentPreloadView from "component/componentPreloadView"
 
 export enum TestTypes {
     AntibodyAll = "Antibody_All",

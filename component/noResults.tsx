@@ -1,4 +1,4 @@
-import PureBlock from "./pureBlock";
+import PureBlock from "component/pureBlock";
 import Image from "next/image";
 import ResultHeader from "./resultsHeader";
 export default function NoResults() {

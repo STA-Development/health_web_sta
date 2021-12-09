@@ -1,7 +1,7 @@
 import React, {createContext, useContext, useReducer} from "react"
-import {IConfState} from "../types/context/ConferenceContext"
-import {ConferenceContextReducer} from "../reducers/ConferenceContextReducer"
-import {IConfActions} from "../types/context/ConferenceContext"
+import {IConfState} from "types/context/ConferenceContext"
+import {ConferenceContextReducer} from "reducers/ConferenceContextReducer"
+import {IConfActions} from "types/context/ConferenceContext"
 
 const initialState: IConfState = {
     chatVisibility: false,

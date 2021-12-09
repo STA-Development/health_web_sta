@@ -1,5 +1,5 @@
 import Image from "next/image"
-import {UseTestResultDataStateValue} from "../../../context/testResultContext"
+import {UseTestResultDataStateValue} from "context/testResultContext"
 
 const Footer = () => {
   const {testResultState} = UseTestResultDataStateValue()
@@ -13,7 +13,7 @@ const Footer = () => {
         <div
           className="content"
           dangerouslySetInnerHTML={{__html: testResultState.testResult.importantInfo}}
-        ></div>
+        />
       </div>
       <div className="doctor-info">
           <div className="doctor-info__signature">
@@ -29,7 +29,7 @@ const Footer = () => {
         <div
           className="content"
           dangerouslySetInnerHTML={{__html: testResultState.testResult.legalNotes}}
-        ></div>
+        />
       </div>
     </div>
   )

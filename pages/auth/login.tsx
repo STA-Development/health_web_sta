@@ -1,14 +1,14 @@
 import {useEffect, useState} from 'react';
 import Image from "next/image";
-import PureBlock from "../../component/pureBlock";
-import {UseAuthDataStateValue} from "../../context/AuthContext";
-import {AuthContextStaticData} from "../../static/AuthContextStaticData";
+import PureBlock from "component/pureBlock";
+import {UseAuthDataStateValue} from "context/AuthContext";
+import {AuthContextStaticData} from "static/AuthContextStaticData";
 import InputMask, {InputState} from "react-input-mask";
-import firebase from "../../lib/firbase";
-import CircleLoader from "../../component/utils/CircleLoader";
+import firebase from "lib/firbase";
+import CircleLoader from "component/utils/CircleLoader";
 import ReactCodeInput from "react-verification-code-input";
 import {useRouter} from "next/router";
-import Notification from "../../component/notification";
+import Notification from "component/notification";
 
 interface IFirebaseAuthProps {
     user?: {

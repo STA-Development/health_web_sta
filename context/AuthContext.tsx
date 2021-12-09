@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useReducer} from "react"
-import {IAuthActions, IAuthState} from "../types/context/AuthContext"
-import {AuthContextReducer} from "../reducers/AuthContextReducer"
+import {IAuthActions, IAuthState} from "types/context/AuthContext"
+import {AuthContextReducer} from "reducers/AuthContextReducer"
 import {load, ReCaptchaInstance} from "recaptcha-v3"
 
 const initialState: IAuthState = {

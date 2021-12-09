@@ -1,4 +1,4 @@
-import {UseTestResultDataStateValue} from "./../context/testResultContext"
+import {UseTestResultDataStateValue} from "context/testResultContext"
 
 const BioradAntiBodyData = () => {
     const {testResultState} = UseTestResultDataStateValue()

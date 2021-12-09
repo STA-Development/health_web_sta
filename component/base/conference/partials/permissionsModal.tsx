@@ -1,8 +1,8 @@
-import Modal from "../../../utils/Modal";
-import Card from "../../../utils/Card";
+import Modal from "component/utils/Modal";
+import Card from "component/utils/Card";
 import Image from "next/image"
 import {useState} from "react"
-import {doesObjectContainFalsyValue} from "../../../../utils/falsyValuesOfObject"
+import {doesObjectContainFalsyValue} from "utils/falsyValuesOfObject"
 
 interface IMediaTypes {
   audio: boolean,
