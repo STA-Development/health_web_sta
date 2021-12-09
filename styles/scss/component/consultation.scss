@@ -33,6 +33,26 @@
   width: 100%;
 }
 
+.call-menu-mobile {
+  @include setPosition(absolute, unset, 0, unset, unset);
+  display: none;
+  background-color: transparent;
+}
+
+.call-menu-mobile__content {
+  @include setDisplay(flex, center, center);
+
+  div {
+    @include setDisplay(flex, center, center, column);
+  }
+
+  span {
+    color: $fhhealth-color-white;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+}
+
 .call-menu__content {
   @include setDisplay(flex, space-between, center);
   @include setElementSize(182px, unset);
@@ -57,5 +77,11 @@
 
   img {
     object-fit: contain;
+  }
+
+  &_mobile {
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
   }
 }

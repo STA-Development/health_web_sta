@@ -33,6 +33,11 @@ export const ConferenceContextReducer = (state: IConfState, action: IConfActions
         ...state,
         error: action.error,
       }
+    case ConferenceContextStaticData.SET_CONSULTATION_STATE:
+      return {
+        ...state,
+        isConsultationStarted: action.isConsultationStarted,
+      }
     default:
       return state
   }

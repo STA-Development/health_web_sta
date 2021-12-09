@@ -70,6 +70,7 @@ export default function ConferenceRoomView() {
     const extension = {}
     callSession.stop(extension)
     setIsConferenceStarted(false)
+    setConfDataState({ type: ConferenceContextStaticData.SET_CONSULTATION_STATE, isConsultationStarted: false })
     setIsConferenceEnded(true)
   }
 
@@ -228,6 +229,7 @@ export default function ConferenceRoomView() {
 
     QB.webrtc.onCallListener = (session: ICallListener, extension: ICallListenerExtension) => {
       setIsConferenceStarted(true)
+      setConfDataState({ type: ConferenceContextStaticData.SET_CONSULTATION_STATE, isConsultationStarted: true })
       setCallSession(session)
       session.getUserMedia(mediaParams, function (error: object) {
         if (error) {
@@ -245,6 +247,7 @@ export default function ConferenceRoomView() {
 
     QB.webrtc.onStopCallListener = () => {
       setIsConferenceStarted(false)
+      setConfDataState({ type: ConferenceContextStaticData.SET_CONSULTATION_STATE, isConsultationStarted: false })
       setIsConferenceEnded(true)
     };
   }

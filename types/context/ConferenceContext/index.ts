@@ -11,7 +11,8 @@ export interface IConfState {
   myPersonalId: number,
   waitingToken: string,
   patientInfo: IPatientInfo,
-  error: boolean
+  error: boolean,
+  isConsultationStarted: boolean
 }
 
 export type IConfActions =
@@ -38,6 +39,10 @@ export type IConfActions =
   | {
   type: "SET_MESSAGE_ERROR"
   error: boolean
+}
+  | {
+  type: "SET_CONSULTATION_STATE"
+  isConsultationStarted: boolean
 }
 
 export interface IQBMessage {

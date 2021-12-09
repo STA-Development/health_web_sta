@@ -134,59 +134,61 @@ export default function ConferenceJoinView() {
       }{isMediaModalAvailable && <PermissionsModal closeModal={closeMediaModal} />}
       <div className="pure-block-wrapper">
         {!isLinkExpired ? (
-          <PureBlock flow={true}>
-            <div className="logo">
-              <Image src="/logo.svg" width={136} height={16} alt={"logo"} />
-            </div>
-            <div>
-              <span className="header">Join Video Call</span>
-            </div>
-            <div>
+          <div>
+            <PureBlock flow={true}>
+              <div className="logo">
+                <Image src="/logo.svg" width={136} height={16} alt={"logo"} />
+              </div>
+              <div>
+                <span className="header">Join Video Call</span>
+              </div>
+              <div>
                 <span className="message">
                     In order to enter your consultation please locate the code on your kit.
                 </span>
-            </div>
-            <div className="inputGroup inputGroup_kit-code">
+              </div>
+              <div className="inputGroup inputGroup_kit-code">
               <span className="kit-code-label">
                   Test Kit Number <em>*</em>
               </span>
-              <ReactCodeInput
-                className={warningMessage ? "input inputGroup__input_err" : "input"}
-                type={"text"}
-                placeholder={["-", "-", "-", "-", "-", "-"]}
-                onChange={(value: string) => {
-                  handleKitNumberChange(value)
-                  checkKitNumber(value)
-                }}
-              />
-              {
-                warningMessage?.length ? (
-                  <p className="wrong-kit-code">{warningMessage}</p>
-                ) : ""
-              }
-              <div className="inputGroup__resend">
-                <span>Can't locate your test Kit number?</span>
-                <br />
-                <button
-                  onClick={toggleKitNumberModal}
-                  className="button inputGroup__resend_button"
-                >
-                  Find kit number
-                </button>
-              </div>
+                <ReactCodeInput
+                  className={warningMessage ? "input inputGroup__input_err" : "input"}
+                  type={"text"}
+                  placeholder={["-", "-", "-", "-", "-", "-"]}
+                  onChange={(value: string) => {
+                    handleKitNumberChange(value)
+                    checkKitNumber(value)
+                  }}
+                />
+                {
+                  warningMessage?.length ? (
+                    <p className="wrong-kit-code">{warningMessage}</p>
+                  ) : ""
+                }
+                <div className="inputGroup__resend">
+                  <span>Can't locate your test Kit number?</span>
+                  <br />
+                  <button
+                    onClick={toggleKitNumberModal}
+                    className="button inputGroup__resend_button"
+                  >
+                    Find kit number
+                  </button>
+                </div>
 
-              {loading ? (
-                <CircleLoader className="middle-loader" />
-              ) : (
-                <button
-                  onClick={() => handleJoinClick()}
-                  className={joinButtonState ? "button inputGroup__button" : "button inputGroup__button inputGroup__button_disabled"}
-                  data-cy="join">
-                  Join Call
-                </button>
-              )}
-            </div>
-          </PureBlock>
+                {loading ? (
+                  <CircleLoader className="middle-loader" />
+                ) : (
+                  <button
+                    onClick={() => handleJoinClick()}
+                    className={joinButtonState ? "button inputGroup__button" : "button inputGroup__button inputGroup__button_disabled"}
+                    data-cy="join">
+                    Join Call
+                  </button>
+                )}
+              </div>
+            </PureBlock>
+          </div>
         ) : (
           <div className="card-wrapper">
             <Card>

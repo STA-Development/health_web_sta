@@ -14,7 +14,8 @@ const initialState: IConfState = {
         testType: "",
         kitCode: ""
     },
-    error: false
+    error: false,
+    isConsultationStarted: false
 }
 
 const initialConfContext: {

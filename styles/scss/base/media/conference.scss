@@ -2,6 +2,10 @@
   .conference-header {
     padding-left: 20px;
     padding-right: 20px;
+
+    &_mobile-hidden {
+      display: none;
+    }
   }
 
   .conference-header__logo {
@@ -59,7 +63,7 @@
     left: 0;
     height: 100%;
     width: 100%;
-    z-index: 9;
+    z-index: 99;
 
     .chat-wrapper {
       display: block;

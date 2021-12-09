@@ -19,7 +19,7 @@ const ConferenceHeader = () => {
     }
 
     return (
-        <header className='conference-header'>
+        <header className={confDataState.isConsultationStarted ? 'conference-header conference-header_mobile-hidden' : 'conference-header'}>
             <button className='button conference-header__logout conference-header__logout_mobile'>
                 <Image src='/chat-logout.svg' alt='logout' width={24} height={24}/>
             </button>
