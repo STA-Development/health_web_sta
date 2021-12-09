@@ -1,7 +1,7 @@
 import Image from "next/image"
 import {useState} from "react"
-import {UseConfDataStateValue} from "../../../../context/ConferenceContext"
-import {ConferenceContextStaticData} from "../../../../static/ConferenceContextStaticData"
+import {UseConfDataStateValue} from "context/ConferenceContext"
+import {ConferenceContextStaticData} from "static/ConferenceContextStaticData"
 
 interface ICallActions {
   triggerCallEnd: () => void,

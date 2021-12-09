@@ -2,7 +2,11 @@ import {Axios} from "./AxiosInstance"
 
 const testResultManager = {
   getTestResult(token: string, encryptedID: string) {
-    return Axios({token}).get(`/user/api/public/v1/pcr-test-results/${encryptedID}`)
+    return Axios({token}).get(`/user/api/public/v1/pcr-test-results/${encryptedID}`, {
+      headers: {
+        "authorization": `Bearer ${localStorage.accessToken}`
+      }
+    })
   },
   getSingleTestResult(id:string) {
     return Axios().get(`/user/api/v1/pcr-test-results/${id}`)
