@@ -20,7 +20,7 @@ export default function Message({messageInfo}: {messageInfo?: IQBMessage}) {
   const formatDate = () => {
     const date = new Date(`${messageInfo?.created_at}`)
     const time = format(date, "hh:mmaaaaa'm'")
-    const day = format(date, 'dd-MM-yyyy').split('-')[0].split('')[1]
+    const day = format(date, 'dd-MM-yyyy').split('-')[0]
 
     if (new Date().getDate() === parseInt(day)) {
       setMessageDate(`Today, ${time}`)

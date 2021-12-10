@@ -1,17 +1,17 @@
+@import "styles/scss/abstracts/mixins";
+
 @media (max-width: $fhhealth-media-sm) {
   .analysis-wrapper {
     &__title{
       padding: 24px 20px 0 20px;
     }
     &__top-part {
-      display: flex;
-      flex-direction: column;
+      @include setDisplay(flex, unset, unset, column);
       width: fit-content;
       padding: 0 20px;
     }
     &__bottom-part {
-      display: flex;
-      flex-direction: column;
+      @include setDisplay(flex, unset, unset, column);
       width: fit-content;
       padding: 0 20px 24px 20px;
     }

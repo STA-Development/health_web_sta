@@ -1,11 +1,12 @@
+@import "styles/scss/abstracts/mixins";
+
 @media (max-width: $fhhealth-media-sm) {
   .footer-wrapper {
     .important-information {
       padding: 20px;
     }
     .doctor-info {
-      flex-direction: column;
-      align-items: flex-start;
+      @include setDisplay(flex, unset, flex-start, column);
       &__signature {
         margin-left: 20px;
       }

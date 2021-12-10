@@ -1,5 +1,7 @@
 import Image from 'next/image'
 import {useState} from 'react'
+import {UseConfDataStateValue} from "@fh-health/context/ConferenceContext"
+import {ConferenceContextStaticData} from "@fh-health/static/ConferenceContextStaticData"
 
 interface ICallActions {
   triggerCallEnd: () => void
@@ -8,10 +10,15 @@ interface ICallActions {
 
 export default function Consultation({triggerCallEnd, switchAudioState}: ICallActions) {
   const [isMuted, setIsMuted] = useState<boolean>(false)
+  const { setConfDataState } = UseConfDataStateValue()
 
   const toggleAudioState = () => {
     switchAudioState()
     setIsMuted(!isMuted)
+  }
+
+  const showChat = () => {
+    setConfDataState({ type: ConferenceContextStaticData.TOGGLE_CHAT_VIEW, view: true })
   }
 
   return (
@@ -41,7 +48,10 @@ export default function Consultation({triggerCallEnd, switchAudioState}: ICallAc
       <div className="call-menu-mobile">
         <div className="call-menu-mobile__content">
           <div>
-            <button className="button call-menu__button call-menu__button_chat call-menu__button_mobile call-menu__button_gray">
+            <button
+              onClick={showChat}
+              className="button call-menu__button call-menu__button_chat call-menu__button_mobile call-menu__button_gray"
+            >
               <Image src="/chat-icon.svg" alt="mute" width={24} height={24} />
             </button>
             <span>Chat</span>

@@ -1,3 +1,5 @@
+@import "styles/scss/abstracts/mixins";
+
 @media (max-width: $fhhealth-media-sm) {
   .web-portal-results {
     padding: 0 16px;
@@ -12,12 +14,9 @@
 
   .test-result-wrapper {
     .test-result-text {
+      @include setFontSizes(17px, 1.29, 0.2px);
       font-family: $fhhealth-font-DM-bold;
-      font-size: 17px;
-      line-height: 1.29;
-      letter-spacing: 0.2px;
       margin: 20px 26px;
-
     }
   }
 }
