@@ -29,7 +29,7 @@ const initialAuthContext: {
 
 const AuthContext = createContext(initialAuthContext)
 
-export function AuthContextProvider({children}: any) {
+export function AuthContextProvider({children}: { children?: JSX.Element | JSX.Element[] }) {
   const [authDataState, setAuthDataState] = useReducer(AuthContextReducer, initialState)
 
   return (

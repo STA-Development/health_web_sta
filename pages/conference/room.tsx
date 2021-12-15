@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useRef} from 'react'
 import VideoWrapper from '@fh-health/component/base/conference/video'
 import ChatWrapper from '@fh-health/component/base/conference/chat'
 import * as QB from 'quickblox/quickblox.js'
@@ -49,13 +49,13 @@ export default function ConferenceRoomView() {
   const {confDataState, setConfDataState} = UseConfDataStateValue()
   const [dialogId, setDialogId] = useState<string>('')
   const [userToken, setUserToken] = useState<string>('')
-  const [messageToSend, setMessageToSend] = useState<string>('')
   const [isConferenceStarted, setIsConferenceStarted] = useState<boolean>(false)
   const [isConferenceEnded, setIsConferenceEnded] = useState<boolean>(false)
   const [callSession, setCallSession] = useState<ICallListener>(callSessionInitialState)
   const [isMuted, setIsMuted] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
+  const messageToSend = useRef<HTMLInputElement>(null)
   const router = useRouter()
   const condition = useNetworkState()
 
@@ -67,10 +67,6 @@ export default function ConferenceRoomView() {
     }
     console.error('Captcha token is undefined')
     setIsError(true)
-  }
-
-  const getMessageValue = (value: string) => {
-    setMessageToSend(value)
   }
 
   const triggerCallEnd = () => {
@@ -92,6 +88,10 @@ export default function ConferenceRoomView() {
       setIsMuted(true)
       callSession.mute('audio')
     }
+  }
+
+  const clearMessageToSend = () => {
+    messageToSend.current.value = ""
   }
 
   const getSession = () => {
@@ -165,10 +165,9 @@ export default function ConferenceRoomView() {
   }
 
   const sendMessage = () => {
-    setMessageToSend('')
     const message = {
       type: 'groupchat',
-      body: messageToSend,
+      body: messageToSend.current.value,
       extension: {
         save_to_history: 1,
         dialog_id: dialogId,
@@ -181,7 +180,7 @@ export default function ConferenceRoomView() {
     const newMessage = {
       sender_id: confDataState.myPersonalId,
       created_at: new Date(),
-      message: messageToSend,
+      message: messageToSend.current.value,
       hasError: false,
     }
 
@@ -325,17 +324,17 @@ export default function ConferenceRoomView() {
         switchAudioState={switchAudioState}
       />
       <ChatWrapper
-        getMessageValue={getMessageValue}
+        loading={loading}
         sendMessage={sendMessage}
         messageToSend={messageToSend}
-        loading={loading}
+        clearMessageToSend={clearMessageToSend}
       />
       {confDataState.chatVisibility && (
         <MobileChatView
-          getMessageValue={getMessageValue}
+          loading={loading}
           sendMessage={sendMessage}
           messageToSend={messageToSend}
-          loading={loading}
+          clearMessageToSend={clearMessageToSend}
         />
       )}
       <ErrorNotification isError={isError} setErrorState={setIsError} />

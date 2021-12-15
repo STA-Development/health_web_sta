@@ -32,7 +32,7 @@ export default function Verify() {
           }
         }
       } catch (e) {
-        console.log(e)
+        console.error(e)
       }
     })()
   }, [token])

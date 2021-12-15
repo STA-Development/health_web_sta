@@ -23,8 +23,8 @@ export default function Consultation({triggerCallEnd, switchAudioState}: ICallAc
 
   return (
     <div className="consultation">
-      <video id="videoStream" />
-      <video id="myVideoStream" />
+      <video autoPlay id="videoStream" />
+      <video autoPlay id="myVideoStream" />
       <div className="call-menu">
         <div className="call-menu__content">
           <button

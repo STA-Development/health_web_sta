@@ -24,8 +24,8 @@ module.exports = (_on: any, config: any) => {
   // Read e2e env. file, show error is not found
   const fileConfig = dotenv.config({path: `${__dirname}/../../.env.e2e`})
   if (fileConfig.error) {
-    console.log('Error loading e2e config file')
-    console.log(fileConfig.error)
+    console.error('Error loading e2e config file')
+    console.error(fileConfig.error)
     return null
   }
   const envConfig = fileConfig.parsed

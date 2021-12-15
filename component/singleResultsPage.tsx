@@ -57,7 +57,7 @@ export default function SingleTestResultPage(props: {isPublicUser: boolean}) {
         }
       }
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   }
 

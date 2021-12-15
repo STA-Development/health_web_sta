@@ -1,4 +1,4 @@
-import '../styles/scss/main.scss'
+import 'styles/scss/main.scss'
 import type {AppProps} from 'next/app'
 import {TestResultContextProvider} from '@fh-health/context/testResultContext'
 import jwt_decode from 'jwt-decode'

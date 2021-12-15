@@ -33,7 +33,7 @@ export default function PermissionsModal(props: {closeModal: () => void}) {
           props.closeModal()
         }
       },
-      (err) => console.log(err),
+      (err) => console.error(err),
     )
   }
 

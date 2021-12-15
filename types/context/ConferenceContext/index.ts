@@ -52,9 +52,13 @@ export interface IQBMessage {
   hasError: boolean
 }
 
+interface RefObject<T> {
+  readonly current: T | null
+}
+
 export interface IChatWrapper {
-  getMessageValue: (value: string) => void,
-  sendMessage: () => void,
-  messageToSend: string,
   loading: boolean
+  sendMessage: () => void,
+  messageToSend: RefObject<HTMLInputElement>,
+  clearMessageToSend: () => void
 }

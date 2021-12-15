@@ -134,11 +134,16 @@ export default function ConferenceJoinView() {
   }, [])
 
   useEffect(() => {
+    let isRequestHandled = true
     ;(async () => {
-      if (appointmentToken?.length) {
+      if (appointmentToken?.length && isRequestHandled) {
         await getAppointmentInfo()
       }
     })()
+
+    return () => {
+      isRequestHandled = false
+    }
   }, [appointmentToken])
   return (
     <>

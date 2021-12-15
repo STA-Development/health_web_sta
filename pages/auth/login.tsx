@@ -53,7 +53,7 @@ export default function Login() {
     setPhoneNumber(phoneNumber)
   }
 
-  const beforeMaskedValueChange = (newState: any) => {
+  const beforeMaskedValueChange = (newState) => {
     let {value} = newState
     let {selection} = newState
     let cursorPosition = selection ? selection.start : null

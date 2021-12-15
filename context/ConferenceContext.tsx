@@ -27,7 +27,7 @@ const initialConfContext: {
 
 const ConferenceContext = createContext(initialConfContext)
 
-export function ConferenceContextProvider({children}: any) {
+export function ConferenceContextProvider({children}: { children?: JSX.Element | JSX.Element[] }) {
   const [confDataState, setConfDataState] = useReducer(ConferenceContextReducer, initialState)
 
   return (

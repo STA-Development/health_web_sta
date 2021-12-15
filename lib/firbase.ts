@@ -12,7 +12,7 @@ const clientCredentials = {
 }
 
 if (!firebase.apps.length) {
-  console.log(clientCredentials)
+  console.error(clientCredentials)
   firebase.initializeApp(clientCredentials)
 }
 

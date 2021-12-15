@@ -40,7 +40,7 @@ const initialTestResultContext: {
 
 const TestResultContext = createContext(initialTestResultContext)
 
-export function TestResultContextProvider({children}: any) {
+export function TestResultContextProvider({children}: { children?: JSX.Element | JSX.Element[] }) {
   const [testResultState, setTestResultState] = useReducer(TestResultContextReducer, initialState)
 
   return (

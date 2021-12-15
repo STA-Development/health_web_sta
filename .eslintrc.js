@@ -33,7 +33,6 @@ module.exports = {
         ignoreRestSiblings: false,
       },
     ],
-    '@typescript-eslint/no-explicit-any': 0,
     '@typescript-eslint/explicit-function-return-type': 0,
     '@typescript-eslint/no-namespace': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,
@@ -129,6 +128,7 @@ module.exports = {
     'no-bitwise': 2,
     'no-prototype-builtins': 0,
     semi: ['error', 'never'],
+    'no-underscore-dangle': 0
   },
   settings: {
     'import/resolver': {

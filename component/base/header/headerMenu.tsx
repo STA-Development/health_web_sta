@@ -30,7 +30,7 @@ const HeaderMenu = () => {
       localStorage.removeItem('accessToken')
       router.push('/auth/login')
     } catch (e) {
-      console.log(e)
+      console.error(e)
     }
   }
 

@@ -1,4 +1,4 @@
-import React, {FormEvent} from 'react'
+import React, {FormEvent, useEffect, useRef} from "react"
 import Image from 'next/image'
 import {UseConfDataStateValue} from '@fh-health/context/ConferenceContext'
 import {IChatWrapper, IQBMessage} from '@fh-health/types/context/ConferenceContext'
@@ -7,12 +7,13 @@ import Message from './partials/message'
 import ChatWrapperPreload from './partials/chatWrapperPreload'
 
 export default function ChatWrapper({
-  getMessageValue,
   sendMessage,
-  messageToSend,
   loading,
+  messageToSend,
+  clearMessageToSend
 }: IChatWrapper) {
   const {confDataState, setConfDataState} = UseConfDataStateValue()
+  const messagesListEl = useRef(null)
 
   const closeMobileChat = () => {
     setConfDataState({type: ConferenceContextStaticData.TOGGLE_CHAT_VIEW, view: false})
@@ -21,7 +22,21 @@ export default function ChatWrapper({
   const handleSendMessage = (event: FormEvent) => {
     event.preventDefault()
     sendMessage()
+    clearMessageToSend()
   }
+
+  const attachScrollEvent = (event) => {
+    const { currentTarget: target } = event
+    target.scroll({ top: target.scrollHeight, behavior: "smooth" })
+  }
+
+  useEffect(() => {
+    if (messagesListEl.current) {
+      messagesListEl.current.addEventListener("DOMNodeInserted", attachScrollEvent, false)
+    } else {
+      return () => messagesListEl.current.removeEeventListener("DOMNodeInserted", attachScrollEvent, false)
+    }
+  }, [confDataState.messages])
 
   return loading ? (
     <ChatWrapperPreload />
@@ -46,9 +61,9 @@ export default function ChatWrapper({
             <Image src="/cross.svg" width={24} height={24} alt="close" />
           </button>
         </div>
-        <div className="messenger__body">
-          {confDataState.messages?.map((message: IQBMessage) => (
-            <Message key={Math.random()} messageInfo={message} />
+        <div ref={messagesListEl} className="messenger__body">
+          {confDataState.messages?.map((message: IQBMessage, index: number) => (
+            <Message key={index} messageInfo={message} />
           ))}
         </div>
         <div className="messenger__footer">
@@ -59,13 +74,12 @@ export default function ChatWrapper({
               </label>
             </div>
             <input
-              onChange={(e) => getMessageValue(e.target.value)}
-              value={messageToSend}
+              ref={messageToSend}
               className="input messenger__footer-input"
               placeholder="Send Message"
               type="text"
             />
-            <div onClick={sendMessage} className="button messenger__footer-button">
+            <div onClick={handleSendMessage} className="button messenger__footer-button">
               <Image src="/send.svg" alt="send" width={24} height={20} />
             </div>
           </form>
