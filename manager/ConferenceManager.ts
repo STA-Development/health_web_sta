@@ -5,9 +5,10 @@ const conferenceManager = {
     return Axios({
       token: captchaToken,
       baseURL: process.env.SCHEDULE_SERVICE_URL,
-    }).get(`/scheduling/api/public/v1/kit-codes/${kitCode}`, {
+    }).get('/scheduling/api/public/v1/kit-codes', {
       headers: {
         'appointment-token': appointmentToken,
+        'kit-code': kitCode
       },
     })
   },
