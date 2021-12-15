@@ -2,17 +2,11 @@ import Image from 'next/image'
 import Modal from '@fh-health/component/utils/Modal'
 import Card from '@fh-health/component/utils/Card'
 
-export default function KitNumberModal({
-  visibility,
-  closeModal,
-}: {
-  visibility: boolean
-  closeModal: (value: boolean) => void
-}) {
+export default function KitNumberModal({ closeModal }: { closeModal: () => void }) {
   return (
     <Modal>
       <Card>
-        <button onClick={() => closeModal(!visibility)} className="button card__close">
+        <button onClick={closeModal} className="button card__close">
           <Image src="/cross.svg" width={24} height={24} alt="close" />
         </button>
         <div className="card__media card__media_with-bg">
@@ -25,7 +19,12 @@ export default function KitNumberModal({
             Number”.
           </p>
         </div>
-        <button className="button card__button">Ok</button>
+        <button
+          onClick={closeModal}
+          className="button card__button"
+        >
+          Ok
+        </button>
       </Card>
     </Modal>
   )

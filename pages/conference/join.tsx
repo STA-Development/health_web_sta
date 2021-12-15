@@ -148,7 +148,7 @@ export default function ConferenceJoinView() {
   return (
     <>
       {kitNumberModalView && (
-        <KitNumberModal visibility={kitNumberModalView} closeModal={setKitNumberModalView} />
+        <KitNumberModal closeModal={toggleKitNumberModal} />
       )}
       {isMediaModalAvailable && <PermissionsModal closeModal={closeMediaModal} />}
       <div className="pure-block-wrapper">

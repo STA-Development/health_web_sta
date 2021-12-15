@@ -82,6 +82,10 @@
 
       &_verify, &_kit-code {
         align-items: center;
+
+        .inputGroup__resend {
+          display: none;
+        }
       }
 
       &_kit-code .kit-code-label {
