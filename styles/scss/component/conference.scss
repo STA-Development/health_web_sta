@@ -12,19 +12,14 @@
   display: none;
 }
 
-@-webkit-keyframes slideToLeft {
-  from { -webkit-transform: translateX(105%); }
-  to { -webkit-transform: translateX(-20%); }
-}
-
-@-webkit-keyframes slideToRight {
-  from { -webkit-transform: translateX(-20%); }
-  to { -webkit-transform: translateX(105%); }
-}
-
 .chat-error-notification {
-  @include setPosition(absolute, -20px, unset, unset, 0);
+  @include setPosition(absolute, -20px, unset, unset, -294px);
+  transition: 0.5s cubic-bezier(0.1, 0.51, 0.12, 0.99);
   z-index: 9;
+
+  &_active {
+    right: 45px;
+  }
 }
 
 .error-notification {
@@ -33,11 +28,6 @@
   background-color: #fbc9ce;
   padding: 20px;
   border-radius: 12px;
-  animation: slideToRight 0.5s ease-in forwards;
-
-  &_active {
-    animation: slideToLeft 0.5s ease-out forwards;
-  }
 
   .error-notification__close {
     @include setPosition(absolute, -9px, 0, unset, -9px);
@@ -50,6 +40,8 @@
 
   p {
     color: $fhhealth-color-black;
+    font-size: 17px;
+    line-height: 18px;
     margin-left: 10px;
   }
 }
