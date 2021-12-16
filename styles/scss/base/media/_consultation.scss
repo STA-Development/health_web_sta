@@ -34,7 +34,7 @@
   .chat-error-notification {
     @include setElementSize(234px, unset);
     z-index: 99;
-    top: -45px;
+    top: 30px;
 
     &_active {
       right: 20px;
@@ -42,7 +42,7 @@
   }
 
   .error-notification {
-    padding: 15px 24px 15px 16px;
+    padding: 15px 16px 15px;
 
     p {
       font-size: 15px;

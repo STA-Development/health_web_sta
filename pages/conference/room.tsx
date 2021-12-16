@@ -69,15 +69,19 @@ export default function ConferenceRoomView() {
     setIsError(true)
   }
 
-  const triggerCallEnd = () => {
-    const extension = {}
-    callSession.stop(extension)
+  const completeConsultation = () => {
     setIsConferenceStarted(false)
     setConfDataState({
       type: ConferenceContextStaticData.SET_CONSULTATION_STATE,
       isConsultationStarted: false,
     })
     setIsConferenceEnded(true)
+  }
+
+  const triggerCallEnd = () => {
+    const extension = {}
+    callSession.stop(extension)
+    completeConsultation()
   }
 
   const switchAudioState = () => {
@@ -280,12 +284,7 @@ export default function ConferenceRoomView() {
     }
 
     QB.webrtc.onStopCallListener = () => {
-      setIsConferenceStarted(false)
-      setConfDataState({
-        type: ConferenceContextStaticData.SET_CONSULTATION_STATE,
-        isConsultationStarted: false,
-      })
-      setIsConferenceEnded(true)
+      completeConsultation()
     }
   }
 

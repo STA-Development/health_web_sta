@@ -54,7 +54,7 @@ export default function ChatWrapper({
       <div className="messenger">
         <div className="messenger__header">chat</div>
         <div className="messenger__header messenger__header_mobile">
-          <button className="button conference-header__logout conference-header__items-button">
+          <button className="button conference-header__logout conference-header__logout_mobile">
             <Image src="/chat-logout.svg" alt="logout" width={24} height={24} />
           </button>
           <div className="conference-header__logo">

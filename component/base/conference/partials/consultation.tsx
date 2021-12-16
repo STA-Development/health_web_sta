@@ -21,6 +21,14 @@ export default function Consultation({triggerCallEnd, switchAudioState}: ICallAc
     setConfDataState({ type: ConferenceContextStaticData.TOGGLE_CHAT_VIEW, view: true })
   }
 
+  const endCallOnMobile = () => {
+    triggerCallEnd()
+    setConfDataState({
+      type: ConferenceContextStaticData.TOGGLE_CHAT_VIEW,
+      view: true,
+    })
+  }
+
   return (
     <div className="consultation">
       <video autoPlay id="videoStream" />
@@ -71,7 +79,7 @@ export default function Consultation({triggerCallEnd, switchAudioState}: ICallAc
           </div>
           <div>
             <button
-              onClick={triggerCallEnd}
+              onClick={endCallOnMobile}
               className="button call-menu__button call-menu__button_end call-menu__button_mobile"
             >
               <Image src="/end-call.svg" alt="mute" width={32} height={32} />

@@ -27,6 +27,10 @@
   .messenger__header_mobile {
     display: flex;
     align-items: center;
+
+    .conference-header__logout {
+      left: 20px;
+    }
   }
 
   .video-wrapper {
