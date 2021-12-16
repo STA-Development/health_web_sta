@@ -14,41 +14,42 @@
 
 @-webkit-keyframes slideToLeft {
   from { -webkit-transform: translateX(105%); }
-  to { -webkit-transform: translateX(-5%); }
+  to { -webkit-transform: translateX(-20%); }
 }
 
 @-webkit-keyframes slideToRight {
-  from { -webkit-transform: translateX(-5%); }
+  from { -webkit-transform: translateX(-20%); }
   to { -webkit-transform: translateX(105%); }
 }
 
-.notification-wrapper {
-  @include setPosition(absolute, 0, unset, unset, 0);
+.chat-error-notification {
+  @include setPosition(absolute, -20px, unset, unset, 0);
   z-index: 9;
 }
 
 .error-notification {
   @include setDisplay(flex, center, center);
-  background-color: $fhhealth-color-dark-grey-bg;
+  @include setBorder(1px, rgba(255, 57, 77, 0.5));
+  background-color: #fbc9ce;
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 12px;
   animation: slideToRight 0.5s ease-in forwards;
 
   &_active {
     animation: slideToLeft 0.5s ease-out forwards;
   }
 
-  span {
-    @include setPosition(absolute, -9px, 0, -9px, 0);
-    background-color: $fhhealth-color-dark-grey-bg;
+  .error-notification__close {
+    @include setPosition(absolute, -9px, 0, unset, -9px);
+    background-color: #c2c2c2;
     border-radius: 50%;
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
     cursor: pointer;
   }
 
   p {
-    color: $fhhealth-color-white;
+    color: $fhhealth-color-black;
     margin-left: 10px;
   }
 }
