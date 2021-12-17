@@ -128,7 +128,11 @@ module.exports = {
     'no-bitwise': 2,
     'no-prototype-builtins': 0,
     semi: ['error', 'never'],
-    'no-underscore-dangle': 0
+    'react/function-component-definition': 0,
+    'no-underscore-dangle': 0,
+    'react/jsx-no-useless-fragment': 0,
+    'react/jsx-no-constructed-context-values': 0,
+    'import/no-import-module-exports': 0
   },
   settings: {
     'import/resolver': {
