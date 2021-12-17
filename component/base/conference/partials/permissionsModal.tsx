@@ -22,7 +22,8 @@ export default function PermissionsModal(props: {closeModal: () => void}) {
   }
 
   const handleMediaAcceptance = () => {
-    navigator.getUserMedia(
+    const nav: any = window.navigator
+    nav.getUserMedia(
       {
         audio: true,
         video: true,
