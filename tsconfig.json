@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "alwaysStrict": true,
@@ -20,15 +24,37 @@
     "jsx": "preserve",
     "baseUrl": "./",
     "paths": {
-      "@fh-health/context/*": ["context/*"],
-      "@fh-health/component/*": ["component/*"],
-      "@fh-health/manager/*": ["manager/*"],
-      "@fh-health/static/*": ["static/*"],
-      "@fh-health/reducers/*": ["reducers/*"],
-      "@fh-health/types/*": ["types/*"],
-      "@fh-health/utils/*": ["utils/*"],
-    }
+      "@fh-health/context/*": [
+        "context/*"
+      ],
+      "@fh-health/component/*": [
+        "component/*"
+      ],
+      "@fh-health/manager/*": [
+        "manager/*"
+      ],
+      "@fh-health/static/*": [
+        "static/*"
+      ],
+      "@fh-health/reducers/*": [
+        "reducers/*"
+      ],
+      "@fh-health/types/*": [
+        "types/*"
+      ],
+      "@fh-health/utils/*": [
+        "utils/*"
+      ]
+    },
+    "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "next.config.js"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "next.config.js"
+  ]
 }

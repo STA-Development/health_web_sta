@@ -16,6 +16,10 @@
 .card__body {
   @include setDisplay(flex, unset, unset, column);
   padding: 68px 48px 48px;
+
+  &_permissions {
+    padding: 48px;
+  }
 }
 
 .card__close {
@@ -73,6 +77,34 @@
         margin-top: 8px;
         color: $fhhealth-color-dark-black;
         opacity: 0.6;
+      }
+    }
+  }
+
+  &-info {
+    border-radius: 10px;
+    border: solid 1px $fhhealth-color-dark-gray-border;
+    padding: 32px;
+    text-align: left;
+    line-height: 1.2;
+  }
+
+  &-info__title {
+    color: $fhhealth-color-dark-black;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  &-info__list {
+    color: $fhhealth-color-dark-grey-bg;
+
+    li {
+      font-size: 15px;
+      margin-bottom: 16px;
+      list-style-type: -moz-ethiopic-numeric;
+
+      &:last-child {
+        margin-bottom: 0;
       }
     }
   }

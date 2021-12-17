@@ -14,6 +14,7 @@ import KitNumberModal from '@fh-health/component/base/conference/partials/testKi
 import Card from '@fh-health/component/utils/Card'
 import {ConferenceContextStaticData} from '@fh-health/static/ConferenceContextStaticData'
 import {IPatientInfo} from '@fh-health/types/context/ConferenceContext'
+import PermissionDenyModal from "@fh-health/component/base/conference/partials/permissionDenyModal"
 
 export default function ConferenceJoinView() {
   const [kitNumber, setKitNumber] = useState<string>('')
@@ -23,6 +24,7 @@ export default function ConferenceJoinView() {
   const [kitNumberModalView, setKitNumberModalView] = useState<boolean>(false)
   // TODO: We Should have one more endpoint for checking current appointmentToken expiration
   const [isMediaModalAvailable, setIsMediaModalAvailable] = useState<boolean>(false)
+  const [permissionDenyModalView, setPermissionDenyModalView] = useState<boolean>(false)
   const [isLinkExpired, setIsLinkExpired] = useState<boolean>(false)
   const [patientInfo, setPatientInfo] = useState<IPatientInfo>({
     firstName: '',
@@ -47,6 +49,11 @@ export default function ConferenceJoinView() {
   const closeMediaModal = () => {
     setIsMediaModalAvailable(false)
   }
+
+  const openPermissionDenyModal = () => {
+    setPermissionDenyModalView(true)
+  }
+
   const checkKitNumber = (value: string) => {
     if (value.length === 6) {
       setJoinButtonState(true)
@@ -153,7 +160,8 @@ export default function ConferenceJoinView() {
       {kitNumberModalView && (
         <KitNumberModal closeModal={toggleKitNumberModal} />
       )}
-      {isMediaModalAvailable && <PermissionsModal closeModal={closeMediaModal} />}
+      {isMediaModalAvailable && <PermissionsModal closeModal={closeMediaModal} openDenyModal={openPermissionDenyModal} />}
+      {permissionDenyModalView && <PermissionDenyModal />}
       <div className="pure-block-wrapper">
         {!isLinkExpired ? (
           <div>

@@ -8,7 +8,7 @@ interface IMediaTypes {
   audio: boolean
   video: boolean
 }
-export default function PermissionsModal(props: {closeModal: () => void}) {
+export default function PermissionsModal({ closeModal, openDenyModal }: {closeModal: () => void, openDenyModal: () => void}) {
   const [checkedItems, setCheckedItems] = useState<IMediaTypes>({
     audio: false,
     video: false,
@@ -21,6 +21,7 @@ export default function PermissionsModal(props: {closeModal: () => void}) {
     }
   }
 
+
   const handleMediaAcceptance = () => {
     const nav: any = window.navigator
     nav.getUserMedia(
@@ -31,16 +32,20 @@ export default function PermissionsModal(props: {closeModal: () => void}) {
       (stream) => {
         stream.getTracks().forEach((x) => x.stop())
         if (stream.id) {
-          props.closeModal()
+          closeModal()
         }
       },
-      (err) => console.error(err),
+      (err) => {
+        console.error(err)
+        closeModal()
+        openDenyModal()
+      },
     )
   }
 
   return (
     <Modal>
-      <Card>
+      <Card permissions>
         <div className="card__header">
           <h4 className="card__header-title">Permissions</h4>
           <p className="card__header-message">

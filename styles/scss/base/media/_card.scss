@@ -13,6 +13,31 @@
 
   .card__body {
     padding: 56px 32px 30px;
+
+    &_permissions {
+      padding: 24px 20px;
+
+      .card__header-title {
+        font-size: 22px;
+      }
+
+      .card__header-message {
+        font-size: 15px;
+      }
+
+      .card__content {
+        margin-top: 24px;
+        margin-bottom: 32px;
+
+        &-info {
+          padding: 24px;
+        }
+
+        &-info__title {
+          margin-bottom: 20px;
+        }
+      }
+    }
   }
 
   .card__media {
@@ -23,10 +48,6 @@
       width: auto;
       height: auto;
     }
-  }
-
-  .card__content {
-    margin-bottom: 32px;
   }
 }
 
