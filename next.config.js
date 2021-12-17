@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 const domains = []
+const {withSentryConfig} = require('@sentry/nextjs')
 try {
   const url = new URL(process.env.APP_DOMAIN)
   domains.push(url.hostname)
@@ -17,8 +18,10 @@ if (process.env.NODE_ENV !== 'development') {
     path: `${process.env.APP_DOMAIN}/public`,
   }
 }
-
-module.exports = {
+const SentryWebpackPluginOptions = {
+  silent: true,
+}
+const moduleExports = {
   basePath: '',
   poweredByHeader: false,
   images,
@@ -43,5 +46,11 @@ module.exports = {
     QB_API_DOMAIN: process.env.QB_API_DOMAIN,
     QB_CHAT_DOMAIN: process.env.QB_CHAT_DOMAIN,
     VIRTUAL_TEST_MODE: process.env.VIRTUAL_TEST_MODE,
+    SENTRY_DSN: process.env.SENTRY_DSN,
+  },
+  sentry: {
+    disableServerWebpackPlugin: true,
+    disableClientWebpackPlugin: true,
   },
 }
+module.exports = withSentryConfig(moduleExports, SentryWebpackPluginOptions)

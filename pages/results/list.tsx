@@ -5,6 +5,7 @@ import NoResults from '@fh-health/component/noResults'
 import {useEffect, useState} from 'react'
 import SingleResultPreload from '@fh-health/component/singleResultPreload'
 import moment from 'moment'
+import * as Sentry from '@sentry/nextjs'
 import testResultManager from '@fh-health/manager/TestResultManager'
 
 interface IResult {
@@ -68,7 +69,7 @@ const WebPortalResults = () => {
         }
       }
     } catch (err) {
-      console.error(err)
+      Sentry.captureException(err)
     }
   }
 

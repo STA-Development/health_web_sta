@@ -5,6 +5,7 @@ import {useEffect, useState} from 'react'
 import {useRouter} from 'next/router'
 import ReactCodeInput from 'react-verification-code-input'
 import {load, ReCaptchaInstance} from 'recaptcha-v3'
+import * as Sentry from '@sentry/nextjs'
 import conferenceManager from '@fh-health/manager/ConferenceManager'
 import {UseConfDataStateValue} from '@fh-health/context/ConferenceContext'
 import PermissionsModal from '@fh-health/component/base/conference/partials/permissionsModal'
@@ -94,6 +95,7 @@ export default function ConferenceJoinView() {
         }
       }
     } catch (err) {
+      Sentry.captureException(err)
       setWarningMessage(
         err?.response?.data?.status?.message
           ? err?.response?.data?.status?.message
@@ -121,6 +123,7 @@ export default function ConferenceJoinView() {
         setIsLinkExpired(false)
       }
     } catch (err) {
+      Sentry.captureException(err)
       setIsLinkExpired(true)
     }
   }

@@ -2,6 +2,7 @@ import {useEffect, useState, useRef} from 'react'
 import VideoWrapper from '@fh-health/component/base/conference/video'
 import ChatWrapper from '@fh-health/component/base/conference/chat'
 import * as QB from 'quickblox/quickblox.js'
+import * as Sentry from '@sentry/nextjs'
 import {QBConfig} from 'utils/quickblox/config'
 import {UseConfDataStateValue} from '@fh-health/context/ConferenceContext'
 import conferenceManager from '@fh-health/manager/ConferenceManager'
@@ -65,7 +66,7 @@ export default function ConferenceRoomView() {
       const recaptcha: ReCaptchaInstance = await load(captchaToken as string)
       return await recaptcha.execute('submit')
     }
-    console.error('Captcha token is undefined')
+    Sentry.captureException('Captcha Token Was not found')
     setIsError(true)
   }
 
@@ -109,14 +110,14 @@ export default function ConferenceRoomView() {
       )
       QB.getSession((error: object, {session}: {session: {user_id: number}}) => {
         if (error) {
-          console.error(error)
+          Sentry.captureException(error)
           setIsError(true)
         } else {
           setConfDataState({type: ConferenceContextStaticData.SET_PERSONAL_ID, id: session.user_id})
         }
       })
-    } catch (e) {
-      console.error(e)
+    } catch (err) {
+      Sentry.captureException(err)
       setIsError(true)
     }
   }
@@ -134,7 +135,7 @@ export default function ConferenceRoomView() {
 
     QB.chat.connect(userCredentials, (error: object, contactList: object) => {
       if (error) {
-        console.error(error)
+        Sentry.captureException(error)
         setIsError(true)
       } else {
         console.info(contactList, 'CONTACT LIST')
@@ -142,17 +143,19 @@ export default function ConferenceRoomView() {
       try {
         QB.chat.muc.join(dialogJid, (err: string, result: string) => {
           if (err) {
-            console.error(err)
+            Sentry.captureException(error)
             setIsError(true)
           } else {
             console.info('JOINED ', result)
           }
         })
-      } catch (e) {
-        if (e.name === 'ChatNotConnectedError') {
-          console.info('CHAT NOT CONNECTED')
+      } catch (err) {
+        if (err.name === 'ChatNotConnectedError') {
+          Sentry.captureException('CHAT NOT CONNECTED')
+          setIsError(true)
+        } else {
+          Sentry.captureException(err)
         }
-        setIsError(true)
       }
 
       QB.chat.onMessageListener = (userId: number, message: object) => {
@@ -202,9 +205,11 @@ export default function ConferenceRoomView() {
 
     try {
       QB.chat.send(dialogJid, message)
-    } catch (e) {
-      if (e.name === 'ChatNotConnectedError') {
-        console.error(e, 'ON_SEND_ERROR')
+    } catch (err) {
+      if (err.name === 'ChatNotConnectedError') {
+        Sentry.captureException('ON_SEND_ERROR')
+      } else {
+        Sentry.captureException(err)
       }
     }
   }
@@ -219,7 +224,7 @@ export default function ConferenceRoomView() {
 
     QB.chat.message.list(chatParams, (error: object, messages: {items: []}) => {
       if (error) {
-        console.error(error)
+        Sentry.captureException(error)
         setIsError(true)
       } else {
         setConfDataState({
@@ -241,50 +246,54 @@ export default function ConferenceRoomView() {
       setDialogId(confCredentials.data.data.dialogId)
       setUserToken(confCredentials.data.data.userToken)
     } catch (err) {
-      console.error(err)
+      Sentry.captureException(err)
       setIsError(true)
     }
     setLoading(false)
   }
 
   const startVideoCall = () => {
-    const mediaParams = {
-      audio: true,
-      video: true,
-      options: {
-        muted: true,
-        mirror: true,
-      },
-      elemId: 'myVideoStream',
-    }
+    try {
+      const mediaParams = {
+        audio: true,
+        video: true,
+        options: {
+          muted: true,
+          mirror: true,
+        },
+        elemId: 'myVideoStream',
+      }
 
-    QB.webrtc.onCallListener = (session: ICallListener, extension: ICallListenerExtension) => {
-      setIsConferenceStarted(true)
-      setConfDataState({
-        type: ConferenceContextStaticData.SET_CONSULTATION_STATE,
-        isConsultationStarted: true,
-      })
-      setCallSession(session)
-      session.getUserMedia(mediaParams, (error: object) => {
-        if (error) {
-          console.error(error)
-          setIsError(true)
-        } else {
-          session.accept(extension)
-        }
-      })
-    }
+      QB.webrtc.onCallListener = (session: ICallListener, extension: ICallListenerExtension) => {
+        setIsConferenceStarted(true)
+        setConfDataState({
+          type: ConferenceContextStaticData.SET_CONSULTATION_STATE,
+          isConsultationStarted: true,
+        })
+        setCallSession(session)
+        session.getUserMedia(mediaParams, (error: object) => {
+          if (error) {
+            Sentry.captureException(error)
+            setIsError(true)
+          } else {
+            session.accept(extension)
+          }
+        })
+      }
 
-    QB.webrtc.onRemoteStreamListener = (
-      session: IRemoteStreamListener,
-      _userID: number,
-      remoteStream: object,
-    ) => {
-      session.attachMediaStream('videoStream', remoteStream)
-    }
+      QB.webrtc.onRemoteStreamListener = (
+        session: IRemoteStreamListener,
+        _userID: number,
+        remoteStream: object,
+      ) => {
+        session.attachMediaStream('videoStream', remoteStream)
+      }
 
-    QB.webrtc.onStopCallListener = () => {
-      completeConsultation()
+      QB.webrtc.onStopCallListener = () => {
+        completeConsultation()
+      }
+    } catch (err) {
+      Sentry.captureException(err)
     }
   }
 

@@ -5,6 +5,7 @@ import CircleLoader from '@fh-health/component/utils/CircleLoader'
 import {load, ReCaptchaInstance} from 'recaptcha-v3'
 import testResultManager from '@fh-health/manager/TestResultManager'
 import {useRouter} from 'next/router'
+import * as Sentry from '@sentry/nextjs'
 
 export default function Verify() {
   const [loading, setLoading] = useState(true)
@@ -31,8 +32,8 @@ export default function Verify() {
             setLoading(false)
           }
         }
-      } catch (e) {
-        console.error(e)
+      } catch (err) {
+        Sentry.captureException(err)
       }
     })()
   }, [token])

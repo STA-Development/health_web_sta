@@ -1,7 +1,8 @@
+import * as Sentry from '@sentry/nextjs'
 export const localStore = storageFactory
 
 export function storageFactory(storage: Storage): Storage {
-  let inMemoryStorage: { [key: string]: string } = {}
+  let inMemoryStorage: {[key: string]: string} = {}
   const length = 0
 
   function isSupported() {
@@ -11,6 +12,7 @@ export function storageFactory(storage: Storage): Storage {
       storage.removeItem(testKey)
       return true
     } catch (e) {
+      Sentry.captureException(e)
       return false
     }
   }

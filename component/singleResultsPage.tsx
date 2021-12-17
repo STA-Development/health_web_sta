@@ -3,6 +3,7 @@ import TestResult from '@fh-health/component/testResult'
 import LabInformation from '@fh-health/component/labInformation'
 import Footer from '@fh-health/component/base/footer/footer'
 import PcrAnalysisData from '@fh-health/component/pcrAnalysisData'
+import * as Sentry from '@sentry/nextjs'
 import BioradAntiBodyData from '@fh-health/component/bioradAntiBodyData'
 import AntiBodyAnalysisData from '@fh-health/component/antyBodyAnalysisData'
 import {load, ReCaptchaInstance} from 'recaptcha-v3'
@@ -56,8 +57,8 @@ export default function SingleTestResultPage(props: {isPublicUser: boolean}) {
           setTestResultState({type: TestResultContextStaticData.UPDATE_TEST_RESULT, data})
         }
       }
-    } catch (e) {
-      console.error(e)
+    } catch (err) {
+      Sentry.captureException(err)
     }
   }
 

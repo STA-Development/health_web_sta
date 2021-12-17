@@ -2,6 +2,7 @@ import Image from 'next/image'
 import {useRef, useState} from 'react'
 import {useClickAway} from 'react-use'
 import {AuthContextStaticData} from 'static/AuthContextStaticData'
+import * as Sentry from '@sentry/nextjs'
 import {useRouter} from 'next/router'
 import firebase from 'lib/firbase'
 import {UseAuthDataStateValue} from '@fh-health/context/AuthContext'
@@ -29,8 +30,8 @@ const HeaderMenu = () => {
       localStorage.removeItem('selectedKitId')
       localStorage.removeItem('accessToken')
       router.push('/auth/login')
-    } catch (e) {
-      console.error(e)
+    } catch (err) {
+      Sentry.captureException(err)
     }
   }
 

@@ -6,6 +6,7 @@ import {AuthContextStaticData} from '@fh-health/static/AuthContextStaticData'
 import InputMask from 'react-input-mask'
 import firebase from 'lib/firbase'
 import CircleLoader from '@fh-health/component/utils/CircleLoader'
+import * as Sentry from '@sentry/nextjs'
 import ReactCodeInput from 'react-verification-code-input'
 import {useRouter} from 'next/router'
 import Notification from '@fh-health/component/notification'
@@ -80,9 +81,10 @@ export default function Login() {
           phone || phoneNumber,
           authDataState.reCaptchaVerifier as firebase.auth.RecaptchaVerifier,
         )
-    } catch (e) {
+    } catch (err) {
+      Sentry.captureException(err)
       getFirebaseCaptcha()
-      setWarningMessage(e.message)
+      setWarningMessage(err.message)
     }
   }
 
@@ -115,6 +117,7 @@ export default function Login() {
           })
         }
       } catch (err) {
+        Sentry.captureException(err)
         getFirebaseCaptcha()
         setErrMessage(err.message)
       }
