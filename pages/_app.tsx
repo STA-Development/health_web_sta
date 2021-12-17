@@ -51,7 +51,7 @@ function MyApp({Component, pageProps}: AppProps) {
   useEffect(() => {
     if (process.env.VIRTUAL_TEST_MODE === 'true') {
       if (!currentPage.includes(virtualTestFlowRoutesPrefix)) {
-        Router.push('/conference/join')
+        window.location.assign(process.env.FH_HEALTH_WEBSITE_URL)
       }
     }
   }, [currentPage])

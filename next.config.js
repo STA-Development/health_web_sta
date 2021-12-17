@@ -46,6 +46,7 @@ const moduleExports = {
     QB_API_DOMAIN: process.env.QB_API_DOMAIN,
     QB_CHAT_DOMAIN: process.env.QB_CHAT_DOMAIN,
     VIRTUAL_TEST_MODE: process.env.VIRTUAL_TEST_MODE,
+    FH_HEALTH_WEBSITE_URL: process.env.FH_HEALTH_WEBSITE_URL,
     SENTRY_DSN: process.env.SENTRY_DSN,
   },
   sentry: {
