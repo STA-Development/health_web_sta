@@ -31,8 +31,8 @@ export default function Consultation({triggerCallEnd, switchAudioState}: ICallAc
 
   return (
     <div className="consultation">
-      <video autoPlay id="videoStream" />
-      <video autoPlay id="myVideoStream" />
+      <video autoPlay id="videoStream" playsInline />
+      <video autoPlay id="myVideoStream" playsInline />
       <div className="call-menu">
         <div className="call-menu__content">
           <button
