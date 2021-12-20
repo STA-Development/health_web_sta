@@ -10,6 +10,7 @@ import {useEffect} from 'react'
 import {localStore} from 'utils/storage'
 import ConferenceHeader from '@fh-health/component/utils/ConferenceHeader'
 import {ConferenceContextProvider} from '@fh-health/context/ConferenceContext'
+import * as ga from '../helpers/analytics/ga'
 
 interface decodedToken {
   exp: number
@@ -55,6 +56,16 @@ function MyApp({Component, pageProps}: AppProps) {
       }
     }
   }, [currentPage])
+
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      ga.pageview(url)
+    }
+    router.events.on('routeChangeComplete', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.events])
 
   return (
     <>

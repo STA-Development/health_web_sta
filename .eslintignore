@@ -4,3 +4,4 @@ next.config.js
 index.js
 commands.js
 .eslintrc.js
+ga.js
