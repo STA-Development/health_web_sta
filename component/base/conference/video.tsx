@@ -1,6 +1,5 @@
 import { useNetworkState } from 'react-use'
 import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import RippleLoader from './icon/rippleLoader'
 import NetworkConnectionLost from './partials/networkConnectionLost'
 import ConferenceFinalView from './partials/conferenceFinalView'
@@ -18,7 +17,6 @@ const VideoWrapper = ({
 }: IVideoWrapper) => {
   const condition = useNetworkState()
   const [isOnline, setIsOnline] = useState(true)
-  const router = useRouter()
 
   const retryConnecting = () => {
     if (condition.online) {
@@ -27,7 +25,7 @@ const VideoWrapper = ({
   }
 
   const returnHome = () => {
-    router.push('/auth/login')
+    window.location.assign(process.env.FH_HEALTH_WEBSITE_URL)
   }
 
   useEffect(() => {
