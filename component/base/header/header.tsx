@@ -2,9 +2,9 @@ import React from "react"
 import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
 import {TestTypes} from '@fh-health/types/context/testResultContext'
 import moment from 'moment'
-import AntiBodySVG from './icon/anti-body'
+import AntiBodySVG from './icon/antiBody'
 import PcrSvg from './icon/pcrIcon'
-import RapidAtHome from './icon/RapidAtHome'
+import RapidAtHome from './icon/rapidAtHome'
 
 const Header = () => {
   const {testResultState} = UseTestResultDataStateValue()

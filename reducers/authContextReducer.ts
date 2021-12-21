@@ -1,5 +1,5 @@
 import {IAuthActions, IAuthState} from '@fh-health/types/context/AuthContext'
-import AuthContextStaticData from '@fh-health/static/AuthContextStaticData'
+import AuthContextStaticData from '@fh-health/static/authContextStaticData'
 
 const AuthContextReducer = (state: IAuthState, action: IAuthActions) => {
   switch (action.type) {

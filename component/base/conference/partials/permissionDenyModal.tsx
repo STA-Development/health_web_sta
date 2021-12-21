@@ -1,6 +1,6 @@
 import React from "react"
-import Modal from "@fh-health/component/utils/Modal"
-import Card from "@fh-health/component/utils/Card"
+import Modal from "@fh-health/component/utils/modal"
+import Card from "@fh-health/component/utils/card"
 
 const PermissionDenyModal = () => {
   const handlePageRefresh = () => {

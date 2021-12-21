@@ -1,7 +1,7 @@
 import React from "react"
 import Image from 'next/image'
-import Modal from '@fh-health/component/utils/Modal'
-import Card from '@fh-health/component/utils/Card'
+import Modal from '@fh-health/component/utils/modal'
+import Card from '@fh-health/component/utils/card'
 
 const KitNumberModal = ({ closeModal }: { closeModal: () => void }) => (
     <Modal>

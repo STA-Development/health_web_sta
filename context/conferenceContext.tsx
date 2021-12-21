@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useMemo, useReducer} from "react"
 import {IConfState, IConfActions} from '@fh-health/types/context/ConferenceContext'
-import ConferenceContextReducer from '@fh-health/reducers/ConferenceContextReducer'
+import ConferenceContextReducer from '@fh-health/reducers/conferenceContextReducer'
 
 const initialState: IConfState = {
   chatVisibility: false,

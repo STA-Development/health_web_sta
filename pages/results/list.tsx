@@ -6,7 +6,7 @@ import React, {useEffect, useState} from 'react'
 import SingleResultPreload from '@fh-health/component/singleResultPreload'
 import moment from 'moment'
 import * as Sentry from '@sentry/nextjs'
-import testResultManager from '@fh-health/manager/TestResultManager'
+import testResultManager from '@fh-health/manager/testResultManager'
 
 interface IResult {
   detailsAvailable: boolean

@@ -1,5 +1,5 @@
 import {ITestResultActions, ITestResultState} from 'types/context/testResultContext'
-import TestResultContextStaticData from '@fh-health/static/TestResultContextStaticData'
+import TestResultContextStaticData from '@fh-health/static/testResultContextStaticData'
 
 const TestResultContextReducer = (state: ITestResultState, action: ITestResultActions) => {
   switch (action.type) {

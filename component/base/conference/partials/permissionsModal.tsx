@@ -1,5 +1,5 @@
-import Modal from '@fh-health/component/utils/Modal'
-import Card from '@fh-health/component/utils/Card'
+import Modal from '@fh-health/component/utils/modal'
+import Card from '@fh-health/component/utils/card'
 import Image from 'next/image'
 import React, {useState} from 'react'
 import doesObjectContainFalsyValue from '@fh-health/utils/falsyValuesOfObject'

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import Image from 'next/image'
-import {UseConfDataStateValue} from '@fh-health/context/ConferenceContext'
-import ConferenceContextStaticData from 'static/ConferenceContextStaticData'
+import {UseConfDataStateValue} from '@fh-health/context/conferenceContext'
+import ConferenceContextStaticData from '@fh-health/static/conferenceContextStaticData'
 import {Language} from "@fh-health/types/context/ConferenceContext"
 
 const ConferenceHeader = () => {

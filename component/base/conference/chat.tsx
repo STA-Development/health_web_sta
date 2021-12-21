@@ -1,8 +1,8 @@
 import React, {FormEvent, useEffect, useRef} from "react"
 import Image from 'next/image'
-import {UseConfDataStateValue} from '@fh-health/context/ConferenceContext'
+import {UseConfDataStateValue} from '@fh-health/context/conferenceContext'
 import {IChatWrapper, IQBMessage} from '@fh-health/types/context/ConferenceContext'
-import ConferenceContextStaticData from '@fh-health/static/ConferenceContextStaticData'
+import ConferenceContextStaticData from '@fh-health/static/conferenceContextStaticData'
 import Message from './partials/message'
 import ChatWrapperPreload from './partials/chatWrapperPreload'
 

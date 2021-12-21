@@ -1,4 +1,4 @@
-import Axios from "./AxiosInstance"
+import Axios from "./axiosInstance"
 
 const testResultManager = {
   getTestResult(token: string, encryptedID: string) {

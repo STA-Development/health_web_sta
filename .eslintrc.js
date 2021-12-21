@@ -14,7 +14,7 @@ module.exports = {
     },
     project: './tsconfig.json',
   },
-  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'prettier'],
+  plugins: ['@typescript-eslint', 'react', 'react-hooks', 'prettier', 'filenames'],
   extends: [
     'airbnb',
     'plugin:@typescript-eslint/recommended',
@@ -22,7 +22,7 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
-    'prettier',
+    'prettier'
   ],
   rules: {
     'import/extensions': [1, {extensions: ['.js', '.jsx', '.ts', '.tsx']}], // There is no need for each import statement highlight the file's extension
@@ -38,7 +38,13 @@ module.exports = {
     'no-throw-literal': 0, // No Need for this kind of thing because you can easily throw and Error As object - For example we are getting that kind of responses from BE
     'no-shadow': 'off', // This One is disabled because rule have no support for ts, but at the bottom we have enabled @typescript-eslint/no-shadow instead of
     '@typescript-eslint/no-shadow': 'error',
-    camelcase: 1,
+    'filenames/match-regex': 1,
+    '@typescript-eslint/naming-convention': ['error',
+      {
+        selector: 'variable',
+        format: ['camelCase', 'UPPER_CASE', 'strictCamelCase', 'PascalCase']
+      }
+    ],
   },
   settings: {
     'import/resolver': {

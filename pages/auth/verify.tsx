@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import Image from 'next/image'
 import PureBlock from '@fh-health/component/pureBlock'
-import CircleLoader from '@fh-health/component/utils/CircleLoader'
+import CircleLoader from '@fh-health/component/utils/circleLoader'
 import {load, ReCaptchaInstance} from 'recaptcha-v3'
-import testResultManager from '@fh-health/manager/TestResultManager'
+import testResultManager from '@fh-health/manager/testResultManager'
 import {useRouter} from 'next/router'
 import * as Sentry from '@sentry/nextjs'
 

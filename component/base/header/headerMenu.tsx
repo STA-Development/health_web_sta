@@ -1,11 +1,11 @@
 import Image from 'next/image'
 import React, {useRef, useState} from 'react'
 import {useClickAway} from 'react-use'
-import AuthContextStaticData from 'static/AuthContextStaticData'
+import AuthContextStaticData from '@fh-health/static/authContextStaticData'
 import * as Sentry from '@sentry/nextjs'
 import {useRouter} from 'next/router'
 import firebase from 'lib/firbase'
-import {UseAuthDataStateValue} from '@fh-health/context/AuthContext'
+import {UseAuthDataStateValue} from '@fh-health/context/authContext'
 
 const HeaderMenu = () => {
   const router = useRouter()

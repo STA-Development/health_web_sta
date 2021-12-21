@@ -2,14 +2,15 @@ import React, {memo, useEffect} from "react"
 import 'styles/scss/main.scss'
 import type {AppProps} from 'next/app'
 import TestResultContextProvider from '@fh-health/context/testResultContext'
+// eslint-disable-next-line camelcase
 import jwt_decode from 'jwt-decode'
-import AuthContextProvider from '@fh-health/context/AuthContext'
+import AuthContextProvider from '@fh-health/context/authContext'
 import FooterMenu from '@fh-health/component/base/footer/footerMenu'
 import HeaderMenu from '@fh-health/component/base/header/headerMenu'
 import Router, {useRouter} from 'next/router'
 import {localStore} from 'utils/storage'
-import ConferenceHeader from '@fh-health/component/utils/ConferenceHeader'
-import ConferenceContextProvider from '@fh-health/context/ConferenceContext'
+import ConferenceHeader from '@fh-health/component/utils/conferenceHeader'
+import ConferenceContextProvider from '@fh-health/context/conferenceContext'
 import * as ga from '../helpers/analytics/ga'
 
 interface IDecodedToken {

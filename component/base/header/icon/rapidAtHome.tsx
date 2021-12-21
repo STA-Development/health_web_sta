@@ -41,4 +41,5 @@ const RapidAtHome = () => (
     </g>
   </svg>
 )
+
 export default RapidAtHome
