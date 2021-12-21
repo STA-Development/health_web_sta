@@ -1,6 +1,6 @@
-import React, {createContext, useContext, useReducer} from 'react'
+import React, {createContext, useContext, useMemo, useReducer} from "react"
 import {IAuthActions, IAuthState} from '@fh-health/types/context/AuthContext'
-import {AuthContextReducer} from '@fh-health/reducers/AuthContextReducer'
+import AuthContextReducer from '@fh-health/reducers/AuthContextReducer'
 import {load, ReCaptchaInstance} from 'recaptcha-v3'
 
 const initialState: IAuthState = {
@@ -29,14 +29,17 @@ const initialAuthContext: {
 
 const AuthContext = createContext(initialAuthContext)
 
-export function AuthContextProvider({children}: { children?: JSX.Element | JSX.Element[] }) {
+const AuthContextProvider = ({children}: { children: JSX.Element | JSX.Element[] }) => {
   const [authDataState, setAuthDataState] = useReducer(AuthContextReducer, initialState)
+  const contextValues = useMemo(() => ({authDataState, setAuthDataState}), [authDataState])
 
   return (
-    <AuthContext.Provider value={{authDataState, setAuthDataState}}>
+    <AuthContext.Provider value={contextValues}>
       {children}
     </AuthContext.Provider>
   )
 }
+
+export default AuthContextProvider
 
 export const UseAuthDataStateValue = () => useContext(AuthContext)

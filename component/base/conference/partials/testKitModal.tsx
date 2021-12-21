@@ -1,12 +1,15 @@
+import React from "react"
 import Image from 'next/image'
 import Modal from '@fh-health/component/utils/Modal'
 import Card from '@fh-health/component/utils/Card'
 
-export default function KitNumberModal({ closeModal }: { closeModal: () => void }) {
-  return (
+const KitNumberModal = ({ closeModal }: { closeModal: () => void }) => (
     <Modal>
-      <Card>
-        <button onClick={closeModal} className="button card__close">
+      <Card permissions={false}>
+        <button
+          type="button"
+          onClick={closeModal} className="button card__close"
+        >
           <Image src="/cross.svg" width={24} height={24} alt="close" />
         </button>
         <div className="card__media card__media_with-bg">
@@ -20,6 +23,7 @@ export default function KitNumberModal({ closeModal }: { closeModal: () => void 
           </p>
         </div>
         <button
+          type="button"
           onClick={closeModal}
           className="button card__button"
         >
@@ -28,4 +32,5 @@ export default function KitNumberModal({ closeModal }: { closeModal: () => void 
       </Card>
     </Modal>
   )
-}
+
+export default KitNumberModal

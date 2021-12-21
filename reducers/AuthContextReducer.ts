@@ -1,7 +1,7 @@
 import {IAuthActions, IAuthState} from '@fh-health/types/context/AuthContext'
-import {AuthContextStaticData} from '@fh-health/static/AuthContextStaticData'
+import AuthContextStaticData from '@fh-health/static/AuthContextStaticData'
 
-export const AuthContextReducer = (state: IAuthState, action: IAuthActions) => {
+const AuthContextReducer = (state: IAuthState, action: IAuthActions) => {
   switch (action.type) {
     case AuthContextStaticData.UPDATE_AUTH_TOKEN:
       return {
@@ -22,3 +22,5 @@ export const AuthContextReducer = (state: IAuthState, action: IAuthActions) => {
       return state
   }
 }
+
+export default AuthContextReducer

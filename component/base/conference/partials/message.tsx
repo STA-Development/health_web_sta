@@ -1,10 +1,10 @@
-import {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {format} from 'date-fns'
 import {UseConfDataStateValue} from '@fh-health/context/ConferenceContext'
 import {IQBMessage} from 'types/context/ConferenceContext'
 import MessageError from './messageError'
 
-export default function Message({messageInfo}: {messageInfo?: IQBMessage}) {
+const Message = ({messageInfo}: {messageInfo: IQBMessage}) => {
   const {confDataState} = UseConfDataStateValue()
   const [isMyText, setIsMyText] = useState<boolean>(false)
   const [messageDate, setMessageDate] = useState<string>('')
@@ -22,9 +22,9 @@ export default function Message({messageInfo}: {messageInfo?: IQBMessage}) {
     const time = format(date, "hh:mmaaaaa'm'")
     const day = format(date, 'dd-MM-yyyy').split('-')[0]
 
-    if (new Date().getDate() === parseInt(day)) {
+    if (new Date().getDate() === parseInt(day, 10)) {
       setMessageDate(`Today, ${time}`)
-    } else if (new Date().getDate() - parseInt(day) === 1) {
+    } else if (new Date().getDate() - parseInt(day, 10) === 1) {
       setMessageDate(`Yesterday, ${time}`)
     } else {
       setMessageDate(date.toLocaleString())
@@ -48,3 +48,5 @@ export default function Message({messageInfo}: {messageInfo?: IQBMessage}) {
     </div>
   )
 }
+
+export default Message

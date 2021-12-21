@@ -1,15 +1,14 @@
+export interface group {
+  label: string
+  value: string
+}
+
 export interface resultAnalysis {
   channelName: string
   description: string
   groups: group[]
 }
-export interface group {
-  label: string
-  value: string
-}
-export interface ITestResultState {
-  testResult: testResult
-}
+
 export interface testResult {
   address: string
   dateOfBirth: string
@@ -35,7 +34,19 @@ export interface testResult {
   templateId: string
   testType: string
 }
+
+export interface ITestResultState {
+  testResult: testResult
+}
+
 export type ITestResultActions = {
   type: 'UPDATE_TEST_RESULT'
   data: testResult
+}
+
+export enum TestTypes {
+  AntibodyAll = 'Antibody_All',
+  PCR = 'PCR',
+  RapidAntigenAtHome = 'RapidAntigenAtHome',
+  BioradAntiBody = 'Biorad-Anti-Body',
 }

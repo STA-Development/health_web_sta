@@ -1,5 +1,6 @@
-export default function ConferenceFinalView({ returnHome }: {returnHome?: () => void}) {
-  return (
+import React from "react"
+
+const ConferenceFinalView = ({ returnHome }: {returnHome: () => void}) => (
     <div className="video-wrapper">
       <div className="video-wrapper__content network-content">
         <h4>Your Consultation Has Ended</h4>
@@ -8,10 +9,14 @@ export default function ConferenceFinalView({ returnHome }: {returnHome?: () => 
           <br />
           Physician today. Please book with us again soon!
         </p>
-        <button onClick={returnHome} className="button video-wrapper__button">
+        <button
+          type="button"
+          onClick={returnHome} className="button video-wrapper__button"
+        >
           Return to Home
         </button>
       </div>
     </div>
   )
-}
+
+export default ConferenceFinalView

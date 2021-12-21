@@ -1,8 +1,7 @@
-interface AntiBodyProps {
-  style: string
-}
-const AntiBodySVG = (props: AntiBodyProps) => (
-  <div data-cy="result-icon" className={`anti-body-${props.style}`}>
+import React from "react"
+
+const AntiBodySVG = ({ style }: { style: string }) => (
+  <div data-cy="result-icon" className={`anti-body-${style}`}>
     <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64">
       <g fill="#007AFF" fillRule="evenodd">
         <circle cx="32" cy="32" r="32" fillOpacity=".25" />
@@ -14,4 +13,5 @@ const AntiBodySVG = (props: AntiBodyProps) => (
     </svg>
   </div>
 )
+
 export default AntiBodySVG

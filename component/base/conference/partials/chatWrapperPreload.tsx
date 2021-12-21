@@ -1,9 +1,7 @@
-import Image from "next/image"
 import React from "react"
+import Image from "next/image"
 
-export default function ChatWrapperPreload() {
-
-  return (
+const ChatWrapperPreload = () => (
     <div className='preload chat-wrapper'>
       <div className='chat-wrapper__kit-info'>
         <span className="preload__style preload__lines preload__lines_md preload__lines_width-11" />
@@ -36,6 +34,7 @@ export default function ChatWrapperPreload() {
             <div className='button messenger__footer-button'>
               <label htmlFor='upload'>
                 <Image src='/attach.svg' alt='upload' width={31} height={16}/>
+                <input type="file" id="upload" />
               </label>
             </div>
             <input
@@ -53,4 +52,5 @@ export default function ChatWrapperPreload() {
       </div>
     </div>
   )
-}
+
+export default ChatWrapperPreload

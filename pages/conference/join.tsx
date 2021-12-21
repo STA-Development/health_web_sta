@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import CircleLoader from '@fh-health/component/utils/CircleLoader'
 import PureBlock from '@fh-health/component/pureBlock'
-import {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useRouter} from 'next/router'
 import ReactCodeInput from 'react-verification-code-input'
 import {load, ReCaptchaInstance} from 'recaptcha-v3'
@@ -9,14 +9,14 @@ import * as Sentry from '@sentry/nextjs'
 import conferenceManager from '@fh-health/manager/ConferenceManager'
 import {UseConfDataStateValue} from '@fh-health/context/ConferenceContext'
 import PermissionsModal from '@fh-health/component/base/conference/partials/permissionsModal'
-import {checkMediaDevicePermissions} from '@fh-health/utils/mediaPermissions'
+import checkMediaDevicePermissions from '@fh-health/utils/mediaPermissions'
 import KitNumberModal from '@fh-health/component/base/conference/partials/testKitModal'
 import Card from '@fh-health/component/utils/Card'
-import {ConferenceContextStaticData} from '@fh-health/static/ConferenceContextStaticData'
+import ConferenceContextStaticData from '@fh-health/static/ConferenceContextStaticData'
 import {IPatientInfo} from '@fh-health/types/context/ConferenceContext'
 import PermissionDenyModal from "@fh-health/component/base/conference/partials/permissionDenyModal"
 
-export default function ConferenceJoinView() {
+const ConferenceJoinView = () => {
   const [kitNumber, setKitNumber] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [warningMessage, setWarningMessage] = useState<string>('')
@@ -37,8 +37,8 @@ export default function ConferenceJoinView() {
   const router = useRouter()
   const {appointmentToken} = router.query
 
-  const handleKitNumberChange = (kitNumber: string) => {
-    setKitNumber(kitNumber)
+  const handleKitNumberChange = (kitCode: string) => {
+    setKitNumber(kitCode)
     setWarningMessage('')
   }
 
@@ -63,13 +63,16 @@ export default function ConferenceJoinView() {
   }
 
   const getRecaptcha = async () => {
-    const captchaToken = process.env.RECAPTCHA_V3_KEY
-    if (captchaToken) {
-      return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) =>
-        recaptcha.execute('submit'),
-      )
+    try {
+      const captchaToken = process.env.RECAPTCHA_V3_KEY
+      if (captchaToken) {
+        return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) =>
+          recaptcha.execute('submit'),
+        )
+      }
+    } catch (err) {
+      console.error('Captcha token is undefined', err)
     }
-    console.error('Captcha token is undefined')
   }
 
   const handleJoinClick = async () => {
@@ -120,13 +123,13 @@ export default function ConferenceJoinView() {
           captchaToken,
           appointmentToken as string,
         )
-        const patientInfo = {
+        const patientRegisteredInfo = {
           firstName: result.data.data.firstName,
           lastName: result.data.data.lastName,
           testType: result.data.data.testType,
           kitCode: '',
         }
-        setPatientInfo(patientInfo)
+        setPatientInfo(patientRegisteredInfo)
         setIsLinkExpired(false)
       }
     } catch (err) {
@@ -165,7 +168,7 @@ export default function ConferenceJoinView() {
       <div className="pure-block-wrapper">
         {!isLinkExpired ? (
           <div>
-            <PureBlock flow>
+            <PureBlock flow center={false} isNoResults={false}>
               <div className="logo">
                 <Image src="/logo.svg" width={136} height={16} alt="logo" />
               </div>
@@ -192,9 +195,10 @@ export default function ConferenceJoinView() {
                 />
                 {warningMessage?.length ? <p className="wrong-kit-code">{warningMessage}</p> : ''}
                 <div className="inputGroup__resend">
-                  <span>Can't locate your test Kit number?</span>
+                  <span>Can&apos;t locate your test Kit number?</span>
                   <br />
                   <button
+                    type="button"
                     onClick={toggleKitNumberModal}
                     className="button inputGroup__resend_button"
                   >
@@ -206,6 +210,7 @@ export default function ConferenceJoinView() {
                   <CircleLoader className="middle-loader" />
                 ) : (
                   <button
+                    type="button"
                     onClick={() => handleJoinClick()}
                     className={
                       joinButtonState
@@ -222,7 +227,7 @@ export default function ConferenceJoinView() {
           </div>
         ) : (
           <div className="card-wrapper">
-            <Card>
+            <Card permissions={false}>
               <div className="card__media card__media_sm">
                 <Image src="/error-cross.svg" alt="kit number" height={64} width={64} />
               </div>
@@ -253,3 +258,5 @@ export default function ConferenceJoinView() {
     </>
   )
 }
+
+export default ConferenceJoinView

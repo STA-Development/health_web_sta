@@ -2,7 +2,7 @@ import ResultsHeader from '@fh-health/component/resultsHeader'
 import TestResultContainer from '@fh-health/component/testResultContainer'
 import SingleTestResult from '@fh-health/component/singleTestResult'
 import NoResults from '@fh-health/component/noResults'
-import {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import SingleResultPreload from '@fh-health/component/singleResultPreload'
 import moment from 'moment'
 import * as Sentry from '@sentry/nextjs'
@@ -78,25 +78,20 @@ const WebPortalResults = () => {
       await getData()
     })()
   }, [])
-  return (
-    <>
-      {history ? (
-        <div className="web-portal-results">
-          {latestResults && <ResultsHeader header="Latest Results" />}
-          {latestResults && (
-            <TestResultContainer>
-              {results.length > 0 ? renderResultsList(false) : <SingleResultPreload />}
-            </TestResultContainer>
-          )}
-          <ResultsHeader header="Result History" />
-          <TestResultContainer data-cy="history-results">
-            {results.length > 0 ? renderResultsList(true) : <SingleResultPreload />}
-          </TestResultContainer>
-        </div>
-      ) : (
-        <NoResults />
+
+  return history ? (
+    <div className="web-portal-results">
+      {latestResults && <ResultsHeader header="Latest Results" size={0} />}
+      {latestResults && (
+        <TestResultContainer dataForCypress={null}>
+          {results.length > 0 ? renderResultsList(false) : <SingleResultPreload />}
+        </TestResultContainer>
       )}
-    </>
-  )
+      <ResultsHeader header="Result History" size={0} />
+      <TestResultContainer dataForCypress="history-results">
+        {results.length > 0 ? renderResultsList(true) : <SingleResultPreload />}
+      </TestResultContainer>
+    </div>
+  ) : <NoResults />
 }
 export default WebPortalResults

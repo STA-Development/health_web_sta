@@ -1,12 +1,12 @@
-import {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import VideoWrapper from '@fh-health/component/base/conference/video'
 import ChatWrapper from '@fh-health/component/base/conference/chat'
-import * as QB from 'quickblox/quickblox.js'
+import * as QB from 'quickblox/quickblox'
 import * as Sentry from '@sentry/nextjs'
-import {QBConfig} from 'utils/quickblox/config'
+import QBConfig from 'utils/quickblox/config'
 import {UseConfDataStateValue} from '@fh-health/context/ConferenceContext'
 import conferenceManager from '@fh-health/manager/ConferenceManager'
-import {ConferenceContextStaticData} from '@fh-health/static/ConferenceContextStaticData'
+import ConferenceContextStaticData from '@fh-health/static/ConferenceContextStaticData'
 import MobileChatView from '@fh-health/component/base/conference/partials/mobileChatView'
 import {load, ReCaptchaInstance} from 'recaptcha-v3'
 import {useRouter} from 'next/router'
@@ -46,7 +46,7 @@ const callSessionInitialState = {
   unmute: () => null,
 }
 
-export default function ConferenceRoomView() {
+const ConferenceRoomView = () => {
   const {confDataState, setConfDataState} = UseConfDataStateValue()
   const [dialogId, setDialogId] = useState<string>('')
   const [userToken, setUserToken] = useState<string>('')
@@ -61,13 +61,16 @@ export default function ConferenceRoomView() {
   const condition = useNetworkState()
 
   const getRecaptcha = async () => {
-    const captchaToken = process.env.RECAPTCHA_V3_KEY
-    if (captchaToken) {
-      const recaptcha: ReCaptchaInstance = await load(captchaToken as string)
-      return await recaptcha.execute('submit')
+    try {
+      const captchaToken = process.env.RECAPTCHA_V3_KEY
+      if (captchaToken) {
+        const recaptcha: ReCaptchaInstance = await load(captchaToken as string)
+        return await recaptcha.execute('submit')
+      }
+    } catch (err) {
+      Sentry.captureException('Captcha Token Was not found')
+      setIsError(true)
     }
-    Sentry.captureException('Captcha Token Was not found')
-    setIsError(true)
   }
 
   const completeConsultation = () => {
@@ -103,7 +106,7 @@ export default function ConferenceRoomView() {
     try {
       QB.init(
         userToken,
-        parseInt(`${process.env.QB_APP_ID}`),
+        parseInt(`${process.env.QB_APP_ID}`, 10),
         null,
         process.env.QB_ACCOUNT_KEY,
         QBConfig,
@@ -122,10 +125,31 @@ export default function ConferenceRoomView() {
     }
   }
 
+  const getMessagesList = () => {
+    const chatParams = {
+      chat_dialog_id: dialogId,
+      limit: 0,
+      mark_as_read: 0,
+      skip: 0,
+    }
+
+    QB.chat.message.list(chatParams, (error: object, messages: {items: []}) => {
+      if (error) {
+        Sentry.captureException(error)
+        setIsError(true)
+      } else {
+        setConfDataState({
+          type: ConferenceContextStaticData.SET_MESSAGES,
+          messages: messages?.items,
+        })
+      }
+    })
+  }
+
   const connectToChat = () => {
     const userId = QB.chat.helpers.getUserJid(
       confDataState.myPersonalId,
-      parseInt(`${process.env.APP_ID}`),
+      parseInt(`${process.env.QB_APP_ID}`, 10),
     )
     const dialogJid = QB.chat.helpers.getRoomJidFromDialogId(dialogId)
     const userCredentials = {
@@ -158,8 +182,8 @@ export default function ConferenceRoomView() {
         }
       }
 
-      QB.chat.onMessageListener = (userId: number, message: object) => {
-        if (userId !== confDataState.myPersonalId) {
+      QB.chat.onMessageListener = (id: number, message: object) => {
+        if (id !== confDataState.myPersonalId) {
           getMessagesList()
           console.info(message, 'UPCOMING MESSAGE')
         }
@@ -214,27 +238,6 @@ export default function ConferenceRoomView() {
     }
   }
 
-  const getMessagesList = () => {
-    const chatParams = {
-      chat_dialog_id: dialogId,
-      limit: 0,
-      mark_as_read: 0,
-      skip: 0,
-    }
-
-    QB.chat.message.list(chatParams, (error: object, messages: {items: []}) => {
-      if (error) {
-        Sentry.captureException(error)
-        setIsError(true)
-      } else {
-        setConfDataState({
-          type: ConferenceContextStaticData.SET_MESSAGES,
-          messages: messages?.items,
-        })
-      }
-    })
-  }
-
   const joinToChat = async () => {
     setLoading(true)
     const captchaToken = await getRecaptcha()
@@ -258,7 +261,7 @@ export default function ConferenceRoomView() {
         audio: true,
         video: true,
         options: {
-          muted: true,
+          muted: false,
           mirror: true,
         },
         elemId: 'myVideoStream',
@@ -349,3 +352,5 @@ export default function ConferenceRoomView() {
     </div>
   )
 }
+
+export default ConferenceRoomView

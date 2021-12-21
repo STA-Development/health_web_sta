@@ -1,6 +1,6 @@
+import React from "react"
 import SingleTestResultPage from "component/singleResultsPage"
-export default function AuthorizedUser() {
-    return(
-        <SingleTestResultPage isPublicUser={false} />
-    )
-}
+
+const AuthorizedUser = () => <SingleTestResultPage isPublicUser={false} />
+
+export default AuthorizedUser

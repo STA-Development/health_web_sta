@@ -1,9 +1,7 @@
-import {HTMLAttributes} from "react"
+import React from "react"
 
-const TestResultContainer = (
-  {children, ...props}: { children?: JSX.Element | JSX.Element[], props?: HTMLAttributes<unknown> }
-) => (
-  <div data-cy={props["data-cy"]} className="all-results">
+const TestResultContainer = ({children, dataForCypress}: { children: JSX.Element | JSX.Element[], dataForCypress: string }) => (
+  <div data-cy={dataForCypress} className="all-results">
       {children}
   </div>
 )

@@ -8,7 +8,7 @@ export const doLoginTest = (phoneNumber: string, verificationCode: string) => {
   cy.get('button[data-cy="next"]').click()
   cy.get('div.inputGroup_verify').should('exist')
   cy.log('entered password.')
-  for (let i = 0; i < verificationCode.length; i++) {
+  for (let i = 0; i < verificationCode.length; i+=1) {
     cy.get(`input[data-id=${i}]`).type(verificationCode[i])
   }
   cy.log('clicked on Verify Code')

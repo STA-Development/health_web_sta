@@ -1,4 +1,4 @@
-import { Axios } from './AxiosInstance'
+import Axios from './AxiosInstance'
 
 const conferenceManager = {
   getWaitingToken(captchaToken: string, kitCode: string, appointmentToken: string) {

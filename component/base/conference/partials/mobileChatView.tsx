@@ -1,10 +1,17 @@
+import React from "react"
 import {IChatWrapper} from '@fh-health/types/context/ConferenceContext'
 import ChatWrapper from '../chat'
 
-export default function MobileChatView(props: IChatWrapper) {
-  return (
+const MobileChatView = ({loading, sendMessage, messageToSend, clearMessageToSend}: IChatWrapper) => (
     <div className="mobile-chat">
-      <ChatWrapper {...props} />
+      <ChatWrapper
+        loading={loading}
+        sendMessage={sendMessage}
+        messageToSend={messageToSend}
+        clearMessageToSend={clearMessageToSend}
+      />
     </div>
   )
-}
+
+
+export default MobileChatView

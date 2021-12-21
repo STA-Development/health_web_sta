@@ -2,16 +2,16 @@ import React, {FormEvent, useEffect, useRef} from "react"
 import Image from 'next/image'
 import {UseConfDataStateValue} from '@fh-health/context/ConferenceContext'
 import {IChatWrapper, IQBMessage} from '@fh-health/types/context/ConferenceContext'
-import {ConferenceContextStaticData} from '@fh-health/static/ConferenceContextStaticData'
+import ConferenceContextStaticData from '@fh-health/static/ConferenceContextStaticData'
 import Message from './partials/message'
 import ChatWrapperPreload from './partials/chatWrapperPreload'
 
-export default function ChatWrapper({
+const ChatWrapper = ({
   sendMessage,
   loading,
   messageToSend,
   clearMessageToSend
-}: IChatWrapper) {
+}: IChatWrapper) => {
   const {confDataState, setConfDataState} = UseConfDataStateValue()
   const messagesListEl = useRef(null)
 
@@ -54,13 +54,19 @@ export default function ChatWrapper({
       <div className="messenger">
         <div className="messenger__header">chat</div>
         <div className="messenger__header messenger__header_mobile">
-          <button className="button conference-header__logout conference-header__logout_mobile">
+          <button
+            type="button"
+            className="button conference-header__logout conference-header__logout_mobile"
+          >
             <Image src="/chat-logout.svg" alt="logout" width={24} height={24} />
           </button>
           <div className="conference-header__logo">
             <Image src="/group.svg" alt="FH HEALTH" width={136} height={16} />
           </div>
-          <button onClick={closeMobileChat} className="button">
+          <button
+            type="button"
+            onClick={closeMobileChat} className="button"
+          >
             <Image src="/cross.svg" width={24} height={24} alt="close" />
           </button>
         </div>
@@ -74,6 +80,7 @@ export default function ChatWrapper({
             <div className="button messenger__footer-button">
               <label htmlFor="upload">
                 <Image src="/attach.svg" alt="upload" width={31} height={16} />
+                <input type="file" id="upload" />
               </label>
             </div>
             <input
@@ -91,3 +98,5 @@ export default function ChatWrapper({
     </div>
   )
 }
+
+export default ChatWrapper

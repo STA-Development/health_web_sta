@@ -1,7 +1,9 @@
+import React from "react"
 import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
 
 const BioradAntiBodyData = () => {
   const {testResultState} = UseTestResultDataStateValue()
+
   return (
     <div className="anti-body">
       <h3 className="anti-body__title">Test Analysis Data</h3>
@@ -26,4 +28,5 @@ const BioradAntiBodyData = () => {
     </div>
   )
 }
+
 export default BioradAntiBodyData

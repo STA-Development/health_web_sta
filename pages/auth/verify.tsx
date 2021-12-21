@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Image from 'next/image'
 import PureBlock from '@fh-health/component/pureBlock'
 import CircleLoader from '@fh-health/component/utils/CircleLoader'
@@ -7,19 +7,22 @@ import testResultManager from '@fh-health/manager/TestResultManager'
 import {useRouter} from 'next/router'
 import * as Sentry from '@sentry/nextjs'
 
-export default function Verify() {
+const Verify = () => {
   const [loading, setLoading] = useState(true)
   const router = useRouter()
   const {token} = router.query
 
   const getRecaptcha = async () => {
-    const captchaToken = process.env.RECAPTCHA_V3_KEY
-    if (captchaToken) {
-      return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) =>
-        recaptcha.execute('submit'),
-      )
+    try {
+      const captchaToken = process.env.RECAPTCHA_V3_KEY
+      if (captchaToken) {
+        return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) =>
+          recaptcha.execute('submit'),
+        )
+      }
+    } catch (err) {
+      console.error('Captcha token is undefined', err)
     }
-    console.error('Captcha token is undefined')
   }
 
   useEffect(() => {
@@ -43,7 +46,7 @@ export default function Verify() {
       {loading ? (
         <CircleLoader className="middle-loader" />
       ) : (
-        <PureBlock flow={false}>
+        <PureBlock flow={false} center={false} isNoResults={false}>
           <div className="logo">
             <Image src="/check.svg" width={64} height={64} alt="logo" />
           </div>
@@ -61,3 +64,5 @@ export default function Verify() {
     </div>
   )
 }
+
+export default Verify

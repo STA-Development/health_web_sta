@@ -1,14 +1,14 @@
 import Image from 'next/image'
-import {useState} from 'react'
+import React, {useState} from 'react'
 import {UseConfDataStateValue} from "@fh-health/context/ConferenceContext"
-import {ConferenceContextStaticData} from "@fh-health/static/ConferenceContextStaticData"
+import ConferenceContextStaticData from "@fh-health/static/ConferenceContextStaticData"
 
 interface ICallActions {
   triggerCallEnd: () => void
   switchAudioState: () => void
 }
 
-export default function Consultation({triggerCallEnd, switchAudioState}: ICallActions) {
+const Consultation = ({triggerCallEnd, switchAudioState}: ICallActions) => {
   const [isMuted, setIsMuted] = useState<boolean>(false)
   const { setConfDataState } = UseConfDataStateValue()
 
@@ -36,6 +36,7 @@ export default function Consultation({triggerCallEnd, switchAudioState}: ICallAc
       <div className="call-menu">
         <div className="call-menu__content">
           <button
+            type="button"
             onClick={toggleAudioState}
             className="button call-menu__button call-menu__button_mute"
           >
@@ -46,6 +47,7 @@ export default function Consultation({triggerCallEnd, switchAudioState}: ICallAc
             )}
           </button>
           <button
+            type="button"
             onClick={triggerCallEnd}
             className="button call-menu__button call-menu__button_end"
           >
@@ -57,6 +59,7 @@ export default function Consultation({triggerCallEnd, switchAudioState}: ICallAc
         <div className="call-menu-mobile__content">
           <div>
             <button
+              type="button"
               onClick={showChat}
               className="button call-menu__button call-menu__button_chat call-menu__button_mobile call-menu__button_gray"
             >
@@ -66,6 +69,7 @@ export default function Consultation({triggerCallEnd, switchAudioState}: ICallAc
           </div>
           <div>
             <button
+              type="button"
               onClick={toggleAudioState}
               className="button call-menu__button call-menu__button_mute call-menu__button_mobile call-menu__button_gray"
             >
@@ -79,6 +83,7 @@ export default function Consultation({triggerCallEnd, switchAudioState}: ICallAc
           </div>
           <div>
             <button
+              type="button"
               onClick={endCallOnMobile}
               className="button call-menu__button call-menu__button_end call-menu__button_mobile"
             >
@@ -91,3 +96,5 @@ export default function Consultation({triggerCallEnd, switchAudioState}: ICallAc
     </div>
   )
 }
+
+export default Consultation

@@ -1,3 +1,5 @@
+import React from "react"
+
 const RippleLoader = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="104" height="104" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
     <circle cx="50" cy="50" r="0" fill="none" stroke="#b77b54" strokeWidth="2">

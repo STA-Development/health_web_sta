@@ -1,7 +1,9 @@
-const Modal = (props: { children?: JSX.Element }) => (
+import React from "react"
+
+const Modal = ({children}: { children: JSX.Element }) => (
   <div className="modal">
     <div className="modal__content">
-      {props.children}
+      {children}
     </div>
   </div>
 )

@@ -1,3 +1,5 @@
+import React from "react"
+
 const RapidInconclusiveIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64">
     <g fill="#007AFF" fillRule="evenodd">

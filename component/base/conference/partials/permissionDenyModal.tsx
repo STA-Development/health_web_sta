@@ -1,8 +1,8 @@
+import React from "react"
 import Modal from "@fh-health/component/utils/Modal"
 import Card from "@fh-health/component/utils/Card"
 
-export default function PermissionDenyModal() {
-
+const PermissionDenyModal = () => {
   const handlePageRefresh = () => {
     window.location.reload()
   }
@@ -29,6 +29,7 @@ export default function PermissionDenyModal() {
           </ol>
         </div>
         <button
+          type="button"
           className="button card__button"
           onClick={handlePageRefresh}
         >
@@ -38,3 +39,5 @@ export default function PermissionDenyModal() {
     </Modal>
   )
 }
+
+export default PermissionDenyModal

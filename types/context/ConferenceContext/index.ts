@@ -5,6 +5,13 @@ export interface IPatientInfo {
   kitCode: string
 }
 
+export interface IQBMessage {
+  sender_id: number,
+  created_at: Date,
+  message: string,
+  hasError: boolean
+}
+
 export interface IConfState {
   chatVisibility: boolean,
   messages: IQBMessage[],
@@ -45,13 +52,6 @@ export type IConfActions =
   isConsultationStarted: boolean
 }
 
-export interface IQBMessage {
-  sender_id: number,
-  created_at: Date,
-  message: string,
-  hasError: boolean
-}
-
 interface RefObject<T> {
   readonly current: T | null
 }
@@ -61,4 +61,9 @@ export interface IChatWrapper {
   sendMessage: () => void,
   messageToSend: RefObject<HTMLInputElement>,
   clearMessageToSend: () => void
+}
+
+export enum Language {
+  ENG = 'Eng',
+  RUS = 'Rus',
 }

@@ -1,5 +1,7 @@
-const CircleLoader = (props: {className?: string}) => (
-  <div className={`loader ${props.className}`}>
+import React from "react"
+
+const CircleLoader = ({ className }: {className: string}) => (
+  <div className={`loader ${className}`}>
     <svg
       version="1.1"
       id="L9"
@@ -28,4 +30,5 @@ const CircleLoader = (props: {className?: string}) => (
     </svg>
   </div>
 )
+
 export default CircleLoader

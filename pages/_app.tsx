@@ -1,24 +1,25 @@
+import React, {memo, useEffect} from "react"
 import 'styles/scss/main.scss'
 import type {AppProps} from 'next/app'
-import {TestResultContextProvider} from '@fh-health/context/testResultContext'
+import TestResultContextProvider from '@fh-health/context/testResultContext'
 import jwt_decode from 'jwt-decode'
-import {AuthContextProvider} from '@fh-health/context/AuthContext'
+import AuthContextProvider from '@fh-health/context/AuthContext'
 import FooterMenu from '@fh-health/component/base/footer/footerMenu'
 import HeaderMenu from '@fh-health/component/base/header/headerMenu'
 import Router, {useRouter} from 'next/router'
-import {useEffect} from 'react'
 import {localStore} from 'utils/storage'
 import ConferenceHeader from '@fh-health/component/utils/ConferenceHeader'
-import {ConferenceContextProvider} from '@fh-health/context/ConferenceContext'
+import ConferenceContextProvider from '@fh-health/context/ConferenceContext'
 import * as ga from '../helpers/analytics/ga'
 
-interface decodedToken {
+interface IDecodedToken {
   exp: number
   token: string
 }
 
 const virtualTestFlowRoutesPrefix = 'conference'
-function MyApp({Component, pageProps}: AppProps) {
+
+const MyApp = ({Component, pageProps}: AppProps) => {
   const currentPage = useRouter().route
   const isAuth = useRouter().route.indexOf('auth') <= -1
   const isConference = useRouter().route.includes('conference')
@@ -30,7 +31,7 @@ function MyApp({Component, pageProps}: AppProps) {
   useEffect(() => {
     const token = localStore(localStorage).getItem('accessToken')
     const isAuthorized = token
-    let decodedToken: decodedToken
+    let decodedToken: IDecodedToken
     let isExpired
     if (token) {
       decodedToken = jwt_decode(token)
@@ -68,21 +69,19 @@ function MyApp({Component, pageProps}: AppProps) {
   }, [router.events])
 
   return (
-    <>
-      <AuthContextProvider>
-        <ConferenceContextProvider>
-          {isAuth && !isPublic && !isConference && <HeaderMenu />}
-          {isInChat && <ConferenceHeader />}
-          <TestResultContextProvider>
-            <div className={isConference ? 'main-content main-content_conference' : 'main-content'}>
-              <Component {...pageProps} />
-            </div>
-          </TestResultContextProvider>
-          {isAuth && !isConference && <FooterMenu />}
-        </ConferenceContextProvider>
-      </AuthContextProvider>
-    </>
+    <AuthContextProvider>
+      <ConferenceContextProvider>
+        {isAuth && !isPublic && !isConference && <HeaderMenu />}
+        {isInChat && <ConferenceHeader />}
+        <TestResultContextProvider>
+          <div className={isConference ? 'main-content main-content_conference' : 'main-content'}>
+            <Component {...pageProps} />
+          </div>
+        </TestResultContextProvider>
+        {isAuth && !isConference && <FooterMenu />}
+      </ConferenceContextProvider>
+    </AuthContextProvider>
   )
 }
 
-export default MyApp
+export default memo(MyApp)

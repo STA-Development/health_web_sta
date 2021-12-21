@@ -1,6 +1,6 @@
-import React, {createContext, useContext, useReducer} from 'react'
+import React, {createContext, useContext, useMemo, useReducer} from "react"
 import {IConfState, IConfActions} from '@fh-health/types/context/ConferenceContext'
-import {ConferenceContextReducer} from '@fh-health/reducers/ConferenceContextReducer'
+import ConferenceContextReducer from '@fh-health/reducers/ConferenceContextReducer'
 
 const initialState: IConfState = {
   chatVisibility: false,
@@ -27,14 +27,17 @@ const initialConfContext: {
 
 const ConferenceContext = createContext(initialConfContext)
 
-export function ConferenceContextProvider({children}: { children?: JSX.Element | JSX.Element[] }) {
+const ConferenceContextProvider = ({children}: { children: JSX.Element | JSX.Element[] }) => {
   const [confDataState, setConfDataState] = useReducer(ConferenceContextReducer, initialState)
+  const contextValues = useMemo(() => ({confDataState, setConfDataState}), [confDataState])
 
   return (
-    <ConferenceContext.Provider value={{confDataState, setConfDataState}}>
+    <ConferenceContext.Provider value={contextValues}>
       {children}
     </ConferenceContext.Provider>
   )
 }
+
+export default ConferenceContextProvider
 
 export const UseConfDataStateValue = () => useContext(ConferenceContext)

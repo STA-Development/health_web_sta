@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/nextjs'
+
 export const localStore = storageFactory
 
 export function storageFactory(storage: Storage): Storage {
@@ -29,7 +30,7 @@ export function storageFactory(storage: Storage): Storage {
     if (isSupported()) {
       return storage.getItem(name)
     }
-    if (inMemoryStorage.hasOwnProperty(name)) {
+    if (inMemoryStorage.name) {
       return inMemoryStorage[name]
     }
     return null

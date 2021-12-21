@@ -7,44 +7,37 @@ import * as Sentry from '@sentry/nextjs'
 import BioradAntiBodyData from '@fh-health/component/bioradAntiBodyData'
 import AntiBodyAnalysisData from '@fh-health/component/antyBodyAnalysisData'
 import {load, ReCaptchaInstance} from 'recaptcha-v3'
-import {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
-import {TestResultContextStaticData} from '@fh-health/static/TestResultContextStaticData'
+import TestResultContextStaticData from '@fh-health/static/TestResultContextStaticData'
 import testResultManager from '@fh-health/manager/TestResultManager'
 import {useRouter} from 'next/router'
 import ComponentPreloadView from '@fh-health/component/componentPreloadView'
+import {TestTypes} from "@fh-health/types/context/testResultContext"
 
-export enum TestTypes {
-  AntibodyAll = 'Antibody_All',
-  PCR = 'PCR',
-  RapidAntigenAtHome = 'RapidAntigenAtHome',
-  BioradAntiBody = 'Biorad-Anti-Body',
-}
-
-export default function SingleTestResultPage(props: {isPublicUser: boolean}) {
+const SingleTestResultPage = ({isPublicUser}: {isPublicUser: boolean}) => {
   const {testResultState, setTestResultState} = UseTestResultDataStateValue()
   const router = useRouter()
   const {testResultId} = router.query
   const [resultId, setResultId] = useState<string>('')
+
   const getRecaptcha = async () => {
-    const captchaToken = process.env.RECAPTCHA_V3_KEY
-    if (captchaToken) {
-      return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) =>
-        recaptcha.execute('submit'),
-      )
+    try {
+      const captchaToken = process.env.RECAPTCHA_V3_KEY
+      if (captchaToken) {
+        return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) =>
+          recaptcha.execute('submit'),
+        )
+      }
+    } catch (err) {
+      console.error('Captcha token is undefined')
     }
-    console.error('Captcha token is undefined')
   }
-  useEffect(() => {
-    if (testResultId) {
-      setResultId(testResultId as string)
-    }
-  }, [testResultId, testResultState])
 
   const getData = async () => {
     const token = await getRecaptcha()
     try {
-      if (!props.isPublicUser) {
+      if (!isPublicUser) {
         const response = await testResultManager.getSingleTestResult(resultId as string)
         if (response.status === 200) {
           const {data} = response.data
@@ -63,16 +56,20 @@ export default function SingleTestResultPage(props: {isPublicUser: boolean}) {
   }
 
   useEffect(() => {
+    if (testResultId) {
+      setResultId(testResultId as string)
+    }
+  }, [testResultId, testResultState])
+
+  useEffect(() => {
     ;(async () => {
       if (resultId) {
         await getData()
       }
     })()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [resultId])
-  return (
-    <>
-      {testResultState.testResult.testType.length ? (
+
+  return testResultState.testResult.testType.length ? (
         <div className="carcass">
           <Header />
           <TestResult />
@@ -88,9 +85,7 @@ export default function SingleTestResultPage(props: {isPublicUser: boolean}) {
           <LabInformation />
           <Footer />
         </div>
-      ) : (
-        <ComponentPreloadView />
-      )}
-    </>
-  )
+      ) : <ComponentPreloadView />
 }
+
+export default SingleTestResultPage

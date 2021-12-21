@@ -1,8 +1,8 @@
-import {useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Image from 'next/image'
 import PureBlock from '@fh-health/component/pureBlock'
 import {UseAuthDataStateValue} from '@fh-health/context/AuthContext'
-import {AuthContextStaticData} from '@fh-health/static/AuthContextStaticData'
+import AuthContextStaticData from '@fh-health/static/AuthContextStaticData'
 import InputMask from 'react-input-mask'
 import firebase from 'lib/firbase'
 import CircleLoader from '@fh-health/component/utils/CircleLoader'
@@ -17,13 +17,13 @@ interface IFirebaseAuthProps {
   }
 }
 
-export default function Login() {
+const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>('')
   const router = useRouter()
   const [verificationCode, setVerificationCode] = useState<string>('')
   const [isVerificationCodeSent, setIsVerificationCodeSent] = useState<boolean>(false)
   const [verificationResult, setVerificationResult] = useState<{
-    confirm: (verificationCode: string) => Promise<object>
+    confirm: (value: string) => Promise<object>
   }>()
   const [loading, setLoading] = useState<boolean>(false)
   const {authDataState, setAuthDataState} = UseAuthDataStateValue()
@@ -34,42 +34,14 @@ export default function Login() {
   const [loginButtonState, setLoginButtonState] = useState<boolean>(false)
   const [verifyButtonState, setVerifyButtonState] = useState<boolean>(false)
 
-  const startCountdown = () => {
-    let duration = timerDuration
-    const timer = setInterval(() => {
-      setDisplayDuration(duration)
-      duration--
-      if (duration === -1) {
-        handlePhoneSMSSend()
-        clearInterval(timer)
-      }
-    }, 1000)
-  }
-
-  const handleVerificationCodeChange = (verificationCode: string) => {
-    setVerificationCode(verificationCode)
-  }
-
-  const handlePhoneNumberChange = (phoneNumber: string) => {
-    setPhoneNumber(phoneNumber)
-  }
-
-  const beforeMaskedValueChange = (newState) => {
-    let {value} = newState
-    let {selection} = newState
-    let cursorPosition = selection ? selection.start : null
-    if (value.endsWith('-')) {
-      if (cursorPosition === value.length) {
-        cursorPosition--
-        selection = {start: cursorPosition, end: cursorPosition}
-      }
-      value = value.slice(0, -1)
-    }
-
-    return {
-      value,
-      selection,
-    }
+  const getFirebaseCaptcha = () => {
+    firebase.auth().settings.appVerificationDisabledForTesting =
+      process.env.APP_TESTING_MODE === 'true'
+    const reCaptchaVerifier = new firebase.auth.RecaptchaVerifier('re-captcha', {
+      size: 'invisible',
+    })
+    reCaptchaVerifier.render()
+    setAuthDataState({type: AuthContextStaticData.UPDATE_RE_CAPTCHA, reCaptchaVerifier})
   }
 
   const sendSMSToPhoneNumber = async (phone?: string) => {
@@ -99,6 +71,44 @@ export default function Login() {
     setLoading(false)
   }
 
+  const startCountdown = () => {
+    let duration = timerDuration
+    const timer = setInterval(() => {
+      setDisplayDuration(duration)
+      duration -= duration
+      if (duration === -1) {
+        handlePhoneSMSSend()
+        clearInterval(timer)
+      }
+    }, 1000)
+  }
+
+  const handleVerificationCodeChange = (code: string) => {
+    setVerificationCode(code)
+  }
+
+  const handlePhoneNumberChange = (number: string) => {
+    setPhoneNumber(number)
+  }
+
+  const beforeMaskedValueChange = (newState) => {
+    let {value} = newState
+    let {selection} = newState
+    let cursorPosition = selection ? selection.start : null
+    if (value.endsWith('-')) {
+      if (cursorPosition === value.length) {
+        cursorPosition -= cursorPosition
+        selection = {start: cursorPosition, end: cursorPosition}
+      }
+      value = value.slice(0, -1)
+    }
+
+    return {
+      value,
+      selection,
+    }
+  }
+
   const handleVerifyCode = async (e: React.MouseEvent<HTMLButtonElement>) => {
     setLoading(true)
     setErrMessage('')
@@ -125,20 +135,10 @@ export default function Login() {
     setLoading(false)
   }
 
-  const getFirebaseCaptcha = () => {
-    firebase.auth().settings.appVerificationDisabledForTesting =
-      process.env.APP_TESTING_MODE === 'true'
-    const reCaptchaVerifier = new firebase.auth.RecaptchaVerifier('re-captcha', {
-      size: 'invisible',
-    })
-    reCaptchaVerifier.render()
-    setAuthDataState({type: AuthContextStaticData.UPDATE_RE_CAPTCHA, reCaptchaVerifier})
-  }
-
   const checkPhoneNumber = (value: string, type: string) => {
     if (type === 'login') {
       const maskValues = Array.from(value)
-      const pureNumber = maskValues.filter((char: string) => (!isNaN(Number(char)) ? char : false))
+      const pureNumber = maskValues.filter((char: string) => (!Number.isNaN(Number(char)) ? char : false))
 
       if (pureNumber.length === 11) setLoginButtonState(true)
       else setLoginButtonState(false)
@@ -152,24 +152,18 @@ export default function Login() {
     return () => {
       setAuthDataState({type: AuthContextStaticData.UPDATE_RE_CAPTCHA, reCaptchaVerifier: ''})
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <>
-      {warningMessage ? (
-        <Notification type="warning">{warningMessage}</Notification>
-      ) : errMessage ? (
-        <Notification type="error">{errMessage}</Notification>
-      ) : (
-        ''
-      )}
+      {warningMessage && <Notification type="warning">{warningMessage}</Notification>}
+      {errMessage && <Notification type="error">{errMessage}</Notification>}
       <div className="pure-block-wrapper">
         <div>
-          <button className="hidden" id="re-captcha" />
+          <button type="button" className="hidden" id="re-captcha"> </button>
           {!isVerificationCodeSent ? (
             <>
-              <PureBlock flow>
+              <PureBlock flow center={false} isNoResults={false}>
                 <div className="logo">
                   <Image src="/logo.svg" width={136} height={16} alt="logo" />
                 </div>
@@ -192,9 +186,10 @@ export default function Login() {
                     }}
                     beforeMaskedStateChange={beforeMaskedValueChange}
                   >
-                    {(inputProps: {value: string; onChange: () => void}) => (
+                    {({value, onChange}) => (
                       <input
-                        {...inputProps}
+                        value={value}
+                        onChange={onChange}
                         type="tel"
                         className={
                           warningMessage
@@ -212,6 +207,7 @@ export default function Login() {
                     <CircleLoader className="middle-loader" />
                   ) : (
                     <button
+                      type="button"
                       onClick={handlePhoneSMSSend}
                       className={
                         loginButtonState
@@ -230,14 +226,14 @@ export default function Login() {
                 <p>
                   {' '}
                   Live Chat available on{' '}
-                  <a href="fhhealth.com" className="link">
+                  <a href="https://www.fhhealth.com/" className="link">
                     fhhealth.com
                   </a>{' '}
                 </p>
               </span>
             </>
           ) : (
-            <PureBlock flow>
+            <PureBlock flow center={false} isNoResults={false}>
               <div>
                 <Image src="/logo.svg" width={136} height={16} alt="logo" />
               </div>
@@ -262,17 +258,20 @@ export default function Login() {
                 />
                 {displayDuration === 0 ? (
                   <div className="inputGroup__resend">
-                    <button onClick={startCountdown} className="button inputGroup__resend_button">
+                    <button
+                      type="button"
+                      onClick={startCountdown}
+                      className="button inputGroup__resend_button"
+                    >
                       Resend code in 5
                     </button>
                   </div>
-                ) : (
-                  <>{displayDuration}</>
-                )}
+                ) : {displayDuration}}
                 {loading ? (
                   <CircleLoader className="middle-loader" />
                 ) : (
                   <button
+                    type="button"
                     className={
                       verifyButtonState && displayDuration === 0
                         ? 'button inputGroup__button'
@@ -292,3 +291,5 @@ export default function Login() {
     </>
   )
 }
+
+export default Login

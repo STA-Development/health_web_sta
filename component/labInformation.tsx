@@ -1,13 +1,17 @@
-import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
+import React from "react"
 
+import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
 import moment from 'moment'
+
 const LabInformation = () => {
   const {testResultState} = UseTestResultDataStateValue()
+
   const changeDate = (data: string, format: string) => {
     if (data.length) {
       return moment(data).format(format)
     }
   }
+
   return (
     <div className="lab-info-wrapper">
       <div className="left-part-wrapper">
@@ -64,4 +68,5 @@ const LabInformation = () => {
     </div>
   )
 }
+
 export default LabInformation

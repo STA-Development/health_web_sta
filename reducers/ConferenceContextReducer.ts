@@ -1,7 +1,7 @@
 import {IConfActions, IConfState} from '@fh-health/types/context/ConferenceContext'
-import {ConferenceContextStaticData} from '@fh-health/static/ConferenceContextStaticData'
+import ConferenceContextStaticData from '@fh-health/static/ConferenceContextStaticData'
 
-export const ConferenceContextReducer = (state: IConfState, action: IConfActions) => {
+const ConferenceContextReducer = (state: IConfState, action: IConfActions) => {
   switch (action.type) {
     case ConferenceContextStaticData.TOGGLE_CHAT_VIEW:
       return {
@@ -42,3 +42,5 @@ export const ConferenceContextReducer = (state: IConfState, action: IConfActions
       return state
   }
 }
+
+export default ConferenceContextReducer

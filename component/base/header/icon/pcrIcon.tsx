@@ -1,8 +1,7 @@
-interface PcrProps {
-  style: string
-}
-const PcrSvg = (props: PcrProps) => (
-  <div className={`pcr-${props.style}`}>
+import React from "react"
+
+const PcrSvg = ({ style }: { style: string }) => (
+  <div className={`pcr-${style}`}>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -40,4 +39,5 @@ const PcrSvg = (props: PcrProps) => (
     </svg>
   </div>
 )
+
 export default PcrSvg

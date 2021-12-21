@@ -1,16 +1,20 @@
+import React from "react"
 import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
-import {TestTypes} from '@fh-health/component/singleResultsPage'
+import {TestTypes} from '@fh-health/types/context/testResultContext'
 import moment from 'moment'
 import AntiBodySVG from './icon/anti-body'
 import PcrSvg from './icon/pcrIcon'
 import RapidAtHome from './icon/RapidAtHome'
+
 const Header = () => {
   const {testResultState} = UseTestResultDataStateValue()
+
   const changeDate = (data: string, format: string) => {
     if (data.length) {
       return moment(data).format(format)
     }
   }
+
   return (
     <div className="header-wrapper">
       <div className="test-type-wrapper">
@@ -91,4 +95,5 @@ const Header = () => {
     </div>
   )
 }
+
 export default Header

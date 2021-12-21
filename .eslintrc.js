@@ -25,114 +25,20 @@ module.exports = {
     'prettier',
   ],
   rules: {
-    '@typescript-eslint/no-unused-vars': [
-      'warn',
-      {
-        vars: 'all',
-        args: 'after-used',
-        ignoreRestSiblings: false,
-      },
-    ],
-    '@typescript-eslint/explicit-function-return-type': 0,
-    '@typescript-eslint/no-namespace': 0,
-    '@typescript-eslint/explicit-module-boundary-types': 0,
-    'import/extensions': [1, {extensions: ['.js', '.jsx', '.ts', '.tsx']}],
-    'import/no-extraneous-dependencies': [
-      'error',
-      {
-        devDependencies: true,
-      },
-    ],
-    'react/jsx-filename-extension': [1, {extensions: ['.js', '.jsx', '.ts', '.tsx']}],
-    'react/react-in-jsx-scope': 0,
-    'react/jsx-first-prop-new-line': 0,
-    'react/prop-types': 0,
-    'react/jsx-props-no-spreading': [1, {custom: 'ignore'}],
-    'jsx-a11y/anchor-is-valid': [
-      'error',
-      {
-        components: ['Link'],
-        specialLink: ['hrefLeft', 'hrefRight'],
-        aspects: ['invalidHref', 'preferButton'],
-      },
-    ],
-    'jsx-a11y/aria-props': 2,
-    'jsx-a11y/heading-has-content': 0,
-    'jsx-a11y/label-has-associated-control': [
-      2,
-      {
-        // NOTE: If this error triggers, either disable it or add
-        // your custom components, labels and attributes via these options
-        // See https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/label-has-associated-control.md
-        controlComponents: ['Input'],
-      },
-    ],
-
-    'arrow-body-style': [2, 'as-needed'],
-    'class-methods-use-this': 0,
-    'import/imports-first': 0,
-    'import/newline-after-import': 0,
-    'import/no-dynamic-require': 0,
-    'import/no-named-as-default': 0,
-    'import/no-unresolved': [2, {ignore: ['^@/', '^~/']}],
-    'import/no-webpack-loader-syntax': 0,
-    'import/prefer-default-export': 0,
-    'jsx-a11y/click-events-have-key-events': 0,
-    'jsx-a11y/no-static-element-interactions': 0,
-    'jsx-a11y/label-has-for': 0,
-    'jsx-a11y/mouse-events-have-key-events': 2,
-    'jsx-a11y/role-has-required-aria-props': 2,
-    'jsx-a11y/role-supports-aria-props': 2,
-    'max-len': 0,
-    'newline-per-chained-call': 0,
-    'no-confusing-arrow': 0,
-    'no-console': 1,
-    'no-unused-vars': 1,
-    'no-use-before-define': 0,
-    'prefer-template': 2,
-    'react/destructuring-assignment': 0,
-    'react/jsx-closing-tag-location': 0,
-    'react/jsx-no-target-blank': 0,
-    'react/jsx-uses-vars': 2,
-    'react/require-default-props': 0,
-    'react/require-extension': 0,
-    'react/self-closing-comp': 0,
-    'react/sort-comp': 0,
-    'require-yield': 0,
-    'import/no-cycle': 0,
-    'react/no-array-index-key': 0,
-    'no-param-reassign': 1,
-    'no-return-assign': 0,
-    'prefer-promise-reject-errors': 1,
-    'no-debugger': 1,
-    'no-restricted-syntax': [0, 'ForOfStatement'],
-    'react/no-danger': 0,
-    'react/button-has-type': 0,
-    'jsx-a11y/media-has-caption': 0,
-    'jsx-a11y/control-has-associated-label': 0,
-    radix: 0,
-    'no-return-await': 0,
-    'no-multi-assign': 0,
-    'no-plusplus': 0,
-    'guard-for-in': 0,
-    'array-callback-return': 0,
-    'consistent-return': 0,
-    'no-shadow': 0,
-    inputMaskValue: 0,
-    'no-nested-ternary': 0,
-    'no-throw-literal': 0,
-    'react/no-unescaped-entities': 0,
+    'import/extensions': [1, {extensions: ['.js', '.jsx', '.ts', '.tsx']}], // There is no need for each import statement highlight the file's extension
+    'react/jsx-filename-extension': [1, {extensions: ['.js', '.jsx', '.ts', '.tsx']}], // It should allow us to write JSX in files with .tsx extension
+    'react/jsx-props-no-spreading': [1, {custom: 'ignore'}], // In the root component (Myapp) we have ...pageProps which is out of reach from us to pass all the props manually, so that's why we added this rule.
+    'jsx-a11y/no-static-element-interactions': 0, // The same as jsx-a11y/click-events-have-key-events
+    'react/no-array-index-key': 0, // In application we have both static lists and expanding lists, neither draggable nor removing from the middle of array approach. So we can use that safely.
+    'consistent-return': 0, // In application it requires to put return at the end of the arrow function which in the majority places will cause an issue.
+    'react/function-component-definition': [1, {namedComponents: "arrow-function"}], // We need to have only one type of functions here we are choosing arrow-function
+    'jsx-a11y/click-events-have-key-events': 0, // There are no need to give role attribute to each element - there are divs, spans etc... which are asking for a role
+    'jsx-a11y/media-has-caption': 0, // We don't need this kind of feature it is asking not required attributes which is not given by quickblox and can't affect to anything
+    'no-use-before-define': "off", // While using JSX in our component we have to import React (that's what linter suggests), in contrast we are getting error if we don't use this rule.
+    'no-throw-literal': 0, // No Need for this kind of thing because you can easily throw and Error As object - For example we are getting that kind of responses from BE
+    'no-shadow': 'off', // This One is disabled because rule have no support for ts, but at the bottom we have enabled @typescript-eslint/no-shadow instead of
+    '@typescript-eslint/no-shadow': 'error',
     camelcase: 1,
-    'no-restricted-globals': 0,
-    'react-hooks/rules-of-hooks': 2,
-    'no-bitwise': 2,
-    'no-prototype-builtins': 0,
-    semi: ['error', 'never'],
-    'react/function-component-definition': 0,
-    'no-underscore-dangle': 0,
-    'react/jsx-no-useless-fragment': 0,
-    'react/jsx-no-constructed-context-values': 0,
-    'import/no-import-module-exports': 0
   },
   settings: {
     'import/resolver': {

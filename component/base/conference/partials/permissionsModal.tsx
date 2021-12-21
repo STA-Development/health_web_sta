@@ -1,14 +1,15 @@
 import Modal from '@fh-health/component/utils/Modal'
 import Card from '@fh-health/component/utils/Card'
 import Image from 'next/image'
-import {useState} from 'react'
-import {doesObjectContainFalsyValue} from '@fh-health/utils/falsyValuesOfObject'
+import React, {useState} from 'react'
+import doesObjectContainFalsyValue from '@fh-health/utils/falsyValuesOfObject'
 
 interface IMediaTypes {
   audio: boolean
   video: boolean
 }
-export default function PermissionsModal({ closeModal, openDenyModal }: {closeModal: () => void, openDenyModal: () => void}) {
+
+const PermissionsModal = ({ closeModal, openDenyModal }: {closeModal: () => void, openDenyModal: () => void}) => {
   const [checkedItems, setCheckedItems] = useState<IMediaTypes>({
     audio: false,
     video: false,
@@ -77,6 +78,7 @@ export default function PermissionsModal({ closeModal, openDenyModal }: {closeMo
           </div>
         </div>
         <button
+          type="button"
           className={`button card__button ${
             doesObjectContainFalsyValue(checkedItems) ? 'button_disabled' : ''
           }`}
@@ -88,3 +90,5 @@ export default function PermissionsModal({ closeModal, openDenyModal }: {closeMo
     </Modal>
   )
 }
+
+export default PermissionsModal

@@ -1,4 +1,4 @@
-export class ConferenceContextStaticData {
+class ConferenceContextStaticData {
   public static readonly TOGGLE_CHAT_VIEW = "TOGGLE_CHAT_VIEW"
 
   public static readonly SET_PERSONAL_ID = "SET_PERSONAL_ID"
@@ -13,3 +13,5 @@ export class ConferenceContextStaticData {
 
   public static readonly SET_CONSULTATION_STATE = "SET_CONSULTATION_STATE"
 }
+
+export default ConferenceContextStaticData

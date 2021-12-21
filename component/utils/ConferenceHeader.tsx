@@ -1,16 +1,11 @@
-import {useState} from 'react'
+import React, {useState} from 'react'
 import Image from 'next/image'
 import {UseConfDataStateValue} from '@fh-health/context/ConferenceContext'
-import {ConferenceContextStaticData} from 'static/ConferenceContextStaticData'
-
-enum Language {
-  ENG = 'Eng',
-  RUS = 'Rus',
-}
+import ConferenceContextStaticData from 'static/ConferenceContextStaticData'
+import {Language} from "@fh-health/types/context/ConferenceContext"
 
 const ConferenceHeader = () => {
   const [currentLanguage] = useState<string>(Language.ENG)
-
   const {confDataState, setConfDataState} = UseConfDataStateValue()
 
   const openMobileChat = () => {
@@ -25,7 +20,10 @@ const ConferenceHeader = () => {
           : 'conference-header'
       }
     >
-      <button className="button conference-header__logout conference-header__logout_mobile">
+      <button
+        type="button"
+        className="button conference-header__logout conference-header__logout_mobile"
+      >
         <Image src="/chat-logout.svg" alt="logout" width={24} height={24} />
       </button>
       <div className="conference-header__logo">
@@ -40,10 +38,15 @@ const ConferenceHeader = () => {
             </div>
           </div>
         </div>
-        <button className="button conference-header__logout conference-header__items-button">
+        <button
+          type="button"
+          className="button conference-header__logout
+          conference-header__items-button"
+        >
           <Image src="/chat-logout.svg" alt="logout" width={24} height={24} />
         </button>
         <button
+          type="button"
           className="button conference-header__items-button conference-header__chat-button"
           onClick={openMobileChat}
         >

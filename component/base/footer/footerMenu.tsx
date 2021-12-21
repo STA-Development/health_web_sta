@@ -1,3 +1,4 @@
+import React from "react"
 import Image from 'next/image'
 
 const FooterMenu = () => (
@@ -21,4 +22,5 @@ const FooterMenu = () => (
     </div>
   </footer>
 )
+
 export default FooterMenu

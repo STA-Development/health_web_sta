@@ -1,4 +1,4 @@
-export const QBConfig = {
+const QBConfig = {
   chatProtocol: {
     active: 2,
   },
@@ -20,3 +20,5 @@ export const QBConfig = {
     statsReportTimeInterval: 5,
   },
 }
+
+export default QBConfig
