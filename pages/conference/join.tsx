@@ -81,9 +81,10 @@ const ConferenceJoinView = () => {
     const captchaToken = await getRecaptcha()
     try {
       if (captchaToken && kitNumber && appointmentToken) {
+        const convertedKit = kitNumber.toUpperCase()
         const result = await conferenceManager.getWaitingToken(
           captchaToken,
-          kitNumber,
+          convertedKit,
           appointmentToken as string,
         )
         const {waitingToken} = result.data.data
