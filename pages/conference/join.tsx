@@ -19,6 +19,7 @@ import PermissionDenyModal from "@fh-health/component/base/conference/partials/p
 const ConferenceJoinView = () => {
   const [kitNumber, setKitNumber] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
+  const [isFetching, setIsFetching] = useState<boolean>(false)
   const [warningMessage, setWarningMessage] = useState<string>('')
   const [joinButtonState, setJoinButtonState] = useState<boolean>(false)
   const [kitNumberModalView, setKitNumberModalView] = useState<boolean>(false)
@@ -116,6 +117,7 @@ const ConferenceJoinView = () => {
   }
 
   const getAppointmentInfo = async () => {
+    setIsFetching(true)
     try {
       const captchaToken = await getRecaptcha()
       if (captchaToken && appointmentToken) {
@@ -136,6 +138,7 @@ const ConferenceJoinView = () => {
       Sentry.captureException(err)
       setIsLinkExpired(true)
     }
+    setIsFetching(false)
   }
 
   useEffect(() => {
@@ -158,7 +161,8 @@ const ConferenceJoinView = () => {
       isRequestHandled = false
     }
   }, [appointmentToken])
-  return (
+
+  return !isFetching ? (
     <>
       {kitNumberModalView && (
         <KitNumberModal closeModal={toggleKitNumberModal} />
@@ -256,6 +260,10 @@ const ConferenceJoinView = () => {
         )}
       </div>
     </>
+  ) : (
+    <div className="pure-block-wrapper">
+      <CircleLoader className="middle-loader" />
+    </div>
   )
 }
 
