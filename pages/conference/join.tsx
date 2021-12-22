@@ -19,7 +19,7 @@ import PermissionDenyModal from "@fh-health/component/base/conference/partials/p
 const ConferenceJoinView = () => {
   const [kitNumber, setKitNumber] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
-  const [isFetching, setIsFetching] = useState<boolean>(false)
+  const [isFetching, setIsFetching] = useState<boolean>(true)
   const [warningMessage, setWarningMessage] = useState<string>('')
   const [joinButtonState, setJoinButtonState] = useState<boolean>(false)
   const [kitNumberModalView, setKitNumberModalView] = useState<boolean>(false)
@@ -117,7 +117,6 @@ const ConferenceJoinView = () => {
   }
 
   const getAppointmentInfo = async () => {
-    setIsFetching(true)
     try {
       const captchaToken = await getRecaptcha()
       if (captchaToken && appointmentToken) {
@@ -138,7 +137,6 @@ const ConferenceJoinView = () => {
       Sentry.captureException(err)
       setIsLinkExpired(true)
     }
-    setIsFetching(false)
   }
 
   useEffect(() => {
@@ -154,6 +152,7 @@ const ConferenceJoinView = () => {
     ;(async () => {
       if (appointmentToken?.length && isRequestHandled) {
         await getAppointmentInfo()
+        setIsFetching(false)
       }
     })()
 
@@ -162,15 +161,18 @@ const ConferenceJoinView = () => {
     }
   }, [appointmentToken])
 
-  return !isFetching ? (
+  return (
     <>
+      <div className={isFetching ? "centered-content" : "centered-content centered-content_hidden"}>
+        <CircleLoader className="middle-loader" />
+      </div>
       {kitNumberModalView && (
         <KitNumberModal closeModal={toggleKitNumberModal} />
       )}
       {isMediaModalAvailable && <PermissionsModal closeModal={closeMediaModal} openDenyModal={openPermissionDenyModal} />}
       {permissionDenyModalView && <PermissionDenyModal />}
       <div className="pure-block-wrapper">
-        {!isLinkExpired ? (
+        {(!isLinkExpired && !isFetching) ? (
           <div>
             <PureBlock flow center={false} isNoResults={false}>
               <div className="logo">
@@ -260,10 +262,6 @@ const ConferenceJoinView = () => {
         )}
       </div>
     </>
-  ) : (
-    <div className="pure-block-wrapper">
-      <CircleLoader className="middle-loader" />
-    </div>
   )
 }
 

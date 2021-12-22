@@ -89,3 +89,12 @@ a {
   color: $fhhealth-color-danger;
   line-height: 1.4;
 }
+
+.centered-content {
+  @include setDisplay(flex, center, center);
+  height: 100%;
+
+  &_hidden {
+    display: none;
+  }
+}
