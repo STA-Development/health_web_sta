@@ -15,7 +15,7 @@ const ConferenceHeader = () => {
   return (
     <header
       className={
-        confDataState.isConsultationStarted
+        confDataState.consultationFlow.isConsultationStarted
           ? 'conference-header conference-header_mobile-hidden'
           : 'conference-header'
       }

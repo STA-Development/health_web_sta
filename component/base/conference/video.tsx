@@ -1,22 +1,20 @@
 import { useNetworkState } from 'react-use'
 import React, { useEffect, useState } from 'react'
+import {UseConfDataStateValue} from "@fh-health/context/conferenceContext"
 import RippleLoader from './icon/rippleLoader'
 import NetworkConnectionLost from './partials/networkConnectionLost'
 import ConferenceFinalView from './partials/conferenceFinalView'
 import Consultation from './partials/consultation'
 
 interface IVideoWrapper {
-    isConferenceStarted: boolean,
-    isConferenceEnded: boolean,
     triggerCallEnd: () => void,
     switchAudioState: () => void
 }
 
-const VideoWrapper = ({
-  isConferenceStarted, isConferenceEnded, triggerCallEnd, switchAudioState,
-}: IVideoWrapper) => {
+const VideoWrapper = ({ triggerCallEnd, switchAudioState }: IVideoWrapper) => {
   const condition = useNetworkState()
   const [isOnline, setIsOnline] = useState(true)
+  const { confDataState } = UseConfDataStateValue()
 
   const retryConnecting = () => {
     if (condition.online) {
@@ -36,9 +34,9 @@ const VideoWrapper = ({
 
   return (
     <>
-      {(isOnline && !isConferenceEnded) && (
+      {(isOnline && !confDataState.consultationFlow.isConferenceEnded) && (
         <div className="video-wrapper">
-          {isConferenceStarted ? (
+          {confDataState.consultationFlow.isConferenceStarted ? (
             <Consultation
               triggerCallEnd={triggerCallEnd}
               switchAudioState={switchAudioState}
@@ -57,7 +55,7 @@ const VideoWrapper = ({
           )}
         </div>
       )}
-      {(isOnline && isConferenceEnded) && <ConferenceFinalView returnHome={returnHome} />}
+      {(isOnline && confDataState.consultationFlow.isConferenceEnded) && <ConferenceFinalView returnHome={returnHome} />}
       {!isOnline && <NetworkConnectionLost retry={retryConnecting} />}
     </>
   )

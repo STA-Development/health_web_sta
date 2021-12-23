@@ -36,7 +36,7 @@ const ConferenceContextReducer = (state: IConfState, action: IConfActions) => {
     case ConferenceContextStaticData.SET_CONSULTATION_STATE:
       return {
         ...state,
-        isConsultationStarted: action.isConsultationStarted,
+        consultationFlow: action.consultationFlow,
       }
     default:
       return state

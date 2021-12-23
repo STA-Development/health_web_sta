@@ -14,7 +14,11 @@ const initialState: IConfState = {
     kitCode: '',
   },
   error: false,
-  isConsultationStarted: false,
+  consultationFlow: {
+    isConsultationStarted: false,
+    isConferenceStarted: false,
+    isConferenceEnded: false,
+  },
 }
 
 const initialConfContext: {

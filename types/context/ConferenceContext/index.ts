@@ -19,7 +19,11 @@ export interface IConfState {
   waitingToken: string,
   patientInfo: IPatientInfo,
   error: boolean,
-  isConsultationStarted: boolean
+  consultationFlow: {
+    isConsultationStarted: boolean,
+    isConferenceStarted: boolean,
+    isConferenceEnded: boolean,
+  },
 }
 
 export type IConfActions =
@@ -49,7 +53,11 @@ export type IConfActions =
 }
   | {
   type: "SET_CONSULTATION_STATE"
-  isConsultationStarted: boolean
+  consultationFlow: {
+    isConsultationStarted: boolean,
+    isConferenceStarted: boolean,
+    isConferenceEnded: boolean,
+  },
 }
 
 interface RefObject<T> {

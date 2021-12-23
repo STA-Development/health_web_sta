@@ -50,8 +50,6 @@ const ConferenceRoomView = () => {
   const {confDataState, setConfDataState} = UseConfDataStateValue()
   const [dialogId, setDialogId] = useState<string>('')
   const [userToken, setUserToken] = useState<string>('')
-  const [isConferenceStarted, setIsConferenceStarted] = useState<boolean>(false)
-  const [isConferenceEnded, setIsConferenceEnded] = useState<boolean>(false)
   const [callSession, setCallSession] = useState<ICallListener>(callSessionInitialState)
   const [isMuted, setIsMuted] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
@@ -74,12 +72,14 @@ const ConferenceRoomView = () => {
   }
 
   const completeConsultation = () => {
-    setIsConferenceStarted(false)
     setConfDataState({
       type: ConferenceContextStaticData.SET_CONSULTATION_STATE,
-      isConsultationStarted: false,
+      consultationFlow: {
+        isConsultationStarted: false,
+        isConferenceStarted: false,
+        isConferenceEnded: true,
+      }
     })
-    setIsConferenceEnded(true)
   }
 
   const triggerCallEnd = () => {
@@ -268,10 +268,13 @@ const ConferenceRoomView = () => {
       }
 
       QB.webrtc.onCallListener = (session: ICallListener, extension: ICallListenerExtension) => {
-        setIsConferenceStarted(true)
         setConfDataState({
           type: ConferenceContextStaticData.SET_CONSULTATION_STATE,
-          isConsultationStarted: true,
+          consultationFlow: {
+            isConsultationStarted: true,
+            isConferenceStarted: true,
+            isConferenceEnded: false,
+          }
         })
         setCallSession(session)
         session.getUserMedia(mediaParams, (error: object) => {
@@ -329,8 +332,6 @@ const ConferenceRoomView = () => {
   return (
     <div className="conference-wrapper">
       <VideoWrapper
-        isConferenceStarted={isConferenceStarted}
-        isConferenceEnded={isConferenceEnded}
         triggerCallEnd={triggerCallEnd}
         switchAudioState={switchAudioState}
       />
