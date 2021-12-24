@@ -14,7 +14,7 @@ import KitNumberModal from '@fh-health/component/base/conference/partials/testKi
 import Card from '@fh-health/component/utils/card'
 import ConferenceContextStaticData from '@fh-health/static/conferenceContextStaticData'
 import {IPatientInfo} from '@fh-health/types/context/ConferenceContext'
-import PermissionDenyModal from "@fh-health/component/base/conference/partials/permissionDenyModal"
+import PermissionsDenyModal from "@fh-health/component/base/conference/partials/permissionsDenyModal"
 
 const ConferenceJoinView = () => {
   const [kitNumber, setKitNumber] = useState<string>('')
@@ -171,7 +171,7 @@ const ConferenceJoinView = () => {
         <KitNumberModal closeModal={toggleKitNumberModal} />
       )}
       {isMediaModalAvailable && <PermissionsModal closeModal={closeMediaModal} openDenyModal={openPermissionDenyModal} />}
-      {permissionDenyModalView && <PermissionDenyModal />}
+      {permissionDenyModalView && <PermissionsDenyModal />}
       <div className="pure-block-wrapper">
         {(!isLinkExpired && !isFetching) ? (
           <div>

@@ -14,6 +14,7 @@ const PermissionsModal = ({ closeModal, openDenyModal }: {closeModal: () => void
     audio: false,
     video: false,
   })
+
   const updateMediaCheckboxValue = (updatedMedia: string) => {
     if (updatedMedia === 'video') {
       setCheckedItems({...checkedItems, video: !checkedItems.video})

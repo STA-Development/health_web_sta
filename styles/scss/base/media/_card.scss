@@ -36,6 +36,16 @@
         &-info__title {
           margin-bottom: 20px;
         }
+
+        &_settings {
+          margin-top: 12px;
+          margin-bottom: 16px;
+
+          & + .card__button {
+            font-size: 14px;
+            padding: 12px 0;
+          }
+        }
       }
     }
   }
