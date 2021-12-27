@@ -326,6 +326,7 @@ const ConferenceRoomView = () => {
   useEffect(() => {
     if (userToken && dialogId) {
       getSession()
+      window.onbeforeunload = () => "The call will be terminated, are you sure?"
     }
   }, [userToken])
 

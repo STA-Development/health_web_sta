@@ -1,4 +1,4 @@
-const qbConfig = {
+const QBConfig = {
   chatProtocol: {
     active: 2,
   },
@@ -21,4 +21,4 @@ const qbConfig = {
   },
 }
 
-export default qbConfig
+export default QBConfig
