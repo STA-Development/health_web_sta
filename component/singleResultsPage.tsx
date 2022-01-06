@@ -6,14 +6,14 @@ import PcrAnalysisData from '@fh-health/component/pcrAnalysisData'
 import * as Sentry from '@sentry/nextjs'
 import BioradAntiBodyData from '@fh-health/component/bioradAntiBodyData'
 import AntiBodyAnalysisData from '@fh-health/component/antyBodyAnalysisData'
-import {load, ReCaptchaInstance} from 'recaptcha-v3'
 import React, {useEffect, useState} from 'react'
 import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
 import TestResultContextStaticData from '@fh-health/static/testResultContextStaticData'
 import testResultManager from '@fh-health/manager/testResultManager'
 import {useRouter} from 'next/router'
 import ComponentPreloadView from '@fh-health/component/componentPreloadView'
-import {TestTypes} from "@fh-health/types/context/testResultContext"
+import {TestTypes} from '@fh-health/types/context/testResultContext'
+import getV3RecaptchaToken from '@fh-health/utils/getV3RecaptchaToken'
 
 const SingleTestResultPage = ({isPublicUser}: {isPublicUser: boolean}) => {
   const {testResultState, setTestResultState} = UseTestResultDataStateValue()
@@ -21,21 +21,8 @@ const SingleTestResultPage = ({isPublicUser}: {isPublicUser: boolean}) => {
   const {testResultId} = router.query
   const [resultId, setResultId] = useState<string>('')
 
-  const getRecaptcha = async () => {
-    try {
-      const captchaToken = process.env.RECAPTCHA_V3_KEY
-      if (captchaToken) {
-        return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) =>
-          recaptcha.execute('submit'),
-        )
-      }
-    } catch (err) {
-      console.error('Captcha token is undefined')
-    }
-  }
-
   const getData = async () => {
-    const token = await getRecaptcha()
+    const token = await getV3RecaptchaToken()
     try {
       if (!isPublicUser) {
         const response = await testResultManager.getSingleTestResult(resultId as string)
@@ -70,22 +57,22 @@ const SingleTestResultPage = ({isPublicUser}: {isPublicUser: boolean}) => {
   }, [resultId])
 
   return testResultState.testResult.testType.length ? (
-        <div className="carcass">
-          <Header />
-          <TestResult />
-          {testResultState?.testResult?.testType === TestTypes?.AntibodyAll && (
-            <AntiBodyAnalysisData />
-          )}
-          {testResultState?.testResult?.testType === TestTypes?.PCR &&
-          testResultState?.testResult?.templateId === TestTypes.BioradAntiBody ? (
-            <BioradAntiBodyData />
-          ) : (
-            testResultState?.testResult.testType === TestTypes.PCR && <PcrAnalysisData />
-          )}
-          <LabInformation />
-          <Footer />
-        </div>
-      ) : <ComponentPreloadView />
+    <div className="carcass">
+      <Header />
+      <TestResult />
+      {testResultState?.testResult?.testType === TestTypes?.AntibodyAll && <AntiBodyAnalysisData />}
+      {testResultState?.testResult?.testType === TestTypes?.PCR &&
+      testResultState?.testResult?.templateId === TestTypes.BioradAntiBody ? (
+        <BioradAntiBodyData />
+      ) : (
+        testResultState?.testResult.testType === TestTypes.PCR && <PcrAnalysisData />
+      )}
+      <LabInformation />
+      <Footer />
+    </div>
+  ) : (
+    <ComponentPreloadView />
+  )
 }
 
 export default SingleTestResultPage

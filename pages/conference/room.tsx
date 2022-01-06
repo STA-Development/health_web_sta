@@ -8,10 +8,10 @@ import {UseConfDataStateValue} from '@fh-health/context/conferenceContext'
 import conferenceManager from '@fh-health/manager/conferenceManager'
 import ConferenceContextStaticData from '@fh-health/static/conferenceContextStaticData'
 import MobileChatView from '@fh-health/component/base/conference/partials/mobileChatView'
-import {load, ReCaptchaInstance} from 'recaptcha-v3'
 import {useRouter} from 'next/router'
 import {useNetworkState} from 'react-use'
 import ErrorNotification from '@fh-health/component/base/conference/partials/errorNotification'
+import getV3RecaptchaToken from '@fh-health/utils/getV3RecaptchaToken'
 
 interface ICallListener {
   getUserMedia: (
@@ -58,19 +58,6 @@ const ConferenceRoomView = () => {
   const router = useRouter()
   const condition = useNetworkState()
 
-  const getRecaptcha = async () => {
-    try {
-      const captchaToken = process.env.RECAPTCHA_V3_KEY
-      if (captchaToken) {
-        const recaptcha: ReCaptchaInstance = await load(captchaToken as string)
-        return await recaptcha.execute('submit')
-      }
-    } catch (err) {
-      Sentry.captureException('Captcha Token Was not found')
-      setIsError(true)
-    }
-  }
-
   const completeConsultation = () => {
     setConfDataState({
       type: ConferenceContextStaticData.SET_CONSULTATION_STATE,
@@ -78,7 +65,7 @@ const ConferenceRoomView = () => {
         isConsultationStarted: false,
         isConferenceStarted: false,
         isConferenceEnded: true,
-      }
+      },
     })
   }
 
@@ -99,7 +86,7 @@ const ConferenceRoomView = () => {
   }
 
   const clearMessageToSend = () => {
-    messageToSend.current.value = ""
+    messageToSend.current.value = ''
   }
 
   const getSession = () => {
@@ -240,7 +227,7 @@ const ConferenceRoomView = () => {
 
   const joinToChat = async () => {
     setLoading(true)
-    const captchaToken = await getRecaptcha()
+    const captchaToken = await getV3RecaptchaToken()
     try {
       const confCredentials = await conferenceManager.joinToDialog(
         captchaToken as string,
@@ -274,7 +261,7 @@ const ConferenceRoomView = () => {
             isConsultationStarted: true,
             isConferenceStarted: true,
             isConferenceEnded: false,
-          }
+          },
         })
         setCallSession(session)
         session.getUserMedia(mediaParams, (error: object) => {
@@ -326,16 +313,13 @@ const ConferenceRoomView = () => {
   useEffect(() => {
     if (userToken && dialogId) {
       getSession()
-      window.onbeforeunload = () => "The call will be terminated, are you sure?"
+      window.onbeforeunload = () => 'The call will be terminated, are you sure?'
     }
   }, [userToken])
 
   return (
     <div className="conference-wrapper">
-      <VideoWrapper
-        triggerCallEnd={triggerCallEnd}
-        switchAudioState={switchAudioState}
-      />
+      <VideoWrapper triggerCallEnd={triggerCallEnd} switchAudioState={switchAudioState} />
       <ChatWrapper
         loading={loading}
         sendMessage={sendMessage}

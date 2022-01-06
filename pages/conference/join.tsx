@@ -4,7 +4,6 @@ import PureBlock from '@fh-health/component/pureBlock'
 import React, {useEffect, useState} from 'react'
 import {useRouter} from 'next/router'
 import ReactCodeInput from 'react-verification-code-input'
-import {load, ReCaptchaInstance} from 'recaptcha-v3'
 import * as Sentry from '@sentry/nextjs'
 import conferenceManager from '@fh-health/manager/conferenceManager'
 import {UseConfDataStateValue} from '@fh-health/context/conferenceContext'
@@ -14,7 +13,8 @@ import KitNumberModal from '@fh-health/component/base/conference/partials/testKi
 import Card from '@fh-health/component/utils/card'
 import ConferenceContextStaticData from '@fh-health/static/conferenceContextStaticData'
 import {IPatientInfo} from '@fh-health/types/context/ConferenceContext'
-import PermissionsDenyModal from "@fh-health/component/base/conference/partials/permissionsDenyModal"
+import PermissionsDenyModal from '@fh-health/component/base/conference/partials/permissionsDenyModal'
+import getV3RecaptchaToken from '@fh-health/utils/getV3RecaptchaToken'
 
 const ConferenceJoinView = () => {
   const [kitNumber, setKitNumber] = useState<string>('')
@@ -63,22 +63,9 @@ const ConferenceJoinView = () => {
     }
   }
 
-  const getRecaptcha = async () => {
-    try {
-      const captchaToken = process.env.RECAPTCHA_V3_KEY
-      if (captchaToken) {
-        return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) =>
-          recaptcha.execute('submit'),
-        )
-      }
-    } catch (err) {
-      console.error('Captcha token is undefined', err)
-    }
-  }
-
   const handleJoinClick = async () => {
     setLoading(true)
-    const captchaToken = await getRecaptcha()
+    const captchaToken = await getV3RecaptchaToken()
     try {
       if (captchaToken && kitNumber && appointmentToken) {
         const convertedKit = kitNumber.toUpperCase()
@@ -119,7 +106,7 @@ const ConferenceJoinView = () => {
 
   const getAppointmentInfo = async () => {
     try {
-      const captchaToken = await getRecaptcha()
+      const captchaToken = await getV3RecaptchaToken()
       if (captchaToken && appointmentToken) {
         const result = await conferenceManager.getAppointmentInfo(
           captchaToken,
@@ -164,13 +151,13 @@ const ConferenceJoinView = () => {
 
   return (
     <>
-      <div className={isFetching ? "centered-content" : "centered-content centered-content_hidden"}>
+      <div className={isFetching ? 'centered-content' : 'centered-content centered-content_hidden'}>
         <CircleLoader className="middle-loader" />
       </div>
-      {kitNumberModalView && (
-        <KitNumberModal closeModal={toggleKitNumberModal} />
+      {kitNumberModalView && <KitNumberModal closeModal={toggleKitNumberModal} />}
+      {isMediaModalAvailable && (
+        <PermissionsModal closeModal={closeMediaModal} openDenyModal={openPermissionDenyModal} />
       )}
-      {isMediaModalAvailable && <PermissionsModal closeModal={closeMediaModal} openDenyModal={openPermissionDenyModal} />}
       {permissionDenyModalView && <PermissionsDenyModal />}
         {(!isLinkExpired && !isFetching) && (
           <div className="pure-block-wrapper">

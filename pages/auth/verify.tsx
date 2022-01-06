@@ -2,33 +2,20 @@ import React, {useEffect, useState} from 'react'
 import Image from 'next/image'
 import PureBlock from '@fh-health/component/pureBlock'
 import CircleLoader from '@fh-health/component/utils/circleLoader'
-import {load, ReCaptchaInstance} from 'recaptcha-v3'
 import testResultManager from '@fh-health/manager/testResultManager'
 import {useRouter} from 'next/router'
 import * as Sentry from '@sentry/nextjs'
+import getV3RecaptchaToken from '@fh-health/utils/getV3RecaptchaToken'
 
 const Verify = () => {
   const [loading, setLoading] = useState(true)
   const router = useRouter()
   const {token} = router.query
 
-  const getRecaptcha = async () => {
-    try {
-      const captchaToken = process.env.RECAPTCHA_V3_KEY
-      if (captchaToken) {
-        return await load(captchaToken as string).then((recaptcha: ReCaptchaInstance) =>
-          recaptcha.execute('submit'),
-        )
-      }
-    } catch (err) {
-      console.error('Captcha token is undefined', err)
-    }
-  }
-
   useEffect(() => {
     ;(async () => {
       try {
-        const captchaToken = await getRecaptcha()
+        const captchaToken = await getV3RecaptchaToken()
         if (captchaToken && token) {
           const response = await testResultManager.checkVerification(captchaToken, token as string)
           if (response) {
