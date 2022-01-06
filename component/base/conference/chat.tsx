@@ -2,7 +2,7 @@ import React, {FormEvent, useEffect, useRef} from "react"
 import Image from 'next/image'
 import {UseConfDataStateValue} from '@fh-health/context/conferenceContext'
 import {IChatWrapper, IQBMessage} from '@fh-health/types/context/ConferenceContext'
-import ConferenceContextStaticData from '@fh-health/static/conferenceContextStaticData'
+import ConferenceHeader from "@fh-health/component/utils/conferenceHeader"
 import Message from './partials/message'
 import ChatWrapperPreload from './partials/chatWrapperPreload'
 
@@ -12,12 +12,8 @@ const ChatWrapper = ({
   messageToSend,
   clearMessageToSend
 }: IChatWrapper) => {
-  const {confDataState, setConfDataState} = UseConfDataStateValue()
+  const { confDataState } = UseConfDataStateValue()
   const messagesListEl = useRef(null)
-
-  const closeMobileChat = () => {
-    setConfDataState({type: ConferenceContextStaticData.TOGGLE_CHAT_VIEW, view: false})
-  }
 
   const handleSendMessage = (event: FormEvent) => {
     event.preventDefault()
@@ -53,23 +49,7 @@ const ChatWrapper = ({
       </div>
       <div className="messenger">
         <div className="messenger__header">chat</div>
-        <div className="messenger__header messenger__header_mobile">
-          <button
-            type="button"
-            className="button conference-header__logout conference-header__logout_mobile"
-          >
-            <Image src="/chat-logout.svg" alt="logout" width={24} height={24} />
-          </button>
-          <div className="conference-header__logo">
-            <Image src="/group.svg" alt="FH HEALTH" width={136} height={16} />
-          </div>
-          <button
-            type="button"
-            onClick={closeMobileChat} className="button"
-          >
-            <Image src="/cross.svg" width={24} height={24} alt="close" />
-          </button>
-        </div>
+        <ConferenceHeader/>
         <div ref={messagesListEl} className="messenger__body">
           {confDataState.messages?.map((message: IQBMessage, index: number) => (
             <Message key={index} messageInfo={message} />

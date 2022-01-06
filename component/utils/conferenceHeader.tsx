@@ -8,8 +8,8 @@ const ConferenceHeader = () => {
   const [currentLanguage] = useState<string>(Language.ENG)
   const {confDataState, setConfDataState} = UseConfDataStateValue()
 
-  const openMobileChat = () => {
-    setConfDataState({type: ConferenceContextStaticData.TOGGLE_CHAT_VIEW, view: true})
+  const toggleMobileChat = () => {
+    setConfDataState({type: ConferenceContextStaticData.TOGGLE_CHAT_VIEW, view: !confDataState.chatVisibility})
   }
 
   return (
@@ -48,9 +48,13 @@ const ConferenceHeader = () => {
         <button
           type="button"
           className="button conference-header__items-button conference-header__chat-button"
-          onClick={openMobileChat}
+          onClick={toggleMobileChat}
         >
-          <Image src="/chat-icon.svg" alt="open chat" width={24} height={24} />
+          {
+            confDataState.chatVisibility
+              ? <Image src="/cross.svg" width={24} height={24} alt="close" />
+              : <Image src="/chat-icon.svg" alt="open chat" width={24} height={24} />
+          }
         </button>
       </div>
     </header>
