@@ -73,7 +73,7 @@ const MyApp = ({Component, pageProps}: AppProps) => {
     <AuthContextProvider>
       <ConferenceContextProvider>
         {isAuth && !isPublic && !isConference && <HeaderMenu />}
-        {isInChat && <ConferenceHeader />}
+        {isInChat && <ConferenceHeader isMobile={false}/>}
         <TestResultContextProvider>
           <div className={isConference ? 'main-content main-content_conference' : 'main-content'}>
             <Component {...pageProps} />

@@ -6,6 +6,10 @@
     &_mobile-hidden {
       display: none;
     }
+
+    &_mobile {
+      display: flex;
+    }
   }
 
   .conference-header__logo {

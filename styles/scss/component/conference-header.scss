@@ -6,6 +6,10 @@
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
   padding: 22px 24px;
   z-index: 9;
+
+  &_mobile {
+    display: none;
+  }
 }
 
 .conference-header__logo {

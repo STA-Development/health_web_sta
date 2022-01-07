@@ -49,7 +49,7 @@ const ChatWrapper = ({
       </div>
       <div className="messenger">
         <div className="messenger__header">chat</div>
-        <ConferenceHeader/>
+        <ConferenceHeader isMobile />
         <div ref={messagesListEl} className="messenger__body">
           {confDataState.messages?.map((message: IQBMessage, index: number) => (
             <Message key={index} messageInfo={message} />

@@ -4,7 +4,7 @@ import {UseConfDataStateValue} from '@fh-health/context/conferenceContext'
 import ConferenceContextStaticData from '@fh-health/static/conferenceContextStaticData'
 import {Language} from "@fh-health/types/context/ConferenceContext"
 
-const ConferenceHeader = () => {
+const ConferenceHeader = ({ isMobile }: { isMobile: boolean }) => {
   const [currentLanguage] = useState<string>(Language.ENG)
   const {confDataState, setConfDataState} = UseConfDataStateValue()
 
@@ -17,7 +17,7 @@ const ConferenceHeader = () => {
       className={
         confDataState.consultationFlow.isConsultationStarted
           ? 'conference-header conference-header_mobile-hidden'
-          : 'conference-header'
+          : `conference-header ${isMobile ? 'conference-header_mobile' : null}`
       }
     >
       <button
