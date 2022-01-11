@@ -1,4 +1,4 @@
-import React, {FormEvent, useEffect, useRef} from "react"
+import React, {FormEvent, useEffect, useRef, useState} from "react"
 import Image from 'next/image'
 import {UseConfDataStateValue} from '@fh-health/context/conferenceContext'
 import {IChatWrapper, IQBMessage} from '@fh-health/types/context/ConferenceContext'
@@ -14,11 +14,16 @@ const ChatWrapper = ({
 }: IChatWrapper) => {
   const { confDataState } = UseConfDataStateValue()
   const messagesListEl = useRef(null)
+  const [controlledMessage, setControlledMessage] = useState<string>("")
 
   const handleSendMessage = (event: FormEvent) => {
     event.preventDefault()
-    sendMessage()
-    clearMessageToSend()
+
+    if (controlledMessage) {
+      sendMessage()
+      clearMessageToSend()
+      setControlledMessage("")
+    }
   }
 
   const attachScrollEvent = (event) => {
@@ -65,11 +70,19 @@ const ChatWrapper = ({
             </div>
             <input
               ref={messageToSend}
+              onChange={(event) => setControlledMessage(event.target.value)}
               className="input messenger__footer-input"
               placeholder="Send Message"
               type="text"
             />
-            <div onClick={handleSendMessage} className="button messenger__footer-button">
+            <div
+              onClick={handleSendMessage}
+              className={
+                controlledMessage
+                  ? 'button messenger__footer-button'
+                  : 'button messenger__footer-button messenger__footer-button_disabled'
+              }
+            >
               <Image src="/send.svg" alt="send" width={24} height={20} />
             </div>
           </form>

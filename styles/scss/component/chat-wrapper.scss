@@ -98,4 +98,8 @@
     cursor: pointer;
     pointer-events: none;
   }
+
+  &_disabled {
+    pointer-events: none;
+  }
 }

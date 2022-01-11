@@ -16,7 +16,7 @@ const ConferenceHeader = ({ isMobile }: { isMobile: boolean }) => {
     <header
       className={
         confDataState.consultationFlow.isConsultationStarted
-          ? 'conference-header conference-header_mobile-hidden'
+          ? `conference-header conference-header_mobile-hidden ${isMobile ? 'conference-header_mobile' : null}`
           : `conference-header ${isMobile ? 'conference-header_mobile' : null}`
       }
     >
