@@ -5,6 +5,15 @@
   height: calc(100vh - 85px);
 }
 
+.chat-wrapper-modal {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  top: -71px;
+  z-index: 99;
+  display: none;
+}
+
 .chat-wrapper__kit-info {
   padding: 20px;
   position: relative;

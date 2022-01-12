@@ -65,6 +65,30 @@
     width: 100%;
   }
 
+  .chat-wrapper-modal {
+
+    &_visible {
+      display: block;
+    }
+
+    .card__content-title {
+      font-size: 21px;
+    }
+
+    .card__content-message {
+      font-size: 15px;
+    }
+
+    .card__body {
+      padding: 36px 28px 32px;
+    }
+
+    .card__content {
+      margin-top: 48px;
+      margin-bottom: 32px;
+    }
+  }
+
   .mobile-chat {
     position: fixed;
     top: 0;
