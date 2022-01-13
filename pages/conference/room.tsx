@@ -12,6 +12,7 @@ import {useRouter} from 'next/router'
 import {useNetworkState} from 'react-use'
 import ErrorNotification from '@fh-health/component/base/conference/partials/errorNotification'
 import getV3RecaptchaToken from '@fh-health/utils/getV3RecaptchaToken'
+import MobileFinalViewModal from "@fh-health/component/base/conference/partials/finalViewModal"
 
 interface ICallListener {
   getUserMedia: (
@@ -335,6 +336,7 @@ const ConferenceRoomView = () => {
         />
       )}
       <ErrorNotification isError={isError} setErrorState={setIsError} />
+      <MobileFinalViewModal />
     </div>
   )
 }
