@@ -18,13 +18,14 @@ interface IDecodedToken {
   token: string
 }
 
-const virtualTestFlowRoutesPrefix = 'conference'
+// const virtualTestFlowRoutesPrefix = 'conference'
 
 const MyApp = ({Component, pageProps}: AppProps) => {
   const currentPage = useRouter().route
   const isAuth = useRouter().route.indexOf('auth') <= -1
   const isConference = useRouter().route.includes('conference')
   const isInChat = useRouter().route.includes('room')
+  const isMigration = useRouter().route.includes('migration')
   const isPublic = currentPage === '/'
   const router = useRouter()
   const {isReady} = useRouter()
@@ -40,8 +41,8 @@ const MyApp = ({Component, pageProps}: AppProps) => {
     }
     if (isReady) {
       if (
-        (!isConference && !isAuthorized && !isPublic) ||
-        (!isConference && isExpired && !isPublic)
+        (!isConference && !isAuthorized && !isPublic && !isMigration) ||
+        (!isConference && isExpired && !isPublic && !isMigration)
       ) {
         Router.push('/auth/login')
       }
@@ -51,13 +52,13 @@ const MyApp = ({Component, pageProps}: AppProps) => {
     }
   }, [isPublic])
 
-  useEffect(() => {
-    if (process.env.VIRTUAL_TEST_MODE === 'true') {
-      if (!currentPage.includes(virtualTestFlowRoutesPrefix)) {
-        window.location.assign(process.env.FH_HEALTH_WEBSITE_URL)
-      }
-    }
-  }, [currentPage])
+  // useEffect(() => {
+  //   if (process.env.VIRTUAL_TEST_MODE === 'true') {
+  //     if (!currentPage.includes(virtualTestFlowRoutesPrefix)) {
+  //       window.location.assign(process.env.FH_HEALTH_WEBSITE_URL)
+  //     }
+  //   }
+  // }, [currentPage])
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
@@ -72,14 +73,14 @@ const MyApp = ({Component, pageProps}: AppProps) => {
   return (
     <AuthContextProvider>
       <ConferenceContextProvider>
-        {isAuth && !isPublic && !isConference && <HeaderMenu />}
+        {isAuth && !isPublic && !isConference && !isMigration && <HeaderMenu />}
         {isInChat && <ConferenceHeader isMobile={false}/>}
         <TestResultContextProvider>
           <div className={isConference ? 'main-content main-content_conference' : 'main-content'}>
             <Component {...pageProps} />
           </div>
         </TestResultContextProvider>
-        {isAuth && !isConference && <FooterMenu />}
+        {isAuth && !isConference && !isMigration && <FooterMenu />}
       </ConferenceContextProvider>
     </AuthContextProvider>
   )

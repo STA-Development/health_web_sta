@@ -167,12 +167,8 @@ const Login = () => {
                 <div className="logo">
                   <Image src="/logo.svg" width={136} height={16} alt="logo" />
                 </div>
-                <div>
-                  <span className="header">Login</span>
-                </div>
-                <div>
-                  <span className="message">Enter your mobile number to secure your access</span>
-                </div>
+                <h4 className="header">Login</h4>
+                <p className="message">Enter your mobile number to secure your access</p>
                 <div className="inputGroup">
                   <span>
                     Phone Number <em>*</em>

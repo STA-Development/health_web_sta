@@ -166,14 +166,10 @@ const ConferenceJoinView = () => {
                 <div className="logo">
                   <Image src="/logo.svg" width={136} height={16} alt="logo" />
                 </div>
-                <div>
-                  <span className="header">Join Video Call</span>
-                </div>
-                <div>
-                  <span className="message">
-                    In order to enter your consultation please locate the code on your kit.
-                  </span>
-                </div>
+                <h4 className="header">Join Video Call</h4>
+                <p className="message">
+                  In order to enter your consultation please locate the code on your kit.
+                </p>
                 <div className="inputGroup inputGroup_kit-code">
                   <span className="kit-code-label">
                     Test Kit Number <em>*</em>

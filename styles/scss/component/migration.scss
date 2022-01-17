@@ -1,0 +1,73 @@
+@import "../abstracts/mixins";
+
+.migration {
+
+  .inputGroup {
+
+    .migration__button {
+      margin-top: 12px;
+
+      &_active {
+        background-color: $fhhealth-color-dark-bg;
+      }
+    }
+  }
+}
+
+.migration__members {
+  @include setDisplay(flex, unset, center, column);
+  width: 100%;
+  margin-top: 28px;
+}
+
+.member {
+  @include setDisplay(flex, space-between, center);
+  width: 100%;
+  padding: 12px 0;
+}
+
+.member__info {
+  @include setDisplay(flex, unset, flex-start, column);
+}
+
+.member__credentials {
+  @include setDisplay(flex, unset, center);
+
+  span {
+    width: 100%;
+    height: 100%;
+    max-width: 21px;
+    max-height: 16px;
+    margin-left: 12px;
+  }
+}
+
+.member__name {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 22px;
+  margin-bottom: 4px;
+  color: $fhhealth-color-dark-black;
+}
+
+.member__results {
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: -0.8px;
+  color: $fhhealth-color-dark-grey-bg;
+}
+
+.member__button {
+  font-size: 15px;
+  padding: 8px 16px;
+  border-radius: 5px;
+  letter-spacing: -0.36px;
+  color: $fhhealth-color-white;
+  background-color: $fhhealth-color-dark-bg;
+
+  &_edit {
+    border: 1.5px solid $fhhealth-color-carcass-border;
+    color: $fhhealth-color-dark-bg;
+    background-color: $fhhealth-color-white;
+  }
+}
