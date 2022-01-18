@@ -1,5 +1,10 @@
 @media (max-width: $fhhealth-media-sm) {
-  .notification span {
-    font-size: 14px;
+  .notification {
+    padding: 10px 15px;
+
+    span {
+      font-size: 14px;
+      margin-left: 12px;
+    }
   }
 }

@@ -22,10 +22,9 @@ interface IDecodedToken {
 
 const MyApp = ({Component, pageProps}: AppProps) => {
   const currentPage = useRouter().route
-  const isAuth = useRouter().route.indexOf('auth') <= -1
+  const isResultsPage = useRouter().route.includes('results')
   const isConference = useRouter().route.includes('conference')
   const isInChat = useRouter().route.includes('room')
-  const isMigration = useRouter().route.includes('migration')
   const isPublic = currentPage === '/'
   const router = useRouter()
   const {isReady} = useRouter()
@@ -40,10 +39,7 @@ const MyApp = ({Component, pageProps}: AppProps) => {
       isExpired = decodedToken.exp * 1000 < new Date().getTime()
     }
     if (isReady) {
-      if (
-        (!isConference && !isAuthorized && !isPublic && !isMigration) ||
-        (!isConference && isExpired && !isPublic && !isMigration)
-      ) {
+      if (isResultsPage && !isAuthorized || isExpired && !isPublic && isResultsPage) {
         Router.push('/auth/login')
       }
       if (currentPage === '/' && router.asPath.indexOf('?')) {
@@ -73,14 +69,14 @@ const MyApp = ({Component, pageProps}: AppProps) => {
   return (
     <AuthContextProvider>
       <ConferenceContextProvider>
-        {isAuth && !isPublic && !isConference && !isMigration && <HeaderMenu />}
+        {isResultsPage && <HeaderMenu />}
         {isInChat && <ConferenceHeader isMobile={false}/>}
         <TestResultContextProvider>
           <div className={isConference ? 'main-content main-content_conference' : 'main-content'}>
             <Component {...pageProps} />
           </div>
         </TestResultContextProvider>
-        {isAuth && !isConference && !isMigration && <FooterMenu />}
+        {isResultsPage && <FooterMenu />}
       </ConferenceContextProvider>
     </AuthContextProvider>
   )

@@ -71,7 +71,6 @@ const MigrationFlowView = () => {
                 ? 'button inputGroup__button migration__button migration__button_active'
                 : 'button inputGroup__button migration__button inputGroup__button_disabled'
             }
-            data-cy="next"
           >
             Confirm
           </button>

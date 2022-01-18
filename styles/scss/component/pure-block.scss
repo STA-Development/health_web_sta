@@ -3,6 +3,13 @@
 .pure-block-wrapper {
   @include setDisplay(flex, center, center);
   height: 100%;
+
+  &_create-profile {
+
+    & > div {
+      margin-top: 58px;
+    }
+  }
 }
 
 .centerX {
@@ -89,12 +96,43 @@
         margin-top: 48px;
 
         .inputGroup__resend {
-          display: none;
+          display: block;
         }
       }
 
       &_kit-code .kit-code-label {
         @include setElementSize(348px, unset);
+      }
+
+      &_create-profile {
+        grid-row-gap: unset;
+
+        .inputGroup__field {
+          margin-bottom: 20px;
+
+          label {
+            @include setDisplay(flex, unset, unset, column);
+          }
+
+          input {
+            padding: 16px;
+            border-radius: 2.5px;
+            color: $fhhealth-color-black;
+            background-color: $fhhealth-color-white;
+            border: solid 1px $fhhealth-color-dark-grey-bg;
+          }
+
+          span {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: $fhhealth-color-black;
+          }
+        }
+
+        .inputGroup__button {
+          margin-top: 50px;
+        }
       }
 
       em {

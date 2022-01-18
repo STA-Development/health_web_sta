@@ -75,7 +75,7 @@ const Login = () => {
     let duration = timerDuration
     const timer = setInterval(() => {
       setDisplayDuration(duration)
-      duration -= duration
+      duration -= 1
       if (duration === -1) {
         handlePhoneSMSSend()
         clearInterval(timer)
