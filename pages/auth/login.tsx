@@ -10,6 +10,7 @@ import * as Sentry from '@sentry/nextjs'
 import ReactCodeInput from 'react-verification-code-input'
 import {useRouter} from 'next/router'
 import Notification from '@fh-health/component/notification'
+import AuthManager from '@fh-health/manager/authManager'
 
 interface IFirebaseAuthProps {
   user?: {
@@ -44,6 +45,21 @@ const Login = () => {
     setAuthDataState({type: AuthContextStaticData.UPDATE_RE_CAPTCHA, reCaptchaVerifier})
   }
 
+  const getPatientAccountInformation = async () => {
+    try {
+      const response = await AuthManager.getPatientInformation()
+      if (response.data.data) {
+        setAuthDataState({
+          type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION,
+          patientAccountInformation: response?.data?.data,
+        })
+      }
+      return response?.data?.data
+    } catch (e) {
+      Sentry.captureException(e)
+    }
+  }
+
   const sendSMSToPhoneNumber = async (phone?: string) => {
     setWarningMessage('')
     try {
@@ -74,9 +90,9 @@ const Login = () => {
   const startCountdown = () => {
     let duration = timerDuration
     const timer = setInterval(() => {
-      setDisplayDuration(duration)
       duration -= 1
-      if (duration === -1) {
+      setDisplayDuration(duration)
+      if (duration === 0) {
         handlePhoneSMSSend()
         clearInterval(timer)
       }
@@ -121,24 +137,38 @@ const Login = () => {
         const {user} = result
         if (user) {
           user.getIdToken().then((token: string) => {
-            localStorage.setItem('accessToken', token)
-            setAuthDataState({type: AuthContextStaticData.UPDATE_AUTH_TOKEN, token})
-            router.push(`/results/list`)
+            ;(async () => {
+              localStorage.setItem('accessToken', token)
+              setAuthDataState({type: AuthContextStaticData.UPDATE_AUTH_TOKEN, token})
+              const patientAccountInformation = await getPatientAccountInformation()
+              setLoading(false)
+              if (patientAccountInformation) {
+                if (!patientAccountInformation?.isEmailVerified) {
+                  router.push(`/auth/emailVerification`)
+                } else {
+                  router.push(`/results/list`)
+                }
+              } else {
+                router.push('/auth/createProfile')
+              }
+            })()
           })
         }
       } catch (err) {
         Sentry.captureException(err)
         getFirebaseCaptcha()
         setErrMessage(err.message)
+        setLoading(false)
       }
     }
-    setLoading(false)
   }
 
   const checkPhoneNumber = (value: string, type: string) => {
     if (type === 'login') {
       const maskValues = Array.from(value)
-      const pureNumber = maskValues.filter((char: string) => (!Number.isNaN(Number(char)) ? char : false))
+      const pureNumber = maskValues.filter((char: string) =>
+        !Number.isNaN(Number(char)) ? char : false,
+      )
 
       if (pureNumber.length === 11) setLoginButtonState(true)
       else setLoginButtonState(false)
@@ -160,7 +190,9 @@ const Login = () => {
       {errMessage && <Notification type="error">{errMessage}</Notification>}
       <div className="pure-block-wrapper">
         <div>
-          <button type="button" className="hidden" id="re-captcha"> </button>
+          <button type="button" className="hidden" id="re-captcha">
+            {' '}
+          </button>
           {!isVerificationCodeSent ? (
             <>
               <PureBlock flow center={false} isNoResults={false}>
@@ -254,15 +286,19 @@ const Login = () => {
                 />
                 {displayDuration === 0 ? (
                   <div className="inputGroup__resend">
+                    <span>Didn&apos;t receive the sms?</span>
+                    <br />
                     <button
                       type="button"
                       onClick={startCountdown}
                       className="button inputGroup__resend_button"
                     >
-                      Resend code in 5
+                      Resend
                     </button>
                   </div>
-                ) : {displayDuration}}
+                ) : (
+                  <span>Resend Code in {displayDuration}</span>
+                )}
                 {loading ? (
                   <CircleLoader className="middle-loader" />
                 ) : (

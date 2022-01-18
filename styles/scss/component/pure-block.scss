@@ -94,10 +94,6 @@
       &_verify, &_kit-code {
         align-items: center;
         margin-top: 48px;
-
-        .inputGroup__resend {
-          display: block;
-        }
       }
 
       &_kit-code .kit-code-label {
@@ -176,12 +172,11 @@
     }
 
     .inputGroup__resend_button {
-      color: $fhhealth-color-dark-black;
       font-size: 16px;
       font-weight: 500;
+      color: $fhhealth-color-blue-btn;
 
       &:hover {
-        color: $fhhealth-color-blue-btn;
         text-decoration: underline;
       }
     }

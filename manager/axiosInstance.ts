@@ -11,6 +11,13 @@ const getOrGenerateDeviceId = () => {
   localStorage.setItem('deviceId', newDeviceId)
 }
 
+export const authHeader = () => {
+  const token = `Bearer ${localStorage.accessToken}`
+  return {
+    Authorization: token,
+  }
+}
+
 const Axios = (parameters?: {token?: string; baseURL?: string}) => {
   const token = parameters?.token
   const baseURL = parameters?.baseURL || process.env.USER_SERVICE_URL

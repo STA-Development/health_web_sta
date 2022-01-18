@@ -6,6 +6,15 @@ const initialState: IAuthState = {
   authToken: '',
   reCaptchaVerifier: '',
   phoneNumber: '',
+  patientAccountInformation: {
+    isEmailVerified: null,
+    organizations: [
+      {
+        firebaseOrganizationId: null,
+        patientId: null,
+      },
+    ],
+  },
 }
 
 const initialAuthContext: {
