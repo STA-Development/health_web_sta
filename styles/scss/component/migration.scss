@@ -71,3 +71,24 @@
     background-color: $fhhealth-color-white;
   }
 }
+
+.migration-modal {
+
+  &_success .card__header {
+    margin: 24px 0 16px;
+  }
+
+  .card__button {
+    margin-top: 32px;
+
+    &:nth-child(3) {
+      margin-top: 16px;
+    }
+  }
+}
+
+.migration-modal__button {
+  color: $fhhealth-color-light-black;
+  background-color: $fhhealth-color-white;
+  border: 2px solid $fhhealth-color-test-analysis-data-border;
+}

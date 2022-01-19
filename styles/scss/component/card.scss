@@ -11,6 +11,7 @@
   background-color: $fhhealth-color-white;
   border-radius: 8px;
   max-width: 515px;
+  width: 100%;
 }
 
 .card__body {
@@ -24,6 +25,19 @@
 
 .card__close {
   @include setPosition(absolute, 24px, unset, unset, 24px);
+
+  &_left {
+    right: unset;
+    left: 24px;
+  }
+}
+
+.card__back-arrow {
+  @include setDisplay(flex, center, center);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: $fhhealth-color-grey-bg;
 }
 
 .card__media {
