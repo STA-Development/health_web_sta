@@ -36,6 +36,21 @@ const authManager = {
       },
     )
   },
+  createUserProfile(firstName: string, lastName: string, email: string) {
+    return Axios({
+      baseURL: process.env.USER_SERVICE_URL,
+    }).post(
+      '/user/api/v1/patients',
+      {
+        firstName,
+        lastName,
+        email,
+      },
+      {
+        headers: {...authHeader()},
+      },
+    )
+  },
 }
 
 export default authManager

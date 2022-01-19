@@ -265,15 +265,11 @@ const Login = () => {
               <div>
                 <Image src="/logo.svg" width={136} height={16} alt="logo" />
               </div>
-              <div>
-                <span className="header">SMS Verification</span>
-              </div>
-              <div>
-                <span className="message">
-                  A code has been sent to your Mobile Phone Number to login to the FH Health Web
-                  Portal. Please enter it below to continue.
-                </span>
-              </div>
+              <h4 className="header">SMS Verification</h4>
+              <p className="message">
+                A code has been sent to your Mobile Phone Number to login to the FH Health Web
+                Portal. Please enter it below to continue.
+              </p>
               <div className="inputGroup inputGroup_verify">
                 <ReactCodeInput
                   type="number"
@@ -286,8 +282,6 @@ const Login = () => {
                 />
                 {displayDuration === 0 ? (
                   <div className="inputGroup__resend">
-                    <span>Didn&apos;t receive the sms?</span>
-                    <br />
                     <button
                       type="button"
                       onClick={startCountdown}

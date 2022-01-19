@@ -124,6 +124,13 @@
             margin-bottom: 8px;
             color: $fhhealth-color-black;
           }
+
+          &_error {
+
+            input {
+              border-color: $fhhealth-color-red-btn;
+            }
+          }
         }
 
         .inputGroup__button {
@@ -134,6 +141,12 @@
       em {
         color: $fhhealth-color-red-btn;
       }
+    }
+
+    .inputGroup__create-error {
+      font-size: 14px;
+      text-align: center;
+      color: $fhhealth-color-red-btn;
     }
 
     .inputGroup__input {

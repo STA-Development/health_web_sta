@@ -3,6 +3,8 @@ import PureBlock from "@fh-health/component/pureBlock"
 import Image from "next/image"
 import CircleLoader from "@fh-health/component/utils/circleLoader"
 import Notification from "@fh-health/component/notification"
+import {useRouter} from "next/router"
+import authManager from "@fh-health/manager/authManager"
 
 const CreateProfile = () => {
   const [loading, setLoading] = useState<boolean>(false)
@@ -10,9 +12,23 @@ const CreateProfile = () => {
   const [firstName, setFirstName] = useState<string>("")
   const [lastName, setLastName] = useState<string>("")
   const [email, setEmail] = useState<string>("")
+  const [error, setError] = useState<string>("")
+  const router = useRouter()
 
-  const handleCreateClick = () => {
+  const handleCreateClick = async () => {
     setLoading(true)
+    setError("")
+    try {
+      const response = await authManager.createUserProfile(firstName, lastName, email);
+      if (response.status === 200) {
+        setLoading(false)
+        router.push("/auth/emailVerification")
+      }
+    } catch (err) {
+      const { message } = err.response.data.status
+      setError(message)
+    }
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -38,7 +54,7 @@ const CreateProfile = () => {
             </p>
             <div className="inputGroup inputGroup_create-profile">
 
-              <div className="inputGroup__field">
+              <div className={error ? "inputGroup__field inputGroup__field_error" : "inputGroup__field"}>
                 <label htmlFor="firstName">
                   <span>
                     First Name <em>*</em>
@@ -53,7 +69,7 @@ const CreateProfile = () => {
                 </label>
               </div>
 
-              <div className="inputGroup__field">
+              <div className={error ? "inputGroup__field inputGroup__field_error" : "inputGroup__field"}>
                 <label htmlFor="lastName">
                   <span>
                     Last Name <em>*</em>
@@ -68,7 +84,7 @@ const CreateProfile = () => {
                 </label>
               </div>
 
-              <div className="inputGroup__field">
+              <div className={error ? "inputGroup__field inputGroup__field_error" : "inputGroup__field"}>
                 <label htmlFor="email">
                   <span>
                     Email Address <em>*</em>
@@ -82,6 +98,8 @@ const CreateProfile = () => {
                   />
                 </label>
               </div>
+
+              <div className="inputGroup__create-error">{error}</div>
 
               {loading ? (
                 <CircleLoader className="middle-loader" />
