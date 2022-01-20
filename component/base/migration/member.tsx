@@ -3,9 +3,9 @@ import Image from "next/image"
 
 interface IMemberData {
   id: number
-  name: string
-  results: number
+  firstName: string
   isSelected: boolean
+  resultsCount: number
 }
 
 interface IMember {
@@ -18,8 +18,8 @@ const Member = ({ member, children } : IMember) => (
     <div className="member__info">
       <div className="member__credentials">
         <div>
-          <div className="member__name">{member.name}</div>
-          <div className="member__results">{member.results} Results</div>
+          <div className="member__name">{member.firstName}</div>
+          <div className="member__results">{member.resultsCount} Results</div>
         </div>
         { member.isSelected && (
           <span>

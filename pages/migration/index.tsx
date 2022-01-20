@@ -4,6 +4,7 @@ import Image from "next/image"
 import Member from "@fh-health/component/base/migration/member"
 import Modal from "@fh-health/component/utils/modal"
 import Card from "@fh-health/component/utils/card"
+import migrationManager from "@fh-health/manager/migrationManager"
 
 enum memberSelectType {
   Select = "select",
@@ -18,40 +19,13 @@ const MigrationFlowView = () => {
   const [determineUserView, setDetermineUserView] = useState<boolean>(false)
   const [successModalView, setSuccessModalView] = useState<boolean>(false)
   const [finalModalView, setFinalModalView] = useState<boolean>(false)
+  const [members, setMembers] = useState([]);
   const [selectedMember, setSelectedMember] = useState({
     id: null,
-    results: null,
-    name: "",
+    firstName: "",
     isSelected: false,
+    resultsCount: null,
   })
-
-  // TODO: Integrate API call for the list of users
-  const [members, setMembers] = useState([
-    {
-      id: 1,
-      results: 16,
-      name: "John Doe",
-      isSelected: false,
-    },
-    {
-      id: 2,
-      results: 8,
-      name: "Claire Doe",
-      isSelected: false,
-    },
-    {
-      id: 3,
-      results: 23,
-      name: "Francis Doe",
-      isSelected: false,
-    },
-    {
-      id: 4,
-      results: 3,
-      name: "Adam Doe",
-      isSelected: false,
-    }
-  ]);
 
   const selectMember = (id) => {
     setOrganizedDataModal(true)
@@ -123,7 +97,7 @@ const MigrationFlowView = () => {
               <div className="card__header">
                 <h4 className="card__header-title">Organize Data</h4>
                 <p className="card__header-message">
-                  Who does the result for {selectedMember.name} belong to?
+                  Who does the result for {selectedMember.firstName} belong to?
                 </p>
               </div>
               <button
@@ -153,7 +127,7 @@ const MigrationFlowView = () => {
               <div className="card__header">
                 <h4 className="card__header-title">Organize Data</h4>
                 <p className="card__header-message">
-                  Does {selectedMember.name} happen to map one of your existing profiles?
+                  Does {selectedMember.firstName} happen to map one of your existing profiles?
                 </p>
               </div>
               <div className="migration__members">
@@ -196,7 +170,7 @@ const MigrationFlowView = () => {
           <div className="card__header">
             <h4 className="card__header-title">Success!</h4>
             <p className="card__header-message">
-              Added {selectedMember.name} as a new Dependent/Family/Friend
+              Added {selectedMember.firstName} as a new Dependent/Family/Friend
             </p>
           </div>
           <button
@@ -232,6 +206,14 @@ const MigrationFlowView = () => {
       </Modal>
     </div>
   )
+
+  useEffect(() => {
+    (async () => {
+      const { data } = await migrationManager.getPatientsList()
+      const membersList = data.data.map((member, index) => ({...member, id: index, isSelected: false}))
+      setMembers(membersList)
+    })()
+  }, [])
 
   useEffect(() => {
     if (members.every(member => member.isSelected)) {
