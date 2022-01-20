@@ -36,9 +36,9 @@ const EmailVerification = () => {
     e.preventDefault()
     try {
       const data = {
-        patientId: authDataState.patientAccountInformation.organizations?.[0].patientId,
+        patientId: authDataState.patientAccountInformation.organizations?.[0]?.patientId,
         organizationId:
-          authDataState.patientAccountInformation.organizations?.[0].firebaseOrganizationId,
+          authDataState.patientAccountInformation.organizations?.[0]?.firebaseOrganizationId,
         code: verificationCode,
       }
       const response = await AuthManager.verifyUserEmail(data)
@@ -90,15 +90,11 @@ const EmailVerification = () => {
             <div>
               <Image src="/logo.svg" width={136} height={16} alt="logo" />
             </div>
-            <div>
-              <span className="header">Email Verification</span>
-            </div>
-            <div>
-              <span className="message">
-                A code has been sent to your Email Address to login to the FH Health Web Portal.
-                Please enter it below to continue.
-              </span>
-            </div>
+            <h4 className="header">Email Verification</h4>
+            <p className="message">
+              A code has been sent to your Email Address to login to the FH Health Web Portal.
+              Please enter it below to continue.
+            </p>
             <div className="inputGroup inputGroup_verify">
               <ReactCodeInput
                 type="text"

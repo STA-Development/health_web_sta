@@ -11,6 +11,7 @@ import ReactCodeInput from 'react-verification-code-input'
 import {useRouter} from 'next/router'
 import Notification from '@fh-health/component/notification'
 import AuthManager from '@fh-health/manager/authManager'
+import Card from "@fh-health/component/utils/card"
 
 interface IFirebaseAuthProps {
   user?: {
@@ -34,6 +35,7 @@ const Login = () => {
   const [displayDuration, setDisplayDuration] = useState<number>(0)
   const [loginButtonState, setLoginButtonState] = useState<boolean>(false)
   const [verifyButtonState, setVerifyButtonState] = useState<boolean>(false)
+  const [smsSuccessView, setSmsSuccessView] = useState<boolean>(false)
 
   const getFirebaseCaptcha = () => {
     firebase.auth().settings.appVerificationDisabledForTesting =
@@ -149,7 +151,8 @@ const Login = () => {
                   router.push(`/results/list`)
                 }
               } else {
-                router.push('/auth/createProfile')
+                setSmsSuccessView(true)
+                // router.push('/auth/createProfile')
               }
             })()
           })
@@ -175,6 +178,38 @@ const Login = () => {
     } else if (value.length === 6) setVerifyButtonState(true)
     else setVerifyButtonState(false)
   }
+
+  const displaySmsVerificationSuccessView = () => (
+    <div className="card-wrapper">
+      <Card permissions={false}>
+        <div className="card__media card__media_sm">
+          <Image src="/check.svg" alt="check" height={64} width={64} />
+        </div>
+        <div className="card__content">
+          <h4 className="card__content-title">Phone Number Verified!</h4>
+          <p className="card__content-message">
+            Your Mobile Phone Number has been verified.
+            Your results will be sent to you via SMS as soon as they are available
+          </p>
+        </div>
+        <button
+          type="button"
+          className="button card__button"
+          onClick={() => router.push('/auth/createProfile')}
+        >
+          Continue
+        </button>
+      </Card>
+
+      <p className="card-wrapper__message">
+        Need help? <br />
+        Live Chat available on{' '}
+        <a href="https://www.fhhealth.com/" className="em-link">
+          fhhealth.com
+        </a>
+      </p>
+    </div>
+  )
 
   useEffect(() => {
     getFirebaseCaptcha()
@@ -261,56 +296,61 @@ const Login = () => {
               </span>
             </>
           ) : (
-            <PureBlock flow center={false} isNoResults={false}>
-              <div>
-                <Image src="/logo.svg" width={136} height={16} alt="logo" />
-              </div>
-              <h4 className="header">SMS Verification</h4>
-              <p className="message">
-                A code has been sent to your Mobile Phone Number to login to the FH Health Web
-                Portal. Please enter it below to continue.
-              </p>
-              <div className="inputGroup inputGroup_verify">
-                <ReactCodeInput
-                  type="number"
-                  placeholder={['-', '-', '-', '-', '-', '-']}
-                  onChange={(value) => {
-                    handleVerificationCodeChange(value)
-                    checkPhoneNumber(value, 'verify')
-                  }}
-                  className={errMessage ? 'codeInput-err' : ''}
-                />
-                {displayDuration === 0 ? (
-                  <div className="inputGroup__resend">
-                    <button
-                      type="button"
-                      onClick={startCountdown}
-                      className="button inputGroup__resend_button"
-                    >
-                      Resend
-                    </button>
+            <>
+              {!smsSuccessView && (
+                <PureBlock flow center={false} isNoResults={false}>
+                  <div>
+                    <Image src="/logo.svg" width={136} height={16} alt="logo" />
                   </div>
-                ) : (
-                  <span>Resend Code in {displayDuration}</span>
-                )}
-                {loading ? (
-                  <CircleLoader className="middle-loader" />
-                ) : (
-                  <button
-                    type="button"
-                    className={
-                      verifyButtonState && displayDuration === 0
-                        ? 'button inputGroup__button'
-                        : 'button inputGroup__button inputGroup__button_disabled'
-                    }
-                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleVerifyCode(e)}
-                    data-cy="verify"
-                  >
-                    Verify Code
-                  </button>
-                )}
-              </div>
-            </PureBlock>
+                  <h4 className="header">SMS Verification</h4>
+                  <p className="message">
+                    A code has been sent to your Mobile Phone Number to login to the FH Health Web
+                    Portal. Please enter it below to continue.
+                  </p>
+                  <div className="inputGroup inputGroup_verify">
+                    <ReactCodeInput
+                      type="number"
+                      placeholder={['-', '-', '-', '-', '-', '-']}
+                      onChange={(value) => {
+                        handleVerificationCodeChange(value)
+                        checkPhoneNumber(value, 'verify')
+                      }}
+                      className={errMessage ? 'codeInput-err' : ''}
+                    />
+                    {displayDuration === 0 ? (
+                      <div className="inputGroup__resend">
+                        <button
+                          type="button"
+                          onClick={startCountdown}
+                          className="button inputGroup__resend_button"
+                        >
+                          Resend
+                        </button>
+                      </div>
+                    ) : (
+                      <span>Resend Code in {displayDuration}</span>
+                    )}
+                    {loading ? (
+                      <CircleLoader className="middle-loader" />
+                    ) : (
+                      <button
+                        type="button"
+                        className={
+                          verifyButtonState && displayDuration === 0
+                            ? 'button inputGroup__button'
+                            : 'button inputGroup__button inputGroup__button_disabled'
+                        }
+                        onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleVerifyCode(e)}
+                        data-cy="verify"
+                      >
+                        Verify Code
+                      </button>
+                    )}
+                  </div>
+                </PureBlock>
+              )}
+              {smsSuccessView && displaySmsVerificationSuccessView()}
+            </>
           )}
         </div>
       </div>
