@@ -3,7 +3,6 @@ import Image from 'next/image'
 import PureBlock from '@fh-health/component/pureBlock'
 import {UseAuthDataStateValue} from '@fh-health/context/authContext'
 import AuthContextStaticData from '@fh-health/static/authContextStaticData'
-import InputMask from 'react-input-mask'
 import firebase from 'lib/firbase'
 import CircleLoader from '@fh-health/component/utils/circleLoader'
 import * as Sentry from '@sentry/nextjs'
@@ -11,6 +10,8 @@ import ReactCodeInput from 'react-verification-code-input'
 import {useRouter} from 'next/router'
 import Notification from '@fh-health/component/notification'
 import AuthManager from '@fh-health/manager/authManager'
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/bootstrap.css'
 import Card from "@fh-health/component/utils/card"
 
 interface IFirebaseAuthProps {
@@ -68,7 +69,7 @@ const Login = () => {
       return await firebase
         .auth()
         .signInWithPhoneNumber(
-          phone || phoneNumber,
+          phone || `+${phoneNumber}`,
           authDataState.reCaptchaVerifier as firebase.auth.RecaptchaVerifier,
         )
     } catch (err) {
@@ -107,24 +108,6 @@ const Login = () => {
 
   const handlePhoneNumberChange = (number: string) => {
     setPhoneNumber(number)
-  }
-
-  const beforeMaskedValueChange = (newState) => {
-    let {value} = newState
-    let {selection} = newState
-    let cursorPosition = selection ? selection.start : null
-    if (value.endsWith('-')) {
-      if (cursorPosition === value.length) {
-        cursorPosition -= cursorPosition
-        selection = {start: cursorPosition, end: cursorPosition}
-      }
-      value = value.slice(0, -1)
-    }
-
-    return {
-      value,
-      selection,
-    }
   }
 
   const handleVerifyCode = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -240,31 +223,15 @@ const Login = () => {
                   <span>
                     Phone Number <em>*</em>
                   </span>
-                  <InputMask
-                    mask="+1(999)999-9999"
+                  <PhoneInput
+                    country="ca"
                     value={phoneNumber}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      handlePhoneNumberChange(e.target.value)
-                      checkPhoneNumber(e.target.value, 'login')
+                    onChange={(phone) => {
+                      handlePhoneNumberChange(phone)
+                      checkPhoneNumber(phone, 'login')
                     }}
-                    beforeMaskedStateChange={beforeMaskedValueChange}
-                  >
-                    {({value, onChange}) => (
-                      <input
-                        value={value}
-                        onChange={onChange}
-                        type="tel"
-                        className={
-                          warningMessage
-                            ? 'input inputGroup__input inputGroup__input_err'
-                            : 'input inputGroup__input'
-                        }
-                        placeholder="(555) 555 - 5555"
-                        aria-label="Phone Number"
-                        data-cy="phoneNumber"
-                      />
-                    )}
-                  </InputMask>
+                    inputClass={warningMessage ? 'inputGroup__input_err' : ''}
+                  />
 
                   {loading ? (
                     <CircleLoader className="middle-loader" />
