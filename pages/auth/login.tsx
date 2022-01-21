@@ -135,7 +135,6 @@ const Login = () => {
                 }
               } else {
                 setSmsSuccessView(true)
-                // router.push('/auth/createProfile')
               }
             })()
           })

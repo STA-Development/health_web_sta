@@ -141,6 +141,10 @@
       em {
         color: $fhhealth-color-red-btn;
       }
+
+      .react-tel-input input {
+        width: 100%;
+      }
     }
 
     .inputGroup__create-error {

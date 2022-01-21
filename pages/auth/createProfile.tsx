@@ -5,6 +5,7 @@ import CircleLoader from "@fh-health/component/utils/circleLoader"
 import Notification from "@fh-health/component/notification"
 import {useRouter} from "next/router"
 import authManager from "@fh-health/manager/authManager"
+import Card from "@fh-health/component/utils/card"
 
 const CreateProfile = () => {
   const [loading, setLoading] = useState<boolean>(false)
@@ -13,16 +14,18 @@ const CreateProfile = () => {
   const [lastName, setLastName] = useState<string>("")
   const [email, setEmail] = useState<string>("")
   const [error, setError] = useState<string>("")
+  const [emailVerifyRequiredView, setEmailVerifyRequiredView] = useState<boolean>(false)
   const router = useRouter()
 
   const handleCreateClick = async () => {
     setLoading(true)
     setError("")
     try {
-      const response = await authManager.createUserProfile(firstName, lastName, email);
-      if (response.status === 200) {
+      const response = await authManager.createUserProfile(firstName, lastName, email)
+      const { isEmailVerified } = response.data.data
+      if (!isEmailVerified) {
         setLoading(false)
-        router.push("/auth/emailVerification")
+        setEmailVerifyRequiredView(true)
       }
     } catch (err) {
       const { message } = err.response.data.status
@@ -37,7 +40,42 @@ const CreateProfile = () => {
     }
   }, [firstName, lastName, email])
 
-  return (
+  const displayEmailVerifyRequiredView = () => (
+    <div className="pure-block-wrapper">
+      <div>
+        <div className="card-wrapper">
+          <Card permissions={false}>
+            <div className="card__media card__media_sm">
+              <Image src="/check.svg" alt="check" height={64} width={64} />
+            </div>
+            <div className="card__content">
+              <h4 className="card__content-title">Verify your Email</h4>
+              <p className="card__content-message">
+                This email will be used for login and to recover your data.
+              </p>
+            </div>
+            <button
+              type="button"
+              className="button card__button"
+              onClick={() => router.push('/auth/emailVerification')}
+            >
+              Verify Email
+            </button>
+          </Card>
+
+          <p className="card-wrapper__message">
+            Need help? <br />
+            Live Chat available on{' '}
+            <a href="https://www.fhhealth.com/" className="em-link">
+              fhhealth.com
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+
+  return emailVerifyRequiredView ? displayEmailVerifyRequiredView() : (
     <>
       <Notification type="warning">
         Please ensure your First & Last Name are correct, as you will not be able to change this later
