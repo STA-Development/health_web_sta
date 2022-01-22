@@ -5,20 +5,22 @@ import Member from "@fh-health/component/base/migration/member"
 import Modal from "@fh-health/component/utils/modal"
 import Card from "@fh-health/component/utils/card"
 import migrationManager from "@fh-health/manager/migrationManager"
+import CircleLoader from "@fh-health/component/utils/circleLoader"
+import * as Sentry from "@sentry/nextjs"
 
 enum memberSelectType {
   Select = "select",
-  Edit = "edit"
+  Dependent = "dependent"
 }
 
 const MigrationFlowView = () => {
   const [confirmButtonState, setConfirmButtonState] = useState<boolean>(false)
   const [initialModalView, setInitialModalView] = useState<boolean>(true)
   const [organizedDataModal, setOrganizedDataModal] = useState<boolean>(false)
-  const [isEditMode, setIsEditMode] = useState<boolean>(false)
-  const [determineUserView, setDetermineUserView] = useState<boolean>(false)
+  const [dependentUserView, setDependentUserView] = useState<boolean>(false)
   const [successModalView, setSuccessModalView] = useState<boolean>(false)
   const [finalModalView, setFinalModalView] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const [members, setMembers] = useState([]);
   const [selectedMember, setSelectedMember] = useState({
     id: null,
@@ -37,7 +39,7 @@ const MigrationFlowView = () => {
     if (type === memberSelectType.Select) {
       setOrganizedDataModal(false)
     } else {
-      setDetermineUserView(true)
+      setDependentUserView(true)
       setSelectedMember({...selectedMember, isSelected: false})
     }
 
@@ -54,16 +56,26 @@ const MigrationFlowView = () => {
     setMembers(newMembers)
   }
 
-  const editMember = (id) => {
-    selectMember(id)
-    setIsEditMode(true)
+  const resetOrganizedViewsState = () => {
+    setDependentUserView(false)
+    setOrganizedDataModal(false)
   }
 
   const addMemberAsNew = () => {
     setSuccessModalView(true)
-    setIsEditMode(false)
-    setDetermineUserView(false)
-    setOrganizedDataModal(false)
+    resetOrganizedViewsState()
+  }
+
+  const getUnconfirmedPatients = async () => {
+    setLoading(true)
+    try {
+      const { data } = await migrationManager.getPatientsList()
+      const membersList = data.data.map((member, index) => ({...member, id: index, isSelected: false}))
+      setMembers(membersList)
+    } catch (err) {
+      Sentry.captureException(err)
+    }
+    setLoading(false)
   }
 
   const displayMigrationInitialModal = () => (
@@ -92,7 +104,7 @@ const MigrationFlowView = () => {
     <div className="migration-modal">
       <Modal>
         <Card permissions>
-          {!determineUserView ? (
+          {!dependentUserView ? (
             <>
               <div className="card__header">
                 <h4 className="card__header-title">Organize Data</h4>
@@ -103,14 +115,14 @@ const MigrationFlowView = () => {
               <button
                 type="button"
                 className="button card__button migration-modal__button"
-                onClick={() => !isEditMode ? confirmMember() : confirmMember(memberSelectType.Edit)}
+                onClick={() => confirmMember()}
               >
                 You
               </button>
               <button
                 type="button"
                 className="button card__button migration-modal__button"
-                onClick={() => !isEditMode ? confirmMember() : confirmMember(memberSelectType.Edit)}
+                onClick={() => confirmMember(memberSelectType.Dependent)}
               >
                 Dependent, Family or Friend
               </button>
@@ -119,7 +131,7 @@ const MigrationFlowView = () => {
             <>
               <button
                 type="button"
-                onClick={() => setDetermineUserView(false)}
+                onClick={() => setDependentUserView(false)}
                 className="button card__close card__close_left card__back-arrow"
               >
                 <Image src="/backwardArrow.svg" width={24} height={24} alt="close" />
@@ -137,9 +149,7 @@ const MigrationFlowView = () => {
                     className="button member__button"
                     onClick={() => {
                       confirmMember()
-                      setIsEditMode(false)
-                      setDetermineUserView(false)
-                      setOrganizedDataModal(false)
+                      resetOrganizedViewsState()
                     }}
                   >
                     Select
@@ -209,9 +219,7 @@ const MigrationFlowView = () => {
 
   useEffect(() => {
     (async () => {
-      const { data } = await migrationManager.getPatientsList()
-      const membersList = data.data.map((member, index) => ({...member, id: index, isSelected: false}))
-      setMembers(membersList)
+      await getUnconfirmedPatients()
     })()
   }, [])
 
@@ -236,22 +244,20 @@ const MigrationFlowView = () => {
             (include variations or misspellings of your name) or dependents, family, or friends.
           </p>
           <div className="migration__members">
-            {
-              members.map((member, index) => (
-                <Member
-                  key={index}
-                  member={member}
+            {loading ? <CircleLoader className="middle-loader" /> : members.map((member, index) => (
+              <Member
+                key={index}
+                member={member}
+              >
+                <button
+                  type="button"
+                  className={!member.isSelected ? "button member__button" : "button member__button member__button_edit"}
+                  onClick={() => selectMember(member.id)}
                 >
-                  <button
-                    type="button"
-                    className={!member.isSelected ? "button member__button" : "button member__button member__button_edit"}
-                    onClick={() => !member.isSelected ? selectMember(member.id) : editMember(member.id)}
-                  >
-                    { !member.isSelected ? "Select" : "Edit" }
-                  </button>
-                </Member>
-              ))
-            }
+                  { !member.isSelected ? "Select" : "Edit" }
+                </button>
+              </Member>
+            ))}
           </div>
           <div className="inputGroup">
             <button
