@@ -8,6 +8,9 @@ import migrationManager from "@fh-health/manager/migrationManager"
 import CircleLoader from "@fh-health/component/utils/circleLoader"
 import * as Sentry from "@sentry/nextjs"
 import {UseAuthDataStateValue} from "@fh-health/context/authContext"
+import MigrationInitialModal from "@fh-health/component/base/migration/initialModal"
+import SuccessModal from "@fh-health/component/base/migration/successModal"
+import AllSetModal from "@fh-health/component/base/migration/allSetModal"
 
 enum memberSelectType {
   Dependent = "dependent",
@@ -26,6 +29,7 @@ const MigrationFlowView = () => {
   const [members, setMembers] = useState([])
   const [patientsForMigration, setPatientsForMigration] = useState([])
   const [isHostPatientDefined, setIsHostPatientDefined] = useState<boolean>(false)
+  const [error, setError] = useState<string>("")
   const [selectedMember, setSelectedMember] = useState({
     id: null,
     firstName: "",
@@ -104,6 +108,7 @@ const MigrationFlowView = () => {
       const membersList = data.data.map((member, index) => ({...member, id: index, isSelected: false}))
       setMembers(membersList)
     } catch (err) {
+      setError(err.response.data.status.message)
       Sentry.captureException(err)
     }
     setIsFetching(false)
@@ -117,32 +122,11 @@ const MigrationFlowView = () => {
         setFinalModalView(true)
       }
     } catch (err) {
+      setError(err.response.data.status.message)
       Sentry.captureException(err)
     }
     setLoading(false)
   }
-
-  const displayMigrationInitialModal = () => (
-    <div className="migration-modal">
-      <Modal>
-        <Card permissions>
-          <div className="card__header">
-            <h4 className="card__header-title">Migrate Your Results</h4>
-            <p className="card__header-message">
-              Looks like you have used our services before. We&apos;ll need your help to migrate the existing results.
-            </p>
-          </div>
-          <button
-            type="button"
-            className="button card__button"
-            onClick={() => setInitialModalView(false)}
-          >
-            Continue
-          </button>
-        </Card>
-      </Modal>
-    </div>
-  )
 
   const displayOrganizedDataModal = () => (
     <div className="migration-modal">
@@ -218,53 +202,6 @@ const MigrationFlowView = () => {
     </div>
   )
 
-  const displaySuccessModal = () => (
-    <div className="migration-modal migration-modal_success">
-      <Modal>
-        <Card permissions>
-          <div className="card__media card__media_sm">
-            <Image src="/check.svg" alt="kit number" height={64} width={64} />
-          </div>
-          <div className="card__header">
-            <h4 className="card__header-title">Success!</h4>
-            <p className="card__header-message">
-              Added {selectedMember.firstName} as a new Dependent/Family/Friend
-            </p>
-          </div>
-          <button
-            type="button"
-            className="button card__button"
-            onClick={() => setSuccessModalView(false)}
-          >
-            Ok
-          </button>
-        </Card>
-      </Modal>
-    </div>
-  )
-
-  const displayFinalModal = () => (
-    <div className="migration-modal migration-modal_success">
-      <Modal>
-        <Card permissions>
-          <div className="card__media card__media_sm">
-            <Image src="/check.svg" alt="kit number" height={64} width={64} />
-          </div>
-          <div className="card__header">
-            <h4 className="card__header-title">You&apos;re all set!</h4>
-          </div>
-          <button
-            type="button"
-            className="button card__button"
-            onClick={() => setFinalModalView(false)}
-          >
-            Continue
-          </button>
-        </Card>
-      </Modal>
-    </div>
-  )
-
   useEffect(() => {
     (async () => {
       await getUnconfirmedPatients()
@@ -308,6 +245,7 @@ const MigrationFlowView = () => {
             ))}
           </div>
           <div className="inputGroup">
+            {error && <p className="error-message">{error}</p>}
             {loading ? <CircleLoader className="middle-loader" /> : (
               <button
                 type="button"
@@ -324,10 +262,16 @@ const MigrationFlowView = () => {
           </div>
         </PureBlock>
       </div>
-      {initialModalView && displayMigrationInitialModal()}
+      {initialModalView && <MigrationInitialModal closeModal={() => setInitialModalView(false)} />}
       {organizedDataModal && displayOrganizedDataModal()}
-      {successModalView && displaySuccessModal()}
-      {finalModalView && displayFinalModal()}
+      {
+        successModalView &&
+          <SuccessModal
+            closeModal={() => setSuccessModalView(false)}
+            firstName={selectedMember.firstName}
+          />
+      }
+      {finalModalView && <AllSetModal closeModal={() => setFinalModalView(false)} />}
     </>
   )
 }

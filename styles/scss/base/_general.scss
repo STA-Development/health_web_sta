@@ -89,6 +89,11 @@ a {
   line-height: 1.4;
 }
 
+.error-message {
+  text-align: center;
+  color: $fhhealth-color-danger;
+}
+
 .centered-content {
   @include setDisplay(flex, center, center);
   height: 100%;
