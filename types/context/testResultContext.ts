@@ -48,5 +48,6 @@ export enum TestTypes {
   AntibodyAll = 'Antibody_All',
   PCR = 'PCR',
   RapidAntigenAtHome = 'RapidAntigenAtHome',
+  RapidAntigen = 'RapidAntigen',
   BioradAntiBody = 'Biorad-Anti-Body',
 }

@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
 import {TestTypes} from '@fh-health/types/context/testResultContext'
 import moment from 'moment'
@@ -29,7 +29,8 @@ const Header = () => {
             <PcrSvg style={testResultState.testResult.style.toLowerCase()} />
           )
         )}
-        {testResultState?.testResult.testType === TestTypes.RapidAntigenAtHome && <RapidAtHome />}
+        {testResultState?.testResult.testType === TestTypes.RapidAntigenAtHome ||
+          (testResultState?.testResult.testType === TestTypes.RapidAntigen && <RapidAtHome />)}
 
         <div className="test-info">
           <p data-cy="test-status" className="test-info__result">
