@@ -76,8 +76,7 @@ a {
 }
 
 .button_disabled {
-  background-color: $fhhealth-color-light-gray-text !important;
-  pointer-events: none !important;
+  pointer-events: none;
 }
 .grecaptcha-badge {
   display: none;

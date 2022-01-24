@@ -81,7 +81,7 @@ const PermissionsModal = ({ closeModal, openDenyModal }: {closeModal: () => void
         <button
           type="button"
           className={`button card__button ${
-            doesObjectContainFalsyValue(checkedItems) ? 'button_disabled' : ''
+            doesObjectContainFalsyValue(checkedItems) ? 'button_disabled card__button_disabled' : ''
           }`}
           onClick={handleMediaAcceptance}
         >

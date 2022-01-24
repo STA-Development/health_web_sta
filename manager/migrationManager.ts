@@ -9,6 +9,20 @@ const migrationManager = {
         ...authHeader(),
       },
     })
+  },
+  migrateSelectedPatients(patients: object[]) {
+    return Axios({
+      baseURL: process.env.USER_SERVICE_URL,
+    }).post(
+      '/user/api/v1/patients/migrate',
+      {
+        migrations: patients
+      },
+      {
+      headers: {
+        ...authHeader(),
+      },
+    })
   }
 }
 

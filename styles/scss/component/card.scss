@@ -147,6 +147,10 @@
   border-radius: 5px;
   font-size: 20px;
   padding: 16px 0;
+
+  &_disabled {
+    background-color: $fhhealth-color-test-analysis-data-border;
+  }
 }
 
 .checkbox-circle {

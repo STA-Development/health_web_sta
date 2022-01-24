@@ -7,10 +7,11 @@ import Card from "@fh-health/component/utils/card"
 import migrationManager from "@fh-health/manager/migrationManager"
 import CircleLoader from "@fh-health/component/utils/circleLoader"
 import * as Sentry from "@sentry/nextjs"
+import {UseAuthDataStateValue} from "@fh-health/context/authContext"
 
 enum memberSelectType {
-  Select = "select",
-  Dependent = "dependent"
+  Dependent = "dependent",
+  You = "you"
 }
 
 const MigrationFlowView = () => {
@@ -20,14 +21,20 @@ const MigrationFlowView = () => {
   const [dependentUserView, setDependentUserView] = useState<boolean>(false)
   const [successModalView, setSuccessModalView] = useState<boolean>(false)
   const [finalModalView, setFinalModalView] = useState<boolean>(false)
+  const [isFetching, setIsFetching] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
-  const [members, setMembers] = useState([]);
+  const [members, setMembers] = useState([])
+  const [patientsForMigration, setPatientsForMigration] = useState([])
+  const [isHostPatientDefined, setIsHostPatientDefined] = useState<boolean>(false)
   const [selectedMember, setSelectedMember] = useState({
     id: null,
     firstName: "",
     isSelected: false,
     resultsCount: null,
+    idPatient: null,
   })
+
+  const { authDataState } = UseAuthDataStateValue()
 
   const selectMember = (id) => {
     setOrganizedDataModal(true)
@@ -35,9 +42,14 @@ const MigrationFlowView = () => {
     setSelectedMember(selectedUser[0])
   }
 
-  const confirmMember = (type = memberSelectType.Select) => {
-    if (type === memberSelectType.Select) {
+  const confirmMember = (type = memberSelectType.You) => {
+    if (type === memberSelectType.You) {
       setOrganizedDataModal(false)
+      setPatientsForMigration([...patientsForMigration, {
+        notConfirmedPatientId: selectedMember?.idPatient,
+        action: "MERGE",
+        patientId: authDataState.patientAccountInformation.organizations?.[0]?.patientId
+      }])
     } else {
       setDependentUserView(true)
       setSelectedMember({...selectedMember, isSelected: false})
@@ -45,11 +57,30 @@ const MigrationFlowView = () => {
 
     const newMembers = members.map(item => {
       if (item.id === selectedMember.id) {
+        if (type === memberSelectType.You) {
+          setIsHostPatientDefined(true)
+          return {
+            ...item,
+            isSelected: true,
+            you: true
+          }
+        }
+
+        if (item.you) {
+          setIsHostPatientDefined(false)
+          return {
+            ...item,
+            isSelected: true,
+            you: false
+          }
+        }
+
         return {
           ...item,
           isSelected: true
         }
       }
+
       return item
     })
 
@@ -67,11 +98,24 @@ const MigrationFlowView = () => {
   }
 
   const getUnconfirmedPatients = async () => {
-    setLoading(true)
+    setIsFetching(true)
     try {
       const { data } = await migrationManager.getPatientsList()
       const membersList = data.data.map((member, index) => ({...member, id: index, isSelected: false}))
       setMembers(membersList)
+    } catch (err) {
+      Sentry.captureException(err)
+    }
+    setIsFetching(false)
+  }
+
+  const confirmPatientsResults = async () => {
+    setLoading(true)
+    try {
+      const { status } = await migrationManager.migrateSelectedPatients(patientsForMigration)
+      if (status === 201) {
+        setFinalModalView(true)
+      }
     } catch (err) {
       Sentry.captureException(err)
     }
@@ -114,7 +158,11 @@ const MigrationFlowView = () => {
               </div>
               <button
                 type="button"
-                className="button card__button migration-modal__button"
+                className={
+                  !isHostPatientDefined
+                  ? "button card__button migration-modal__button"
+                  : "button button_disabled card__button card__button_disabled"
+                }
                 onClick={() => confirmMember()}
               >
                 You
@@ -148,7 +196,7 @@ const MigrationFlowView = () => {
                     type="button"
                     className="button member__button"
                     onClick={() => {
-                      confirmMember()
+                      confirmMember(memberSelectType.Dependent)
                       resetOrganizedViewsState()
                     }}
                   >
@@ -224,7 +272,7 @@ const MigrationFlowView = () => {
   }, [])
 
   useEffect(() => {
-    if (members.every(member => member.isSelected)) {
+    if (members.length && members.every(member => member.isSelected)) {
       setConfirmButtonState(true)
     } else {
       setConfirmButtonState(false)
@@ -244,7 +292,7 @@ const MigrationFlowView = () => {
             (include variations or misspellings of your name) or dependents, family, or friends.
           </p>
           <div className="migration__members">
-            {loading ? <CircleLoader className="middle-loader" /> : members.map((member, index) => (
+            {isFetching ? <CircleLoader className="middle-loader" /> : members.map((member, index) => (
               <Member
                 key={index}
                 member={member}
@@ -260,17 +308,19 @@ const MigrationFlowView = () => {
             ))}
           </div>
           <div className="inputGroup">
-            <button
-              type="button"
-              className={
-                confirmButtonState
-                  ? 'button inputGroup__button migration__button migration__button_active'
-                  : 'button inputGroup__button migration__button inputGroup__button_disabled'
-              }
-              onClick={() => setFinalModalView(true)}
-            >
-              Confirm
-            </button>
+            {loading ? <CircleLoader className="middle-loader" /> : (
+              <button
+                type="button"
+                className={
+                  confirmButtonState
+                    ? 'button inputGroup__button migration__button migration__button_active'
+                    : 'button inputGroup__button migration__button inputGroup__button_disabled'
+                }
+                onClick={confirmPatientsResults}
+              >
+                Confirm
+              </button>
+            )}
           </div>
         </PureBlock>
       </div>
