@@ -1,13 +1,17 @@
 @import '../abstracts/mixins';
 
 .web-portal-results {
-  max-width: 640px;
-  margin: 48px auto 82px;
+  margin: 116px auto;
+  padding: 0 16px;
+
+  .card {
+    margin: 0 auto;
+  }
 }
 
 .result-header {
   @include setFontAppearance($fhhealth-font-DM-medium, 500, normal, normal);
-  @include setFontSizes(22px, 1.27px, unset);
+  @include setFontSizes(22px, unset, unset);
   color: $fhhealth-color-dark-black;
   margin-bottom: 16px;
   margin-top: 24px;

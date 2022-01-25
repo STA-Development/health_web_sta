@@ -35,11 +35,15 @@
         }
 
         &__button {
-          margin-top: 48px;
+          margin-top: 24px;
         }
 
         &__resend {
           text-align: center;
+        }
+
+        &_verify {
+          margin-top: 24px;
         }
       }
     }

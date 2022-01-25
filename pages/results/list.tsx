@@ -7,6 +7,7 @@ import SingleResultPreload from '@fh-health/component/singleResultPreload'
 import moment from 'moment'
 import * as Sentry from '@sentry/nextjs'
 import testResultManager from '@fh-health/manager/testResultManager'
+import CircleLoader from "@fh-health/component/utils/circleLoader"
 
 interface IResult {
   detailsAvailable: boolean
@@ -23,6 +24,7 @@ const WebPortalResults = () => {
   const [results, setResults] = useState<IResult[]>([])
   const [latestResults, setLatestResults] = useState<boolean>(false)
   const [history, setHistory] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const renderResultsList = (isHistory: boolean) =>
     results.map((test: IResult, index: number) => {
       if (!latestResults) {
@@ -60,6 +62,7 @@ const WebPortalResults = () => {
     })
 
   const getData = async () => {
+    setLoading(true)
     try {
       const response = await testResultManager.getAllTestResults()
       if (response.status) {
@@ -71,6 +74,7 @@ const WebPortalResults = () => {
     } catch (err) {
       Sentry.captureException(err)
     }
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -79,19 +83,27 @@ const WebPortalResults = () => {
     })()
   }, [])
 
-  return history ? (
-    <div className="web-portal-results">
-      {latestResults && <ResultsHeader header="Latest Results" size={0} />}
-      {latestResults && (
-        <TestResultContainer dataForCypress={null}>
-          {results.length > 0 ? renderResultsList(false) : <SingleResultPreload />}
-        </TestResultContainer>
+  return (
+    <>
+      <div className={loading ? 'centered-content' : 'centered-content centered-content_hidden'}>
+        <CircleLoader className="middle-loader" />
+      </div>
+      {history && !loading && (
+        <div className="web-portal-results">
+          {latestResults && <ResultsHeader header="Latest Results" size={0} />}
+          {latestResults && (
+            <TestResultContainer dataForCypress={null}>
+              {results.length > 0 ? renderResultsList(false) : <SingleResultPreload />}
+            </TestResultContainer>
+          )}
+          <ResultsHeader header="Result History" size={0} />
+          <TestResultContainer dataForCypress="history-results">
+            {results.length > 0 ? renderResultsList(true) : <SingleResultPreload />}
+          </TestResultContainer>
+        </div>
       )}
-      <ResultsHeader header="Result History" size={0} />
-      <TestResultContainer dataForCypress="history-results">
-        {results.length > 0 ? renderResultsList(true) : <SingleResultPreload />}
-      </TestResultContainer>
-    </div>
-  ) : <NoResults />
+      {!history && !loading && <NoResults />}
+    </>
+  )
 }
 export default WebPortalResults

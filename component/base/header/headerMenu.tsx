@@ -53,7 +53,7 @@ const HeaderMenu = () => {
             />
           )}
         </div>
-        <div>
+        <div className="main-header__logo">
           <Image
             className="icon"
             src="/group.svg"

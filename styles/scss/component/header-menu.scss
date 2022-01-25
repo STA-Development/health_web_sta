@@ -1,15 +1,19 @@
 @import '../abstracts/mixins';
 
 .main-header {
-  @include setDisplay(flex, center, unset);
+  @include setDisplay(flex, unset, unset);
   width: 100%;
   background-color: $fhhealth-color-white;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
 }
 
+.main-header__logo {
+  margin: 0 auto;
+}
+
 .fullWidthMenu {
   @include setDisplay(flex, space-between, center);
-  width: calc((100% - 48px));
+  width: 100%;
   background: $fhhealth-color-white;
   min-height: 60px;
   font-family: $fhhealth-font-DM-medium;
@@ -31,5 +35,7 @@
 }
 
 .rectangle-13 {
+  position: absolute;
   cursor: pointer;
+  right: 26px;
 }
