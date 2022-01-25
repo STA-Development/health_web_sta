@@ -32,64 +32,100 @@ const Header = () => {
         {testResultState?.testResult.testType === TestTypes.RapidAntigenAtHome ||
           (testResultState?.testResult.testType === TestTypes.RapidAntigen && <RapidAtHome />)}
 
-        <div className="test-info">
-          <p data-cy="test-status" className="test-info__result">
-            {' '}
-            {testResultState.testResult.result}{' '}
-          </p>
-          <p className="test-info__date">
-            {testResultState?.testResult && testResultState?.testResult.resultDate
-              ? changeDate(testResultState.testResult.resultDate, 'MMMM Do, h:mm a')
-              : ''}{' '}
-          </p>
-        </div>
+        {testResultState.testResult && (
+          <div className="test-info">
+            <p data-cy="test-status" className="test-info__result">
+              {' '}
+              {testResultState.testResult.result}{' '}
+            </p>
+            <p className="test-info__date">
+              {testResultState?.testResult && testResultState?.testResult.resultDate
+                ? changeDate(testResultState.testResult.resultDate, 'MMMM Do, h:mm a')
+                : ''}{' '}
+            </p>
+          </div>
+        )}
       </div>
       <div className="user-info">
         <div className="left-column">
-          <div className="field-answer-wrapper">
-            <p className="field">FIRST NAME</p>
-            <p className="answer user-main-answer">{testResultState.testResult.firstName}</p>
-          </div>
-          <div className="field-answer-wrapper">
-            <p className="field">LAST NAME</p>
-            <p className="answer user-main-answer">{testResultState.testResult.lastName}</p>
-          </div>
+          {testResultState.testResult.firstName && (
+            <div className="field-answer-wrapper">
+              <p className="field">FIRST NAME</p>
+              <p className="answer user-main-answer">{testResultState.testResult.firstName}</p>
+            </div>
+          )}
+          {testResultState.testResult.lastName && (
+            <div className="field-answer-wrapper">
+              <p className="field">LAST NAME</p>
+              <p className="answer user-main-answer">{testResultState.testResult.lastName}</p>
+            </div>
+          )}
         </div>
         <div className="right-column">
           <div className="right-column__first">
-            <div className="right-column__first__top">
-              <p className="field">ADDRESS</p>
-              <p className="answer user-secondary-answer">
-                {testResultState.testResult.address}
-                <br />
-              </p>
-            </div>
+            {testResultState.testResult.address && (
+              <div className="right-column__first__top">
+                <p className="field">ADDRESS</p>
+                <p className="answer user-secondary-answer">
+                  {testResultState.testResult.address}
+                  <br />
+                </p>
+              </div>
+            )}
             <div className="right-column__first__bottom">
               <div className="right-column__first__bottom__left">
-                <p className="field">Gender</p>
-                <p className="answer user-secondary-answer">{testResultState.testResult.gender}</p>
+                {testResultState.testResult.gender && (
+                  <>
+                    <p className="field">Gender</p>
+                    <p className="answer user-secondary-answer">
+                      {testResultState.testResult.gender}
+                    </p>
+                  </>
+                )}
 
                 <p className="field">country</p>
                 <p className="answer user-secondary-answer">Canada</p>
               </div>
               <div className="right-column__first__bottom__right">
-                <p className="field">Phone</p>
-                <p className="answer user-secondary-answer">{testResultState.testResult.phone}</p>
+                {testResultState.testResult.phone && (
+                  <>
+                    <p className="field">Phone</p>
+                    <p className="answer user-secondary-answer">
+                      {testResultState.testResult.phone}
+                    </p>
+                  </>
+                )}
 
-                <p className="field">OHIP</p>
-                <p className="answer user-secondary-answer">{testResultState.testResult.ohip}</p>
+                {testResultState.testResult.ohip && (
+                  <>
+                    <p className="field">OHIP</p>
+                    <p className="answer user-secondary-answer">
+                      {testResultState.testResult.ohip}
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           </div>
           <div className="right-column__second">
-            <p className="field">date of birth</p>
-            <p className="answer user-secondary-answer">{testResultState.testResult.dateOfBirth}</p>
+            {testResultState.testResult.dateOfBirth && (
+              <>
+                <p className="field">date of birth</p>
+                <p className="answer user-secondary-answer">
+                  {testResultState.testResult.dateOfBirth}
+                </p>
+              </>
+            )}
             <p className="field">passport no.</p>
             <p className="answer user-secondary-answer">ZE000059</p>
-            <p className="field">issuing country</p>
-            <p className="answer user-secondary-answer">
-              {testResultState.testResult.issuingCountry}
-            </p>
+            {testResultState.testResult.issuingCountry && (
+              <>
+                <p className="field">issuing country</p>
+                <p className="answer user-secondary-answer">
+                  {testResultState.testResult.issuingCountry}
+                </p>
+              </>
+            )}
           </div>
         </div>
       </div>

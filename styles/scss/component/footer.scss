@@ -7,7 +7,7 @@
     width: 88%;
     .content {
       a {
-        color: blue;
+        color: #007aff;
       }
     }
     &__title{
@@ -50,7 +50,11 @@
     }
     .content {
       @include setFontAppearance($fhhealth-font-DM-regular, unset, normal, normal);
-      @include setFontSizes(10px, -0.16px, normal);
+      @include setFontSizes(12px, 1.27, normal);
+      a {
+        color: #007aff;
+        text-decoration: underline;
+      }
     }
     .content:last-child {
       margin-top: 16px;

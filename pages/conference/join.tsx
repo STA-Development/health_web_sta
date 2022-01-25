@@ -159,95 +159,84 @@ const ConferenceJoinView = () => {
         <PermissionsModal closeModal={closeMediaModal} openDenyModal={openPermissionDenyModal} />
       )}
       {permissionDenyModalView && <PermissionsDenyModal />}
-        {(!isLinkExpired && !isFetching) && (
-          <div className="pure-block-wrapper">
-            <div>
-              <PureBlock flow center={false} isNoResults={false}>
-                <div className="logo">
-                  <Image src="/logo.svg" width={136} height={16} alt="logo" />
-                </div>
-                <h4 className="header">Join Video Call</h4>
-                <p className="message">
-                  In order to enter your consultation please locate the code on your kit.
-                </p>
-                <div className="inputGroup inputGroup_kit-code">
-                  <span className="kit-code-label">
-                    Test Kit Number <em>*</em>
-                  </span>
-                  <ReactCodeInput
-                    className={warningMessage ? 'input inputGroup__input_err' : 'input'}
-                    type="text"
-                    placeholder={['-', '-', '-', '-', '-', '-']}
-                    onChange={(value: string) => {
-                      handleKitNumberChange(value)
-                      checkKitNumber(value)
-                    }}
-                  />
-                  {warningMessage?.length ? <p className="wrong-kit-code">{warningMessage}</p> : ''}
-                  <div className="inputGroup__resend">
-                    <span>Can&apos;t locate your test Kit number?</span>
-                    <br />
-                    <button
-                      type="button"
-                      onClick={toggleKitNumberModal}
-                      className="button inputGroup__resend_button"
-                    >
-                      Find kit number
-                    </button>
-                  </div>
-
-                  {loading ? (
-                    <CircleLoader className="middle-loader" />
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => handleJoinClick()}
-                      className={
-                        joinButtonState
-                          ? 'button inputGroup__button'
-                          : 'button inputGroup__button inputGroup__button_disabled'
-                      }
-                      data-cy="join"
-                    >
-                      Join Call
-                    </button>
-                  )}
-                </div>
-              </PureBlock>
-            </div>
-          </div>
-        )}
-        {(isLinkExpired && !isFetching) && (
-          <div className="pure-block-wrapper">
-            <div className="card-wrapper">
-              <Card permissions={false}>
-                <div className="card__media card__media_sm">
-                  <Image src="/error-cross.svg" alt="kit number" height={64} width={64} />
-                </div>
-                <div className="card__content">
-                  <h4 className="card__content-title">Sign-in Link has Expired</h4>
-                  <p className="card__content-message">
-                    Uh Oh, It seems this link has expired. <br />
-                    Please Visit{' '}
-                    <a href="https://www.fhhealth.com/" className="em-link">
-                      fhhealth.com
-                    </a>{' '}
-                    to to speak to a customer <br />
-                    service representative.
-                  </p>
-                </div>
-              </Card>
-
-              <p className="card-wrapper__message">
-                Need help? <br />
-                Live Chat available on{' '}
-                <a href="https://www.fhhealth.com/" className="em-link">
-                  fhhealth.com
-                </a>
+      {!isLinkExpired && !isFetching && (
+        <div className="pure-block-wrapper">
+          <div>
+            <PureBlock flow center={false} isNoResults={false}>
+              <div className="logo">
+                <Image src="/logo.svg" width={136} height={16} alt="logo" />
+              </div>
+              <h4 className="header">Join Video Call</h4>
+              <p className="message">
+                In order to enter your consultation please locate the code on your kit.
               </p>
-            </div>
+              <div className="inputGroup inputGroup_kit-code">
+                <span className="kit-code-label">
+                  Test Kit Number <em>*</em>
+                </span>
+                <ReactCodeInput
+                  className={warningMessage ? 'input inputGroup__input_err' : 'input'}
+                  type="text"
+                  placeholder={['-', '-', '-', '-', '-', '-']}
+                  onChange={(value: string) => {
+                    handleKitNumberChange(value)
+                    checkKitNumber(value)
+                  }}
+                />
+                {warningMessage?.length ? <p className="wrong-kit-code">{warningMessage}</p> : ''}
+
+                {loading ? (
+                  <CircleLoader className="middle-loader" />
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => handleJoinClick()}
+                    className={
+                      joinButtonState
+                        ? 'button inputGroup__button'
+                        : 'button inputGroup__button inputGroup__button_disabled'
+                    }
+                    data-cy="join"
+                  >
+                    Join Call
+                  </button>
+                )}
+              </div>
+            </PureBlock>
           </div>
-        )}
+        </div>
+      )}
+      {isLinkExpired && !isFetching && (
+        <div className="pure-block-wrapper">
+          <div className="card-wrapper">
+            <Card permissions={false}>
+              <div className="card__media card__media_sm">
+                <Image src="/error-cross.svg" alt="kit number" height={64} width={64} />
+              </div>
+              <div className="card__content">
+                <h4 className="card__content-title">Sign-in Link has Expired</h4>
+                <p className="card__content-message">
+                  Uh Oh, It seems this link has expired. <br />
+                  Please Visit{' '}
+                  <a href="https://www.fhhealth.com/" className="em-link">
+                    fhhealth.com
+                  </a>{' '}
+                  to to speak to a customer <br />
+                  service representative.
+                </p>
+              </div>
+            </Card>
+
+            <p className="card-wrapper__message">
+              Need help? <br />
+              Live Chat available on{' '}
+              <a href="https://www.fhhealth.com/" className="em-link">
+                fhhealth.com
+              </a>
+            </p>
+          </div>
+        </div>
+      )}
     </>
   )
 }

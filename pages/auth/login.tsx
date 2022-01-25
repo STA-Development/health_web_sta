@@ -12,7 +12,7 @@ import Notification from '@fh-health/component/notification'
 import AuthManager from '@fh-health/manager/authManager'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/bootstrap.css'
-import Card from "@fh-health/component/utils/card"
+import Card from '@fh-health/component/utils/card'
 
 interface IFirebaseAuthProps {
   user?: {
@@ -104,6 +104,7 @@ const Login = () => {
 
   const handleVerificationCodeChange = (code: string) => {
     setVerificationCode(code)
+    setErrMessage('')
   }
 
   const handlePhoneNumberChange = (number: string) => {
@@ -170,8 +171,8 @@ const Login = () => {
         <div className="card__content">
           <h4 className="card__content-title">Phone Number Verified!</h4>
           <p className="card__content-message">
-            Your Mobile Phone Number has been verified.
-            Your results will be sent to you via SMS as soon as they are available
+            Your Mobile Phone Number has been verified. Your results will be sent to you via SMS as
+            soon as they are available
           </p>
         </div>
         <button
@@ -302,7 +303,7 @@ const Login = () => {
                       <button
                         type="button"
                         className={
-                          verifyButtonState && displayDuration === 0
+                          verifyButtonState && displayDuration === 0 && !errMessage
                             ? 'button inputGroup__button'
                             : 'button inputGroup__button inputGroup__button_disabled'
                         }

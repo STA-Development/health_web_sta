@@ -80,6 +80,8 @@
 
       .codeInput-err input{
         border: 1px solid $fhhealth-color-red-btn;
+        background-color: #fff0f0;
+
 
         &:nth-child(even) {
           border-left: 1px solid transparent;

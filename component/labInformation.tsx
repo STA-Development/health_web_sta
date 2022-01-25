@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 
 import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
 import moment from 'moment'
@@ -17,25 +17,39 @@ const LabInformation = () => {
       <div className="left-part-wrapper">
         <div className="left-top-wrapper">
           <div className="first-column">
-            <p className="field">date of test</p>
-            <p className="answer test-answer">
-              {changeDate(testResultState.testResult.dateTime, 'MMMM Do, h:mm a')}
-            </p>
+            {testResultState.testResult.dateTime && (
+              <>
+                <p className="field">date of test</p>
+                <p className="answer test-answer">
+                  {changeDate(testResultState.testResult.dateTime, 'MMMM Do, h:mm a')}
+                </p>
+              </>
+            )}
 
-            <p className="field">test-type</p>
-            <p className="answer test-answer">{testResultState.testResult.testType}</p>
+            {testResultState.testResult.testType && (
+              <>
+                <p className="field">test-type</p>
+                <p className="answer test-answer">{testResultState.testResult.testType}</p>
+              </>
+            )}
           </div>
 
           <div className="second-column">
-            <p className="field">date of results</p>
-            <p className="answer test-answer">
-              {testResultState?.testResult && testResultState.testResult?.resultDate
-                ? changeDate(testResultState.testResult.resultDate, 'MMMM Do, h:mm a')
-                : ''}
-            </p>
+            {testResultState.testResult?.resultDate && (
+              <>
+                <p className="field">date of results</p>
+                <p className="answer test-answer">
+                  {changeDate(testResultState.testResult.resultDate, 'MMMM Do, h:mm a')}
+                </p>
+              </>
+            )}
 
-            <p className="field">collection method</p>
-            <p className="answer test-answer">{testResultState.testResult.swabMethod}</p>
+            {testResultState.testResult?.swabMethod && (
+              <>
+                <p className="field">collection method</p>
+                <p className="answer test-answer">{testResultState.testResult.swabMethod}</p>
+              </>
+            )}
           </div>
         </div>
         {testResultState?.testResult?.equipment && (
@@ -47,19 +61,32 @@ const LabInformation = () => {
       </div>
       <div className="right-part-wrapper">
         <div className="right-part-first-column">
-          <p className="field">collection nurse</p>
-          <p className="answer test-answer">
-            {testResultState.testResult.registeredNursePractitioner}
-          </p>
+          {testResultState.testResult?.registeredNursePractitioner && (
+            <>
+              <p className="field">collection nurse</p>
+              <p className="answer test-answer">
+                {testResultState.testResult.registeredNursePractitioner}
+              </p>
+            </>
+          )}
 
           <p className="field">Testing Clinic</p>
           <p className="answer test-answer">Daye Choi RPN</p>
-          <p className="field">Testing Lab</p>
-          <p className="answer test-answer">{testResultState.testResult.labName}</p>
+
+          {testResultState.testResult.labName && (
+            <>
+              <p className="field">Testing Lab</p>
+              <p className="answer test-answer">{testResultState.testResult.labName}</p>
+            </>
+          )}
         </div>
         <div className="right-part-second-column">
-          <p className="field">ordering physician</p>
-          <p className="answer test-answer">{testResultState.testResult.physician}</p>
+          {testResultState.testResult.physician && (
+            <>
+              <p className="field">ordering physician</p>
+              <p className="answer test-answer">{testResultState.testResult.physician}</p>
+            </>
+          )}
 
           <p className="field">location</p>
           <p className="answer test-answer">Toronto, ON</p>

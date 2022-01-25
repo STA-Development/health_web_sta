@@ -52,7 +52,6 @@
           }
           .right-column__first__bottom__right {
             @include setDisplay(flex, unset, unset, column);
-            padding-left: 24px;
           }
         }
       }
