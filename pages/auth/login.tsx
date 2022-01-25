@@ -287,6 +287,7 @@ const Login = () => {
                     />
                     {displayDuration === 0 ? (
                       <div className="inputGroup__resend">
+                        <span>Didn&apos;t receive the SMS?</span>
                         <button
                           type="button"
                           onClick={startCountdown}
@@ -296,7 +297,7 @@ const Login = () => {
                         </button>
                       </div>
                     ) : (
-                      <span>Resend Code in {displayDuration}</span>
+                      <span className="inputGroup__resend-counter">Resend Code in {displayDuration}</span>
                     )}
                     {loading ? (
                       <CircleLoader className="middle-loader" />

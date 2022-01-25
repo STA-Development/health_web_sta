@@ -40,10 +40,6 @@
 
         &__resend {
           text-align: center;
-
-          &_button {
-            margin-top: -10px;
-          }
         }
       }
     }
@@ -52,6 +48,10 @@
 
 @media (max-width: $fhhealth-media-xs) {
   .pure-block-wrapper {
+
+    .contentOutline {
+      margin-top: calc(50% - 110px);
+    }
 
     .content .inputGroup_kit-code .kit-code-label {
       @include setElementSize(277px, unset)

@@ -168,11 +168,15 @@
 
     .inputGroup__resend {
       @include setDisplay(flex, unset, center, column);
-      margin-top: 32px;
+      margin-top: 24px;
 
       span {
-        color: rgba(35, 35, 37, 0.6);
+        color: $fhhealth-color-dark-black;
       }
+    }
+
+    .inputGroup__resend-counter {
+      margin-top: 24px;
     }
 
     .inputGroup__button {
@@ -192,6 +196,7 @@
 
     .inputGroup__resend_button {
       font-size: 16px;
+      margin-top: 8px;
       font-weight: 500;
       color: $fhhealth-color-blue-btn;
 
