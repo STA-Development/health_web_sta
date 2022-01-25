@@ -3,30 +3,13 @@ export interface IAuthState {
   reCaptchaVerifier: unknown
   phoneNumber: string
   patientAccountInformation: IPatientAccountInformation
-}
-
-export interface PatientInfo {
-  city?: string | null
-  consentFileUrl?: string | null
-  country?: string | null
-  dateOfBirth?: string | null
-  email?: string | null
-  firstName?: string
-  homeAddress?: string | null
-  homeAddressUnit?: string | null
-  id?: string
-  lastName?: string
-  organizations?: [] | null
-  patientPublicId?: string
-  phoneNumber?: string
-  photoUrl?: string | null
-  postalCode?: string | null
-  province?: string | null
-  trainingCompletedOn?: null | string
+  patientAccountInformationCalled: boolean
+  getPatientInformation: () => Promise<IPatientAccountInformation>
 }
 
 export interface IPatientAccountInformation {
   isEmailVerified: boolean
+  migrationRequired: boolean
   organizations: [
     {
       firebaseOrganizationId: string
@@ -50,5 +33,14 @@ export type IAuthActions =
     }
   | {
       type: 'UPDATE_PATIENT_ACCOUNT_INFORMATION'
+      patientAccountInformation: IPatientAccountInformation
+    }
+  | {
+      type: 'UPDATE_PATIENT_ACCOUNT_INFORMATION_CALLED'
+      patientAccountInformationCalled: boolean
+    }
+  | {
+      type: 'UPDATE_PATIENT_ACCOUNT_INFORMATION_AND_RESET_CALL_STATE'
+      patientAccountInformationCalled: boolean
       patientAccountInformation: IPatientAccountInformation
     }

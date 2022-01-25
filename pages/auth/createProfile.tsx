@@ -1,34 +1,43 @@
-import React, {useEffect, useState} from "react"
-import PureBlock from "@fh-health/component/pureBlock"
-import Image from "next/image"
-import CircleLoader from "@fh-health/component/utils/circleLoader"
-import Notification from "@fh-health/component/notification"
-import {useRouter} from "next/router"
-import authManager from "@fh-health/manager/authManager"
-import Card from "@fh-health/component/utils/card"
+import React, {useEffect, useState} from 'react'
+import PureBlock from '@fh-health/component/pureBlock'
+import Image from 'next/image'
+import CircleLoader from '@fh-health/component/utils/circleLoader'
+import Notification from '@fh-health/component/notification'
+import {useRouter} from 'next/router'
+import authManager from '@fh-health/manager/authManager'
+import Card from '@fh-health/component/utils/card'
+import AuthContextStaticData from '@fh-health/static/authContextStaticData'
+import {UseAuthDataStateValue} from '@fh-health/context/authContext'
 
 const CreateProfile = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [createButtonState, setCreateButtonState] = useState<boolean>(false)
-  const [firstName, setFirstName] = useState<string>("")
-  const [lastName, setLastName] = useState<string>("")
-  const [email, setEmail] = useState<string>("")
-  const [error, setError] = useState<string>("")
+  const [firstName, setFirstName] = useState<string>('')
+  const [lastName, setLastName] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [error, setError] = useState<string>('')
   const [emailVerifyRequiredView, setEmailVerifyRequiredView] = useState<boolean>(false)
   const router = useRouter()
+  const {authDataState, setAuthDataState} = UseAuthDataStateValue()
 
   const handleCreateClick = async () => {
     setLoading(true)
-    setError("")
+    setError('')
     try {
       const response = await authManager.createUserProfile(firstName, lastName, email)
-      const { isEmailVerified } = response.data.data
+      if (response?.data?.data) {
+        setAuthDataState({
+          type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION,
+          patientAccountInformation: response.data.data,
+        })
+      }
+      const {isEmailVerified} = response.data.data
       if (!isEmailVerified) {
         setLoading(false)
         setEmailVerifyRequiredView(true)
       }
     } catch (err) {
-      const { message } = err.response.data.status
+      const {message} = err.response.data.status
       setError(message)
     }
     setLoading(false)
@@ -39,6 +48,17 @@ const CreateProfile = () => {
       setCreateButtonState(true)
     }
   }, [firstName, lastName, email])
+
+  useEffect(() => {
+    if (!authDataState.patientAccountInformation.organizations[0].patientId) {
+      setAuthDataState({
+        type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION_CALLED,
+        patientAccountInformationCalled: true,
+      })
+    } else {
+      router.push('/auth/emailVerification')
+    }
+  }, [authDataState.patientAccountInformation])
 
   const displayEmailVerifyRequiredView = () => (
     <div className="pure-block-wrapper">
@@ -75,10 +95,13 @@ const CreateProfile = () => {
     </div>
   )
 
-  return emailVerifyRequiredView ? displayEmailVerifyRequiredView() : (
+  return emailVerifyRequiredView ? (
+    displayEmailVerifyRequiredView()
+  ) : (
     <>
       <Notification type="warning">
-        Please ensure your First & Last Name are correct, as you will not be able to change this later
+        Please ensure your First & Last Name are correct, as you will not be able to change this
+        later
       </Notification>
       <div className="pure-block-wrapper pure-block-wrapper_create-profile">
         <div>
@@ -88,11 +111,15 @@ const CreateProfile = () => {
             </div>
             <h4 className="header">Create Your Profile</h4>
             <p className="message">
-              Upload a clear picture of yourself and provide a few pieces of information to get started.
+              Upload a clear picture of yourself and provide a few pieces of information to get
+              started.
             </p>
             <div className="inputGroup inputGroup_create-profile">
-
-              <div className={error ? "inputGroup__field inputGroup__field_error" : "inputGroup__field"}>
+              <div
+                className={
+                  error ? 'inputGroup__field inputGroup__field_error' : 'inputGroup__field'
+                }
+              >
                 <label htmlFor="firstName">
                   <span>
                     First Name <em>*</em>
@@ -107,7 +134,11 @@ const CreateProfile = () => {
                 </label>
               </div>
 
-              <div className={error ? "inputGroup__field inputGroup__field_error" : "inputGroup__field"}>
+              <div
+                className={
+                  error ? 'inputGroup__field inputGroup__field_error' : 'inputGroup__field'
+                }
+              >
                 <label htmlFor="lastName">
                   <span>
                     Last Name <em>*</em>
@@ -122,7 +153,11 @@ const CreateProfile = () => {
                 </label>
               </div>
 
-              <div className={error ? "inputGroup__field inputGroup__field_error" : "inputGroup__field"}>
+              <div
+                className={
+                  error ? 'inputGroup__field inputGroup__field_error' : 'inputGroup__field'
+                }
+              >
                 <label htmlFor="email">
                   <span>
                     Email Address <em>*</em>

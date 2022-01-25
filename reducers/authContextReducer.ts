@@ -23,6 +23,17 @@ const AuthContextReducer = (state: IAuthState, action: IAuthActions) => {
         ...state,
         patientAccountInformation: action.patientAccountInformation,
       }
+    case AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION_CALLED:
+      return {
+        ...state,
+        patientAccountInformationCalled: action.patientAccountInformationCalled,
+      }
+    case AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION_AND_RESET_CALL_STATE:
+      return {
+        ...state,
+        patientAccountInformationCalled: action.patientAccountInformationCalled,
+        patientAccountInformation: action.patientAccountInformation,
+      }
     default:
       return state
   }

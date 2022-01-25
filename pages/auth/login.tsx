@@ -9,7 +9,6 @@ import * as Sentry from '@sentry/nextjs'
 import ReactCodeInput from 'react-verification-code-input'
 import {useRouter} from 'next/router'
 import Notification from '@fh-health/component/notification'
-import AuthManager from '@fh-health/manager/authManager'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/bootstrap.css'
 import Card from '@fh-health/component/utils/card'
@@ -50,14 +49,14 @@ const Login = () => {
 
   const getPatientAccountInformation = async () => {
     try {
-      const response = await AuthManager.getPatientInformation()
-      if (response.data.data) {
+      const response = await authDataState.getPatientInformation()
+      if (response) {
         setAuthDataState({
           type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION,
-          patientAccountInformation: response?.data?.data,
+          patientAccountInformation: response,
         })
       }
-      return response?.data?.data
+      return response
     } catch (e) {
       Sentry.captureException(e)
     }
@@ -131,6 +130,8 @@ const Login = () => {
               if (patientAccountInformation) {
                 if (!patientAccountInformation?.isEmailVerified) {
                   router.push(`/auth/emailVerification`)
+                } else if (patientAccountInformation.migrationRequired) {
+                  router.push(`/migration`)
                 } else {
                   router.push(`/results/list`)
                 }

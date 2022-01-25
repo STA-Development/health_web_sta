@@ -8,6 +8,8 @@ import AuthManager from '@fh-health/manager/authManager'
 import * as Sentry from '@sentry/nextjs'
 import {UseAuthDataStateValue} from '@fh-health/context/authContext'
 import EmailAddressVerified from '@fh-health/component/emailAddressVerified'
+import AuthContextStaticData from '@fh-health/static/authContextStaticData'
+import {useRouter} from 'next/router'
 
 const EmailVerification = () => {
   const [loading, setLoading] = useState<boolean>(false)
@@ -17,7 +19,8 @@ const EmailVerification = () => {
   const [verificationCode, setVerificationCode] = useState<string>('')
   const [verifyButtonState, setVerifyButtonState] = useState<boolean>(false)
   const [isEmailVerificationCompleted, setIsEmailVerificationCompleted] = useState<boolean>(false)
-  const {authDataState} = UseAuthDataStateValue()
+  const {authDataState, setAuthDataState} = UseAuthDataStateValue()
+  const router = useRouter()
 
   const sendEmailVerificationEmail = async () => {
     setLoading(true)
@@ -79,6 +82,21 @@ const EmailVerification = () => {
   useEffect(() => {
     sendEmailVerificationEmail()
   }, [])
+
+  useEffect(() => {
+    if (!authDataState.patientAccountInformation.organizations[0].patientId) {
+      setAuthDataState({
+        type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION_CALLED,
+        patientAccountInformationCalled: true,
+      })
+    } else if (
+      authDataState.patientAccountInformation.isEmailVerified &&
+      authDataState?.patientAccountInformation?.migrationRequired
+    ) {
+      router.push('/migration')
+    }
+  }, [authDataState.patientAccountInformation])
+
   return isEmailVerificationCompleted ? (
     <EmailAddressVerified />
   ) : (
