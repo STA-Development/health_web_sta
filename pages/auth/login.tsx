@@ -74,7 +74,7 @@ const Login = () => {
     } catch (err) {
       Sentry.captureException(err)
       getFirebaseCaptcha()
-      setWarningMessage(err.message)
+      setWarningMessage("The phone number you have entered was not recognized. Please enter the Mobile Phone Number used when booking your appointment.")
     }
   }
 
