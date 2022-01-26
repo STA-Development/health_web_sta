@@ -163,6 +163,12 @@ const Login = () => {
     else setVerifyButtonState(false)
   }
 
+  const handleEnterKeyPress = async () => {
+    if (loginButtonState) {
+      await handlePhoneSMSSend()
+    }
+  }
+
   const displaySmsVerificationSuccessView = () => (
     <div className="card-wrapper">
       <Card permissions={false}>
@@ -203,6 +209,23 @@ const Login = () => {
     }
   }, [])
 
+  useEffect(() => {
+    const pressVerifyButton = async (event) => {
+      if (event.key === "Enter" && verifyButtonState) {
+        await handleVerifyCode(event)
+      }
+    }
+
+    if (isVerificationCodeSent) {
+      document.addEventListener("keyup", pressVerifyButton)
+    }
+
+    return () => {
+      setAuthDataState({type: AuthContextStaticData.UPDATE_RE_CAPTCHA, reCaptchaVerifier: ''})
+      document.removeEventListener("keyup", pressVerifyButton)
+    }
+  }, [isVerificationCodeSent, verifyButtonState])
+
   return (
     <>
       {warningMessage && <Notification type="warning">{warningMessage}</Notification>}
@@ -232,6 +255,7 @@ const Login = () => {
                       checkPhoneNumber(phone, 'login')
                     }}
                     inputClass={warningMessage ? 'inputGroup__input_err' : ''}
+                    onEnterKeyPress={handleEnterKeyPress}
                   />
 
                   {loading ? (

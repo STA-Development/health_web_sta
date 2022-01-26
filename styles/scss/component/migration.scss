@@ -58,8 +58,10 @@
 }
 
 .member__button {
+  width: 100%;
+  padding: 8px 0;
+  max-width: 76px;
   font-size: 15px;
-  padding: 8px 16px;
   border-radius: 5px;
   letter-spacing: -0.36px;
   color: $fhhealth-color-white;
