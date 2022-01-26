@@ -20,6 +20,7 @@ const initialState: IAuthState = {
     ],
   },
   patientAccountInformationCalled: false,
+  isOnFlow: false,
   getPatientInformation: async () => {
     try {
       const response = await AuthManager.getPatientInformation()

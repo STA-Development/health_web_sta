@@ -10,6 +10,7 @@ import {UseAuthDataStateValue} from '@fh-health/context/authContext'
 import EmailAddressVerified from '@fh-health/component/emailAddressVerified'
 import AuthContextStaticData from '@fh-health/static/authContextStaticData'
 import {useRouter} from 'next/router'
+import {localStore} from "@fh-health/utils/storage"
 
 const EmailVerification = () => {
   const [loading, setLoading] = useState<boolean>(false)
@@ -80,7 +81,15 @@ const EmailVerification = () => {
   }
 
   useEffect(() => {
-    sendEmailVerificationEmail()
+    const token = localStore(localStorage).getItem('accessToken')
+
+    ;(async () => {
+      await sendEmailVerificationEmail()
+    })()
+
+    if (!token) {
+      router.push("/auth/login")
+    }
   }, [])
 
   useEffect(() => {

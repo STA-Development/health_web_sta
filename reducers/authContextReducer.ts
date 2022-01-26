@@ -34,6 +34,11 @@ const AuthContextReducer = (state: IAuthState, action: IAuthActions) => {
         patientAccountInformationCalled: action.patientAccountInformationCalled,
         patientAccountInformation: action.patientAccountInformation,
       }
+    case AuthContextStaticData.SET_FLOW_CHECKMARK:
+      return {
+        ...state,
+        isOnFlow: action.flowCheckmark
+      }
     default:
       return state
   }

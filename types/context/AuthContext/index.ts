@@ -4,6 +4,7 @@ export interface IAuthState {
   phoneNumber: string
   patientAccountInformation: IPatientAccountInformation
   patientAccountInformationCalled: boolean
+  isOnFlow: boolean
   getPatientInformation: () => Promise<IPatientAccountInformation>
 }
 
@@ -39,6 +40,10 @@ export type IAuthActions =
       type: 'UPDATE_PATIENT_ACCOUNT_INFORMATION_CALLED'
       patientAccountInformationCalled: boolean
     }
+  | {
+    type: 'SET_FLOW_CHECKMARK'
+    flowCheckmark: boolean
+  }
   | {
       type: 'UPDATE_PATIENT_ACCOUNT_INFORMATION_AND_RESET_CALL_STATE'
       patientAccountInformationCalled: boolean

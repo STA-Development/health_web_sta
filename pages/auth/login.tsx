@@ -131,6 +131,7 @@ const Login = () => {
                 if (!patientAccountInformation?.isEmailVerified) {
                   router.push(`/auth/emailVerification`)
                 } else if (patientAccountInformation.migrationRequired) {
+                  setAuthDataState({ type: AuthContextStaticData.SET_FLOW_CHECKMARK, flowCheckmark: true })
                   router.push(`/migration`)
                 } else {
                   router.push(`/results/list`)

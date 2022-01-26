@@ -55,8 +55,6 @@ const CreateProfile = () => {
         type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION_CALLED,
         patientAccountInformationCalled: true,
       })
-    } else {
-      router.push('/auth/emailVerification')
     }
   }, [authDataState.patientAccountInformation])
 
