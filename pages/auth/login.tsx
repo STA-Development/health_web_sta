@@ -74,7 +74,9 @@ const Login = () => {
     } catch (err) {
       Sentry.captureException(err)
       getFirebaseCaptcha()
-      setWarningMessage("The phone number you have entered was not recognized. Please enter the Mobile Phone Number used when booking your appointment.")
+      setWarningMessage(
+        'The phone number you have entered was not recognized. Please enter the Mobile Phone Number used when booking your appointment.',
+      )
     }
   }
 
@@ -131,7 +133,10 @@ const Login = () => {
                 if (!patientAccountInformation?.isEmailVerified) {
                   router.push(`/auth/emailVerification`)
                 } else if (patientAccountInformation.migrationRequired) {
-                  setAuthDataState({ type: AuthContextStaticData.SET_FLOW_CHECKMARK, flowCheckmark: true })
+                  setAuthDataState({
+                    type: AuthContextStaticData.SET_FLOW_CHECKMARK,
+                    flowCheckmark: true,
+                  })
                   router.push(`/migration`)
                 } else {
                   router.push(`/results/list`)
@@ -145,7 +150,7 @@ const Login = () => {
       } catch (err) {
         Sentry.captureException(err)
         getFirebaseCaptcha()
-        setErrMessage(err.message)
+        setErrMessage('The code you entered is incorrect. Please try again')
         setLoading(false)
       }
     }
@@ -212,18 +217,17 @@ const Login = () => {
 
   useEffect(() => {
     const pressVerifyButton = async (event) => {
-      if (event.key === "Enter" && verifyButtonState) {
+      if (event.key === 'Enter' && verifyButtonState) {
         await handleVerifyCode(event)
       }
     }
 
     if (isVerificationCodeSent) {
-      document.addEventListener("keyup", pressVerifyButton)
+      document.addEventListener('keyup', pressVerifyButton)
     }
 
     return () => {
-      setAuthDataState({type: AuthContextStaticData.UPDATE_RE_CAPTCHA, reCaptchaVerifier: ''})
-      document.removeEventListener("keyup", pressVerifyButton)
+      document.removeEventListener('keyup', pressVerifyButton)
     }
   }, [isVerificationCodeSent, verifyButtonState])
 
@@ -322,7 +326,9 @@ const Login = () => {
                         </button>
                       </div>
                     ) : (
-                      <span className="inputGroup__resend-counter">Resend Code in {displayDuration}</span>
+                      <span className="inputGroup__resend-counter">
+                        Resend Code in {displayDuration}
+                      </span>
                     )}
                     {loading ? (
                       <CircleLoader className="middle-loader" />

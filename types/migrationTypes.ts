@@ -12,6 +12,7 @@ export enum MemberConfirmActionType {
 export interface IDependent {
   id: string
   firstName: string
+  lastName: string
   resultsCount?: string
   isSelected?: boolean
 }

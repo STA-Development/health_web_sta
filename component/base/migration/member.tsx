@@ -5,6 +5,7 @@ import {IDependent} from '@fh-health/types/migrationTypes'
 interface IMemberData {
   id: number
   firstName: string
+  lastName: string
   isSelected?: boolean
   resultsCount?: number
 }
@@ -20,7 +21,9 @@ const Member = ({member, children, isDependentMember}: IMember) => (
     <div className="member__info">
       <div className="member__credentials">
         <div>
-          <div className="member__name">{member.firstName}</div>
+          <div className="member__name">
+            {member.firstName} {member.lastName}
+          </div>
           {!isDependentMember && (
             <div className="member__results">{member.resultsCount} Results</div>
           )}

@@ -18,7 +18,7 @@ import {
 import AuthContextStaticData from '@fh-health/static/authContextStaticData'
 import {useRouter} from 'next/router'
 import {useClickAway} from 'react-use'
-import {localStore} from "@fh-health/utils/storage"
+import {localStore} from '@fh-health/utils/storage'
 
 const MigrationFlowView = () => {
   const [confirmButtonState, setConfirmButtonState] = useState<boolean>(false)
@@ -38,6 +38,7 @@ const MigrationFlowView = () => {
   const [selectedMember, setSelectedMember] = useState({
     id: null,
     firstName: '',
+    lastName: '',
     isSelected: false,
     resultsCount: null,
     idPatient: null,
@@ -252,7 +253,8 @@ const MigrationFlowView = () => {
                 <div className="card__header">
                   <h4 className="card__header-title">Organize Data</h4>
                   <p className="card__header-message">
-                    Who does the result for {selectedMember.firstName} belong to?
+                    Who does the result for {selectedMember.firstName} {selectedMember.lastName}{' '}
+                    belong to?
                   </p>
                 </div>
                 <button
@@ -330,7 +332,7 @@ const MigrationFlowView = () => {
     })()
 
     if (!token && !authDataState.isOnFlow) {
-      router.push("/auth/login")
+      router.push('/auth/login')
     }
   }, [])
 
