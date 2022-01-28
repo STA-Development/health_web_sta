@@ -39,6 +39,14 @@ const AuthContextReducer = (state: IAuthState, action: IAuthActions) => {
         ...state,
         isOnFlow: action.flowCheckmark
       }
+    case AuthContextStaticData.UPDATE_MIGRATION_REQUIRED_STATE:
+      return {
+        ...state,
+        patientAccountInformation: {
+          ...state.patientAccountInformation,
+          migrationRequired: action.migrationRequired
+        }
+      }
     default:
       return state
   }

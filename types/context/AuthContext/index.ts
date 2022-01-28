@@ -49,3 +49,7 @@ export type IAuthActions =
       patientAccountInformationCalled: boolean
       patientAccountInformation: IPatientAccountInformation
     }
+  | {
+      type: 'UPDATE_MIGRATION_REQUIRED_STATE'
+      migrationRequired: boolean
+    }

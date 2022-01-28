@@ -228,6 +228,7 @@ const MigrationFlowView = () => {
     setLoading(true)
     try {
       const {status} = await migrationManager.migrateSelectedPatients(patientsForMigration)
+      setAuthDataState({ type: AuthContextStaticData.UPDATE_MIGRATION_REQUIRED_STATE, migrationRequired: false })
       if (status === 201) {
         setFinalModalView(true)
       }

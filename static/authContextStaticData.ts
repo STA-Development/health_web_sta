@@ -14,6 +14,8 @@ class AuthContextStaticData {
     'UPDATE_PATIENT_ACCOUNT_INFORMATION_AND_RESET_CALL_STATE'
 
   public static readonly SET_FLOW_CHECKMARK = 'SET_FLOW_CHECKMARK'
+
+  public static readonly UPDATE_MIGRATION_REQUIRED_STATE = 'UPDATE_MIGRATION_REQUIRED_STATE'
 }
 
 export default AuthContextStaticData
