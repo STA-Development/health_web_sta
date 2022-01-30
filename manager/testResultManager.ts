@@ -9,7 +9,11 @@ const testResultManager = {
     })
   },
   getSingleTestResult(id: string) {
-    return Axios().get(`/user/api/v1/pcr-test-results/${id}`)
+    return Axios().get(`/user/api/v1/pcr-test-results/${id}`, {
+      headers: {
+        ...authHeader(),
+      },
+    })
   },
   getAllTestResults() {
     return Axios().get(`${process.env.RESERVATION_SERVICE_URL}/reservation/api/v1/test-results`, {
