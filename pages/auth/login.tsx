@@ -73,7 +73,6 @@ const Login = () => {
         )
     } catch (err) {
       Sentry.captureException(err)
-      getFirebaseCaptcha()
       setWarningMessage(
         'The phone number you have entered was not recognized. Please enter the Mobile Phone Number used when booking your appointment.',
       )
@@ -82,6 +81,8 @@ const Login = () => {
 
   const handlePhoneSMSSend = async () => {
     setLoading(true)
+    setWarningMessage('')
+    setErrMessage('')
     const result = await sendSMSToPhoneNumber()
     if (result?.verificationId) {
       setVerificationResult(result)
@@ -97,6 +98,7 @@ const Login = () => {
       duration -= 1
       setDisplayDuration(duration)
       if (duration === 0) {
+        setVerificationCode('')
         handlePhoneSMSSend()
         clearInterval(timer)
       }
@@ -149,7 +151,6 @@ const Login = () => {
         }
       } catch (err) {
         Sentry.captureException(err)
-        getFirebaseCaptcha()
         setErrMessage('The code you entered is incorrect. Please try again')
         setLoading(false)
       }

@@ -8,6 +8,7 @@ import authManager from '@fh-health/manager/authManager'
 import Card from '@fh-health/component/utils/card'
 import AuthContextStaticData from '@fh-health/static/authContextStaticData'
 import {UseAuthDataStateValue} from '@fh-health/context/authContext'
+import emailRegExp from '@fh-health/utils/emailValidator'
 
 const CreateProfile = () => {
   const [loading, setLoading] = useState<boolean>(false)
@@ -15,6 +16,7 @@ const CreateProfile = () => {
   const [firstName, setFirstName] = useState<string>('')
   const [lastName, setLastName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
+  const [isEmailValidated, setIsEmailValidated] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
   const [emailVerifyRequiredView, setEmailVerifyRequiredView] = useState<boolean>(false)
   const router = useRouter()
@@ -43,9 +45,21 @@ const CreateProfile = () => {
     setLoading(false)
   }
 
+  const validateEmail = (value: string) => {
+    if (emailRegExp(value)) {
+      setEmail(value)
+      setIsEmailValidated(true)
+    } else {
+      setEmail(value)
+      setIsEmailValidated(false)
+    }
+  }
+
   useEffect(() => {
-    if (firstName && lastName && email) {
+    if (firstName && lastName && isEmailValidated) {
       setCreateButtonState(true)
+    } else {
+      setCreateButtonState(false)
     }
   }, [firstName, lastName, email])
 
@@ -165,7 +179,7 @@ const CreateProfile = () => {
                     type="text"
                     className="input"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => validateEmail(e.target.value)}
                   />
                 </label>
               </div>
