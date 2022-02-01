@@ -2,9 +2,21 @@ import React from 'react'
 import Image from 'next/image'
 import Card from '@fh-health/component/utils/card'
 import {useRouter} from 'next/router'
+import AuthContextStaticData from '@fh-health/static/authContextStaticData'
+import {UseAuthDataStateValue} from '@fh-health/context/authContext'
 
 const EmailAddressVerified = () => {
   const router = useRouter()
+  const {setAuthDataState} = UseAuthDataStateValue()
+
+  const handleFlowContinue = () => {
+    setAuthDataState({
+      type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION_CALLED,
+      patientAccountInformationCalled: true,
+    })
+    router.push('/')
+  }
+
   return (
     <div className="pure-block-wrapper">
       <div className="card-wrapper">
@@ -19,7 +31,11 @@ const EmailAddressVerified = () => {
               soon as they are available
             </p>
           </div>
-          <button type="button" className="button card__button" onClick={() => router.push('/')}>
+          <button
+            type="button"
+            className="button card__button"
+            onClick={() => handleFlowContinue()}
+          >
             Continue
           </button>
         </Card>
