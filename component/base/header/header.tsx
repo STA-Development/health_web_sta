@@ -31,6 +31,8 @@ const Header = () => {
         )}
         {testResultState?.testResult.testType === TestTypes.RapidAntigenAtHome ||
           (testResultState?.testResult.testType === TestTypes.RapidAntigen && <RapidAtHome />)}
+        {testResultState?.testResult.testType === TestTypes.CovidFluA && <RapidAtHome />}
+
 
         {testResultState.testResult && (
           <div className="test-info">
