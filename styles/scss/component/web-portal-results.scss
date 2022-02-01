@@ -25,15 +25,18 @@
   background-color: $fhhealth-color-white;
 }
 
-.single-result:first-child {
+.all-results > div:first-child .single-result {
   padding-top: 0;
 }
-.single-result:last-child {
+
+.all-results > div:last-child .single-result {
   padding-bottom: 0;
   border-bottom: none;
 }
+
 .result-date {
   margin: 32px 0 24px 0;
+  padding-bottom: 10px;
   opacity: 0.6;
   font-size: 14px;
   font-weight: 500;

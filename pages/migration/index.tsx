@@ -352,12 +352,12 @@ const MigrationFlowView = () => {
         patientAccountInformationCalled: true,
       })
     }
-    if (
-      authDataState.patientAccountInformation.organizations[0].patientId &&
-      !authDataState.patientAccountInformation.migrationRequired
-    ) {
-      router.push('/')
-    }
+    // if (
+    //   authDataState.patientAccountInformation.organizations[0].patientId &&
+    //   !authDataState.patientAccountInformation.migrationRequired
+    // ) {
+    //   router.push('/')
+    // }
   }, [authDataState.patientAccountInformation])
 
   return (

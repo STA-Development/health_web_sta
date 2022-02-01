@@ -41,8 +41,10 @@ const WebPortalResults = () => {
           setLatestResults(true)
         }
       }
-      return (
-        <>
+
+       return moment(test.testDateTime).format('YYYY-MM-DD') >
+       moment().subtract(7, 'days').format('YYYY-MM-DD') && !isHistory || isHistory ? (
+        <div key={index}>
           {isHistory &&
             (index === 0 ||
               moment(test.testDateTime).format('MMMM YYYY') !==
@@ -60,11 +62,9 @@ const WebPortalResults = () => {
               status={test.result}
               redirectUrl={test.id}
             />
-          ) : (
-            <SingleResultPreload />
-          )}
-        </>
-      )
+          ) : null}
+        </div>
+      ) : null
     })
 
   const getData = async () => {
@@ -110,12 +110,12 @@ const WebPortalResults = () => {
           {latestResults && <ResultsHeader header="Latest Results" size={0} />}
           {latestResults && (
             <TestResultContainer dataForCypress={null}>
-              {results.length > 0 ? renderResultsList(false) : <SingleResultPreload />}
+              {results.length ? renderResultsList(false) : <SingleResultPreload />}
             </TestResultContainer>
           )}
           <ResultsHeader header="Result History" size={0} />
           <TestResultContainer dataForCypress="history-results">
-            {results.length > 0 ? renderResultsList(true) : <SingleResultPreload />}
+            {results.length ? renderResultsList(true) : <SingleResultPreload />}
           </TestResultContainer>
         </div>
       )}
