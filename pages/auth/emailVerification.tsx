@@ -24,6 +24,7 @@ const EmailVerification = () => {
   const router = useRouter()
 
   const sendEmailVerificationEmail = async () => {
+    setErrMessage('')
     setLoading(true)
     try {
       await AuthManager.sendEmailVerification()

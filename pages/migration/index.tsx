@@ -31,7 +31,6 @@ const MigrationFlowView = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [members, setMembers] = useState([])
   const [patientsForMigration, setPatientsForMigration] = useState([])
-  const [isHostPatientDefined, setIsHostPatientDefined] = useState<boolean>(false)
   const [dependentList, setDependentsList] = useState<IDependent[]>([])
   const [error, setError] = useState<string>('')
   const [isEditableMember, setIsEditableMember] = useState<boolean>(false)
@@ -156,7 +155,6 @@ const MigrationFlowView = () => {
     const newMembers = members.map((item) => {
       if (item.id === selectedMember.id) {
         if (type === MemberSelectType.You) {
-          setIsHostPatientDefined(true)
           return {
             ...item,
             isSelected: true,
@@ -165,7 +163,6 @@ const MigrationFlowView = () => {
         }
 
         if (item.you) {
-          setIsHostPatientDefined(false)
           return {
             ...item,
             isSelected: true,
@@ -260,11 +257,7 @@ const MigrationFlowView = () => {
                 </div>
                 <button
                   type="button"
-                  className={
-                    !isHostPatientDefined
-                      ? 'button card__button migration-modal__button'
-                      : 'button button_disabled card__button card__button_disabled'
-                  }
+                  className='button card__button migration-modal__button'
                   onClick={() => toggleCurrentMemberFlow()}
                 >
                   You
@@ -352,12 +345,6 @@ const MigrationFlowView = () => {
         patientAccountInformationCalled: true,
       })
     }
-    // if (
-    //   authDataState.patientAccountInformation.organizations[0].patientId &&
-    //   !authDataState.patientAccountInformation.migrationRequired
-    // ) {
-    //   router.push('/')
-    // }
   }, [authDataState.patientAccountInformation])
 
   return (
