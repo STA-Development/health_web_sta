@@ -51,7 +51,7 @@ const EmailVerification = () => {
       }
     } catch (err) {
       Sentry.captureException(err)
-      setErrMessage(err.message)
+      setErrMessage("The code you entered is incorrect. Please try again.")
     }
     setLoading(false)
   }
