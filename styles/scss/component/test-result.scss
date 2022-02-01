@@ -14,47 +14,89 @@
     margin: 24px 24px;
   }
 }
-.wrapper__negative{
+
+.wrapper__negative {
   background-color: $fhhealth-color-green-btn;
 }
-.wrapper__positive{
+
+.wrapper__positive {
   background-color: $fhhealth-color-red-bg
 }
-.wrapper__inconclusive{
+
+.wrapper__inconclusive {
   background-color: $fhhealth-color-blue-bg
 }
-.wrapper__presumptivepositive{
+
+.wrapper__presumptivepositive {
   background-color: $fhhealth-color-red-bg
 }
-.wrapper__biorad-color{
+
+.wrapper__biorad-color {
   background-color:$fhhealth-color-neutral-bg;
   border-bottom: 1px solid $fhhealth-color-test-analysis-data-border;
 }
-.GREEN{
+
+.GREEN {
   background-color: $fhhealth-color-green-btn;
-  padding: 4px;
 }
-.RED{
+
+.RED {
   background-color: $fhhealth-color-red-btn;
-  padding: 4px;
 }
-.YELLOW{
+
+.YELLOW {
+  background-color: $fhhealth-color-dark-yellow;
+}
+
+.LIMEGREEN {
+  background-color: $fhhealth-color-limegreen-btn;
+}
+
+.GRAY {
+  background-color: $fhhealth-color-light-gray-text;
+}
+
+.BLUE {
   background-color: $fhhealth-color-blue-btn;
-  padding: 4px;
 }
-.GREEN-svg{
+
+.BLACK {
+  background-color: $fhhealth-color-black;
+}
+
+.GREEN-svg {
   fill: $fhhealth-color-green-btn;
 }
-.RED-svg{
+
+.RED-svg {
   fill: $fhhealth-color-red-btn;
 }
+
 .YELLOW-svg {
+  fill: $fhhealth-color-dark-yellow;
+}
+
+.LIMEGREEN-svg {
+  fill: $fhhealth-color-limegreen-btn;
+}
+
+.GRAY-svg {
+  fill: $fhhealth-color-light-gray-text;
+}
+
+.BLUE-svg {
   fill: $fhhealth-color-blue-btn;
 }
+
+.BLACK-svg {
+  fill: $fhhealth-color-black;
+}
+
 .span_test_result {
   padding: 4px;
   border-radius: 4px;
 }
+
 .span {
   &__presumptivepositive{
     background-color: $fhhealth-color-red-btn;

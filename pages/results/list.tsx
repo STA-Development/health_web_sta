@@ -10,7 +10,6 @@ import testResultManager from '@fh-health/manager/testResultManager'
 import CircleLoader from '@fh-health/component/utils/circleLoader'
 import AuthContextStaticData from '@fh-health/static/authContextStaticData'
 import {UseAuthDataStateValue} from '@fh-health/context/authContext'
-import {useRouter} from 'next/router'
 
 interface IResult {
   detailsAvailable: boolean
@@ -29,7 +28,6 @@ const WebPortalResults = () => {
   const [history, setHistory] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const {authDataState, setAuthDataState} = UseAuthDataStateValue()
-  const router = useRouter()
 
   const renderResultsList = (isHistory: boolean) =>
     results.map((test: IResult, index: number) => {
@@ -95,8 +93,6 @@ const WebPortalResults = () => {
         type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION_CALLED,
         patientAccountInformationCalled: true,
       })
-    } else if (authDataState.patientAccountInformation.migrationRequired) {
-      router.push('/migration')
     }
   }, [authDataState.patientAccountInformation])
 
