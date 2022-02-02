@@ -285,9 +285,9 @@ const MigrationFlowView = () => {
                     Does {selectedMember.firstName} happen to map one of your existing profiles?
                   </p>
                 </div>
-                {dependentList.map((dependent: IDependent, index: number) => (
-                  <div key={index} className="migration__members">
-                    <Member member={dependent} isDependentMember>
+                <div className="migration__members">
+                  {dependentList.map((dependent: IDependent, index: number) => (
+                    <Member key={index} member={dependent} isDependentMember>
                       <button
                         type="button"
                         className="button member__button"
@@ -300,8 +300,9 @@ const MigrationFlowView = () => {
                         Select
                       </button>
                     </Member>
-                  </div>
-                ))}
+                  ))}
+                </div>
+
                 <button
                   type="button"
                   className="button card__button migration-modal__button"
