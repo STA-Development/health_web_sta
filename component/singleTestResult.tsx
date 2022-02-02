@@ -17,7 +17,7 @@ const SingleTestResult = ({testName, patientName, testDate, backgroundClass, sta
 
     const handleRedirect = (link: string | undefined) => {
         if (link) {
-            router.push(`/my?testResultId=${link}`)
+            router.push(`/my?testResultId=${link}#carcassFocus`)
         }
     }
 
