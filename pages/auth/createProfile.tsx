@@ -122,10 +122,7 @@ const CreateProfile = () => {
               <Image src="/logo.svg" width={136} height={16} alt="logo" />
             </div>
             <h4 className="header">Create Your Profile</h4>
-            <p className="message">
-              Upload a clear picture of yourself and provide a few pieces of information to get
-              started.
-            </p>
+            <p className="message">Please provide a few pieces of information to get started</p>
             <div className="inputGroup inputGroup_create-profile">
               <div
                 className={
