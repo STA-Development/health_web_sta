@@ -9,7 +9,7 @@ const PcrAnalysisData = () => {
     <div className="analysis-wrapper">
       <h3 className="analysis-wrapper__title">Test Analysis Data</h3>
       <div className="analysis-wrapper__top-part">
-        {testResultState.testResult.resultAnalysis.map((analysis, index, resultAnalysis) =>
+        {testResultState.testResult.resultAnalysis?.map((analysis, index, resultAnalysis) =>
           (index < resultAnalysis.length / 2) && (
             <div className="analysis-wrapper__parameter" key={guid()}>
               <h3 className="analysis-wrapper__bottom-title">{analysis.channelName}</h3>
@@ -28,7 +28,7 @@ const PcrAnalysisData = () => {
         )}
       </div>
       <div className="analysis-wrapper__bottom-part">
-        {testResultState.testResult.resultAnalysis.map((analysis, index, resultAnalysis) =>
+        {testResultState.testResult.resultAnalysis?.map((analysis, index, resultAnalysis) =>
           (index >= resultAnalysis.length / 2) && (
             <div className="analysis-wrapper__parameter" key={guid()}>
               <h3 className="analysis-wrapper__bottom-title">{analysis.channelName}</h3>
