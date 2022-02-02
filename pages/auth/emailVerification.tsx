@@ -10,7 +10,7 @@ import {UseAuthDataStateValue} from '@fh-health/context/authContext'
 import EmailAddressVerified from '@fh-health/component/emailAddressVerified'
 import AuthContextStaticData from '@fh-health/static/authContextStaticData'
 import {useRouter} from 'next/router'
-import {localStore} from "@fh-health/utils/storage"
+import {localStore} from '@fh-health/utils/storage'
 
 const EmailVerification = () => {
   const [loading, setLoading] = useState<boolean>(false)
@@ -52,7 +52,7 @@ const EmailVerification = () => {
       }
     } catch (err) {
       Sentry.captureException(err)
-      setErrMessage("The code you entered is incorrect. Please try again.")
+      setErrMessage('The code you entered is incorrect. Please try again.')
     }
     setLoading(false)
   }
@@ -89,7 +89,7 @@ const EmailVerification = () => {
     })()
 
     if (!token) {
-      router.push("/auth/login")
+      router.push('/auth/login')
     }
   }, [])
 
@@ -99,11 +99,6 @@ const EmailVerification = () => {
         type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION_CALLED,
         patientAccountInformationCalled: true,
       })
-    } else if (
-      authDataState.patientAccountInformation.isEmailVerified &&
-      authDataState?.patientAccountInformation?.migrationRequired
-    ) {
-      router.push('/migration')
     }
   }, [authDataState.patientAccountInformation])
 

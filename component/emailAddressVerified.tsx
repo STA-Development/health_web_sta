@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import Image from 'next/image'
 import Card from '@fh-health/component/utils/card'
 import {useRouter} from 'next/router'
@@ -7,15 +7,23 @@ import {UseAuthDataStateValue} from '@fh-health/context/authContext'
 
 const EmailAddressVerified = () => {
   const router = useRouter()
-  const {setAuthDataState} = UseAuthDataStateValue()
+  const {authDataState, setAuthDataState} = UseAuthDataStateValue()
 
   const handleFlowContinue = () => {
-    setAuthDataState({
-      type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION_CALLED,
-      patientAccountInformationCalled: true,
-    })
     router.push('/')
   }
+
+  useEffect(() => {
+    ;(async () => {
+      const response = await authDataState.getPatientInformation()
+      if (response) {
+        setAuthDataState({
+          type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION,
+          patientAccountInformation: response,
+        })
+      }
+    })()
+  }, [])
 
   return (
     <div className="pure-block-wrapper">
