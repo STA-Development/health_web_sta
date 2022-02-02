@@ -13,7 +13,7 @@
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "dependencies": {
-    "@sentry/nextjs": "^6.17.3",
+    "@sentry/nextjs": "^6.17.4",
     "@zeit/next-sass": "^1.0.1",
     "axios": "^0.25.0",
     "cypress": "^9.3.1",
