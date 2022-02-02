@@ -14,25 +14,22 @@ const Header = () => {
       return moment(data).format(format)
     }
   }
-
+  const getCurrentTestResultIcon = () => {
+    switch (testResultState?.testResult.testType) {
+      case TestTypes.AntibodyAll:
+        return <AntiBodySVG style={testResultState.testResult.style.toLowerCase()} />
+      case TestTypes.PCR:
+        return <PcrSvg style={testResultState.testResult.style.toLowerCase()} />
+      case TestTypes.RapidAntigenAtHome || TestTypes.RapidAntigen:
+        return <RapidAtHome style={testResultState.testResult.style.toLowerCase()} />
+      default:
+        return <PcrSvg style={testResultState.testResult.style.toLowerCase()} />
+    }
+  }
   return (
     <div className="header-wrapper">
       <div className="test-type-wrapper">
-        {testResultState?.testResult.testType === TestTypes.AntibodyAll && (
-          <AntiBodySVG style={testResultState.testResult.style.toLowerCase()} />
-        )}
-        {testResultState?.testResult.testType === TestTypes.PCR &&
-        testResultState?.testResult.templateId === TestTypes.BioradAntiBody ? (
-          <AntiBodySVG style={testResultState.testResult.style.toLowerCase()} />
-        ) : (
-          testResultState?.testResult.testType === TestTypes.PCR && (
-            <PcrSvg style={testResultState.testResult.style.toLowerCase()} />
-          )
-        )}
-        {testResultState?.testResult.testType === TestTypes.RapidAntigenAtHome ||
-          (testResultState?.testResult.testType === TestTypes.RapidAntigen && <RapidAtHome />)}
-        {testResultState?.testResult.testType === TestTypes.CovidFluA && <RapidAtHome />}
-
+        {getCurrentTestResultIcon()}
 
         {testResultState.testResult && (
           <div className="test-info">

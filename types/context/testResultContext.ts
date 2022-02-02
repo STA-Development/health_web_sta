@@ -46,9 +46,10 @@ export type ITestResultActions = {
 
 export enum TestTypes {
   AntibodyAll = 'Antibody_All',
+  Temperature = 'Temperature',
   PCR = 'PCR',
   RapidAntigenAtHome = 'RapidAntigenAtHome',
   RapidAntigen = 'RapidAntigen',
   BioradAntiBody = 'Biorad-Anti-Body',
-  CovidFluA = 'Covid+fluA/B',
+  CovidFluAB = 'CovidFluAB',
 }
