@@ -3,7 +3,6 @@ import TestResultContainer from '@fh-health/component/testResultContainer'
 import SingleTestResult from '@fh-health/component/singleTestResult'
 import NoResults from '@fh-health/component/noResults'
 import React, {useEffect, useState} from 'react'
-import SingleResultPreload from '@fh-health/component/singleResultPreload'
 import moment from 'moment'
 import * as Sentry from '@sentry/nextjs'
 import testResultManager from '@fh-health/manager/testResultManager'
@@ -24,46 +23,10 @@ interface IResult {
 
 const WebPortalResults = () => {
   const [results, setResults] = useState<IResult[]>([])
-  const [latestResults, setLatestResults] = useState<boolean>(false)
-  const [history, setHistory] = useState<boolean>(false)
+  const [latestResults, setLatestResults] = useState<IResult[]>([])
+  const [historyResults, setHistoryResults] = useState<IResult[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const {authDataState, setAuthDataState} = UseAuthDataStateValue()
-
-  const renderResultsList = (isHistory: boolean) =>
-    results.map((test: IResult, index: number) => {
-      if (!latestResults) {
-        if (
-          moment(test.testDateTime).format('YYYY-MM-DD') >
-          moment().subtract(7, 'days').format('YYYY-MM-DD')
-        ) {
-          setLatestResults(true)
-        }
-      }
-
-       return moment(test.testDateTime).format('YYYY-MM-DD') >
-       moment().subtract(7, 'days').format('YYYY-MM-DD') && !isHistory || isHistory ? (
-        <div key={index}>
-          {isHistory &&
-            (index === 0 ||
-              moment(test.testDateTime).format('MMMM YYYY') !==
-                moment(results[index - 1].testDateTime).format('MMMM YYYY')) && (
-              <p className="result-date">{moment(test.testDateTime).format('MMMM YYYY')}</p>
-            )}
-          {isHistory ||
-          moment(test.testDateTime).format('YYYY-MM-DD') >
-            moment().subtract(7, 'days').format('YYYY-MM-DD') ? (
-            <SingleTestResult
-              testName={test.name}
-              patientName={`${test.firstName} ${test.lastName}`}
-              testDate={moment(test.testDateTime).format('ddd, MMM DD, YYYY')}
-              backgroundClass={test.style}
-              status={test.result}
-              redirectUrl={test.id}
-            />
-          ) : null}
-        </div>
-      ) : null
-    })
 
   const getData = async () => {
     setLoading(true)
@@ -71,9 +34,6 @@ const WebPortalResults = () => {
       const response = await testResultManager.getAllTestResults()
       if (response.status) {
         setResults(response.data.data)
-        if (response.data.data.length) {
-          setHistory(true)
-        }
       }
     } catch (err) {
       Sentry.captureException(err)
@@ -96,26 +56,84 @@ const WebPortalResults = () => {
     }
   }, [authDataState.patientAccountInformation])
 
+  useEffect(() => {
+    if (results.length) {
+      const filteredLatestResults = results.filter((test) => {
+        if (
+          moment(test.testDateTime).format('YYYY-MM-DD') >
+          moment().subtract(24, 'hours').format('YYYY-MM-DD')
+        ) {
+          return test
+        }
+
+        return null
+      })
+
+      setLatestResults(filteredLatestResults)
+    }
+  }, [results])
+
+  useEffect(() => {
+    if (latestResults.length) {
+      setHistoryResults(
+        results.filter((test) => !latestResults.includes(test))
+      )
+    } else {
+      setHistoryResults(results)
+    }
+  }, [latestResults])
+
   return (
     <>
       <div className={loading ? 'centered-content' : 'centered-content centered-content_hidden'}>
         <CircleLoader className="middle-loader" />
       </div>
-      {history && !loading && (
+      {!loading && (
         <div className="web-portal-results">
-          {latestResults && <ResultsHeader header="Latest Results" size={0} />}
-          {latestResults && (
+          {latestResults.length ? <ResultsHeader header="Latest Results" size={0} /> : null}
+          {latestResults.length ? (
             <TestResultContainer dataForCypress={null}>
-              {results.length ? renderResultsList(false) : <SingleResultPreload />}
+              {latestResults.length ? latestResults.map((test: IResult, index: number) => (
+                  <div key={index}>
+                    <SingleTestResult
+                      testName={test.name}
+                      patientName={`${test.firstName} ${test.lastName}`}
+                      testDate={moment(test.testDateTime).format('ddd, MMM DD, YYYY')}
+                      backgroundClass={test.style}
+                      status={test.result}
+                      redirectUrl={test.id}
+                    />
+                  </div>
+                )) : null}
             </TestResultContainer>
-          )}
-          <ResultsHeader header="Result History" size={0} />
-          <TestResultContainer dataForCypress="history-results">
-            {results.length ? renderResultsList(true) : <SingleResultPreload />}
-          </TestResultContainer>
+          ) : null}
+          {historyResults.length ? <ResultsHeader header="Result History" size={0} /> : null}
+          {historyResults.length ? (
+            <TestResultContainer dataForCypress="history-results">
+              {historyResults.length ? historyResults.map((test: IResult, index: number) => (
+                <div key={index}>
+                  {historyResults.length &&
+                    (index === 0 ||
+                      moment(test.testDateTime).format('MMMM YYYY') !==
+                      moment(historyResults[index - 1].testDateTime).format('MMMM YYYY')) && (
+                      <p className="result-date">{moment(test.testDateTime).format('MMMM YYYY')}</p>
+                    )
+                  }
+                  <SingleTestResult
+                    testName={test.name}
+                    patientName={`${test.firstName} ${test.lastName}`}
+                    testDate={moment(test.testDateTime).format('ddd, MMM DD, YYYY')}
+                    backgroundClass={test.style}
+                    status={test.result}
+                    redirectUrl={test.id}
+                  />
+                </div>
+              )) : null}
+            </TestResultContainer>
+          ) : null}
         </div>
       )}
-      {!history && !loading && <NoResults />}
+      {!latestResults.length && !historyResults.length && !loading && <NoResults />}
     </>
   )
 }
