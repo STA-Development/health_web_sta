@@ -88,7 +88,7 @@ const WebPortalResults = () => {
       <div className={loading ? 'centered-content' : 'centered-content centered-content_hidden'}>
         <CircleLoader className="middle-loader" />
       </div>
-      {!loading && (
+      {!loading && results.length ? (
         <div className="web-portal-results">
           {latestResults.length ? <ResultsHeader header="Latest Results" size={0} /> : null}
           {latestResults.length ? (
@@ -132,8 +132,8 @@ const WebPortalResults = () => {
             </TestResultContainer>
           ) : null}
         </div>
-      )}
-      {!latestResults.length && !historyResults.length && !loading && <NoResults />}
+      ) : null}
+      {!results.length && !loading && <NoResults />}
     </>
   )
 }

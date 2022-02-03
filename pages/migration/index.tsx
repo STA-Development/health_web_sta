@@ -285,7 +285,7 @@ const MigrationFlowView = () => {
                     Does {selectedMember.firstName} happen to map one of your existing profiles?
                   </p>
                 </div>
-                <div className="migration__members">
+                <div className="migration__members scrollable">
                   {dependentList.map((dependent: IDependent, index: number) => (
                     <Member key={index} member={dependent} isDependentMember>
                       <button
@@ -360,7 +360,7 @@ const MigrationFlowView = () => {
             Select which one of these belong to you (include variations or misspellings of your
             name) or dependents, family, or friends.
           </p>
-          <div className="migration__members">
+          <div className="migration__members scrollable">
             {isFetching ? (
               <CircleLoader className="middle-loader" />
             ) : (
