@@ -1,4 +1,4 @@
-import React, {memo, useEffect} from "react"
+import React, {memo, useEffect} from 'react'
 import 'styles/scss/main.scss'
 import type {AppProps} from 'next/app'
 import TestResultContextProvider from '@fh-health/context/testResultContext'
@@ -25,6 +25,7 @@ const MyApp = ({Component, pageProps}: AppProps) => {
   const isResultsPage = useRouter().route.includes('results')
   const isConference = useRouter().route.includes('conference')
   const isInChat = useRouter().route.includes('room')
+  const isAuthRoutes = useRouter().route.includes('auth')
   const isPublic = currentPage === '/'
   const router = useRouter()
   const {isReady} = useRouter()
@@ -39,7 +40,7 @@ const MyApp = ({Component, pageProps}: AppProps) => {
       isExpired = decodedToken.exp * 1000 < new Date().getTime()
     }
     if (isReady) {
-      if (isResultsPage && !isAuthorized || isExpired && !isPublic && isResultsPage) {
+      if ((isResultsPage && !isAuthorized) || (isExpired && !isPublic && isResultsPage)) {
         Router.push('/auth/login')
       }
       if (currentPage === '/' && router.asPath.indexOf('?')) {
@@ -69,14 +70,14 @@ const MyApp = ({Component, pageProps}: AppProps) => {
   return (
     <AuthContextProvider>
       <ConferenceContextProvider>
-        {isResultsPage && <HeaderMenu />}
-        {isInChat && <ConferenceHeader isMobile={false}/>}
+        {!isPublic && !isAuthRoutes && <HeaderMenu />}
+        {isInChat && <ConferenceHeader isMobile={false} />}
         <TestResultContextProvider>
           <div className={isConference ? 'main-content main-content_conference' : 'main-content'}>
             <Component {...pageProps} />
           </div>
         </TestResultContextProvider>
-        {isResultsPage && <FooterMenu />}
+        {!isPublic && !isAuthRoutes && <FooterMenu />}
       </ConferenceContextProvider>
     </AuthContextProvider>
   )
