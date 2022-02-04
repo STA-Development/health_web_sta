@@ -56,11 +56,14 @@
   width: 100%;
   border-bottom: solid 1px rgba(151, 151, 151, 0.25);
   padding: 10px 0;
+
   .left {
     display: flex;
+
     div {
       margin-left: 12px;
     }
+
     span {
       opacity: 0.6;
       font-size: 12px;
@@ -68,6 +71,7 @@
       display: block;
       font-family: $fhhealth-font-DM-regular;
     }
+
     span:first-child {
       font-size: 16px;
       margin-bottom: 2px;
@@ -76,6 +80,7 @@
       opacity: 1;
     }
   }
+
   .right {
     @include setDisplay(flex, unset, center);
     .result-status {
@@ -86,9 +91,14 @@
       letter-spacing: 0.5px;
       color: $fhhealth-color-white;
     }
+
     .danger {
       background-color: $fhhealth-color-red-btn;
     }
+  }
+
+  &_disabled {
+    pointer-events: none;
   }
 }
 
