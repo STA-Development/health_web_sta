@@ -20,8 +20,10 @@ const SingleTestResultPage = ({isPublicUser}: {isPublicUser: boolean}) => {
   const router = useRouter()
   const {testResultId} = router.query
   const [resultId, setResultId] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false)
 
   const getData = async () => {
+    setLoading(true)
     const token = await getV3RecaptchaToken()
     try {
       if (!isPublicUser) {
@@ -40,6 +42,7 @@ const SingleTestResultPage = ({isPublicUser}: {isPublicUser: boolean}) => {
     } catch (err) {
       Sentry.captureException(err)
     }
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -56,24 +59,31 @@ const SingleTestResultPage = ({isPublicUser}: {isPublicUser: boolean}) => {
     })()
   }, [resultId])
 
-  return testResultState.testResult.testType.length ? (
+  return (
     <div id="carcassFocus">
-      <div className="carcass">
-        <Header />
-        <TestResult />
-        {testResultState?.testResult?.testType === TestTypes?.AntibodyAll && <AntiBodyAnalysisData />}
-        {testResultState?.testResult?.testType === TestTypes?.PCR &&
-        testResultState?.testResult?.templateId === TestTypes.BioradAntiBody ? (
-          <BioradAntiBodyData />
-        ) : (
-          testResultState?.testResult.testType === TestTypes.PCR && <PcrAnalysisData />
-        )}
-        <LabInformation />
-        <Footer />
-      </div>
+      {!loading && testResultState.testResult.testType.length ? (
+        <div className="carcass">
+          <Header />
+          <TestResult />
+          {testResultState?.testResult?.testType === TestTypes?.AntibodyAll ||
+            (testResultState?.testResult?.testType === TestTypes.AntibodyBiorad && (
+              <AntiBodyAnalysisData />
+            ))}
+          {testResultState?.testResult?.testType === TestTypes?.PCR &&
+            testResultState?.testResult?.templateId === TestTypes.BioradAntiBody && (
+              <BioradAntiBodyData />
+            )}
+          {testResultState?.testResult?.templateId !== TestTypes.BioradAntiBody &&
+            (testResultState?.testResult.testType === TestTypes.PCR ||
+              testResultState?.testResult.testType === TestTypes.VirtualTravelPCR ||
+              testResultState?.testResult.testType === TestTypes.VirtualPCR) && <PcrAnalysisData />}
+          <LabInformation />
+          <Footer />
+        </div>
+      ) : (
+        <ComponentPreloadView />
+      )}
     </div>
-  ) : (
-    <ComponentPreloadView />
   )
 }
 

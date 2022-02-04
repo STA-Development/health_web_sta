@@ -19,6 +19,7 @@ interface IResult {
   result: string
   style: string
   testDateTime: string
+  testType: string
 }
 
 const WebPortalResults = () => {
@@ -102,6 +103,7 @@ const WebPortalResults = () => {
                       backgroundClass={test.style}
                       status={test.result}
                       redirectUrl={test.id}
+                      type={test?.testType}
                     />
                   </div>
                 )) : null}
@@ -126,6 +128,7 @@ const WebPortalResults = () => {
                     backgroundClass={test.style}
                     status={test.result}
                     redirectUrl={test.id}
+                    type={test.testType}
                   />
                 </div>
               )) : null}

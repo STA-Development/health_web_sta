@@ -44,12 +44,36 @@ export type ITestResultActions = {
   data: testResult
 }
 
+export interface ITestIcons {
+  color: {
+    outer: string,
+    inner: string,
+  },
+  large: boolean
+}
+
 export enum TestTypes {
   AntibodyAll = 'Antibody_All',
+  AntibodyBiorad = 'Antibody_Biorad',
+  VirtualTravelPCR = 'VirtualTravelPCR',
   Temperature = 'Temperature',
   PCR = 'PCR',
+  ExpressPCR = 'ExpressPCR',
+  VirtualPCR = 'VirtualPCR',
   RapidAntigenAtHome = 'RapidAntigenAtHome',
   RapidAntigen = 'RapidAntigen',
+  VirtualTravelRapidAntigen = 'VirtualTravelRapidAntigen',
+  VirtualRapidAntigen = 'VirtualRapidAntigen',
   BioradAntiBody = 'Biorad-Anti-Body',
+  Vaccine = 'Vaccine',
+  // TODO: The API returns two different formats of Covid, it might be require some change on backend.
   CovidFluAB = 'CovidFluAB',
+  Covid_FluAB = 'Covid+fluA/B',
+}
+
+export enum TestResultColors {
+  Green = "GREEN",
+  Red = "RED",
+  Blue = "BLUE",
+  Yellow = "YELLOW",
 }

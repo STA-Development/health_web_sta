@@ -1,31 +1,85 @@
-import React from 'react'
+import React, {useEffect, useState} from "react"
 import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
-import {TestTypes} from '@fh-health/types/context/testResultContext'
+import {TestResultColors, TestTypes} from "@fh-health/types/context/testResultContext"
 import moment from 'moment'
-import AntiBodySVG from './icon/antiBody'
-import PcrSvg from './icon/pcrIcon'
-import RapidAtHome from './icon/rapidAtHome'
+import PcrIcon from "@fh-health/component/base/header/listIcons/pcrIcon"
+import AntibodyIcon from "@fh-health/component/base/header/listIcons/antibodyIcon"
+import RapidIcon from "@fh-health/component/base/header/listIcons/rapidIcons"
+import ExpressIcon from "@fh-health/component/base/header/listIcons/expressIcon"
+import VaccineIcon from "@fh-health/component/base/header/listIcons/vaccineIcon"
 
 const Header = () => {
   const {testResultState} = UseTestResultDataStateValue()
+  const [testColor, setTestColor] = useState({
+    outer: "",
+    inner: ""
+  })
 
   const changeDate = (data: string, format: string) => {
     if (data.length) {
       return moment(data).format(format)
     }
   }
+
   const getCurrentTestResultIcon = () => {
     switch (testResultState?.testResult.testType) {
-      case TestTypes.AntibodyAll:
-        return <AntiBodySVG style={testResultState.testResult.style.toLowerCase()} />
       case TestTypes.PCR:
-        return <PcrSvg style={testResultState.testResult.style.toLowerCase()} />
-      case TestTypes.RapidAntigenAtHome || TestTypes.RapidAntigen:
-        return <RapidAtHome style={testResultState.testResult.style.toLowerCase()} />
+      case TestTypes.VirtualTravelPCR:
+      case TestTypes.VirtualPCR:
+      case TestTypes.CovidFluAB:
+      case TestTypes.Covid_FluAB:
+        return <PcrIcon color={testColor} large />
+      case TestTypes.AntibodyBiorad:
+      case TestTypes.AntibodyAll:
+        return <AntibodyIcon color={testColor} large />
+      case TestTypes.VirtualTravelRapidAntigen:
+      case TestTypes.VirtualRapidAntigen:
+      case TestTypes.RapidAntigen:
+        return <RapidIcon color={testColor} large />
+      case TestTypes.ExpressPCR:
+        return <ExpressIcon color={testColor} large />
+      case TestTypes.Vaccine:
+        return <VaccineIcon color={testColor} large />
       default:
-        return <PcrSvg style={testResultState.testResult.style.toLowerCase()} />
+        return <PcrIcon color={testColor} large />
     }
   }
+
+  useEffect(() => {
+    switch (testResultState.testResult.style) {
+      case TestResultColors.Green:
+        setTestColor({
+          outer: "#DCF3E5",
+          inner: "#52c17c"
+        })
+        break;
+      case TestResultColors.Red:
+        setTestColor({
+          outer: "#ffc9ce",
+          inner: "#ff394d"
+        })
+        break;
+      case TestResultColors.Blue:
+        setTestColor({
+          outer: "#c0deff",
+          inner: "#007aff"
+        })
+        break;
+      case TestResultColors.Yellow:
+        setTestColor({
+          outer: "#ffe7bf",
+          inner: "#ffb439"
+        })
+        break;
+      default:
+        setTestColor({
+          outer: "#e3e3e3",
+          inner: "#212121"
+        })
+        break;
+    }
+  }, [])
+
   return (
     <div className="header-wrapper">
       <div className="test-type-wrapper">
