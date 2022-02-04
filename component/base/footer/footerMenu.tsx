@@ -18,7 +18,7 @@ const FooterMenu = () => (
       <p>
         Live Chat available on
         {" "}
-        <span><a href="https://www.fhhealth.com/">fhhealth.com</a></span>
+        <span><a href="https://www.fhhealth.com/" target="_blank" rel="noreferrer noopener">fhhealth.com</a></span>
       </p>
     </div>
   </footer>
