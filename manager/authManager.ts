@@ -51,6 +51,19 @@ const authManager = {
       },
     )
   },
+  updateUserEmail(email: string) {
+    return Axios({
+      baseURL: process.env.USER_SERVICE_URL,
+    }).put(
+      '/user/api/v1/patients',
+      {
+        email,
+      },
+      {
+        headers: {...authHeader()},
+      },
+    )
+  },
 }
 
 export default authManager

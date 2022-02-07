@@ -9,6 +9,8 @@ export interface IAuthState {
 }
 
 export interface IPatientAccountInformation {
+  firstName: string
+  email: string
   isEmailVerified: boolean
   migrationRequired: boolean
   organizations: [
@@ -41,9 +43,9 @@ export type IAuthActions =
       patientAccountInformationCalled: boolean
     }
   | {
-    type: 'SET_FLOW_CHECKMARK'
-    flowCheckmark: boolean
-  }
+      type: 'SET_FLOW_CHECKMARK'
+      flowCheckmark: boolean
+    }
   | {
       type: 'UPDATE_PATIENT_ACCOUNT_INFORMATION_AND_RESET_CALL_STATE'
       patientAccountInformationCalled: boolean

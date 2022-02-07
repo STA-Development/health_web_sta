@@ -132,8 +132,16 @@ const Login = () => {
               const patientAccountInformation = await getPatientAccountInformation()
               setLoading(false)
               if (patientAccountInformation) {
-                if (!patientAccountInformation?.isEmailVerified) {
+                if (
+                  !patientAccountInformation?.isEmailVerified &&
+                  patientAccountInformation?.email
+                ) {
                   router.push(`/auth/emailVerification`)
+                } else if (
+                  patientAccountInformation.firstName &&
+                  !patientAccountInformation?.email
+                ) {
+                  router.push('/auth/updateEmail')
                 } else if (patientAccountInformation.migrationRequired) {
                   setAuthDataState({
                     type: AuthContextStaticData.SET_FLOW_CHECKMARK,

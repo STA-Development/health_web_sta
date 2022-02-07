@@ -10,6 +10,8 @@ const initialState: IAuthState = {
   reCaptchaVerifier: '',
   phoneNumber: '',
   patientAccountInformation: {
+    firstName: null,
+    email: null,
     isEmailVerified: null,
     migrationRequired: null,
     organizations: [

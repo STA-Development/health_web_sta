@@ -9,6 +9,7 @@ import Card from '@fh-health/component/utils/card'
 import AuthContextStaticData from '@fh-health/static/authContextStaticData'
 import {UseAuthDataStateValue} from '@fh-health/context/authContext'
 import emailRegExp from '@fh-health/utils/emailValidator'
+import * as Sentry from '@sentry/nextjs'
 
 const CreateProfile = () => {
   const [loading, setLoading] = useState<boolean>(false)
@@ -41,6 +42,7 @@ const CreateProfile = () => {
     } catch (err) {
       const {message} = err.response.data.status
       setError(message)
+      Sentry.captureException(message || err)
     }
     setLoading(false)
   }
