@@ -31,6 +31,8 @@ export interface testResult {
   registeredNursePractitioner: string
   style: string
   swabMethod: string
+  travelId: string
+  locationName: string
   templateId: string
   testType: string
 }
@@ -46,9 +48,9 @@ export type ITestResultActions = {
 
 export interface ITestIcons {
   color: {
-    outer: string,
-    inner: string,
-  },
+    outer: string
+    inner: string
+  }
   large: boolean
 }
 
@@ -72,8 +74,8 @@ export enum TestTypes {
 }
 
 export enum TestResultColors {
-  Green = "GREEN",
-  Red = "RED",
-  Blue = "BLUE",
-  Yellow = "YELLOW",
+  Green = 'GREEN',
+  Red = 'RED',
+  Blue = 'BLUE',
+  Yellow = 'YELLOW',
 }

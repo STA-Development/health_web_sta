@@ -19,6 +19,8 @@
   font-family: $fhhealth-font-DM-medium;
   position: relative;
   .icon {
+    position: relative;
+    left: 32px;
     cursor: pointer;
   }
 }

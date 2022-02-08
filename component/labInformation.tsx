@@ -88,8 +88,12 @@ const LabInformation = () => {
             </>
           )}
 
-          <p className="field">location</p>
-          <p className="answer test-answer">Toronto, ON</p>
+          {testResultState.testResult.locationName && (
+            <>
+              <p className="field">location</p>
+              <p className="answer test-answer">{testResultState.testResult.locationName}</p>
+            </>
+          )}
         </div>
       </div>
     </div>

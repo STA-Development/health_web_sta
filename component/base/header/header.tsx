@@ -1,18 +1,18 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useState} from 'react'
 import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
-import {TestResultColors, TestTypes} from "@fh-health/types/context/testResultContext"
+import {TestResultColors, TestTypes} from '@fh-health/types/context/testResultContext'
 import moment from 'moment'
-import PcrIcon from "@fh-health/component/base/header/listIcons/pcrIcon"
-import AntibodyIcon from "@fh-health/component/base/header/listIcons/antibodyIcon"
-import RapidIcon from "@fh-health/component/base/header/listIcons/rapidIcons"
-import ExpressIcon from "@fh-health/component/base/header/listIcons/expressIcon"
-import VaccineIcon from "@fh-health/component/base/header/listIcons/vaccineIcon"
+import PcrIcon from '@fh-health/component/base/header/listIcons/pcrIcon'
+import AntibodyIcon from '@fh-health/component/base/header/listIcons/antibodyIcon'
+import RapidIcon from '@fh-health/component/base/header/listIcons/rapidIcons'
+import ExpressIcon from '@fh-health/component/base/header/listIcons/expressIcon'
+import VaccineIcon from '@fh-health/component/base/header/listIcons/vaccineIcon'
 
 const Header = () => {
   const {testResultState} = UseTestResultDataStateValue()
   const [testColor, setTestColor] = useState({
-    outer: "",
-    inner: ""
+    outer: '',
+    inner: '',
   })
 
   const changeDate = (data: string, format: string) => {
@@ -49,34 +49,34 @@ const Header = () => {
     switch (testResultState.testResult.style) {
       case TestResultColors.Green:
         setTestColor({
-          outer: "#DCF3E5",
-          inner: "#52c17c"
+          outer: '#DCF3E5',
+          inner: '#52c17c',
         })
-        break;
+        break
       case TestResultColors.Red:
         setTestColor({
-          outer: "#ffc9ce",
-          inner: "#ff394d"
+          outer: '#ffc9ce',
+          inner: '#ff394d',
         })
-        break;
+        break
       case TestResultColors.Blue:
         setTestColor({
-          outer: "#c0deff",
-          inner: "#007aff"
+          outer: '#c0deff',
+          inner: '#007aff',
         })
-        break;
+        break
       case TestResultColors.Yellow:
         setTestColor({
-          outer: "#ffe7bf",
-          inner: "#ffb439"
+          outer: '#ffe7bf',
+          inner: '#ffb439',
         })
-        break;
+        break
       default:
         setTestColor({
-          outer: "#e3e3e3",
-          inner: "#212121"
+          outer: '#e3e3e3',
+          inner: '#212121',
         })
-        break;
+        break
     }
   }, [])
 
@@ -169,8 +169,14 @@ const Header = () => {
                 </p>
               </>
             )}
-            <p className="field">passport no.</p>
-            <p className="answer user-secondary-answer">ZE000059</p>
+            {testResultState.testResult.travelId && (
+              <>
+                <p className="field">passport no.</p>
+                <p className="answer user-secondary-answer">
+                  {testResultState.testResult.travelId}
+                </p>
+              </>
+            )}
             {testResultState.testResult.issuingCountry && (
               <>
                 <p className="field">issuing country</p>

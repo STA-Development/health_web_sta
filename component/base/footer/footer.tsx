@@ -1,9 +1,10 @@
-import React from "react"
+import React from 'react'
 import Image from 'next/image'
 import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
 
 const Footer = () => {
   const {testResultState} = UseTestResultDataStateValue()
+
   return (
     <div className="footer-wrapper">
       <div className="important-information">
