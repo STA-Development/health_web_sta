@@ -18,7 +18,7 @@ import {
 import AuthContextStaticData from '@fh-health/static/authContextStaticData'
 import {useRouter} from 'next/router'
 import {useClickAway} from 'react-use'
-import {localStore} from '@fh-health/utils/storage'
+import {userCredentials} from "@fh-health/utils/storage"
 
 const MigrationFlowView = () => {
   const [confirmButtonState, setConfirmButtonState] = useState<boolean>(false)
@@ -319,7 +319,7 @@ const MigrationFlowView = () => {
   )
 
   useEffect(() => {
-    const token = localStore(localStorage).getItem('accessToken')
+    const token = userCredentials.accessToken
 
     ;(async () => {
       await getUnconfirmedPatients()

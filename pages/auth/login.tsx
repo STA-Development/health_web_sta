@@ -127,7 +127,7 @@ const Login = () => {
         if (user) {
           user.getIdToken().then((token: string) => {
             ;(async () => {
-              localStorage.setItem('accessToken', token)
+              // localStorage.setItem('accessToken', token)
               setAuthDataState({type: AuthContextStaticData.UPDATE_AUTH_TOKEN, token})
               const patientAccountInformation = await getPatientAccountInformation()
               setLoading(false)

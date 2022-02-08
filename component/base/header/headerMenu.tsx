@@ -6,6 +6,7 @@ import * as Sentry from '@sentry/nextjs'
 import {useRouter} from 'next/router'
 import firebase from 'lib/firbase'
 import {UseAuthDataStateValue} from '@fh-health/context/authContext'
+import {userCredentials} from '@fh-health/utils/storage'
 
 const HeaderMenu = () => {
   const router = useRouter()
@@ -28,7 +29,7 @@ const HeaderMenu = () => {
       await firebase.auth().signOut()
       setAuthDataState({type: AuthContextStaticData.UPDATE_AUTH_TOKEN, token: ''})
       localStorage.removeItem('selectedKitId')
-      localStorage.removeItem('accessToken')
+      userCredentials.accessToken = ''
       router.push('/auth/login')
     } catch (err) {
       Sentry.captureException(err)

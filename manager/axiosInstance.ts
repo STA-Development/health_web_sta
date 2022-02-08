@@ -1,5 +1,6 @@
 import axios from 'axios'
 import guid from '@fh-health/utils/guid'
+import {userCredentials} from '@fh-health/utils/storage'
 
 const generateRequestId = () => guid()
 const getOrGenerateDeviceId = () => {
@@ -12,7 +13,7 @@ const getOrGenerateDeviceId = () => {
 }
 
 export const authHeader = () => {
-  const token = `Bearer ${localStorage.accessToken}`
+  const token = `Bearer ${userCredentials.accessToken}`
   return {
     Authorization: token,
   }

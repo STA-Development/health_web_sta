@@ -2,6 +2,10 @@ import * as Sentry from '@sentry/nextjs'
 
 export const localStore = storageFactory
 
+export const userCredentials = {
+  accessToken: ''
+}
+
 export function storageFactory(storage: Storage): Storage {
   let inMemoryStorage: {[key: string]: string} = {}
   const length = 0
