@@ -1,18 +1,18 @@
-import React, {memo, useEffect} from "react"
-import "styles/scss/main.scss"
-import type {AppProps} from "next/app"
-import TestResultContextProvider from "@fh-health/context/testResultContext"
+import React, {memo, useEffect} from 'react'
+import 'styles/scss/main.scss'
+import type {AppProps} from 'next/app'
+import TestResultContextProvider from '@fh-health/context/testResultContext'
 // eslint-disable-next-line camelcase
-import jwt_decode from "jwt-decode"
-import AuthContextProvider from "@fh-health/context/authContext"
-import FooterMenu from "@fh-health/component/base/footer/footerMenu"
-import HeaderMenu from "@fh-health/component/base/header/headerMenu"
-import Router, {useRouter} from "next/router"
-import {userCredentials} from "utils/storage"
-import ConferenceHeader from "@fh-health/component/utils/conferenceHeader"
-import ConferenceContextProvider from "@fh-health/context/conferenceContext"
-import firebase from "lib/firbase"
-import * as ga from "../helpers/analytics/ga"
+import jwt_decode from 'jwt-decode'
+import AuthContextProvider from '@fh-health/context/authContext'
+import FooterMenu from '@fh-health/component/base/footer/footerMenu'
+import HeaderMenu from '@fh-health/component/base/header/headerMenu'
+import Router, {useRouter} from 'next/router'
+import {userCredentials} from 'utils/storage'
+import ConferenceHeader from '@fh-health/component/utils/conferenceHeader'
+import ConferenceContextProvider from '@fh-health/context/conferenceContext'
+import firebase from 'lib/firbase'
+import * as ga from '../helpers/analytics/ga'
 
 interface IDecodedToken {
   exp: number
@@ -30,8 +30,10 @@ const MyApp = ({Component, pageProps}: AppProps) => {
   const isPublic = currentPage === '/'
   const router = useRouter()
   const {isReady} = useRouter()
+  const isLayoutVisible = !isPublic && !isAuthRoutes && !isConference
 
-  const onAuthStateChange = () => firebase.auth().onAuthStateChanged(async user => {
+  const onAuthStateChange = () =>
+    firebase.auth().onAuthStateChanged(async (user) => {
       if (user) {
         userCredentials.accessToken = await firebase.auth().currentUser.getIdToken()
       } else {
@@ -83,14 +85,14 @@ const MyApp = ({Component, pageProps}: AppProps) => {
   return (
     <AuthContextProvider>
       <ConferenceContextProvider>
-        {!isPublic && !isAuthRoutes && <HeaderMenu />}
+        {isLayoutVisible && <HeaderMenu />}
         {isInChat && <ConferenceHeader isMobile={false} />}
         <TestResultContextProvider>
           <div className={isConference ? 'main-content main-content_conference' : 'main-content'}>
             <Component {...pageProps} />
           </div>
         </TestResultContextProvider>
-        {!isPublic && !isAuthRoutes && <FooterMenu />}
+        {isLayoutVisible && <FooterMenu />}
       </ConferenceContextProvider>
     </AuthContextProvider>
   )

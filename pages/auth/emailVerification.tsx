@@ -10,18 +10,19 @@ import {UseAuthDataStateValue} from '@fh-health/context/authContext'
 import EmailAddressVerified from '@fh-health/component/emailAddressVerified'
 import AuthContextStaticData from '@fh-health/static/authContextStaticData'
 import {useRouter} from 'next/router'
-import {userCredentials} from "@fh-health/utils/storage"
+import {userCredentials} from '@fh-health/utils/storage'
+import useCountdown from '@fh-health/hooks/countdownHook'
 
 const EmailVerification = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [errMessage, setErrMessage] = useState<string>('')
-  const [timerDuration] = useState<number>(20)
-  const [displayDuration, setDisplayDuration] = useState<number>(0)
   const [verificationCode, setVerificationCode] = useState<string>('')
   const [verifyButtonState, setVerifyButtonState] = useState<boolean>(false)
   const [isEmailVerificationCompleted, setIsEmailVerificationCompleted] = useState<boolean>(false)
-  const {authDataState, setAuthDataState} = UseAuthDataStateValue()
+
   const router = useRouter()
+  const {displayDuration, startCountdown} = useCountdown()
+  const {authDataState, setAuthDataState} = UseAuthDataStateValue()
 
   const sendEmailVerificationEmail = async () => {
     setErrMessage('')
@@ -55,18 +56,6 @@ const EmailVerification = () => {
       setErrMessage('The code you entered is incorrect. Please try again.')
     }
     setLoading(false)
-  }
-
-  const startCountdown = () => {
-    let duration = timerDuration
-    const timer = setInterval(() => {
-      duration -= 1
-      setDisplayDuration(duration)
-      if (duration === 0) {
-        sendEmailVerificationEmail()
-        clearInterval(timer)
-      }
-    }, 1000)
   }
 
   const handleVerificationCodeChange = (code: string) => {
@@ -135,7 +124,7 @@ const EmailVerification = () => {
                   <button
                     type="button"
                     className="button inputGroup__resend_button"
-                    onClick={startCountdown}
+                    onClick={() => startCountdown(sendEmailVerificationEmail)}
                   >
                     Resend
                   </button>

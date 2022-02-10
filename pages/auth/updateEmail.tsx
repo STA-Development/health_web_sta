@@ -2,30 +2,20 @@ import React, {useEffect, useState} from 'react'
 import PureBlock from '@fh-health/component/pureBlock'
 import Image from 'next/image'
 import CircleLoader from '@fh-health/component/utils/circleLoader'
-import emailRegExp from '@fh-health/utils/emailValidator'
 import * as Sentry from '@sentry/nextjs'
 import authManager from '@fh-health/manager/authManager'
 import {UseAuthDataStateValue} from '@fh-health/context/authContext'
 import AuthContextStaticData from '@fh-health/static/authContextStaticData'
 import {useRouter} from 'next/router'
+import useEmailValidation from '@fh-health/hooks/emailValidationHook'
 
 const UpdateEmail = () => {
   const [loading, setLoading] = useState<boolean>(false)
-  const [email, setEmail] = useState<string>('')
-  const [isUpdateDisabled, setIsUpdateDisabled] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
-  const {authDataState, setAuthDataState} = UseAuthDataStateValue()
-  const router = useRouter()
 
-  const validateEmail = (value: string) => {
-    if (emailRegExp(value)) {
-      setEmail(value)
-      setIsUpdateDisabled(true)
-    } else {
-      setEmail(value)
-      setIsUpdateDisabled(false)
-    }
-  }
+  const router = useRouter()
+  const {authDataState, setAuthDataState} = UseAuthDataStateValue()
+  const {email, isEmailValidated, validateEmail} = useEmailValidation()
 
   const handleEmailUpdate = async () => {
     setLoading(true)
@@ -60,6 +50,7 @@ const UpdateEmail = () => {
       })
     }
   }, [])
+
   return (
     <div className="pure-block-wrapper pure-block-wrapper_create-profile">
       <div>
@@ -96,9 +87,9 @@ const UpdateEmail = () => {
             ) : (
               <button
                 type="button"
-                onClick={() => handleEmailUpdate()}
+                onClick={handleEmailUpdate}
                 className={
-                  isUpdateDisabled
+                  isEmailValidated
                     ? 'button inputGroup__button'
                     : 'button inputGroup__button inputGroup__button_disabled'
                 }

@@ -12,6 +12,7 @@ import Notification from '@fh-health/component/notification'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/bootstrap.css'
 import Card from '@fh-health/component/utils/card'
+import useCountdown from '@fh-health/hooks/countdownHook'
 
 interface IFirebaseAuthProps {
   user?: {
@@ -28,14 +29,16 @@ const Login = () => {
     confirm: (value: string) => Promise<object>
   }>()
   const [loading, setLoading] = useState<boolean>(false)
-  const {authDataState, setAuthDataState} = UseAuthDataStateValue()
   const [warningMessage, setWarningMessage] = useState<string>('')
   const [errMessage, setErrMessage] = useState<string>('')
-  const [timerDuration] = useState<number>(20)
-  const [displayDuration, setDisplayDuration] = useState<number>(0)
   const [loginButtonState, setLoginButtonState] = useState<boolean>(false)
   const [verifyButtonState, setVerifyButtonState] = useState<boolean>(false)
   const [smsSuccessView, setSmsSuccessView] = useState<boolean>(false)
+
+  const {displayDuration, startCountdown} = useCountdown()
+  const {authDataState, setAuthDataState} = UseAuthDataStateValue()
+
+  const redirectToCreateProfile = () => router.push('/auth/createProfile')
 
   const getFirebaseCaptcha = () => {
     firebase.auth().settings.appVerificationDisabledForTesting =
@@ -92,19 +95,6 @@ const Login = () => {
     setLoading(false)
   }
 
-  const startCountdown = () => {
-    let duration = timerDuration
-    const timer = setInterval(() => {
-      duration -= 1
-      setDisplayDuration(duration)
-      if (duration === 0) {
-        setVerificationCode('')
-        handlePhoneSMSSend()
-        clearInterval(timer)
-      }
-    }, 1000)
-  }
-
   const handleVerificationCodeChange = (code: string) => {
     setVerificationCode(code)
     setErrMessage('')
@@ -127,7 +117,6 @@ const Login = () => {
         if (user) {
           user.getIdToken().then((token: string) => {
             ;(async () => {
-              // localStorage.setItem('accessToken', token)
               setAuthDataState({type: AuthContextStaticData.UPDATE_AUTH_TOKEN, token})
               const patientAccountInformation = await getPatientAccountInformation()
               setLoading(false)
@@ -197,11 +186,7 @@ const Login = () => {
             soon as they are available
           </p>
         </div>
-        <button
-          type="button"
-          className="button card__button"
-          onClick={() => router.push('/auth/createProfile')}
-        >
+        <button type="button" className="button card__button" onClick={redirectToCreateProfile}>
           Continue
         </button>
       </Card>
@@ -328,7 +313,7 @@ const Login = () => {
                         <span>Didn&apos;t receive the SMS?</span>
                         <button
                           type="button"
-                          onClick={startCountdown}
+                          onClick={() => startCountdown(handlePhoneSMSSend)}
                           className="button inputGroup__resend_button"
                         >
                           Resend

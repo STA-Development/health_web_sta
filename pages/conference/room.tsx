@@ -13,45 +13,13 @@ import {useNetworkState} from 'react-use'
 import ErrorNotification from '@fh-health/component/base/conference/partials/errorNotification'
 import getV3RecaptchaToken from '@fh-health/utils/getV3RecaptchaToken'
 import MobileFinalViewModal from "@fh-health/component/base/conference/partials/finalViewModal"
-
-interface ICallListener {
-  getUserMedia: (
-    mediaParams: {
-      audio: boolean
-      video: boolean
-      options: {muted: boolean; mirror: boolean}
-      elemId: string
-    },
-    cb: (error: Error) => void,
-  ) => void
-  accept: (extension: {save_to_history: number; dialog_id: string}) => void
-  stop: (value: object) => void
-  mute: (value: string) => void
-  unmute: (value: string) => void
-}
-
-interface ICallListenerExtension {
-  save_to_history: number
-  dialog_id: string
-}
-
-interface IRemoteStreamListener {
-  attachMediaStream: (streamType: string, remoteStream: object) => void
-}
-
-const callSessionInitialState = {
-  getUserMedia: () => null,
-  accept: () => null,
-  stop: () => null,
-  mute: () => null,
-  unmute: () => null,
-}
+import {ICallListener, ICallListenerExtension, IRemoteStreamListener, callSessionInitialState} from "@fh-health/types/context/ConferenceContext"
 
 const ConferenceRoomView = () => {
   const {confDataState, setConfDataState} = UseConfDataStateValue()
   const [dialogId, setDialogId] = useState<string>('')
   const [userToken, setUserToken] = useState<string>('')
-  const [callSession, setCallSession] = useState<ICallListener>(callSessionInitialState)
+  const [callSession, setCallSession] = useState(callSessionInitialState)
   const [isMuted, setIsMuted] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)

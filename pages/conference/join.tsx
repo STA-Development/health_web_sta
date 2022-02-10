@@ -33,10 +33,10 @@ const ConferenceJoinView = () => {
     lastName: '',
     testType: '',
   })
-  const {setConfDataState} = UseConfDataStateValue()
 
   const router = useRouter()
   const {appointmentToken} = router.query
+  const {setConfDataState} = UseConfDataStateValue()
 
   const handleKitNumberChange = (kitCode: string) => {
     setKitNumber(kitCode)
@@ -190,7 +190,7 @@ const ConferenceJoinView = () => {
                 ) : (
                   <button
                     type="button"
-                    onClick={() => handleJoinClick()}
+                    onClick={handleJoinClick}
                     className={
                       joinButtonState
                         ? 'button inputGroup__button'

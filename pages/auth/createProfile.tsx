@@ -8,20 +8,23 @@ import authManager from '@fh-health/manager/authManager'
 import Card from '@fh-health/component/utils/card'
 import AuthContextStaticData from '@fh-health/static/authContextStaticData'
 import {UseAuthDataStateValue} from '@fh-health/context/authContext'
-import emailRegExp from '@fh-health/utils/emailValidator'
 import * as Sentry from '@sentry/nextjs'
+import useEmailValidation from '@fh-health/hooks/emailValidationHook'
 
 const CreateProfile = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [createButtonState, setCreateButtonState] = useState<boolean>(false)
   const [firstName, setFirstName] = useState<string>('')
   const [lastName, setLastName] = useState<string>('')
-  const [email, setEmail] = useState<string>('')
-  const [isEmailValidated, setIsEmailValidated] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
   const [emailVerifyRequiredView, setEmailVerifyRequiredView] = useState<boolean>(false)
   const router = useRouter()
   const {authDataState, setAuthDataState} = UseAuthDataStateValue()
+  const {email, isEmailValidated, validateEmail} = useEmailValidation()
+
+  const redirectAfterVerify = () => {
+    router.push('/auth/emailVerification')
+  }
 
   const handleCreateClick = async () => {
     setLoading(true)
@@ -45,16 +48,6 @@ const CreateProfile = () => {
       Sentry.captureException(message || err)
     }
     setLoading(false)
-  }
-
-  const validateEmail = (value: string) => {
-    if (emailRegExp(value)) {
-      setEmail(value)
-      setIsEmailValidated(true)
-    } else {
-      setEmail(value)
-      setIsEmailValidated(false)
-    }
   }
 
   useEffect(() => {
@@ -88,11 +81,7 @@ const CreateProfile = () => {
                 This email will be used for login and to recover your data.
               </p>
             </div>
-            <button
-              type="button"
-              className="button card__button"
-              onClick={() => router.push('/auth/emailVerification')}
-            >
+            <button type="button" className="button card__button" onClick={redirectAfterVerify}>
               Verify Email
             </button>
           </Card>
@@ -190,7 +179,7 @@ const CreateProfile = () => {
               ) : (
                 <button
                   type="button"
-                  onClick={() => handleCreateClick()}
+                  onClick={handleCreateClick}
                   className={
                     createButtonState
                       ? 'button inputGroup__button'

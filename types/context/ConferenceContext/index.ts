@@ -26,6 +26,39 @@ export interface IConfState {
   },
 }
 
+export interface ICallListener {
+  getUserMedia: (
+    mediaParams: {
+      audio: boolean
+      video: boolean
+      options: {muted: boolean; mirror: boolean}
+      elemId: string
+    },
+    cb: (error: Error) => void,
+  ) => void
+  accept: (extension: {save_to_history: number; dialog_id: string}) => void
+  stop: (value: object) => void
+  mute: (value: string) => void
+  unmute: (value: string) => void
+}
+
+export const callSessionInitialState: ICallListener = {
+  getUserMedia: () => null,
+  accept: () => null,
+  stop: () => null,
+  mute: () => null,
+  unmute: () => null,
+}
+
+export interface ICallListenerExtension {
+  save_to_history: number
+  dialog_id: string
+}
+
+export interface IRemoteStreamListener {
+  attachMediaStream: (streamType: string, remoteStream: object) => void
+}
+
 export type IConfActions =
   | {
   type: "TOGGLE_CHAT_VIEW"

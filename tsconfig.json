@@ -44,6 +44,9 @@
       ],
       "@fh-health/utils/*": [
         "utils/*"
+      ],
+      "@fh-health/hooks/*": [
+        "hooks/*"
       ]
     },
     "incremental": true

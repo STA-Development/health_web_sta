@@ -1,28 +1,12 @@
+import React from 'react'
 import Modal from '@fh-health/component/utils/modal'
 import Card from '@fh-health/component/utils/card'
 import Image from 'next/image'
-import React, {useState} from 'react'
 import doesObjectContainFalsyValue from '@fh-health/utils/falsyValuesOfObject'
-
-interface IMediaTypes {
-  audio: boolean
-  video: boolean
-}
+import useMediaPermissions from "@fh-health/hooks/mediaHook"
 
 const PermissionsModal = ({ closeModal, openDenyModal }: {closeModal: () => void, openDenyModal: () => void}) => {
-  const [checkedItems, setCheckedItems] = useState<IMediaTypes>({
-    audio: false,
-    video: false,
-  })
-
-  const updateMediaCheckboxValue = (updatedMedia: string) => {
-    if (updatedMedia === 'video') {
-      setCheckedItems({...checkedItems, video: !checkedItems.video})
-    } else {
-      setCheckedItems({...checkedItems, audio: !checkedItems.audio})
-    }
-  }
-
+  const {checkedItems, updateVideoCheckboxValue, updateAudioCheckboxValue} = useMediaPermissions()
 
   const handleMediaAcceptance = () => {
     const nav: any = window.navigator
@@ -63,7 +47,7 @@ const PermissionsModal = ({ closeModal, openDenyModal }: {closeModal: () => void
             </div>
             <div
               className={`checkbox-circle ${checkedItems.video ? 'checkbox-circle_active' : ''}`}
-              onClick={() => updateMediaCheckboxValue('video')}
+              onClick={updateVideoCheckboxValue}
             />
           </div>
           <div className="card__content__item">
@@ -74,7 +58,7 @@ const PermissionsModal = ({ closeModal, openDenyModal }: {closeModal: () => void
             </div>
             <div
               className={`checkbox-circle ${checkedItems.audio ? 'checkbox-circle_active' : ''}`}
-              onClick={() => updateMediaCheckboxValue('audio')}
+              onClick={updateAudioCheckboxValue}
             />
           </div>
         </div>
