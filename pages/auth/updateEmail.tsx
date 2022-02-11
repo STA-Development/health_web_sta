@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import PureBlock from '@fh-health/component/pureBlock'
+import PureBlock from '@fh-health/component/results/pureBlock'
 import Image from 'next/image'
 import CircleLoader from '@fh-health/component/utils/circleLoader'
 import * as Sentry from '@sentry/nextjs'

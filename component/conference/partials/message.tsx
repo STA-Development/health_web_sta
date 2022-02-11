@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {format} from 'date-fns'
 import {UseConfDataStateValue} from '@fh-health/context/conferenceContext'
-import {IQBMessage} from 'types/context/ConferenceContext'
+import {IQBMessage} from '@fh-health/types/context/ConferenceContext'
 import MessageError from './messageError'
 
 const Message = ({messageInfo}: {messageInfo: IQBMessage}) => {

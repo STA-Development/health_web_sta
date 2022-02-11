@@ -1,15 +1,15 @@
 import React, {useEffect, useRef, useState} from 'react'
-import PureBlock from '@fh-health/component/pureBlock'
+import PureBlock from '@fh-health/component/results/pureBlock'
 import Image from 'next/image'
-import Member from '@fh-health/component/base/migration/member'
+import Member from '@fh-health/component/migration/member'
 import Modal from '@fh-health/component/utils/modal'
 import migrationManager from '@fh-health/manager/migrationManager'
 import CircleLoader from '@fh-health/component/utils/circleLoader'
 import * as Sentry from '@sentry/nextjs'
 import {UseAuthDataStateValue} from '@fh-health/context/authContext'
-import MigrationInitialModal from '@fh-health/component/base/migration/initialModal'
-import SuccessModal from '@fh-health/component/base/migration/successModal'
-import AllSetModal from '@fh-health/component/base/migration/allSetModal'
+import MigrationInitialModal from '@fh-health/component/migration/initialModal'
+import SuccessModal from '@fh-health/component/migration/successModal'
+import AllSetModal from '@fh-health/component/migration/allSetModal'
 import {
   IDependent,
   MemberConfirmActionType,
@@ -18,7 +18,7 @@ import {
 import AuthContextStaticData from '@fh-health/static/authContextStaticData'
 import {useRouter} from 'next/router'
 import {useClickAway} from 'react-use'
-import {userCredentials} from "@fh-health/utils/storage"
+import {userCredentials} from '@fh-health/utils/storage'
 
 const MigrationFlowView = () => {
   const [confirmButtonState, setConfirmButtonState] = useState<boolean>(false)
@@ -227,7 +227,10 @@ const MigrationFlowView = () => {
       const {status} = await migrationManager.migrateSelectedPatients(patientsForMigration)
       if (status === 201) {
         setFinalModalView(true)
-        setAuthDataState({ type: AuthContextStaticData.UPDATE_MIGRATION_REQUIRED_STATE, migrationRequired: false })
+        setAuthDataState({
+          type: AuthContextStaticData.UPDATE_MIGRATION_REQUIRED_STATE,
+          migrationRequired: false,
+        })
       }
     } catch (err) {
       setError(err.response.data.status.message)
@@ -257,7 +260,7 @@ const MigrationFlowView = () => {
                 </div>
                 <button
                   type="button"
-                  className='button card__button migration-modal__button'
+                  className="button card__button migration-modal__button"
                   onClick={() => toggleCurrentMemberFlow()}
                 >
                   You

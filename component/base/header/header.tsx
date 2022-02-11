@@ -1,19 +1,17 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
-import {TestResultColors, TestTypes} from '@fh-health/types/context/testResultContext'
+import {TestTypes} from '@fh-health/types/context/testResultContext'
 import moment from 'moment'
 import PcrIcon from '@fh-health/component/base/header/listIcons/pcrIcon'
 import AntibodyIcon from '@fh-health/component/base/header/listIcons/antibodyIcon'
 import RapidIcon from '@fh-health/component/base/header/listIcons/rapidIcons'
 import ExpressIcon from '@fh-health/component/base/header/listIcons/expressIcon'
 import VaccineIcon from '@fh-health/component/base/header/listIcons/vaccineIcon'
+import useTestResultsColor from '@fh-health/hooks/testResultsColorHook'
 
 const Header = () => {
   const {testResultState} = UseTestResultDataStateValue()
-  const [testColor, setTestColor] = useState({
-    outer: '',
-    inner: '',
-  })
+  const {testColor, getTestResultIconColors} = useTestResultsColor()
 
   const changeDate = (data: string, format: string) => {
     if (data.length) {
@@ -46,38 +44,7 @@ const Header = () => {
   }
 
   useEffect(() => {
-    switch (testResultState.testResult.style) {
-      case TestResultColors.Green:
-        setTestColor({
-          outer: '#DCF3E5',
-          inner: '#52c17c',
-        })
-        break
-      case TestResultColors.Red:
-        setTestColor({
-          outer: '#ffc9ce',
-          inner: '#ff394d',
-        })
-        break
-      case TestResultColors.Blue:
-        setTestColor({
-          outer: '#c0deff',
-          inner: '#007aff',
-        })
-        break
-      case TestResultColors.Yellow:
-        setTestColor({
-          outer: '#ffe7bf',
-          inner: '#ffb439',
-        })
-        break
-      default:
-        setTestColor({
-          outer: '#e3e3e3',
-          inner: '#212121',
-        })
-        break
-    }
+    getTestResultIconColors(testResultState.testResult.style)
   }, [])
 
   return (

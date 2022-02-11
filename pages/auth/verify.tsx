@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Image from 'next/image'
-import PureBlock from '@fh-health/component/pureBlock'
+import PureBlock from '@fh-health/component/results/pureBlock'
 import CircleLoader from '@fh-health/component/utils/circleLoader'
 import testResultManager from '@fh-health/manager/testResultManager'
 import {useRouter} from 'next/router'
