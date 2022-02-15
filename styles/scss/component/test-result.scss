@@ -15,27 +15,6 @@
   }
 }
 
-.wrapper__negative {
-  background-color: $fhhealth-color-green-btn;
-}
-
-.wrapper__positive {
-  background-color: $fhhealth-color-red-bg
-}
-
-.wrapper__inconclusive {
-  background-color: $fhhealth-color-blue-bg
-}
-
-.wrapper__presumptivepositive {
-  background-color: $fhhealth-color-red-bg
-}
-
-.wrapper__biorad-color {
-  background-color:$fhhealth-color-neutral-bg;
-  border-bottom: 1px solid $fhhealth-color-test-analysis-data-border;
-}
-
 .GREEN {
   background-color: $fhhealth-color-green-btn;
 }
@@ -73,23 +52,59 @@
   border-radius: 4px;
 }
 
+.wrapper {
+  &__negative {
+    background-color: $fhhealth-color-green-btn;
+  }
+
+  &__positive {
+    background-color: $fhhealth-color-red-bg
+  }
+
+  &__inconclusive {
+    background-color: $fhhealth-color-blue-bg
+  }
+
+  &__presumptivepositive {
+    background-color: $fhhealth-color-red-bg
+  }
+
+  &__biorad-color {
+    background-color:$fhhealth-color-neutral-bg;
+    border-bottom: 1px solid $fhhealth-color-test-analysis-data-border;
+  }
+
+  &__invalid {
+    background-color: $fhhealth-color-dark-grey-bg;
+  }
+
+  &__pending {
+    background-color: $fhhealth-color-dark-grey-bg;
+  }
+}
+
 .span {
   &__presumptivepositive{
     background-color: $fhhealth-color-red-btn;
   }
+
   &__negative {
     background: $fhhealth-color-green-btn;
   }
+
   &__positive {
     background-color: $fhhealth-color-danger;
   }
+
   &__inconclusive {
     background-color: $fhhealth-color-dark-blue-bg;
   }
+
   &__indeterminate {
     background-color: $fhhealth-color-dark-blue-bg;
   }
+
   &__invalid {
-    background-color: $fhhealth-color-dark-blue-bg;
+    background-color: unset;
   }
 }
