@@ -1,6 +1,6 @@
-import React from "react"
+import React from 'react'
 import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
-import {TestTypes} from "@fh-health/types/context/testResultContext"
+import {TestTypes} from '@fh-health/types/context/testResultContext'
 
 const TestResult = () => {
   const {testResultState} = UseTestResultDataStateValue()
@@ -24,7 +24,7 @@ const TestResult = () => {
     <div className={wrapperClassName}>
       <p className="test-result-text">
         tested <span className={textClassName}>{testResultState?.testResult.result}</span> for
-        sars-cov-2 (<span>{testResultState.testResult.testType}</span>)
+        sars-cov-2 (<span>{testResultState?.testResult.testType}</span>)
       </p>
     </div>
   )

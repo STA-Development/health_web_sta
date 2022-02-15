@@ -15,6 +15,12 @@ const useTestResultsColor = () => {
           inner: '#52c17c',
         })
         break
+      case TestResultColors.LimeGreen:
+        setTestColor({
+          outer: '#b9f9d2',
+          inner: '#32cd32',
+        })
+        break
       case TestResultColors.Red:
         setTestColor({
           outer: '#ffc9ce',
@@ -31,6 +37,12 @@ const useTestResultsColor = () => {
         setTestColor({
           outer: '#ffe7bf',
           inner: '#ffb439',
+        })
+        break
+      case TestResultColors.Gold:
+        setTestColor({
+          outer: '#ffeed2',
+          inner: '#ffd700',
         })
         break
       default:

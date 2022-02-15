@@ -77,8 +77,9 @@ const SingleTestResultPage = ({isPublicUser}: {isPublicUser: boolean}) => {
             (testResultState?.testResult.testType === TestTypes.PCR ||
               testResultState?.testResult.testType === TestTypes.VirtualTravelPCR ||
               testResultState?.testResult.testType === TestTypes.CovidFluAB ||
-              testResultState?.testResult.testType === TestTypes.Covid_FluAB ||
-              testResultState?.testResult.testType === TestTypes.VirtualPCR) && <PcrAnalysisData />}
+              testResultState?.testResult.testType === TestTypes.Covid_FluAB) && (
+              <PcrAnalysisData />
+            )}
           <LabInformation />
           <Footer />
         </div>

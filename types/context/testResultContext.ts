@@ -75,7 +75,9 @@ export enum TestTypes {
 
 export enum TestResultColors {
   Green = 'GREEN',
+  LimeGreen = 'LIMEGREEN',
   Red = 'RED',
   Blue = 'BLUE',
   Yellow = 'YELLOW',
+  Gold = 'GOLD',
 }

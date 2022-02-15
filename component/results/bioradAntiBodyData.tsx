@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
 
 const BioradAntiBodyData = () => {
@@ -13,9 +13,9 @@ const BioradAntiBodyData = () => {
           <div className="result-button__left-part">{analysis.label}</div>
           <div className="result-button__left-part-value">{analysis.value}</div>
           <div
-            className={`result-button__right-part ${testResultState.testResult.result.toLowerCase()}`}
+            className={`result-button__right-part ${testResultState?.testResult.result.toLowerCase()}`}
           >
-            {testResultState.testResult.result}
+            {testResultState?.testResult.result}
           </div>
         </div>
       ))}
