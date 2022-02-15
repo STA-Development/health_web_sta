@@ -84,6 +84,7 @@ const WebPortalResults = () => {
 
   return (
     <>
+      {loading && <ResultsListPreload />}
       {!loading && results.length ? (
         <div className="web-portal-results">
           {latestResults.length ? <ResultsHeader header="Latest Results" size={0} /> : null}
@@ -129,9 +130,7 @@ const WebPortalResults = () => {
             </TestResultContainer>
           ) : null}
         </div>
-      ) : (
-        <ResultsListPreload />
-      )}
+      ) : null}
       {!results.length && !loading && <NoResults />}
     </>
   )
