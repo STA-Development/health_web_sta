@@ -1,12 +1,12 @@
 import Image from 'next/image'
 import React, {useRef, useState} from 'react'
 import {useClickAway} from 'react-use'
-import AuthContextStaticData from '@fh-health/static/authContextStaticData'
 import * as Sentry from '@sentry/nextjs'
 import {useRouter} from 'next/router'
 import firebase from 'lib/firbase'
-import {UseAuthDataStateValue} from '@fh-health/context/authContext'
-import {userCredentials} from '@fh-health/utils/storage'
+import {useDispatch} from 'react-redux'
+import {updatePatientInformation} from '@fh-health/redux/state/auth/patientInformationSlice'
+import {updateAuthToken} from '@fh-health/redux/state/auth/tokenSlice'
 
 const HeaderMenu = () => {
   const router = useRouter()
@@ -14,7 +14,7 @@ const HeaderMenu = () => {
   const [isProfileMenuOpen, setData] = useState(false)
   const currentPage = useRouter().route
   const showBackIcon = currentPage.includes('my')
-  const {setAuthDataState} = UseAuthDataStateValue()
+  const dispatch = useDispatch()
 
   const openMenu = () => {
     setData(!isProfileMenuOpen)
@@ -27,9 +27,9 @@ const HeaderMenu = () => {
   const handleLogoutClick = async () => {
     try {
       await firebase.auth().signOut()
-      setAuthDataState({type: AuthContextStaticData.UPDATE_AUTH_TOKEN, token: ''})
       localStorage.removeItem('selectedKitId')
-      userCredentials.accessToken = ''
+      dispatch(updatePatientInformation(null))
+      dispatch(updateAuthToken(''))
       router.push('/auth/login')
     } catch (err) {
       Sentry.captureException(err)

@@ -1,6 +1,9 @@
 import axios from 'axios'
 import guid from '@fh-health/utils/guid'
-import {userCredentials} from '@fh-health/utils/storage'
+
+import store from '../redux/store'
+
+store.subscribe(listener)
 
 const generateRequestId = () => guid()
 const getOrGenerateDeviceId = () => {
@@ -12,10 +15,14 @@ const getOrGenerateDeviceId = () => {
   localStorage.setItem('deviceId', newDeviceId)
 }
 
-export const authHeader = () => {
-  const token = `Bearer ${userCredentials.accessToken}`
-  return {
-    Authorization: token,
+function select(state) {
+  return state.token.value
+}
+
+function listener() {
+  const token = select(store.getState())
+  if (token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`
   }
 }
 

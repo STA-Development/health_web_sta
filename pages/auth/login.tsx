@@ -13,6 +13,11 @@ import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/bootstrap.css'
 import Card from '@fh-health/component/utils/card'
 import useCountdown from '@fh-health/hooks/countdownHook'
+import {useDispatch, useSelector} from 'react-redux'
+import {updateAuthToken} from '@fh-health/redux/state/auth/tokenSlice'
+import {updateAuthChecked} from '@fh-health/redux/state/auth/authCheckedSlice'
+import {setAuthInformationUpdate} from '@fh-health/redux/state/auth/authInformationUpdate'
+import {IStore} from '@fh-health/redux/store'
 
 interface IFirebaseAuthProps {
   user?: {
@@ -34,11 +39,13 @@ const Login = () => {
   const [loginButtonState, setLoginButtonState] = useState<boolean>(false)
   const [verifyButtonState, setVerifyButtonState] = useState<boolean>(false)
   const [smsSuccessView, setSmsSuccessView] = useState<boolean>(false)
+  const dispatch = useDispatch()
+  const authInformationUpdate = useSelector((state: IStore) => state.authInformationUpdate.value)
+  const token = useSelector((state: IStore) => state.token.value)
+  const [initiallyTokenChecked, setInitiallyTokenChecked] = useState<boolean>(false)
 
   const {displayDuration, startCountdown} = useCountdown()
   const {authDataState, setAuthDataState} = UseAuthDataStateValue()
-
-  const redirectToCreateProfile = () => router.push('/auth/createProfile')
 
   const getFirebaseCaptcha = () => {
     firebase.auth().settings.appVerificationDisabledForTesting =
@@ -48,21 +55,6 @@ const Login = () => {
     })
     reCaptchaVerifier.render()
     setAuthDataState({type: AuthContextStaticData.UPDATE_RE_CAPTCHA, reCaptchaVerifier})
-  }
-
-  const getPatientAccountInformation = async () => {
-    try {
-      const response = await authDataState.getPatientInformation()
-      if (response) {
-        setAuthDataState({
-          type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION,
-          patientAccountInformation: response,
-        })
-      }
-      return response
-    } catch (e) {
-      Sentry.captureException(e)
-    }
   }
 
   const sendSMSToPhoneNumber = async (phone?: string) => {
@@ -115,34 +107,12 @@ const Login = () => {
         const result: IFirebaseAuthProps = await verificationResult.confirm(verificationCode)
         const {user} = result
         if (user) {
-          user.getIdToken().then((token: string) => {
+          user.getIdToken().then((userToken: string) => {
             ;(async () => {
-              setAuthDataState({type: AuthContextStaticData.UPDATE_AUTH_TOKEN, token})
-              const patientAccountInformation = await getPatientAccountInformation()
+              dispatch(updateAuthToken(userToken))
+              dispatch(updateAuthChecked(true))
               setLoading(false)
-              if (patientAccountInformation) {
-                if (
-                  !patientAccountInformation?.isEmailVerified &&
-                  patientAccountInformation?.email
-                ) {
-                  router.push(`/auth/emailVerification`)
-                } else if (
-                  patientAccountInformation.firstName &&
-                  !patientAccountInformation?.email
-                ) {
-                  router.push('/auth/updateEmail')
-                } else if (patientAccountInformation.migrationRequired) {
-                  setAuthDataState({
-                    type: AuthContextStaticData.SET_FLOW_CHECKMARK,
-                    flowCheckmark: true,
-                  })
-                  router.push(`/migration`)
-                } else {
-                  router.push(`/results/list`)
-                }
-              } else {
-                setSmsSuccessView(true)
-              }
+              setSmsSuccessView(true)
             })()
           })
         }
@@ -173,6 +143,11 @@ const Login = () => {
     }
   }
 
+  const handleContinueClick = () => {
+    dispatch(setAuthInformationUpdate(!authInformationUpdate))
+    router.push('/results/list')
+  }
+
   const displaySmsVerificationSuccessView = () => (
     <div className="card-wrapper">
       <Card permissions={false}>
@@ -186,7 +161,7 @@ const Login = () => {
             soon as they are available
           </p>
         </div>
-        <button type="button" className="button card__button" onClick={redirectToCreateProfile}>
+        <button type="button" className="button card__button" onClick={() => handleContinueClick()}>
           Continue
         </button>
       </Card>
@@ -224,6 +199,13 @@ const Login = () => {
       document.removeEventListener('keyup', pressVerifyButton)
     }
   }, [isVerificationCodeSent, verifyButtonState])
+
+  useEffect(() => {
+    if (!initiallyTokenChecked) {
+      dispatch(setAuthInformationUpdate(!authInformationUpdate))
+      setInitiallyTokenChecked(true)
+    }
+  }, [token])
 
   return (
     <>

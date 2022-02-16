@@ -1,20 +1,19 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import PureBlock from '@fh-health/component/results/pureBlock'
 import Image from 'next/image'
 import CircleLoader from '@fh-health/component/utils/circleLoader'
 import * as Sentry from '@sentry/nextjs'
 import authManager from '@fh-health/manager/authManager'
-import {UseAuthDataStateValue} from '@fh-health/context/authContext'
-import AuthContextStaticData from '@fh-health/static/authContextStaticData'
-import {useRouter} from 'next/router'
+import {updatePatientInformation} from '@fh-health/redux/state/auth/patientInformationSlice'
+import {useDispatch} from 'react-redux'
 import useEmailValidation from '@fh-health/hooks/emailValidationHook'
+import { useRouter } from 'next/router'
 
 const UpdateEmail = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
-
+  const dispatch = useDispatch()
   const router = useRouter()
-  const {authDataState, setAuthDataState} = UseAuthDataStateValue()
   const {email, isEmailValidated, validateEmail} = useEmailValidation()
 
   const handleEmailUpdate = async () => {
@@ -23,10 +22,8 @@ const UpdateEmail = () => {
     try {
       const response = await authManager.updateUserEmail(email)
       if (response?.data?.data) {
-        setAuthDataState({
-          type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION,
-          patientAccountInformation: response.data.data,
-        })
+        dispatch(updatePatientInformation(response.data.data))
+        router.push('/auth/emailVerification')
       }
     } catch (err) {
       const {message} = err.response.data.status
@@ -35,21 +32,6 @@ const UpdateEmail = () => {
     }
     setLoading(false)
   }
-
-  useEffect(() => {
-    if (authDataState.patientAccountInformation.email) {
-      router.push('/auth/emailVerification')
-    }
-  }, [authDataState.patientAccountInformation.email])
-
-  useEffect(() => {
-    if (!authDataState.patientAccountInformation.firstName) {
-      setAuthDataState({
-        type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION_CALLED,
-        patientAccountInformationCalled: true,
-      })
-    }
-  }, [])
 
   return (
     <div className="pure-block-wrapper pure-block-wrapper_create-profile">

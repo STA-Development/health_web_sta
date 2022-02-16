@@ -15,8 +15,12 @@ const PcrAnalysisData = () => {
               <div className="analysis-wrapper__parameter" key={guid()}>
                 <h3 className="analysis-wrapper__bottom-title">{analysis.channelName}</h3>
                 <div className="analysis-wrapper__results">
-                  <div className="analysis-wrapper__first-result">{analysis.groups[0].label}</div>
-                  <div className="analysis-wrapper__second-result">{analysis.groups[0].value}</div>
+                  <div className="analysis-wrapper__first-result">
+                    {analysis.groups?.[0]?.label}
+                  </div>
+                  <div className="analysis-wrapper__second-result">
+                    {analysis.groups?.[0]?.value}
+                  </div>
                   <div className="analysis-wrapper__third-result">
                     {analysis.groups?.[1]?.label}
                   </div>
@@ -35,9 +39,15 @@ const PcrAnalysisData = () => {
               <div className="analysis-wrapper__parameter" key={guid()}>
                 <h3 className="analysis-wrapper__bottom-title">{analysis.channelName}</h3>
                 <div className="analysis-wrapper__results">
-                  <div className="analysis-wrapper__first-result">{analysis.groups[0]?.label}</div>
-                  <div className="analysis-wrapper__second-result">{analysis.groups[0]?.value}</div>
-                  <div className="analysis-wrapper__third-result">{analysis.groups[1]?.label}</div>
+                  <div className="analysis-wrapper__first-result">
+                    {analysis.groups?.[0]?.label}
+                  </div>
+                  <div className="analysis-wrapper__second-result">
+                    {analysis.groups?.[0]?.value}
+                  </div>
+                  <div className="analysis-wrapper__third-result">
+                    {analysis.groups?.[1]?.label}
+                  </div>
                   <div className="analysis-wrapper__forth-result">
                     {analysis.groups?.[1]?.value}
                   </div>

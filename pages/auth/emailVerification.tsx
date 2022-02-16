@@ -6,11 +6,9 @@ import ReactCodeInput from 'react-verification-code-input'
 import Notification from '@fh-health/component/results/notification'
 import AuthManager from '@fh-health/manager/authManager'
 import * as Sentry from '@sentry/nextjs'
-import {UseAuthDataStateValue} from '@fh-health/context/authContext'
 import EmailAddressVerified from '@fh-health/component/results/emailAddressVerified'
-import AuthContextStaticData from '@fh-health/static/authContextStaticData'
-import {useRouter} from 'next/router'
-import {userCredentials} from '@fh-health/utils/storage'
+import {useSelector} from 'react-redux'
+import {IStore} from '@fh-health/redux/store'
 import useCountdown from '@fh-health/hooks/countdownHook'
 
 const EmailVerification = () => {
@@ -19,10 +17,9 @@ const EmailVerification = () => {
   const [verificationCode, setVerificationCode] = useState<string>('')
   const [verifyButtonState, setVerifyButtonState] = useState<boolean>(false)
   const [isEmailVerificationCompleted, setIsEmailVerificationCompleted] = useState<boolean>(false)
+  const patientInformation = useSelector((state: IStore) => state.patientInformation.value)
 
-  const router = useRouter()
   const {displayDuration, startCountdown} = useCountdown()
-  const {authDataState, setAuthDataState} = UseAuthDataStateValue()
 
   const sendEmailVerificationEmail = async () => {
     setErrMessage('')
@@ -42,11 +39,11 @@ const EmailVerification = () => {
     e.preventDefault()
     try {
       const data = {
-        patientId: authDataState.patientAccountInformation.organizations?.[0]?.patientId,
-        organizationId:
-          authDataState.patientAccountInformation.organizations?.[0]?.firebaseOrganizationId,
+        patientId: patientInformation?.organizations?.[0]?.patientId,
+        organizationId: patientInformation?.organizations?.[0]?.firebaseOrganizationId,
         code: verificationCode,
       }
+
       const response = await AuthManager.verifyUserEmail(data)
       if (response.status === 200) {
         setIsEmailVerificationCompleted(true)
@@ -71,25 +68,10 @@ const EmailVerification = () => {
   }
 
   useEffect(() => {
-    const token = userCredentials.accessToken
-
     ;(async () => {
       await sendEmailVerificationEmail()
     })()
-
-    if (!token) {
-      router.push('/auth/login')
-    }
   }, [])
-
-  useEffect(() => {
-    if (!authDataState.patientAccountInformation.organizations[0].patientId) {
-      setAuthDataState({
-        type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION_CALLED,
-        patientAccountInformationCalled: true,
-      })
-    }
-  }, [authDataState.patientAccountInformation])
 
   return isEmailVerificationCompleted ? (
     <EmailAddressVerified />

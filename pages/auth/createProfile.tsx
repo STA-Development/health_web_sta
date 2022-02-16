@@ -6,10 +6,13 @@ import Notification from '@fh-health/component/results/notification'
 import {useRouter} from 'next/router'
 import authManager from '@fh-health/manager/authManager'
 import Card from '@fh-health/component/utils/card'
-import AuthContextStaticData from '@fh-health/static/authContextStaticData'
-import {UseAuthDataStateValue} from '@fh-health/context/authContext'
 import * as Sentry from '@sentry/nextjs'
 import useEmailValidation from '@fh-health/hooks/emailValidationHook'
+import {useDispatch} from 'react-redux'
+import authInformationUpdate, {
+  setAuthInformationUpdate,
+} from '@fh-health/redux/state/auth/authInformationUpdate'
+import {updatePatientInformation} from '@fh-health/redux/state/auth/patientInformationSlice'
 
 const CreateProfile = () => {
   const [loading, setLoading] = useState<boolean>(false)
@@ -19,12 +22,8 @@ const CreateProfile = () => {
   const [error, setError] = useState<string>('')
   const [emailVerifyRequiredView, setEmailVerifyRequiredView] = useState<boolean>(false)
   const router = useRouter()
-  const {authDataState, setAuthDataState} = UseAuthDataStateValue()
+  const dispatch = useDispatch()
   const {email, isEmailValidated, validateEmail} = useEmailValidation()
-
-  const redirectAfterVerify = () => {
-    router.push('/auth/emailVerification')
-  }
 
   const handleCreateClick = async () => {
     setLoading(true)
@@ -32,10 +31,7 @@ const CreateProfile = () => {
     try {
       const response = await authManager.createUserProfile(firstName, lastName, email)
       if (response?.data?.data) {
-        setAuthDataState({
-          type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION,
-          patientAccountInformation: response.data.data,
-        })
+        dispatch(updatePatientInformation(response?.data?.data))
       }
       const {isEmailVerified} = response.data.data
       if (!isEmailVerified) {
@@ -50,6 +46,11 @@ const CreateProfile = () => {
     setLoading(false)
   }
 
+  const handleEmailVerifyViewClick = () => {
+    dispatch(setAuthInformationUpdate(!authInformationUpdate))
+    router.push('/auth/emailVerification')
+  }
+
   useEffect(() => {
     if (firstName && lastName && isEmailValidated) {
       setCreateButtonState(true)
@@ -57,15 +58,6 @@ const CreateProfile = () => {
       setCreateButtonState(false)
     }
   }, [firstName, lastName, email])
-
-  useEffect(() => {
-    if (!authDataState.patientAccountInformation.organizations[0].patientId) {
-      setAuthDataState({
-        type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION_CALLED,
-        patientAccountInformationCalled: true,
-      })
-    }
-  }, [authDataState.patientAccountInformation])
 
   const displayEmailVerifyRequiredView = () => (
     <div className="pure-block-wrapper">
@@ -81,7 +73,11 @@ const CreateProfile = () => {
                 This email will be used for login and to recover your data.
               </p>
             </div>
-            <button type="button" className="button card__button" onClick={redirectAfterVerify}>
+            <button
+              type="button"
+              className="button card__button"
+              onClick={() => handleEmailVerifyViewClick()}
+            >
               Verify Email
             </button>
           </Card>

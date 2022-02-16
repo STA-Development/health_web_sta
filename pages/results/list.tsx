@@ -6,8 +6,6 @@ import React, {useEffect, useState} from 'react'
 import moment from 'moment'
 import * as Sentry from '@sentry/nextjs'
 import testResultManager from '@fh-health/manager/testResultManager'
-import AuthContextStaticData from '@fh-health/static/authContextStaticData'
-import {UseAuthDataStateValue} from '@fh-health/context/authContext'
 import ResultsListPreload from '@fh-health/component/results/resultsListPreload'
 
 interface IResult {
@@ -27,7 +25,6 @@ const WebPortalResults = () => {
   const [latestResults, setLatestResults] = useState<IResult[]>([])
   const [historyResults, setHistoryResults] = useState<IResult[]>([])
   const [loading, setLoading] = useState<boolean>(false)
-  const {authDataState, setAuthDataState} = UseAuthDataStateValue()
 
   const getData = async () => {
     setLoading(true)
@@ -47,15 +44,6 @@ const WebPortalResults = () => {
       await getData()
     })()
   }, [])
-
-  useEffect(() => {
-    if (!authDataState.patientAccountInformation.organizations[0].patientId) {
-      setAuthDataState({
-        type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION_CALLED,
-        patientAccountInformationCalled: true,
-      })
-    }
-  }, [authDataState.patientAccountInformation])
 
   useEffect(() => {
     if (results.length) {

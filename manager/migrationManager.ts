@@ -1,38 +1,22 @@
-import Axios, {authHeader} from './axiosInstance'
+import Axios from './axiosInstance'
 
 const migrationManager = {
   getPatientsList() {
     return Axios({
       baseURL: process.env.USER_SERVICE_URL,
-    }).get('/user/api/v1/patients/unconfirmed', {
-      headers: {
-        ...authHeader(),
-      },
-    })
+    }).get('/user/api/v1/patients/unconfirmed')
   },
   getDependentsList() {
     return Axios({
       baseURL: process.env.USER_SERVICE_URL,
-    }).get('/user/api/v1/patients/dependants', {
-      headers: {
-        ...authHeader(),
-      },
-    })
+    }).get('/user/api/v1/patients/dependants')
   },
   migrateSelectedPatients(patients: object[]) {
     return Axios({
       baseURL: process.env.USER_SERVICE_URL,
-    }).post(
-      '/user/api/v1/patients/migrate',
-      {
-        migrations: patients,
-      },
-      {
-        headers: {
-          ...authHeader(),
-        },
-      },
-    )
+    }).post('/user/api/v1/patients/migrate', {
+      migrations: patients,
+    })
   },
 }
 

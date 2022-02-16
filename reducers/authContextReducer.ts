@@ -3,11 +3,6 @@ import AuthContextStaticData from '@fh-health/static/authContextStaticData'
 
 const AuthContextReducer = (state: IAuthState, action: IAuthActions) => {
   switch (action.type) {
-    case AuthContextStaticData.UPDATE_AUTH_TOKEN:
-      return {
-        ...state,
-        authToken: action.token,
-      }
     case AuthContextStaticData.UPDATE_RE_CAPTCHA:
       return {
         ...state,
@@ -17,35 +12,6 @@ const AuthContextReducer = (state: IAuthState, action: IAuthActions) => {
       return {
         ...state,
         phoneNumber: action.phoneNumber,
-      }
-    case AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION:
-      return {
-        ...state,
-        patientAccountInformation: action.patientAccountInformation,
-      }
-    case AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION_CALLED:
-      return {
-        ...state,
-        patientAccountInformationCalled: action.patientAccountInformationCalled,
-      }
-    case AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION_AND_RESET_CALL_STATE:
-      return {
-        ...state,
-        patientAccountInformationCalled: action.patientAccountInformationCalled,
-        patientAccountInformation: action.patientAccountInformation,
-      }
-    case AuthContextStaticData.SET_FLOW_CHECKMARK:
-      return {
-        ...state,
-        isOnFlow: action.flowCheckmark
-      }
-    case AuthContextStaticData.UPDATE_MIGRATION_REQUIRED_STATE:
-      return {
-        ...state,
-        patientAccountInformation: {
-          ...state.patientAccountInformation,
-          migrationRequired: action.migrationRequired
-        }
       }
     default:
       return state

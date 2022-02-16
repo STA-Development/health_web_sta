@@ -1,26 +1,14 @@
-import Axios, {authHeader} from './axiosInstance'
+import Axios from './axiosInstance'
 
 const testResultManager = {
   getTestResult(token: string, encryptedID: string) {
-    return Axios({token}).get(`/user/api/public/v1/pcr-test-results/${encryptedID}`, {
-      headers: {
-        ...authHeader(),
-      },
-    })
+    return Axios({token}).get(`/user/api/public/v1/pcr-test-results/${encryptedID}`)
   },
   getSingleTestResult(id: string) {
-    return Axios().get(`/user/api/v1/pcr-test-results/${id}`, {
-      headers: {
-        ...authHeader(),
-      },
-    })
+    return Axios().get(`/user/api/v1/pcr-test-results/${id}`)
   },
   getAllTestResults() {
-    return Axios().get(`${process.env.RESERVATION_SERVICE_URL}/reservation/api/v1/test-results`, {
-      headers: {
-        ...authHeader(),
-      },
-    })
+    return Axios().get(`${process.env.RESERVATION_SERVICE_URL}/reservation/api/v1/test-results`)
   },
   checkVerification(captchaToken: string, smsToken: string) {
     return Axios({token: captchaToken}).put('/user/api/v1/verify', {

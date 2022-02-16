@@ -6,7 +6,6 @@ import Modal from '@fh-health/component/utils/modal'
 import migrationManager from '@fh-health/manager/migrationManager'
 import CircleLoader from '@fh-health/component/utils/circleLoader'
 import * as Sentry from '@sentry/nextjs'
-import {UseAuthDataStateValue} from '@fh-health/context/authContext'
 import MigrationInitialModal from '@fh-health/component/migration/initialModal'
 import SuccessModal from '@fh-health/component/migration/successModal'
 import AllSetModal from '@fh-health/component/migration/allSetModal'
@@ -15,10 +14,10 @@ import {
   MemberConfirmActionType,
   MemberSelectType,
 } from '@fh-health/types/migrationTypes'
-import AuthContextStaticData from '@fh-health/static/authContextStaticData'
 import {useRouter} from 'next/router'
 import {useClickAway} from 'react-use'
-import {userCredentials} from '@fh-health/utils/storage'
+import {useSelector} from 'react-redux'
+import {IStore} from '@fh-health/redux/store'
 
 const MigrationFlowView = () => {
   const [confirmButtonState, setConfirmButtonState] = useState<boolean>(false)
@@ -43,10 +42,9 @@ const MigrationFlowView = () => {
     idPatient: null,
   })
 
-  const {setAuthDataState} = UseAuthDataStateValue()
-  const {authDataState} = UseAuthDataStateValue()
   const organizeModalRef = useRef(null)
   const router = useRouter()
+  const patientInformation = useSelector((state: IStore) => state.patientInformation.value)
 
   useClickAway(organizeModalRef, () => {
     setDependentUserView(false)
@@ -116,7 +114,7 @@ const MigrationFlowView = () => {
           return {
             notConfirmedPatientId: selectedMember?.idPatient,
             action: MemberConfirmActionType.Merge,
-            patientId: authDataState.patientAccountInformation.organizations?.[0]?.patientId,
+            patientId: patientInformation.organizations?.[0]?.patientId,
           }
         }
 
@@ -130,7 +128,7 @@ const MigrationFlowView = () => {
         {
           notConfirmedPatientId: selectedMember?.idPatient,
           action: MemberConfirmActionType.Merge,
-          patientId: authDataState.patientAccountInformation.organizations?.[0]?.patientId,
+          patientId: patientInformation.organizations?.[0]?.patientId,
         },
       ])
     }
@@ -227,10 +225,6 @@ const MigrationFlowView = () => {
       const {status} = await migrationManager.migrateSelectedPatients(patientsForMigration)
       if (status === 201) {
         setFinalModalView(true)
-        setAuthDataState({
-          type: AuthContextStaticData.UPDATE_MIGRATION_REQUIRED_STATE,
-          migrationRequired: false,
-        })
       }
     } catch (err) {
       setError(err.response.data.status.message)
@@ -241,7 +235,7 @@ const MigrationFlowView = () => {
 
   const allSetModalClose = () => {
     setFinalModalView(false)
-    router.push('/')
+    router.push('/results/list')
   }
 
   const displayOrganizedDataModal = () => (
@@ -322,16 +316,10 @@ const MigrationFlowView = () => {
   )
 
   useEffect(() => {
-    const token = userCredentials.accessToken
-
     ;(async () => {
       await getUnconfirmedPatients()
       await getDependentsList()
     })()
-
-    if (!token && !authDataState.isOnFlow) {
-      router.push('/auth/login')
-    }
   }, [])
 
   useEffect(() => {
@@ -341,15 +329,6 @@ const MigrationFlowView = () => {
       setConfirmButtonState(false)
     }
   }, [members])
-
-  useEffect(() => {
-    if (!authDataState.patientAccountInformation.organizations[0].patientId) {
-      setAuthDataState({
-        type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION_CALLED,
-        patientAccountInformationCalled: true,
-      })
-    }
-  }, [authDataState.patientAccountInformation])
 
   return (
     <>

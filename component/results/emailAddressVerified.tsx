@@ -1,37 +1,28 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import Image from 'next/image'
 import Card from '@fh-health/component/utils/card'
 import {useRouter} from 'next/router'
-import AuthContextStaticData from '@fh-health/static/authContextStaticData'
-import {UseAuthDataStateValue} from '@fh-health/context/authContext'
+import {useDispatch, useSelector} from 'react-redux'
+import {setAuthInformationUpdate} from '@fh-health/redux/state/auth/authInformationUpdate'
+import {updatePatientInformation} from '@fh-health/redux/state/auth/patientInformationSlice'
+import {IStore} from '@fh-health/redux/store'
 
 const EmailAddressVerified = () => {
   const router = useRouter()
-  const {authDataState, setAuthDataState} = UseAuthDataStateValue()
-  const [isMigrationRequired, setIsMigrationRequired] = useState<boolean>(false)
+  const authInformationUpdate = useSelector((state: IStore) => state.authInformationUpdate.value)
+  const patientInformation = useSelector((state: IStore) => state.patientInformation.value)
+  const dispatch = useDispatch()
 
-  const handleFlowContinue = () => {
-    if (isMigrationRequired) {
-      router.push('/migration')
-    } else {
-      router.push('/')
-    }
+  const handleEmailVerifiedClick = () => {
+    dispatch(
+      updatePatientInformation({
+        ...patientInformation,
+        isEmailVerified: true,
+      }),
+    )
+    dispatch(setAuthInformationUpdate(!authInformationUpdate))
+    router.push('/migration')
   }
-
-  useEffect(() => {
-    ;(async () => {
-      const response = await authDataState.getPatientInformation()
-      if (response.migrationRequired) {
-        setIsMigrationRequired(true)
-      }
-      if (response) {
-        setAuthDataState({
-          type: AuthContextStaticData.UPDATE_PATIENT_ACCOUNT_INFORMATION,
-          patientAccountInformation: response,
-        })
-      }
-    })()
-  }, [])
 
   return (
     <div className="pure-block-wrapper">
@@ -50,7 +41,7 @@ const EmailAddressVerified = () => {
           <button
             type="button"
             className="button card__button"
-            onClick={() => handleFlowContinue()}
+            onClick={() => handleEmailVerifiedClick()}
           >
             Continue
           </button>

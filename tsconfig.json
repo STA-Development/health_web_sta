@@ -45,6 +45,9 @@
       "@fh-health/utils/*": [
         "utils/*"
       ],
+      "@fh-health/redux/*": [
+        "redux/*"
+      ],
       "@fh-health/hooks/*": [
         "hooks/*"
       ]
