@@ -1,6 +1,7 @@
 import React from 'react'
 import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
 import guid from '@fh-health/utils/guid'
+import {isNum, roundWithOneDecimal} from '../../helpers/casts'
 
 const PcrAnalysisData = () => {
   const {testResultState} = UseTestResultDataStateValue()
@@ -19,7 +20,9 @@ const PcrAnalysisData = () => {
                     {analysis.groups?.[0]?.label}
                   </div>
                   <div className="analysis-wrapper__second-result">
-                    {analysis.groups?.[0]?.value}
+                    {isNum(analysis.groups?.[0]?.value)
+                      ? roundWithOneDecimal(analysis.groups?.[0]?.value)
+                      : analysis.groups?.[0]?.value}
                   </div>
                   <div className="analysis-wrapper__third-result">
                     {analysis.groups?.[1]?.label}
@@ -43,7 +46,9 @@ const PcrAnalysisData = () => {
                     {analysis.groups?.[0]?.label}
                   </div>
                   <div className="analysis-wrapper__second-result">
-                    {analysis.groups?.[0]?.value}
+                    {isNum(analysis.groups?.[0]?.value)
+                      ? roundWithOneDecimal(analysis.groups?.[0]?.value)
+                      : analysis.groups?.[0]?.value}
                   </div>
                   <div className="analysis-wrapper__third-result">
                     {analysis.groups?.[1]?.label}

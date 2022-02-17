@@ -2,26 +2,27 @@ import React from 'react'
 import Image from 'next/image'
 import Card from '@fh-health/component/utils/card'
 import {useRouter} from 'next/router'
-import {useDispatch, useSelector} from 'react-redux'
-import {setAuthInformationUpdate} from '@fh-health/redux/state/auth/authInformationUpdate'
+import {useDispatch} from 'react-redux'
 import {updatePatientInformation} from '@fh-health/redux/state/auth/patientInformationSlice'
-import {IStore} from '@fh-health/redux/store'
+import {getPatientInformation} from '@fh-health/component/base/authChecker'
 
 const EmailAddressVerified = () => {
   const router = useRouter()
-  const authInformationUpdate = useSelector((state: IStore) => state.authInformationUpdate.value)
-  const patientInformation = useSelector((state: IStore) => state.patientInformation.value)
   const dispatch = useDispatch()
 
-  const handleEmailVerifiedClick = () => {
+  const handleEmailVerifiedClick = async () => {
+    const data = await getPatientInformation()
     dispatch(
       updatePatientInformation({
-        ...patientInformation,
+        ...data,
         isEmailVerified: true,
       }),
     )
-    dispatch(setAuthInformationUpdate(!authInformationUpdate))
-    router.push('/migration')
+    if (data?.migrationRequired) {
+      router.push('/migration')
+    } else {
+      router.push('/results/list')
+    }
   }
 
   return (

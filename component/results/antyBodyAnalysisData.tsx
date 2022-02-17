@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
 
 const AntiBodyAnalysisData = () => {
@@ -8,15 +8,16 @@ const AntiBodyAnalysisData = () => {
     <div className="anti-body">
       <h3 className="anti-body__title">Test Analysis Data</h3>
       <p className="anti-body__description">Antibody Cut-off Index Values</p>
-      {testResultState.testResult.resultAnalysis[0]?.groups.map((analysis, index, resultAnalysis) =>
-        (index >= resultAnalysis.length / 2) && (
-          <div className="result-button" key={index}>
-            <div className="result-button__left-part">{analysis.label.slice(0, 3)}</div>
-            <div className={`result-button__right-part ${analysis.value.toLocaleLowerCase()}`}>
-              {analysis.value}
+      {testResultState.testResult.resultAnalysis[0]?.groups.map(
+        (analysis, index, resultAnalysis) =>
+          index >= resultAnalysis.length / 2 && (
+            <div className="result-button" key={index}>
+              <div className="result-button__left-part">{analysis.label.slice(0, 3)}</div>
+              <div className={`result-button__right-part ${analysis.value.toLocaleLowerCase()}`}>
+                {analysis.value}
+              </div>
             </div>
-          </div>
-        )
+          ),
       )}
       <p className="anti-body__results-title">Reference Cut-off Index:</p>
       <p className="anti-body__results-description">

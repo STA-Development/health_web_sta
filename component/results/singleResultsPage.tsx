@@ -22,6 +22,19 @@ const SingleTestResultPage = ({isPublicUser}: {isPublicUser: boolean}) => {
   const [resultId, setResultId] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
 
+  const isAntibodyTemplate =
+    testResultState?.testResult?.testType === TestTypes.AntibodyAll ||
+    testResultState?.testResult?.testType === TestTypes.AntibodyBiorad
+  const isBioradAntibodyTemplate =
+    testResultState?.testResult?.testType === TestTypes.PCR &&
+    testResultState?.testResult?.templateId === TestTypes.BioradAntiBody
+  const isPCRTemplate =
+    testResultState?.testResult?.templateId !== TestTypes.BioradAntiBody &&
+    (testResultState?.testResult.testType === TestTypes.PCR ||
+      testResultState?.testResult.testType === TestTypes.VirtualTravelPCR ||
+      testResultState?.testResult.testType === TestTypes.CovidFluAB ||
+      testResultState?.testResult.testType === TestTypes.Covid_FluAB)
+
   const getData = async () => {
     setLoading(true)
     const token = await getV3RecaptchaToken()
@@ -65,21 +78,9 @@ const SingleTestResultPage = ({isPublicUser}: {isPublicUser: boolean}) => {
         <div className="carcass">
           <Header />
           <TestResult />
-          {testResultState?.testResult?.testType === TestTypes?.AntibodyAll ||
-            (testResultState?.testResult?.testType === TestTypes.AntibodyBiorad && (
-              <AntiBodyAnalysisData />
-            ))}
-          {testResultState?.testResult?.testType === TestTypes?.PCR &&
-            testResultState?.testResult?.templateId === TestTypes.BioradAntiBody && (
-              <BioradAntiBodyData />
-            )}
-          {testResultState?.testResult?.templateId !== TestTypes.BioradAntiBody &&
-            (testResultState?.testResult.testType === TestTypes.PCR ||
-              testResultState?.testResult.testType === TestTypes.VirtualTravelPCR ||
-              testResultState?.testResult.testType === TestTypes.CovidFluAB ||
-              testResultState?.testResult.testType === TestTypes.Covid_FluAB) && (
-              <PcrAnalysisData />
-            )}
+          {isAntibodyTemplate && <AntiBodyAnalysisData />}
+          {isBioradAntibodyTemplate && <BioradAntiBodyData />}
+          {isPCRTemplate && <PcrAnalysisData />}
           <LabInformation />
           <Footer />
         </div>

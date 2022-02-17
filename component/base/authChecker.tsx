@@ -17,6 +17,15 @@ interface IDecodedToken {
   token: string
 }
 
+export const getPatientInformation = async () => {
+  try {
+    const response = await AuthManager.getPatientInformation()
+    return response?.data?.data
+  } catch (e) {
+    Sentry.captureException(e)
+  }
+}
+
 const AuthChecker = () => {
   const router = useRouter()
   const token = useSelector((state: IStore) => state.token.value)
@@ -25,17 +34,14 @@ const AuthChecker = () => {
   const authInformationUpdate = useSelector((state: IStore) => state.authInformationUpdate.value)
   const currentPage = useRouter().route
   const isPublicPage = currentPage === '/'
+  const isConferencePage = useRouter().route.includes('conference')
+  const isMigrationPage = useRouter().route.includes('migration')
+  const isLoginPage = useRouter().route.includes('login')
+  const isCreateProfilePage = useRouter().route.includes('createProfile')
+  const isEmailVerifyPage = useRouter().route.includes('emailVerification')
+  const isUpdateEmailPage = useRouter().route.includes('updateEmail')
 
   const dispatch = useDispatch()
-
-  const getPatientInformation = async () => {
-    try {
-      const response = await AuthManager.getPatientInformation()
-      return response?.data?.data
-    } catch (e) {
-      Sentry.captureException(e)
-    }
-  }
 
   const onAuthStateChange = () =>
     firebase.auth().onAuthStateChanged(async (user) => {
@@ -59,7 +65,7 @@ const AuthChecker = () => {
   }
 
   const isPageEnterPermitted = (authToken?: string, patientInfo?: IPatientAccountInformation) => {
-    if (!(isPublicPage && router.asPath.indexOf('?') === 1)) {
+    if (!(isPublicPage && router.asPath.indexOf('?') === 1) || !isConferencePage) {
       const firebaseToken = authToken || token
       const patientData = patientInfo || patientInformation
 
@@ -73,7 +79,13 @@ const AuthChecker = () => {
         router.push('/auth/updateEmail')
       } else if (patientData?.migrationRequired) {
         router.push(`/migration`)
-      } else {
+      } else if (
+        (isMigrationPage && !patientData?.migrationRequired) ||
+        (isLoginPage && !checkAuthTokenExpiration(firebaseToken)) ||
+        (isCreateProfilePage && patientData) ||
+        (isEmailVerifyPage && patientData?.isEmailVerified) ||
+        (isUpdateEmailPage && patientData?.email)
+      ) {
         router.push(`/results/list`)
       }
     }
