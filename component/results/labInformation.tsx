@@ -29,7 +29,7 @@ const LabInformation = () => {
             {testResultState.testResult.testType && (
               <>
                 <p className="field">test-type</p>
-                <p className="answer test-answer">{testResultState.testResult.testType}</p>
+                <p className="answer test-answer">{testResultState.testResult.testTypeName}</p>
               </>
             )}
           </div>

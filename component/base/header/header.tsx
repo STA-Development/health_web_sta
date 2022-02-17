@@ -11,7 +11,7 @@ import useTestResultsColor from '@fh-health/hooks/testResultsColorHook'
 
 const Header = () => {
   const {testResultState} = UseTestResultDataStateValue()
-  const {testColor, getTestResultIconColors} = useTestResultsColor()
+  const {testColor, getTestResultDetailIconColors} = useTestResultsColor()
 
   const changeDate = (data: string, format: string) => {
     if (data.length) {
@@ -44,7 +44,7 @@ const Header = () => {
   }
 
   useEffect(() => {
-    getTestResultIconColors(testResultState.testResult.style)
+    getTestResultDetailIconColors(testResultState.testResult.result)
   }, [])
 
   return (
@@ -87,8 +87,9 @@ const Header = () => {
               <div className="right-column__first__top">
                 <p className="field">ADDRESS</p>
                 <p className="answer user-secondary-answer">
-                  {testResultState.testResult.address}
-                  <br />
+                  <span>{testResultState.testResult.address}</span>
+                  <span>{testResultState.testResult.labAddress}</span>
+                  <span>{testResultState.testResult.locationAddress}</span>
                 </p>
               </div>
             )}

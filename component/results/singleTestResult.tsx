@@ -34,7 +34,7 @@ const SingleTestResult = ({
 }: ISingleTestResult) => {
   const router = useRouter()
   const isResultDisabled = status === testStatus.InProgress
-  const {testColor, getTestResultIconColors} = useTestResultsColor()
+  const {testColor, getTestResultListIconColors} = useTestResultsColor()
 
   const handleRedirect = (link: string | undefined) => {
     if (link) {
@@ -43,7 +43,7 @@ const SingleTestResult = ({
   }
 
   useEffect(() => {
-    getTestResultIconColors(backgroundClass)
+    getTestResultListIconColors(backgroundClass)
   }, [])
 
   return (

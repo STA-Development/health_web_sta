@@ -17,14 +17,14 @@ const TestResult = () => {
     textVar = testResultState.testResult.result?.toLowerCase()
   }
 
-  const wrapperClassName = `test-result-wrapper wrapper__${wrapperVar}`
-  const textClassName = `span_test_result span__${textVar}`
+  const wrapperClassName = `testResult-wrapper testResult-wrapper_${wrapperVar}`
+  const textClassName = `testResult-text__status testResult-text__status_${textVar}`
 
   return (
     <div className={wrapperClassName}>
-      <p className="test-result-text">
+      <p className="testResult-text">
         tested <span className={textClassName}>{testResultState?.testResult.result}</span> for
-        sars-cov-2 (<span>{testResultState?.testResult.testType}</span>)
+        sars-cov-2 (<span>{testResultState?.testResult.testTypeName}</span>)
       </p>
     </div>
   )

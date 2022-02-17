@@ -35,6 +35,9 @@ export interface testResult {
   locationName: string
   templateId: string
   testType: string
+  testTypeName: string
+  labAddress: string
+  locationAddress: string
 }
 
 export interface ITestResultState {
@@ -80,4 +83,11 @@ export enum TestResultColors {
   Blue = 'BLUE',
   Yellow = 'YELLOW',
   Gold = 'GOLD',
+}
+
+export enum TestResultTypes {
+  Positive = 'Positive',
+  Negative = 'Negative',
+  Indeterminate = 'Indeterminate',
+  PresumptivePositive = 'PresumptivePositive',
 }

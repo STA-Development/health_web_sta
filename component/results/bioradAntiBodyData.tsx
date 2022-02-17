@@ -4,7 +4,7 @@ import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
 const BioradAntiBodyData = () => {
   const {testResultState} = UseTestResultDataStateValue()
 
-  return (
+  return testResultState.testResult.resultAnalysis?.length ? (
     <div className="anti-body">
       <h3 className="anti-body__title">Test Analysis Data</h3>
       <p className="anti-body__description">Antibody Cut-off Index Values</p>
@@ -26,7 +26,7 @@ const BioradAntiBodyData = () => {
         &#62; 0.8 = Negative{' '}
       </p>
     </div>
-  )
+  ) : null
 }
 
 export default BioradAntiBodyData

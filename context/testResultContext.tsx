@@ -29,6 +29,9 @@ const initialState: ITestResultState = {
     swabMethod: '',
     templateId: '',
     testType: '',
+    testTypeName: '',
+    labAddress: '',
+    locationAddress: '',
   },
 }
 

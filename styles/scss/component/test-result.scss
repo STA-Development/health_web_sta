@@ -1,11 +1,11 @@
 @import '../abstracts/mixins';
 
-.test-result-wrapper {
+.testResult-wrapper {
   @include setDisplay(flex, center, center);
   width: 100%;
   margin: 1px 0 0;
   background-color: $fhhealth-color-blue-bg;
-  .test-result-text {
+  .testResult-text {
     @include setFontAppearance($fhhealth-font-DM-bold, bold, normal, normal);
     @include setFontSizes(20px, 1.25, normal);
     text-align: center;
@@ -13,6 +13,11 @@
     text-transform: uppercase;
     margin: 24px 24px;
   }
+}
+
+.testResult-text__status {
+  padding: 4px;
+  border-radius: 4px;
 }
 
 .GREEN {
@@ -47,64 +52,59 @@
   background-color: $fhhealth-color-black;
 }
 
-.span_test_result {
-  padding: 4px;
-  border-radius: 4px;
-}
-
-.wrapper {
-  &__negative {
+.testResult-wrapper {
+  &_negative {
     background-color: $fhhealth-color-green-btn;
   }
 
-  &__positive {
+  &_positive {
     background-color: $fhhealth-color-red-bg
   }
 
-  &__inconclusive {
+  &_inconclusive {
     background-color: $fhhealth-color-blue-bg
   }
 
-  &__presumptivepositive {
+  &_presumptivepositive {
     background-color: $fhhealth-color-red-bg
   }
 
-  &__biorad-color {
+  &_biorad-color {
     background-color:$fhhealth-color-neutral-bg;
     border-bottom: 1px solid $fhhealth-color-test-analysis-data-border;
   }
 
-  &__invalid {
+  &_invalid {
     background-color: $fhhealth-color-dark-grey-bg;
   }
 
-  &__pending {
+  &_pending {
     background-color: $fhhealth-color-dark-grey-bg;
   }
 }
 
-.span {
-  &__presumptivepositive{
+.testResult-text__status {
+  &_presumptivepositive{
     background-color: $fhhealth-color-red-btn;
   }
 
-  &__negative {
+  &_negative {
     background: $fhhealth-color-green-btn;
   }
 
-  &__positive {
+  &_positive {
     background-color: $fhhealth-color-danger;
   }
 
-  &__inconclusive {
+  &_inconclusive {
     background-color: $fhhealth-color-dark-blue-bg;
   }
 
-  &__indeterminate {
+  &_indeterminate {
     background-color: $fhhealth-color-dark-blue-bg;
   }
 
-  &__invalid {
+  &_invalid {
     background-color: unset;
   }
 }

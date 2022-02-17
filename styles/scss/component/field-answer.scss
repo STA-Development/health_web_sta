@@ -11,6 +11,7 @@
 .answer {
   @include setFontAppearance($fhhealth-font-PT-bold, bold, normal, normal);
   @include setFontSizes(unset, normal, normal);
+  @include setDisplay(flex, unset, unset, column);
   color: $fhhealth-color-black;
 }
 

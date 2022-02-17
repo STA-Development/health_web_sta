@@ -6,7 +6,7 @@ import {isNum, roundWithOneDecimal} from '../../helpers/casts'
 const PcrAnalysisData = () => {
   const {testResultState} = UseTestResultDataStateValue()
 
-  return (
+  return testResultState.testResult.resultAnalysis?.length ? (
     <div className="analysis-wrapper">
       <h3 className="analysis-wrapper__title">Test Analysis Data</h3>
       <div className="analysis-wrapper__top-part">
@@ -62,7 +62,7 @@ const PcrAnalysisData = () => {
         )}
       </div>
     </div>
-  )
+  ) : null
 }
 
 export default PcrAnalysisData

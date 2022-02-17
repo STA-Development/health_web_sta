@@ -13,26 +13,34 @@
     }
   }
 
-  .test-result-wrapper {
-    .test-result-text {
+  .testResult-wrapper {
+    .testResult-text {
       @include setFontSizes(17px, 1.29, 0.2px);
       font-family: $fhhealth-font-DM-bold;
       margin: 20px 26px;
     }
   }
 }
-.wrapper__negative{
-  background-color: $fhhealth-color-green-bg;
-}
-.wrapper__positive{
-  background-color: $fhhealth-color-red-bg
-}
-.wrapper__inconclusive{
-  background-color: $fhhealth-color-blue-bg
-}
-.wrapper__presumptivepositive{
-  background-color: $fhhealth-color-red-bg
-}
-.wrapper__biorad-color{
- background-color: rgba(206, 216, 229, 0.25);
+
+
+.testResult-wrapper {
+  &_negative{
+    background-color: $fhhealth-color-green-bg;
+  }
+
+  &_positive{
+    background-color: $fhhealth-color-red-bg
+  }
+
+  &_inconclusive{
+    background-color: $fhhealth-color-blue-bg
+  }
+
+  &_presumptivepositive{
+    background-color: $fhhealth-color-red-bg
+  }
+
+  &_biorad-color{
+    background-color: rgba(206, 216, 229, 0.25);
+  }
 }
