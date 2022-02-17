@@ -6,8 +6,6 @@
   .left-part-wrapper {
     @include setDisplay(flex, unset, unset, column);
     padding: 24px 0 12px 24px;
-    min-width: 55%;
-    border-right: solid 1px $fhhealth-color-lab-info-border;
     .left-top-wrapper {
       @include setDisplay(flex, unset, flex-start, row);
       .second-column {

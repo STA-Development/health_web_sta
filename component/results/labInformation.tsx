@@ -59,43 +59,6 @@ const LabInformation = () => {
           </div>
         )}
       </div>
-      <div className="right-part-wrapper">
-        <div className="right-part-first-column">
-          {testResultState.testResult?.registeredNursePractitioner && (
-            <>
-              <p className="field">collection nurse</p>
-              <p className="answer test-answer">
-                {testResultState.testResult.registeredNursePractitioner}
-              </p>
-            </>
-          )}
-
-          <p className="field">Testing Clinic</p>
-          <p className="answer test-answer">Daye Choi RPN</p>
-
-          {testResultState.testResult.labName && (
-            <>
-              <p className="field">Testing Lab</p>
-              <p className="answer test-answer">{testResultState.testResult.labName}</p>
-            </>
-          )}
-        </div>
-        <div className="right-part-second-column">
-          {testResultState.testResult.physician && (
-            <>
-              <p className="field">ordering physician</p>
-              <p className="answer test-answer">{testResultState.testResult.physician}</p>
-            </>
-          )}
-
-          {testResultState.testResult.locationName && (
-            <>
-              <p className="field">location</p>
-              <p className="answer test-answer">{testResultState.testResult.locationName}</p>
-            </>
-          )}
-        </div>
-      </div>
     </div>
   )
 }
