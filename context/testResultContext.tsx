@@ -32,6 +32,7 @@ const initialState: ITestResultState = {
     testTypeName: '',
     labAddress: '',
     locationAddress: '',
+    testKitNumber: '',
   },
 }
 

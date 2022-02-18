@@ -32,6 +32,13 @@ const LabInformation = () => {
                 <p className="answer test-answer">{testResultState.testResult.testTypeName}</p>
               </>
             )}
+
+            {testResultState.testResult?.testKitNumber && (
+              <>
+                <p className="field">test kit number</p>
+                <p className="answer test-answer">{testResultState.testResult.testKitNumber}</p>
+              </>
+            )}
           </div>
 
           <div className="second-column">

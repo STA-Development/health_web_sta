@@ -38,6 +38,7 @@ export interface testResult {
   testTypeName: string
   labAddress: string
   locationAddress: string
+  testKitNumber: string
 }
 
 export interface ITestResultState {
