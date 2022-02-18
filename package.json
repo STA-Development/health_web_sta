@@ -33,7 +33,7 @@
     "react-use": "^17.3.2",
     "react-verification-code-input": "^1.2.9",
     "recaptcha-v3": "^1.9.1",
-    "sass": "^1.49.7"
+    "sass": "^1.49.8"
   },
   "devDependencies": {
     "@types/react": "17.0.39",
