@@ -59,8 +59,8 @@ const Header = () => {
               {testResultState.testResult.result}{' '}
             </p>
             <p className="test-info__date">
-              {testResultState?.testResult && testResultState?.testResult.resultDate
-                ? changeDate(testResultState.testResult.resultDate, 'MMMM Do, h:mm a')
+              {testResultState?.testResult && testResultState?.testResult.dateTime
+                ? `Date: ${changeDate(testResultState.testResult.dateTime, 'MMMM Do, Y @ h:mm a')}`
                 : ''}{' '}
             </p>
           </div>
