@@ -1,6 +1,6 @@
 @import '../abstracts/mixins';
 
-.analysis-wrapper{
+.analysis-wrapper {
   border-bottom: 1px dashed $fhhealth-color-dashed-border;
   background-color: $fhhealth-color-grey-bg;
 
@@ -28,12 +28,12 @@
   &__results {
     display: flex;
     margin-right: 10px;
-    border-top: solid 1px $fhhealth-color-test-analysis-data-border;
-    border-bottom: solid 1px $fhhealth-color-test-analysis-data-border;
-    border-radius: 5px;
+    //border: solid 1px $fhhealth-color-test-analysis-data-border;
+    //border-bottom: solid 1px $fhhealth-color-test-analysis-data-border;
+    //border-radius: 5px;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    background-color: $fhhealth-color-white;
+    //background-color: $fhhealth-color-white;
   }
 
   &__result {
@@ -46,12 +46,22 @@
     @include setFontSizes(15px, 1.2, -0.24);
     @include setDisplay(block, unset, center);
     color: $fhhealth-color-light-black;
-    border-right: solid 1px $fhhealth-color-test-analysis-data-border;
-    padding: 12px 16px;
+    border-left: solid 1px $fhhealth-color-test-analysis-data-border;
+    border-top: solid 1px $fhhealth-color-test-analysis-data-border;
+    border-bottom: solid 1px $fhhealth-color-test-analysis-data-border;
+    background-color: $fhhealth-color-white;
+    padding: 12px;
 
     &:nth-child(1) {
       @include setElementSize(120px, unset);
-      border-left: solid 1px $fhhealth-color-test-analysis-data-border;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border-right: solid 1px $fhhealth-color-test-analysis-data-border;
     }
   }
 

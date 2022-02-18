@@ -82,12 +82,18 @@
     color: #070d27;
   }
 }
-.positive{
+
+.positive {
+  color: $fhhealth-color-white;
   background-color: $fhhealth-color-danger;
 }
-.indeterminate{
+
+.indeterminate {
+  color: $fhhealth-color-white;
   background-color: #007aff;
 }
-.negative{
+
+.negative {
+  color: $fhhealth-color-white;
   background-color:$fhhealth-color-green-btn;
 }
