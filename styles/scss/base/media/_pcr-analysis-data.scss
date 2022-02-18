@@ -17,6 +17,15 @@
     }
     &__parameter{
       margin-top: 24px;
+
+      .analysis-wrapper__result {
+        padding: 12px;
+        font-size: 14px;
+
+        &:first-child {
+          width: auto;
+        }
+      }
     }
   }
 }

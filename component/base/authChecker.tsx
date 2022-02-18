@@ -65,7 +65,7 @@ const AuthChecker = () => {
   }
 
   const isPageEnterPermitted = (authToken?: string, patientInfo?: IPatientAccountInformation) => {
-    if (!(isPublicPage && router.asPath.indexOf('?') === 1) || !isConferencePage) {
+    if (!(isPublicPage && router.asPath.indexOf('?') === 1) && !isConferencePage) {
       const firebaseToken = authToken || token
       const patientData = patientInfo || patientInformation
 

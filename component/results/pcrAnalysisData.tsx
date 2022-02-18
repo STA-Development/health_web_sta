@@ -1,7 +1,6 @@
 import React from 'react'
 import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
 import guid from '@fh-health/utils/guid'
-import {isNum, roundWithOneDecimal} from '../../helpers/casts'
 
 const PcrAnalysisData = () => {
   const {testResultState} = UseTestResultDataStateValue()
@@ -16,20 +15,14 @@ const PcrAnalysisData = () => {
               <div className="analysis-wrapper__parameter" key={guid()}>
                 <h3 className="analysis-wrapper__bottom-title">{analysis.channelName}</h3>
                 <div className="analysis-wrapper__results">
-                  <div className="analysis-wrapper__first-result">
-                    {analysis.groups?.[0]?.label}
-                  </div>
-                  <div className="analysis-wrapper__second-result">
-                    {isNum(analysis.groups?.[0]?.value)
-                      ? roundWithOneDecimal(analysis.groups?.[0]?.value)
-                      : analysis.groups?.[0]?.value}
-                  </div>
-                  <div className="analysis-wrapper__third-result">
-                    {analysis.groups?.[1]?.label}
-                  </div>
-                  <div className="analysis-wrapper__forth-result">
-                    {analysis.groups?.[1]?.value}
-                  </div>
+                  <div className="analysis-wrapper__result">{analysis.groups?.[0]?.label}</div>
+                  <div className="analysis-wrapper__result">{analysis.groups?.[0]?.value}</div>
+                  {analysis.groups?.[1] && (
+                    <div className="analysis-wrapper__result">{analysis.groups?.[1]?.label}</div>
+                  )}
+                  {analysis.groups?.[1] && (
+                    <div className="analysis-wrapper__result">{analysis.groups?.[1]?.value}</div>
+                  )}
                 </div>
               </div>
             ),
@@ -42,20 +35,14 @@ const PcrAnalysisData = () => {
               <div className="analysis-wrapper__parameter" key={guid()}>
                 <h3 className="analysis-wrapper__bottom-title">{analysis.channelName}</h3>
                 <div className="analysis-wrapper__results">
-                  <div className="analysis-wrapper__first-result">
-                    {analysis.groups?.[0]?.label}
-                  </div>
-                  <div className="analysis-wrapper__second-result">
-                    {isNum(analysis.groups?.[0]?.value)
-                      ? roundWithOneDecimal(analysis.groups?.[0]?.value)
-                      : analysis.groups?.[0]?.value}
-                  </div>
-                  <div className="analysis-wrapper__third-result">
-                    {analysis.groups?.[1]?.label}
-                  </div>
-                  <div className="analysis-wrapper__forth-result">
-                    {analysis.groups?.[1]?.value}
-                  </div>
+                  <div className="analysis-wrapper__result">{analysis.groups?.[0]?.label}</div>
+                  <div className="analysis-wrapper__result">{analysis.groups?.[0]?.value}</div>
+                  {analysis.groups?.[1] && (
+                    <div className="analysis-wrapper__result">{analysis.groups?.[1]?.label}</div>
+                  )}
+                  {analysis.groups?.[1] && (
+                    <div className="analysis-wrapper__result">{analysis.groups?.[1]?.value}</div>
+                  )}
                 </div>
               </div>
             ),
