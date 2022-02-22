@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {UseTestResultDataStateValue} from '@fh-health/context/testResultContext'
 import {TestTypes} from '@fh-health/types/context/testResultContext'
 import moment from 'moment'
@@ -12,6 +12,7 @@ import useTestResultsColor from '@fh-health/hooks/testResultsColorHook'
 const Header = () => {
   const {testResultState} = UseTestResultDataStateValue()
   const {testColor, getTestResultDetailIconColors} = useTestResultsColor()
+  const [addressFields, setAddressFields] = useState<string[]>(null)
 
   const changeDate = (data: string, format: string) => {
     if (data.length) {
@@ -45,6 +46,7 @@ const Header = () => {
 
   useEffect(() => {
     getTestResultDetailIconColors(testResultState.testResult.result)
+    setAddressFields(testResultState.testResult.address.split('\n'))
   }, [])
 
   return (
@@ -70,26 +72,26 @@ const Header = () => {
         <div className="left-column">
           {testResultState.testResult.firstName && (
             <div className="field-answer-wrapper">
-              <p className="field">FIRST NAME</p>
+              <p className="field">first name</p>
               <p className="answer user-main-answer">{testResultState.testResult.firstName}</p>
             </div>
           )}
           {testResultState.testResult.lastName && (
             <div className="field-answer-wrapper">
-              <p className="field">LAST NAME</p>
+              <p className="field">last name</p>
               <p className="answer user-main-answer">{testResultState.testResult.lastName}</p>
             </div>
           )}
         </div>
         <div className="right-column">
           <div className="right-column__first">
-            {testResultState.testResult.address && (
+            {addressFields && (
               <div className="right-column__first__top">
-                <p className="field">ADDRESS</p>
+                <p className="field">address</p>
                 <p className="answer user-secondary-answer">
-                  <span>{testResultState.testResult.address}</span>
-                  <span>{testResultState.testResult.labAddress}</span>
-                  <span>{testResultState.testResult.locationAddress}</span>
+                  {addressFields.map((field, index) => (
+                    <span key={index}>{field}</span>
+                  ))}
                 </p>
               </div>
             )}
@@ -97,7 +99,7 @@ const Header = () => {
               <div className="right-column__first__bottom__left">
                 {testResultState.testResult.gender && (
                   <>
-                    <p className="field">Gender</p>
+                    <p className="field">gender</p>
                     <p className="answer user-secondary-answer">
                       {testResultState.testResult.gender}
                     </p>
@@ -110,7 +112,7 @@ const Header = () => {
               <div className="right-column__first__bottom__right">
                 {testResultState.testResult.phone && (
                   <>
-                    <p className="field">Phone</p>
+                    <p className="field">phone</p>
                     <p className="answer user-secondary-answer">
                       {testResultState.testResult.phone}
                     </p>
@@ -119,7 +121,7 @@ const Header = () => {
 
                 {testResultState.testResult.ohip && (
                   <>
-                    <p className="field">OHIP</p>
+                    <p className="field">ohip</p>
                     <p className="answer user-secondary-answer">
                       {testResultState.testResult.ohip}
                     </p>
