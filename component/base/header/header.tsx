@@ -45,7 +45,10 @@ const Header = () => {
   }
 
   useEffect(() => {
-    getTestResultDetailIconColors(testResultState.testResult.result)
+    getTestResultDetailIconColors(
+      testResultState.testResult.result,
+      testResultState.testResult.testType,
+    )
     setAddressFields(testResultState.testResult.address.split('\n'))
   }, [])
 

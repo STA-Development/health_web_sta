@@ -91,4 +91,5 @@ export enum TestResultTypes {
   Negative = 'Negative',
   Indeterminate = 'Indeterminate',
   PresumptivePositive = 'PresumptivePositive',
+  Vaccine = 'Vaccine',
 }

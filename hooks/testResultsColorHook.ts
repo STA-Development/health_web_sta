@@ -1,5 +1,9 @@
 import {useState} from 'react'
-import {TestResultColors, TestResultTypes} from '@fh-health/types/context/testResultContext'
+import {
+  TestResultColors,
+  TestResultTypes,
+  TestTypes,
+} from '@fh-health/types/context/testResultContext'
 
 const useTestResultsColor = () => {
   const [testColor, setTestColor] = useState({
@@ -54,7 +58,14 @@ const useTestResultsColor = () => {
     }
   }
 
-  const getTestResultDetailIconColors = (result) => {
+  const getTestResultDetailIconColors = (result, type?) => {
+    if (type === TestTypes.Covid_FluAB || type === TestTypes.CovidFluAB) {
+      setTestColor({
+        outer: '#ffe7bf',
+        inner: '#ffb439',
+      })
+      return
+    }
     switch (result) {
       case TestResultTypes.Negative:
         setTestColor({
@@ -73,6 +84,12 @@ const useTestResultsColor = () => {
         setTestColor({
           outer: '#c0deff',
           inner: '#007aff',
+        })
+        break
+      case TestResultTypes.Vaccine:
+        setTestColor({
+          outer: '#b9f9d2',
+          inner: '#32cd32',
         })
         break
       default:

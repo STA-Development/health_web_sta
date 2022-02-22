@@ -12,8 +12,9 @@ import TestResultContextStaticData from '@fh-health/static/testResultContextStat
 import testResultManager from '@fh-health/manager/testResultManager'
 import {useRouter} from 'next/router'
 import ComponentPreloadView from '@fh-health/component/results/componentPreloadView'
-import {TestTypes} from '@fh-health/types/context/testResultContext'
 import getV3RecaptchaToken from '@fh-health/utils/getV3RecaptchaToken'
+import VaccineResult from '@fh-health/component/results/vaccineResult'
+import useResultTemplate from '@fh-health/hooks/resultTemplateHook'
 
 const SingleTestResultPage = ({isPublicUser}: {isPublicUser: boolean}) => {
   const {testResultState, setTestResultState} = UseTestResultDataStateValue()
@@ -21,19 +22,21 @@ const SingleTestResultPage = ({isPublicUser}: {isPublicUser: boolean}) => {
   const {testResultId} = router.query
   const [resultId, setResultId] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
+  const {isAntibodyResult, isBioradAntibodyResult, isPCRResult, isVaccineResult, isCovidFluResult} =
+    useResultTemplate()
 
-  const isAntibodyTemplate =
-    testResultState?.testResult?.testType === TestTypes.AntibodyAll ||
-    testResultState?.testResult?.testType === TestTypes.AntibodyBiorad
-  const isBioradAntibodyTemplate =
-    testResultState?.testResult?.testType === TestTypes.PCR &&
-    testResultState?.testResult?.templateId === TestTypes.BioradAntiBody
-  const isPCRTemplate =
-    testResultState?.testResult?.templateId !== TestTypes.BioradAntiBody &&
-    (testResultState?.testResult.testType === TestTypes.PCR ||
-      testResultState?.testResult.testType === TestTypes.VirtualTravelPCR ||
-      testResultState?.testResult.testType === TestTypes.CovidFluAB ||
-      testResultState?.testResult.testType === TestTypes.Covid_FluAB)
+  const isAntibodyTemplate = isAntibodyResult(testResultState?.testResult?.testType)
+  const isBioradAntibodyTemplate = isBioradAntibodyResult(
+    testResultState?.testResult?.testType,
+    testResultState?.testResult?.templateId,
+  )
+  const isPCRTemplate = isPCRResult(
+    testResultState?.testResult?.testType,
+    testResultState?.testResult?.templateId,
+  )
+
+  const isVaccineTemplate = isVaccineResult(testResultState?.testResult?.testType)
+  const isCovidFluTemplate = isCovidFluResult(testResultState?.testResult?.testType)
 
   const getData = async () => {
     setLoading(true)
@@ -77,7 +80,8 @@ const SingleTestResultPage = ({isPublicUser}: {isPublicUser: boolean}) => {
       {!loading && testResultState.testResult.testType.length ? (
         <div className="carcass">
           <Header />
-          <TestResult />
+          {!isCovidFluTemplate && !isVaccineTemplate && <TestResult />}
+          {isVaccineTemplate && <VaccineResult />}
           {isAntibodyTemplate && <AntiBodyAnalysisData />}
           {isBioradAntibodyTemplate && <BioradAntiBodyData />}
           {isPCRTemplate && <PcrAnalysisData />}
