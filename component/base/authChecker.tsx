@@ -33,7 +33,7 @@ const AuthChecker = () => {
   const patientInformation = useSelector((state: IStore) => state.patientInformation.value)
   const authInformationUpdate = useSelector((state: IStore) => state.authInformationUpdate.value)
   const currentPage = useRouter().route
-  const isPublicPage = currentPage === '/'
+  const isRootPage = currentPage === '/'
   const isConferencePage = useRouter().route.includes('conference')
   const isMigrationPage = useRouter().route.includes('migration')
   const isLoginPage = useRouter().route.includes('login')
@@ -65,7 +65,11 @@ const AuthChecker = () => {
   }
 
   const isPageEnterPermitted = (authToken?: string, patientInfo?: IPatientAccountInformation) => {
-    if (!(isPublicPage && router.asPath.indexOf('?') === 1) && !isConferencePage) {
+    const isPublicRoute = router.asPath.indexOf('?') === 1
+    if (authToken && !isPublicRoute && isRootPage) {
+      router.push('/results/list')
+    }
+    if (!(isRootPage && !isPublicRoute) && !isConferencePage) {
       const firebaseToken = authToken || token
       const patientData = patientInfo || patientInformation
 
