@@ -21,6 +21,7 @@ interface ISingleTestResult {
 
 enum testStatus {
   InProgress = 'In Progress',
+  Invalid = 'Invalid',
 }
 
 const SingleTestResult = ({
@@ -33,7 +34,9 @@ const SingleTestResult = ({
   type,
 }: ISingleTestResult) => {
   const router = useRouter()
-  const isResultDisabled = status === testStatus.InProgress
+  const isResultDisabled =
+    status === testStatus.InProgress ||
+    (status === testStatus.Invalid && type === TestTypes.RapidAntigen)
   const {testColor, getTestResultListIconColors} = useTestResultsColor()
 
   const handleRedirect = (link: string | undefined) => {
@@ -76,7 +79,13 @@ const SingleTestResult = ({
       </div>
       <div className="single-result__status">
         <div className={`result-status ${backgroundClass}`}>{status.toUpperCase()}</div>
-        {!isResultDisabled && <Image alt="next icon" src="/next.svg" width={16} height={16} />}
+        <Image
+          className={isResultDisabled ? 'hidden' : ''}
+          alt="next icon"
+          src="/next.svg"
+          width={16}
+          height={16}
+        />
       </div>
     </div>
   )
