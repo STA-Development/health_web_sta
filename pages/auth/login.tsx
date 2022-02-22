@@ -185,18 +185,18 @@ const Login = () => {
   }, [])
 
   useEffect(() => {
-    const pressVerifyButton = async (event) => {
+    const listener = async (event) => {
       if (event.key === 'Enter' && verifyButtonState) {
         await handleVerifyCode(event)
       }
     }
 
     if (isVerificationCodeSent) {
-      document.addEventListener('keyup', pressVerifyButton)
+      document.addEventListener('keyup', listener)
     }
 
     return () => {
-      document.removeEventListener('keyup', pressVerifyButton)
+      document.removeEventListener('keyup', listener)
     }
   }, [isVerificationCodeSent, verifyButtonState])
 

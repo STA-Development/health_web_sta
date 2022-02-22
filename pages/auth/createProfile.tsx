@@ -59,6 +59,22 @@ const CreateProfile = () => {
     }
   }, [firstName, lastName, email])
 
+  useEffect(() => {
+    const listener = async (event) => {
+      if (event.key === 'Enter' && createButtonState) {
+        await handleCreateClick()
+      }
+    }
+
+    if (createButtonState) {
+      document.addEventListener('keyup', listener)
+    }
+
+    return () => {
+      document.removeEventListener('keyup', listener)
+    }
+  }, [createButtonState])
+
   const displayEmailVerifyRequiredView = () => (
     <div className="pure-block-wrapper">
       <div>
