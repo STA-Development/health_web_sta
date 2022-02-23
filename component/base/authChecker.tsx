@@ -65,11 +65,11 @@ const AuthChecker = () => {
   }
 
   const isPageEnterPermitted = (authToken?: string, patientInfo?: IPatientAccountInformation) => {
-    const isPublicRoute = router.asPath.indexOf('?') === 1
-    if (authToken && !isPublicRoute && isRootPage) {
+    const {testResultId} = router.query
+    if (authToken && !testResultId && isRootPage) {
       router.push('/results/list')
     }
-    if (!(isRootPage && !isPublicRoute) && !isConferencePage) {
+    if (!testResultId && !isConferencePage) {
       const firebaseToken = authToken || token
       const patientData = patientInfo || patientInformation
 
