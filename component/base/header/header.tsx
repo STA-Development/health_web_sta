@@ -108,9 +108,6 @@ const Header = () => {
                     </p>
                   </>
                 )}
-
-                <p className="field">country</p>
-                <p className="answer user-secondary-answer">Canada</p>
               </div>
               <div className="right-column__first__bottom__right">
                 {testResultState.testResult.phone && (
