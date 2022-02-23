@@ -42,6 +42,11 @@
   margin-top: 12px;
   &__left-part{
     min-width: 50px;
+    max-width: 50px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     padding: 10px 20px;
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;
