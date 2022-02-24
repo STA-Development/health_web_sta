@@ -33,6 +33,7 @@ const initialState: ITestResultState = {
     labAddress: '',
     locationAddress: '',
     testKitNumber: '',
+    couponCode: '',
   },
 }
 

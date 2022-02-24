@@ -5,17 +5,44 @@
     .important-information {
       padding: 20px;
     }
+
     .doctor-info {
-      @include setDisplay(flex, unset, flex-start, column);
-      &__signature {
-        margin-left: 20px;
-      }
+      @include setDisplay(flex, center, center, column);
       &__title {
         margin-top: 8px;
       }
     }
+
+    .coupon-info {
+      display: none;
+    }
+
+    .coupon-info_mobile {
+      @include setPosition(fixed, unset, 0, 0, unset);
+      margin: 0;
+      border-top: 1px solid $fhhealth-color-grey-bg;
+      display: block;
+      background-color: $fhhealth-color-white;
+      padding: 20px;
+
+      .coupon-info__code, .coupon-info__button {
+        font-size: 12px;
+        border-radius: 3px;
+      }
+
+      .coupon-info__code {
+        @include setElementSize(206px, unset);
+        margin-right: 12px;
+      }
+    }
+
     .legal-notice {
       padding: 20px;
+
+      &_coupon-exists {
+        padding-bottom: 110px;
+      }
+
       .content {
         font-size: 12px;
       }

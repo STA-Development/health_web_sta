@@ -39,6 +39,7 @@ export interface testResult {
   labAddress: string
   locationAddress: string
   testKitNumber: string
+  couponCode: string
 }
 
 export interface ITestResultState {

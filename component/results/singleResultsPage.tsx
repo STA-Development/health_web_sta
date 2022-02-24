@@ -102,7 +102,7 @@ const SingleTestResultPage = ({isPublicUser}: {isPublicUser: boolean}) => {
           {isBioradAntibodyTemplate && <BioradAntiBodyData />}
           {isPCRTemplate && <PcrAnalysisData />}
           <LabInformation />
-          <Footer />
+          <Footer isPublicUser={isPublicUser} />
         </div>
       ) : (
         <div className="pure-block-wrapper">
