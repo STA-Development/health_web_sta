@@ -21,8 +21,8 @@ const useTestResultsColor = () => {
         break
       case TestResultColors.LimeGreen:
         setTestColor({
-          outer: '#b9f9d2',
-          inner: '#32cd32',
+          outer: '#e0f6f3',
+          inner: '#2DC0AC',
         })
         break
       case TestResultColors.Red:
@@ -88,8 +88,8 @@ const useTestResultsColor = () => {
         break
       case TestResultTypes.Vaccine:
         setTestColor({
-          outer: '#b9f9d2',
-          inner: '#32cd32',
+          outer: '#e0f6f3',
+          inner: '#2DC0AC',
         })
         break
       default:
