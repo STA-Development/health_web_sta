@@ -22,8 +22,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
+      "@fh-health/lib/*": [
+        "lib/*"
+      ],
       "@fh-health/context/*": [
         "context/*"
       ],

@@ -3,10 +3,10 @@ import React, {useRef, useState} from 'react'
 import {useClickAway} from 'react-use'
 import * as Sentry from '@sentry/nextjs'
 import {useRouter} from 'next/router'
-import firebase from 'lib/firbase'
 import {useDispatch} from 'react-redux'
 import {updatePatientInformation} from '@fh-health/redux/state/auth/patientInformationSlice'
 import {updateAuthToken} from '@fh-health/redux/state/auth/tokenSlice'
+import firebase from '@fh-health/lib/firbase'
 
 const HeaderMenu = () => {
   const router = useRouter()
