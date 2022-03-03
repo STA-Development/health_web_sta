@@ -53,17 +53,14 @@ const Header = () => {
   }, [])
 
   return (
-    <div className="header-wrapper">
-      <div className="test-type-wrapper">
+    <div className="testResult-header">
+      <div className="testResult-header__type">
         {getCurrentTestResultIcon()}
 
         {testResultState.testResult && (
-          <div className="test-info">
-            <p data-cy="test-status" className="test-info__result">
-              {' '}
-              {testResultState.testResult.result}{' '}
-            </p>
-            <p className="test-info__date">
+          <div className="testResult-header__type-info">
+            <h4 data-cy="test-status"> {testResultState.testResult.result} </h4>
+            <p>
               {testResultState?.testResult && testResultState?.testResult.dateTime
                 ? `Date: ${changeDate(testResultState.testResult.dateTime, 'MMMM Do, Y @ h:mm a')}`
                 : ''}{' '}
@@ -71,89 +68,70 @@ const Header = () => {
           </div>
         )}
       </div>
-      <div className="user-info">
-        <div className="left-column">
+      <div className="testResult-header__user">
+        <div className="testResult-header__user-info">
           {testResultState.testResult.firstName && (
-            <div className="field-answer-wrapper">
+            <div>
               <p className="field">first name</p>
-              <p className="answer user-main-answer">{testResultState.testResult.firstName}</p>
+              <h4>{testResultState.testResult.firstName}</h4>
             </div>
           )}
           {testResultState.testResult.lastName && (
-            <div className="field-answer-wrapper">
+            <div>
               <p className="field">last name</p>
-              <p className="answer user-main-answer">{testResultState.testResult.lastName}</p>
+              <h4>{testResultState.testResult.lastName}</h4>
             </div>
           )}
         </div>
-        <div className="right-column">
-          <div className="right-column__first">
+        <div className="testResult-header__user-creds">
+          <div>
             {addressFields && (
-              <div className="right-column__first__top">
+              <div className="testResult-header__user-block">
                 <p className="field">address</p>
-                <p className="answer user-secondary-answer">
+                <p className="answer answer_sm">
                   {addressFields.map((field, index) => (
                     <span key={index}>{field}</span>
                   ))}
                 </p>
               </div>
             )}
-            <div className="right-column__first__bottom">
-              <div className="right-column__first__bottom__left">
-                {testResultState.testResult.gender && (
-                  <>
-                    <p className="field">gender</p>
-                    <p className="answer user-secondary-answer">
-                      {testResultState.testResult.gender}
-                    </p>
-                  </>
-                )}
+            {testResultState.testResult.gender && (
+              <div className="testResult-header__user-block">
+                <p className="field">gender</p>
+                <p className="answer answer_sm">{testResultState.testResult.gender}</p>
               </div>
-              <div className="right-column__first__bottom__right">
-                {testResultState.testResult.phone && (
-                  <>
-                    <p className="field">phone</p>
-                    <p className="answer user-secondary-answer">
-                      {testResultState.testResult.phone}
-                    </p>
-                  </>
-                )}
-
-                {testResultState.testResult.ohip && (
-                  <>
-                    <p className="field">ohip</p>
-                    <p className="answer user-secondary-answer">
-                      {testResultState.testResult.ohip}
-                    </p>
-                  </>
-                )}
+            )}
+            {testResultState.testResult.phone && (
+              <div className="testResult-header__user-block">
+                <p className="field">phone</p>
+                <p className="answer answer_sm">{testResultState.testResult.phone}</p>
               </div>
-            </div>
+            )}
+            {testResultState.testResult.ohip && (
+              <div className="testResult-header__user-block">
+                <p className="field">ohip</p>
+                <p className="answer answer_sm">{testResultState.testResult.ohip}</p>
+              </div>
+            )}
           </div>
-          <div className="right-column__second">
+          <div className="testResult-header__user-data">
             {testResultState.testResult.dateOfBirth && (
-              <>
+              <div>
                 <p className="field">date of birth</p>
-                <p className="answer user-secondary-answer">
-                  {testResultState.testResult.dateOfBirth}
-                </p>
-              </>
+                <p className="answer answer_sm">{testResultState.testResult.dateOfBirth}</p>
+              </div>
             )}
             {testResultState.testResult.travelId && (
-              <>
+              <div>
                 <p className="field">passport no.</p>
-                <p className="answer user-secondary-answer">
-                  {testResultState.testResult.travelId}
-                </p>
-              </>
+                <p className="answer answer_sm">{testResultState.testResult.travelId}</p>
+              </div>
             )}
             {testResultState.testResult.issuingCountry && (
-              <>
+              <div>
                 <p className="field">issuing country</p>
-                <p className="answer user-secondary-answer">
-                  {testResultState.testResult.issuingCountry}
-                </p>
-              </>
+                <p className="answer answer_sm">{testResultState.testResult.issuingCountry}</p>
+              </div>
             )}
           </div>
         </div>

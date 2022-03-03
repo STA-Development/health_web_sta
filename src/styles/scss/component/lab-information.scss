@@ -1,24 +1,25 @@
 @import '../abstracts/mixins';
 
-.lab-info-wrapper {
+.labInfo-wrapper {
   @include setDisplay(flex, unset, unset, row);
   border-bottom: solid 1px $fhhealth-color-lab-info-border;
-  .left-part-wrapper {
-    @include setDisplay(flex, unset, unset, column);
-    padding: 24px 0 12px 24px;
-    .left-top-wrapper {
-      @include setDisplay(flex, unset, flex-start, row);
-      .second-column {
-        margin-left: 24px;
-      }
-    }
-  }
-  .right-part-wrapper {
-    @include setDisplay(flex, unset, flex-start, row);
-    padding: 24px 0 12px 16px;
-    width: 45%;
-    .right-part-second-column {
-      margin-left: 24px;
-    }
-  }
+}
+
+.labInfo-wrapper__left {
+  @include setDisplay(flex, unset, unset);
+  padding: 24px 0 12px 24px;
+}
+
+.labInfo-wrapper__left-second-col {
+  margin-left: 24px;
+}
+
+.labInfo-wrapper__right {
+  @include setDisplay(flex, unset, flex-start, row);
+  padding: 24px 0 12px 16px;
+  width: 45%;
+}
+
+.labInfo-wrapper__right-first-col, .labInfo-wrapper__right-second-col {
+  margin-left: 24px;
 }

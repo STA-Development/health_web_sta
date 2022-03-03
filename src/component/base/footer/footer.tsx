@@ -6,11 +6,11 @@ const Footer = (isPublicUser: {isPublicUser?: boolean}) => {
   const {testResultState} = UseTestResultDataStateValue()
 
   return (
-    <div className="footer-wrapper">
+    <div className="testResult-footer">
       <div className="important-information">
         <p className="important-information__title">Important Information</p>
         <div
-          className="content"
+          className="important-information__content"
           dangerouslySetInnerHTML={{__html: testResultState.testResult.importantInfo}}
         />
       </div>

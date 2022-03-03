@@ -1,160 +1,76 @@
 @import '../abstracts/mixins';
 
-.header-wrapper {
+.testResult-header {
   @include setDisplay(flex, unset, unset, column);
-  .test-type-wrapper {
-    @include setDisplay(flex, flex-start, center, row);
-    height: 64px;
-    padding: 24px;
-    .test-info{
-      @include setDisplay(flex, space-between, unset, column);
-      height: 100%;
-      margin-left: 20px;
-      &__result {
-        @include setFontAppearance($fhhealth-font-SF-bold, bold, normal, normal);
-        @include setFontSizes(34px, 1.18, normal);
-        color: $fhhealth-color-dark-black;
-      }
-      &__date {
-        @include setFontAppearance($fhhealth-font-DM-medium, 500, normal, normal);
-        @include setFontSizes(15px, 1.2, -0.24px);
-        color:$fhhealth-color-light-gray-text;
-      }
-    }
+}
+
+.testResult-header__type {
+  @include setDisplay(flex, flex-start, center, row);
+  height: 64px;
+  padding: 24px;
+}
+
+.testResult-header__type-info {
+  @include setDisplay(flex, space-between, unset, column);
+  height: 100%;
+  margin-left: 20px;
+
+  h4 {
+    @include setFontAppearance($fhhealth-font-SF-bold, bold, normal, normal);
+    @include setFontSizes(34px, 1.18, normal);
+    color: $fhhealth-color-dark-black;
   }
-  .user-info{
-    @include setDisplay(flex, unset, unset, row);
-    border-top: solid 1px $fhhealth-color-solid-border;
-    border-bottom: dashed 1px $fhhealth-color-dashed-border;
-    .left-column {
+
+  p {
+    @include setFontAppearance($fhhealth-font-DM-medium, 500, normal, normal);
+    @include setFontSizes(15px, 1.2, -0.24px);
+    color:$fhhealth-color-light-gray-text;
+  }
+}
+
+.testResult-header__user {
+  @include setDisplay(flex, unset, unset, row);
+  border-top: solid 1px $fhhealth-color-solid-border;
+  border-bottom: dashed 1px $fhhealth-color-dashed-border;
+}
+
+.testResult-header__user-info {
+  @include setDisplay(flex, unset, unset, column);
+  min-width: 55%;
+  border-right: solid 1px $fhhealth-color-solid-border;
+  padding: 24px 0 20px 24px;
+
+  div {
+    @include setDisplay(flex, unset, unset, column);
+
+    h4 {
+      @include setFontAppearance($fhhealth-font-PT-bold, bold, normal, normal);
+      @include setFontSizes(unset, normal, normal);
       @include setDisplay(flex, unset, unset, column);
-      min-width: 55%;
-      border-right: solid 1px $fhhealth-color-solid-border;
-      padding: 24px 0 20px 24px;
-      .field-answer-wrapper {
-        @include setDisplay(flex, unset, unset, column);
-      }
-    }
-    .right-column {
-      @include setDisplay(flex, unset, unset, row);
-      width: 45%;
-      .right-column__first {
-        border-right: solid 1px $fhhealth-color-solid-border;
-        padding: 16px 0 4px 16px;
-        width: 60%;
-        .right-column__first__top {
-          @include setDisplay(flex, unset, unset, column);
-        }
-        .right-column__first__bottom {
-          @include setDisplay(flex, unset, unset, column);
-          .right-column__first__bottom__left {
-            @include setDisplay(flex, unset, unset, column);
-          }
-          .right-column__first__bottom__right {
-            @include setDisplay(flex, unset, unset, column);
-          }
-        }
-      }
-      .right-column__second {
-        padding: 16px 0 4px 16px;
-        width: 40%;
-      }
+      color: $fhhealth-color-black;
+      font-size: 32px;
+      margin: 8px 0 16px 0;
+      word-break: break-all;
     }
   }
 }
-.pcr-green{
-  svg{
-    g{
-      circle{
-        fill:green;
-      }
-      g{
-        path{
-          fill: green;
-        }
-      }
 
-    }
+.testResult-header__user-creds {
+  @include setDisplay(flex, unset, unset, row);
+  width: 45%;
 
+  & > div {
+    border-right: solid 1px $fhhealth-color-solid-border;
+    padding: 16px 0 4px 16px;
+    width: 60%;
   }
 }
-.pcr-red{
-  svg{
-    g{
-      circle{
-        fill:red;
-      }
-      g{
-        path{
-          fill: red;
-        }
-      }
 
-    }
-
-  }
+.testResult-header__user-block {
+  @include setDisplay(flex, unset, unset, column);
 }
-.pcr-blue{
-  svg{
-    g{
-      circle{
-        fill:blue;
-      }
-      g{
-        path{
-          fill: blue;
-        }
-      }
 
-    }
-
-  }
-}
-.pcr-yellow{
-  svg{
-    g{
-      circle{
-        fill:yellow;
-      }
-      g{
-        path{
-          fill: yellow;
-        }
-      }
-
-    }
-
-  }
-}
-.anti-body-green{
-  svg{
-    g{
-      fill:green;
-    }
-
-  }
-}
-.anti-body-red{
-  svg{
-    g{
-      fill:red;
-    }
-
-  }
-}
-.anti-body-blue{
-  svg{
-    g{
-      fill:blue;
-    }
-
-  }
-}
-.anti-body-yellow{
-  svg{
-    g{
-      fill:blue;
-    }
-
-  }
+.testResult-header__user-data {
+  padding: 16px 0 4px 16px;
+  width: 40%;
 }

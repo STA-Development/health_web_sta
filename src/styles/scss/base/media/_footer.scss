@@ -1,16 +1,17 @@
 @import "src/styles/scss/abstracts/mixins";
 
 @media (max-width: $fhhealth-media-sm) {
-  .footer-wrapper {
+  .testResult-footer {
     .important-information {
       padding: 20px;
     }
 
     .doctor-info {
       @include setDisplay(flex, center, center, column);
-      &__title {
-        margin-top: 8px;
-      }
+    }
+
+    .doctor-info__title {
+      margin-top: 8px;
     }
 
     .coupon-info {

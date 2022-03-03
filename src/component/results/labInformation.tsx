@@ -13,54 +13,52 @@ const LabInformation = () => {
   }
 
   return (
-    <div className="lab-info-wrapper">
-      <div className="left-part-wrapper">
-        <div className="left-top-wrapper">
-          <div className="first-column">
-            {testResultState.testResult.dateTime && (
-              <>
-                <p className="field">date of test</p>
-                <p className="answer test-answer">
-                  {changeDate(testResultState.testResult.dateTime, 'MMMM Do, h:mm a')}
-                </p>
-              </>
-            )}
+    <div className="labInfo-wrapper">
+      <div className="labInfo-wrapper__left">
+        <div className="labInfo-wrapper__left-first-col">
+          {testResultState.testResult.dateTime && (
+            <div>
+              <p className="field">date of test</p>
+              <p className="answer test-answer">
+                {changeDate(testResultState.testResult.dateTime, 'MMMM Do, h:mm a')}
+              </p>
+            </div>
+          )}
 
-            {testResultState.testResult.testType && (
-              <>
-                <p className="field">test-type</p>
-                <p className="answer test-answer">{testResultState.testResult.testTypeName}</p>
-              </>
-            )}
+          {testResultState.testResult.testType && (
+            <div>
+              <p className="field">test-type</p>
+              <p className="answer test-answer">{testResultState.testResult.testTypeName}</p>
+            </div>
+          )}
 
-            {testResultState.testResult?.testKitNumber && (
-              <>
-                <p className="field">test kit number</p>
-                <p className="answer test-answer">{testResultState.testResult.testKitNumber}</p>
-              </>
-            )}
-          </div>
+          {testResultState.testResult?.testKitNumber && (
+            <div>
+              <p className="field">test kit number</p>
+              <p className="answer test-answer">{testResultState.testResult.testKitNumber}</p>
+            </div>
+          )}
+        </div>
 
-          <div className="second-column">
-            {testResultState.testResult?.resultDate && (
-              <>
-                <p className="field">date of results</p>
-                <p className="answer test-answer">
-                  {changeDate(testResultState.testResult.resultDate, 'MMMM Do, h:mm a')}
-                </p>
-              </>
-            )}
+        <div className="labInfo-wrapper__left-second-col">
+          {testResultState.testResult?.resultDate && (
+            <div>
+              <p className="field">date of results</p>
+              <p className="answer test-answer">
+                {changeDate(testResultState.testResult.resultDate, 'MMMM Do, h:mm a')}
+              </p>
+            </div>
+          )}
 
-            {testResultState.testResult?.swabMethod && (
-              <>
-                <p className="field">collection method</p>
-                <p className="answer test-answer">{testResultState.testResult.swabMethod}</p>
-              </>
-            )}
-          </div>
+          {testResultState.testResult?.swabMethod && (
+            <div>
+              <p className="field">collection method</p>
+              <p className="answer test-answer">{testResultState.testResult.swabMethod}</p>
+            </div>
+          )}
         </div>
         {testResultState?.testResult?.equipment && (
-          <div className="left-bottom-wrapper">
+          <div>
             <p className="field">test equipment (health canada approved)</p>
             <p className="answer test-answer">{testResultState.testResult.equipment}</p>
           </div>

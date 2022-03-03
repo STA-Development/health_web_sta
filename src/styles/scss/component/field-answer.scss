@@ -13,17 +13,11 @@
   @include setFontSizes(unset, normal, normal);
   @include setDisplay(flex, unset, unset, column);
   color: $fhhealth-color-black;
-}
 
-.user-main-answer {
-  font-size: 32px;
-  margin: 8px 0 16px 0;
-  word-break: break-all;
-}
-
-.user-secondary-answer {
-  font-size: 12px;
-  margin: 2px 0 12px 0;
+  &_sm {
+    font-size: 12px;
+    margin: 2px 0 12px;
+  }
 }
 
 .test-answer {

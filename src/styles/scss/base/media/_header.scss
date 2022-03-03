@@ -1,51 +1,52 @@
 @media (max-width: $fhhealth-media-sm) {
-  .header-wrapper {
-    .test-type-wrapper {
+  .testResult-header {
+
+    .testResult-header__type {
       padding: 20px;
     }
-    .user-info {
+
+    .testResult-header__user {
       flex-direction: column;
-      .left-column {
-        padding: 20px 0 0 20px;
-        flex-direction: column;
-        .field-answer-wrapper:first-child {
-          margin-right: 76px;
-        }
-      }
-      .right-column {
-        width: 80%;
-        .right-column__first {
-          padding: 16px 0 4px 20px;
-        }
-      }
+    }
+
+    .testResult-header__user-info {
+      padding: 20px 0 0 20px;
+      flex-direction: column;
+    }
+
+    .testResult-header__user-creds {
+      width: 80%;
+    }
+
+    .testResult-header__user-location {
+      padding: 16px 0 4px 20px;
     }
   }
 }
 
 @media (max-width: $fhhealth-media-xs) {
-  .header-wrapper {
-    .test-type-wrapper {
-    }
-    .user-info {
-      .left-column {
+  .testResult-header {
+
+    .testResult-header__user {
+      .testResult-header__user-info {
         padding: 20px 20px 0 20px;
         justify-content: space-between;
-        .field-answer-wrapper:first-child {
-          margin-right: 10px;
-        }
       }
-      .right-column {
+
+      .testResult-header__user-creds {
         flex-direction: column;
         width: 100%;
-        .right-column__first {
+
+        & > div {
           border-right: none;
           border-bottom: solid 1px $fhhealth-color-solid-border;
           width: 100%;
         }
-        .right-column__second {
-          width: 100%;
-          padding: 16px 0 4px 20px;
-        }
+      }
+
+      .testResult-header__user-data {
+        width: 100%;
+        padding: 16px 0 4px 20px;
       }
     }
   }
