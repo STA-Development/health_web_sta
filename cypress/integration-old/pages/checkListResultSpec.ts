@@ -1,4 +1,4 @@
-import { doLoginTest } from '../../helpers'
+import {doLoginTest} from '../../helpers'
 
 describe('Check single result from list.', () => {
   it('Implement list check', () => {

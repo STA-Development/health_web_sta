@@ -1,4 +1,4 @@
-import { doLoginTest } from '../../helpers'
+import {doLoginTest} from '../../helpers'
 
 describe('Check for right component when results are empty', () => {
   it('Check empty results list', () => {
