@@ -42,6 +42,12 @@
   background-color: $fhhealth-color-black;
 }
 
+.message__attachment {
+  @include setElementSize(300px, 300px);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 .message-error {
   @include setDisplay(flex, unset, center);
   color: $fhhealth-color-dark-red-bg;

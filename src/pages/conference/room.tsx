@@ -13,6 +13,7 @@ import {
   ICallListenerExtension,
   IRemoteStreamListener,
   callSessionInitialState,
+  IQBMessage,
 } from '@fh-health/types/context/ConferenceContext'
 import ErrorNotification from '@fh-health/components/conference/partials/errorNotification'
 import MobileFinalViewModal from '@fh-health/components/conference/partials/finalViewModal'
@@ -28,6 +29,7 @@ const ConferenceRoomView = () => {
   const [isMuted, setIsMuted] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
+  // const [attachmentUrl, setAttachmentUrl] = useState<string>('')
   const messageToSend = useRef<HTMLInputElement>(null)
   const router = useRouter()
   const condition = useNetworkState()
@@ -99,9 +101,17 @@ const ConferenceRoomView = () => {
         Sentry.captureException(error)
         setIsError(true)
       } else {
+        const formattedMessages = messages?.items.map((item: IQBMessage) => {
+          const fileUID = item.attachments[0]?.uid
+          const attachmentUrl = QB.content.privateUrl(fileUID)
+          return {
+            ...item,
+            attachmentUrl,
+          }
+        })
         setConfDataState({
           type: ConferenceContextStaticData.SET_MESSAGES,
-          messages: messages?.items,
+          messages: formattedMessages,
         })
       }
     })
@@ -143,10 +153,17 @@ const ConferenceRoomView = () => {
         }
       }
 
-      QB.chat.onMessageListener = (id: number, message: object) => {
+      QB.chat.onMessageListener = (
+        id: number,
+        message: {
+          extension: {
+            attachments: [{uid: number}]
+          }
+        },
+      ) => {
         if (id !== confDataState.myPersonalId) {
-          getMessagesList()
           console.info(message, 'UPCOMING MESSAGE')
+          getMessagesList()
         }
       }
     })
@@ -174,6 +191,8 @@ const ConferenceRoomView = () => {
       created_at: new Date(),
       message: messageToSend.current.value,
       hasError: false,
+      attachments: null,
+      attachmentUrl: '',
     }
 
     if (!condition.online) {

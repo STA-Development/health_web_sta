@@ -38,13 +38,28 @@ const Message = ({messageInfo}: {messageInfo: IQBMessage}) => {
 
   return (
     <div className={isMyText ? 'message message_me' : 'message'}>
-      <div className="message__body">
-        <span className="message_date">{messageDate}</span>
-        <span className="message__text">{messageInfo?.message}</span>
-        {isMyText && messageInfo?.hasError && (
-          <MessageError text="Couldn’t Send. Click to try again." />
-        )}
-      </div>
+      {messageInfo?.attachments[0]?.uid ? (
+        <div className="message__body">
+          <span className="message_date">{messageDate}</span>
+          {messageInfo?.attachmentUrl && (
+            <div
+              className="message__attachment"
+              style={{backgroundImage: `url(${messageInfo.attachmentUrl})`}}
+            />
+          )}
+          {isMyText && messageInfo?.hasError && (
+            <MessageError text="Couldn’t Send. Click to try again." />
+          )}
+        </div>
+      ) : (
+        <div className="message__body">
+          <span className="message_date">{messageDate}</span>
+          <span className="message__text">{messageInfo?.message}</span>
+          {isMyText && messageInfo?.hasError && (
+            <MessageError text="Couldn’t Send. Click to try again." />
+          )}
+        </div>
+      )}
     </div>
   )
 }
