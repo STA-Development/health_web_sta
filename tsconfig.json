@@ -27,32 +27,32 @@
       "@fh-health/lib/*": [
         "lib/*"
       ],
-      "@fh-health/context/*": [
-        "context/*"
+      "@fh-health/contexts/*": [
+        "store/contexts/*"
       ],
-      "@fh-health/component/*": [
-        "component/*"
+      "@fh-health/components/*": [
+        "shared/components/*"
       ],
       "@fh-health/manager/*": [
         "manager/*"
       ],
       "@fh-health/static/*": [
-        "static/*"
+        "store/static/*"
       ],
       "@fh-health/reducers/*": [
-        "reducers/*"
+        "store/reducers/*"
       ],
       "@fh-health/types/*": [
-        "types/*"
+        "shared/types/*"
       ],
       "@fh-health/utils/*": [
         "utils/*"
       ],
       "@fh-health/redux/*": [
-        "redux/*"
+        "store/redux/*"
       ],
       "@fh-health/hooks/*": [
-        "hooks/*"
+        "shared/hooks/*"
       ]
     },
     "incremental": true

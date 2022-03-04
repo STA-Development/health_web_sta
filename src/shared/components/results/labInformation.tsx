@@ -1,7 +1,7 @@
 import React from 'react'
 
-import {UseTestResultDataStateValue} from '@fh-health/contexts/testResultContext'
 import moment from 'moment'
+import {UseTestResultDataStateValue} from '@fh-health/contexts/testResultContext'
 
 const LabInformation = () => {
   const {testResultState} = UseTestResultDataStateValue()

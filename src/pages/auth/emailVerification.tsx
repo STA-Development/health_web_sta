@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import Image from 'next/image'
-import PureBlock from '@fh-health/component/results/pureBlock'
-import CircleLoader from '@fh-health/component/utils/circleLoader'
 import ReactCodeInput from 'react-verification-code-input'
-import Notification from '@fh-health/component/results/notification'
 import AuthManager from '@fh-health/manager/authManager'
 import * as Sentry from '@sentry/nextjs'
-import EmailAddressVerified from '@fh-health/component/results/emailAddressVerified'
 import {useSelector} from 'react-redux'
 import {IStore} from '@fh-health/redux/store'
 import useCountdown from '@fh-health/hooks/countdownHook'
+import EmailAddressVerified from '@fh-health/components/results/emailAddressVerified'
+import Notification from '@fh-health/components/results/notification'
+import CircleLoader from '@fh-health/components/utils/circleLoader'
+import PureBlock from '@fh-health/components/results/pureBlock'
 
 const EmailVerification = () => {
   const [loading, setLoading] = useState<boolean>(false)

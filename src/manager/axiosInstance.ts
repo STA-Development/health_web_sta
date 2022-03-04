@@ -1,7 +1,7 @@
 import axios from 'axios'
 import guid from '@fh-health/utils/guid'
 
-import store from '../redux/store'
+import store from '../store/redux/store'
 
 store.subscribe(listener)
 

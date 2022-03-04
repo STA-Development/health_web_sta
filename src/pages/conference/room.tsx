@@ -1,24 +1,24 @@
 import React, {useEffect, useState, useRef} from 'react'
-import VideoWrapper from '@fh-health/component/conference/video'
-import ChatWrapper from '@fh-health/component/conference/chat'
 import * as QB from 'quickblox/quickblox'
 import * as Sentry from '@sentry/nextjs'
 import QBConfig from '@fh-health/utils/qbConfig'
-import {UseConfDataStateValue} from '@fh-health/context/conferenceContext'
 import conferenceManager from '@fh-health/manager/conferenceManager'
-import ConferenceContextStaticData from '@fh-health/static/conferenceContextStaticData'
-import MobileChatView from '@fh-health/component/conference/partials/mobileChatView'
 import {useRouter} from 'next/router'
 import {useNetworkState} from 'react-use'
-import ErrorNotification from '@fh-health/component/conference/partials/errorNotification'
 import getV3RecaptchaToken from '@fh-health/utils/getV3RecaptchaToken'
-import MobileFinalViewModal from '@fh-health/component/conference/partials/finalViewModal'
+import ConferenceContextStaticData from '@fh-health/static/conferenceContextStaticData'
+import {UseConfDataStateValue} from '@fh-health/contexts/conferenceContext'
 import {
   ICallListener,
   ICallListenerExtension,
   IRemoteStreamListener,
   callSessionInitialState,
 } from '@fh-health/types/context/ConferenceContext'
+import ErrorNotification from '@fh-health/components/conference/partials/errorNotification'
+import MobileFinalViewModal from '@fh-health/components/conference/partials/finalViewModal'
+import MobileChatView from '@fh-health/components/conference/partials/mobileChatView'
+import ChatWrapper from '@fh-health/components/conference/chat'
+import VideoWrapper from '@fh-health/components/conference/video'
 
 const ConferenceRoomView = () => {
   const {confDataState, setConfDataState} = UseConfDataStateValue()

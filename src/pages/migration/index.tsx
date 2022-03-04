@@ -1,23 +1,23 @@
 import React, {useEffect, useRef, useState} from 'react'
-import PureBlock from '@fh-health/component/results/pureBlock'
 import Image from 'next/image'
-import Member from '@fh-health/component/migration/member'
-import Modal from '@fh-health/component/utils/modal'
 import migrationManager from '@fh-health/manager/migrationManager'
-import CircleLoader from '@fh-health/component/utils/circleLoader'
 import * as Sentry from '@sentry/nextjs'
-import MigrationInitialModal from '@fh-health/component/migration/initialModal'
-import SuccessModal from '@fh-health/component/migration/successModal'
-import AllSetModal from '@fh-health/component/migration/allSetModal'
+import {useRouter} from 'next/router'
+import {useClickAway} from 'react-use'
+import {useSelector} from 'react-redux'
 import {
   IDependent,
   MemberConfirmActionType,
   MemberSelectType,
 } from '@fh-health/types/migrationTypes'
-import {useRouter} from 'next/router'
-import {useClickAway} from 'react-use'
-import {useSelector} from 'react-redux'
 import {IStore} from '@fh-health/redux/store'
+import AllSetModal from '@fh-health/components/migration/allSetModal'
+import SuccessModal from '@fh-health/components/migration/successModal'
+import MigrationInitialModal from '@fh-health/components/migration/initialModal'
+import CircleLoader from '@fh-health/components/utils/circleLoader'
+import Modal from '@fh-health/components/utils/modal'
+import Member from '@fh-health/components/migration/member'
+import PureBlock from '@fh-health/components/results/pureBlock'
 
 const MigrationFlowView = () => {
   const [confirmButtonState, setConfirmButtonState] = useState<boolean>(false)

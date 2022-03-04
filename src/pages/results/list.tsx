@@ -1,12 +1,12 @@
-import ResultsHeader from '@fh-health/component/results/resultsHeader'
-import TestResultContainer from '@fh-health/component/results/testResultContainer'
-import SingleTestResult from '@fh-health/component/results/singleTestResult'
-import NoResults from '@fh-health/component/results/noResults'
 import React, {useEffect, useState} from 'react'
 import moment from 'moment'
 import * as Sentry from '@sentry/nextjs'
 import testResultManager from '@fh-health/manager/testResultManager'
-import ResultsListPreload from '@fh-health/component/results/resultsListPreload'
+import ResultsHeader from '@fh-health/components/results/resultsHeader'
+import TestResultContainer from '@fh-health/components/results/testResultContainer'
+import SingleTestResult from '@fh-health/components/results/singleTestResult'
+import NoResults from '@fh-health/components/results/noResults'
+import ResultsListPreload from '@fh-health/components/results/resultsListPreload'
 
 interface IResult {
   detailsAvailable: boolean

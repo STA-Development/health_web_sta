@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
-import PureBlock from '@fh-health/component/results/pureBlock'
 import Image from 'next/image'
-import CircleLoader from '@fh-health/component/utils/circleLoader'
 import * as Sentry from '@sentry/nextjs'
 import authManager from '@fh-health/manager/authManager'
-import {updatePatientInformation} from '@fh-health/redux/state/auth/patientInformationSlice'
 import {useDispatch} from 'react-redux'
+import {useRouter} from 'next/router'
+import {updatePatientInformation} from '@fh-health/redux/state/auth/patientInformationSlice'
 import useEmailValidation from '@fh-health/hooks/emailValidationHook'
-import { useRouter } from 'next/router'
+import CircleLoader from '@fh-health/components/utils/circleLoader'
+import PureBlock from '@fh-health/components/results/pureBlock'
 
 const UpdateEmail = () => {
   const [loading, setLoading] = useState<boolean>(false)

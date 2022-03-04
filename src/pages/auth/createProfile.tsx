@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from 'react'
-import PureBlock from '@fh-health/component/results/pureBlock'
 import Image from 'next/image'
-import CircleLoader from '@fh-health/component/utils/circleLoader'
-import Notification from '@fh-health/component/results/notification'
 import {useRouter} from 'next/router'
 import authManager from '@fh-health/manager/authManager'
-import Card from '@fh-health/component/utils/card'
 import * as Sentry from '@sentry/nextjs'
-import useEmailValidation from '@fh-health/hooks/emailValidationHook'
 import {useDispatch} from 'react-redux'
 import authInformationUpdate, {
   setAuthInformationUpdate,
 } from '@fh-health/redux/state/auth/authInformationUpdate'
 import {updatePatientInformation} from '@fh-health/redux/state/auth/patientInformationSlice'
+import useEmailValidation from '@fh-health/hooks/emailValidationHook'
+import Card from '@fh-health/components/utils/card'
+import Notification from '@fh-health/components/results/notification'
+import CircleLoader from '@fh-health/components/utils/circleLoader'
+import PureBlock from '@fh-health/components/results/pureBlock'
 
 const CreateProfile = () => {
   const [loading, setLoading] = useState<boolean>(false)
