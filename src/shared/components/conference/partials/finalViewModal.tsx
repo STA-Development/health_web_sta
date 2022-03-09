@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react"
-import Modal from "@fh-health/component/utils/modal"
-import Card from "@fh-health/component/utils/card"
-import Image from "next/image"
-import {UseConfDataStateValue} from "@fh-health/context/conferenceContext"
+import React, {useEffect, useState} from 'react'
+import Modal from '@fh-health/components/utils/modal'
+import Card from '@fh-health/components/utils/card'
+import Image from 'next/image'
+import {UseConfDataStateValue} from '@fh-health/contexts/conferenceContext'
 
 const MobileFinalViewModal = () => {
-  const { confDataState } = UseConfDataStateValue()
+  const {confDataState} = UseConfDataStateValue()
   const [mobileModalView, setMobileModalView] = useState<boolean>(false)
 
   const closeModal = () => setMobileModalView(false)
@@ -14,16 +14,17 @@ const MobileFinalViewModal = () => {
     if (confDataState.consultationFlow.isConferenceEnded) {
       setMobileModalView(true)
     }
-  }, [confDataState.consultationFlow.isConferenceEnded]);
+  }, [confDataState.consultationFlow.isConferenceEnded])
 
   return (
-    <div className={mobileModalView ? "chat-wrapper-modal chat-wrapper-modal_visible" : "chat-wrapper-modal"}>
+    <div
+      className={
+        mobileModalView ? 'chat-wrapper-modal chat-wrapper-modal_visible' : 'chat-wrapper-modal'
+      }
+    >
       <Modal>
         <Card permissions={false}>
-          <button
-            type="button"
-            onClick={closeModal} className="button card__close"
-          >
+          <button type="button" onClick={closeModal} className="button card__close">
             <Image src="/cross.svg" width={24} height={24} alt="close" />
           </button>
           <div className="card__content">
@@ -36,11 +37,7 @@ const MobileFinalViewModal = () => {
               again soon!
             </p>
           </div>
-          <button
-            type="button"
-            onClick={closeModal}
-            className="button card__button"
-          >
+          <button type="button" onClick={closeModal} className="button card__button">
             Close
           </button>
         </Card>
@@ -49,4 +46,4 @@ const MobileFinalViewModal = () => {
   )
 }
 
-export default MobileFinalViewModal;
+export default MobileFinalViewModal
