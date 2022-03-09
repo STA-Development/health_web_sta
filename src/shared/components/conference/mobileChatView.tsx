@@ -7,13 +7,17 @@ const MobileChatView = ({
   sendMessage,
   messageToSend,
   clearMessageToSend,
+  handleAttachmentUpload,
+  isUploading,
 }: IChatWrapper) => (
   <div className="mobile-chat">
     <ChatWrapper
       loading={loading}
+      isUploading={isUploading}
       sendMessage={sendMessage}
       messageToSend={messageToSend}
       clearMessageToSend={clearMessageToSend}
+      handleAttachmentUpload={handleAttachmentUpload}
     />
   </div>
 )

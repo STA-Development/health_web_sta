@@ -28,6 +28,7 @@ const ConferenceRoomView = () => {
   const [callSession, setCallSession] = useState(callSessionInitialState)
   const [isMuted, setIsMuted] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
+  const [isUploading, setIsUploading] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
   const messageToSend = useRef<HTMLInputElement>(null)
   const router = useRouter()
@@ -90,7 +91,8 @@ const ConferenceRoomView = () => {
   const formatMessagesList = (messages) =>
     messages?.items.map((item: IQBMessage) => {
       const attachment = item.attachments[0]
-      const attachmentUrl = QB.content.privateUrl(String(attachment?.uid))
+      const uid = attachment?.uid || attachment?.id
+      const attachmentUrl = QB.content.privateUrl(String(uid))
 
       return {
         ...item,
@@ -175,6 +177,40 @@ const ConferenceRoomView = () => {
     QB.chat.onDisconnectedListener = () => {
       console.info('CHAT DISCONNECTED')
     }
+  }
+
+  const handleAttachmentUpload = (event) => {
+    setIsUploading(true)
+
+    const attachment = event.target.files[0]
+    const dialogJid = QB.chat.helpers.getRoomJidFromDialogId(dialogId)
+
+    const fileParams = {
+      name: attachment.name,
+      file: attachment,
+      type: attachment.type,
+      size: attachment.size,
+      public: false,
+    }
+
+    QB.content.createAndUpload(fileParams, (error, result) => {
+      if (error) {
+        setIsUploading(false)
+        Sentry.captureException(error)
+      } else {
+        const message = {
+          type: 'groupchat',
+          body: '[attachment]',
+          extension: {
+            save_to_history: 1,
+            dialog_id: dialogId,
+            attachments: [{id: result.uid, type: result.content_type}],
+          },
+        }
+        setIsUploading(false)
+        QB.chat.send(dialogJid, message)
+      }
+    })
   }
 
   const sendMessage = () => {
@@ -320,16 +356,20 @@ const ConferenceRoomView = () => {
       <VideoWrapper triggerCallEnd={triggerCallEnd} switchAudioState={switchAudioState} />
       <ChatWrapper
         loading={loading}
+        isUploading={isUploading}
         sendMessage={sendMessage}
         messageToSend={messageToSend}
         clearMessageToSend={clearMessageToSend}
+        handleAttachmentUpload={handleAttachmentUpload}
       />
       {confDataState.chatVisibility && (
         <MobileChatView
           loading={loading}
+          isUploading={isUploading}
           sendMessage={sendMessage}
           messageToSend={messageToSend}
           clearMessageToSend={clearMessageToSend}
+          handleAttachmentUpload={handleAttachmentUpload}
         />
       )}
       <ErrorNotification isError={isError} setErrorState={setIsError} />

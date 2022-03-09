@@ -6,6 +6,7 @@ export interface IPatientInfo {
 }
 
 interface IAttachment {
+  id: number
   uid: number
   type: string
   name: string
@@ -114,9 +115,11 @@ interface RefObject<T> {
 
 export interface IChatWrapper {
   loading: boolean
+  isUploading: boolean
   sendMessage: () => void
-  messageToSend: RefObject<HTMLInputElement>
   clearMessageToSend: () => void
+  messageToSend: RefObject<HTMLInputElement>
+  handleAttachmentUpload: (event: unknown) => void
 }
 
 export enum Language {

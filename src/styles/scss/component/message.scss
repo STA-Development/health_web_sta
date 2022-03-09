@@ -13,6 +13,10 @@
       color: $fhhealth-color-black;
       border-bottom-right-radius: unset;
       border-bottom-left-radius: 18px;
+
+      &_attachment {
+        background-color: $fhhealth-color-light-blue;
+      }
     }
 
     .message__date {
@@ -62,6 +66,7 @@
   &_image {
     @include setElementSize(300px, 300px);
     background-size: contain;
+    background-position: center;
     background-repeat: no-repeat;
   }
 

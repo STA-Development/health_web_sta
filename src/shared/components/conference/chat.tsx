@@ -3,10 +3,18 @@ import Image from 'next/image'
 import {UseConfDataStateValue} from '@fh-health/contexts/conferenceContext'
 import {IChatWrapper, IQBMessage} from '@fh-health/types/context/ConferenceContext'
 import ConferenceHeader from '@fh-health/components/utils/conferenceHeader'
+import CircleLoader from '@fh-health/components/utils/circleLoader'
 import Message from './message'
 import ChatWrapperPreload from './chatWrapperPreload'
 
-const ChatWrapper = ({sendMessage, loading, messageToSend, clearMessageToSend}: IChatWrapper) => {
+const ChatWrapper = ({
+  sendMessage,
+  loading,
+  isUploading,
+  messageToSend,
+  clearMessageToSend,
+  handleAttachmentUpload,
+}: IChatWrapper) => {
   const {confDataState} = UseConfDataStateValue()
   const messagesListEl = useRef(null)
   const [controlledMessage, setControlledMessage] = useState<string>('')
@@ -61,7 +69,7 @@ const ChatWrapper = ({sendMessage, loading, messageToSend, clearMessageToSend}: 
             <div className="button messenger__footer-button">
               <label htmlFor="upload">
                 <Image src="/attach.svg" alt="upload" width={31} height={16} />
-                <input type="file" id="upload" />
+                <input type="file" id="upload" onChange={(e) => handleAttachmentUpload(e)} />
               </label>
             </div>
             <input
@@ -84,6 +92,11 @@ const ChatWrapper = ({sendMessage, loading, messageToSend, clearMessageToSend}: 
           </form>
         </div>
       </div>
+      {isUploading && (
+        <div className="attachment-preload">
+          <CircleLoader className="middle-loader" />
+        </div>
+      )}
     </div>
   )
 }

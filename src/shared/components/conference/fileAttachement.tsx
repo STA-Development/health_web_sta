@@ -8,7 +8,7 @@ const FileAttachment = ({children, messageDate, messageInfo}: IUploadedAttachmen
     <span className="message__text message__text_attachment">
       <Image src="/attach.svg" width={45} height={25} />
       <a target="_blank" rel="noreferrer noopener" href={messageInfo.attachmentUrl}>
-        {messageInfo.attachments[0]?.name}
+        {messageInfo.attachments[0]?.name || 'Download'}
       </a>
     </span>
     {children}
