@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import Image from 'next/image'
-import {UseConfDataStateValue} from '@fh-health/contexts/conferenceContext'
 import Modal from '@fh-health/components/utils/modal'
 import Card from '@fh-health/components/utils/card'
+import Image from 'next/image'
+import {UseConfDataStateValue} from '@fh-health/contexts/conferenceContext'
 
 const MobileFinalViewModal = () => {
   const {confDataState} = UseConfDataStateValue()
