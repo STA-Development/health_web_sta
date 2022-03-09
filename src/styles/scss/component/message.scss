@@ -40,6 +40,34 @@
   border-radius: 18px;
   border-bottom-left-radius: unset;
   background-color: $fhhealth-color-black;
+
+  &_attachment {
+    @include setElementSize(150px, 150px);
+    @include setDisplay(flex, space-evenly, center, column);
+    text-decoration: underline;
+    color: $fhhealth-color-black;
+    background-color: $fhhealth-color-light-blue;
+
+    a {
+      width: 100%;
+      font-size: 14px;
+      text-align: center;
+      word-wrap: break-word;
+    }
+  }
+}
+
+.message__attachment {
+
+  &_image {
+    @include setElementSize(300px, 300px);
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  &_video video {
+    @include setElementSize(300px, 300px);
+  }
 }
 
 .message__attachment {

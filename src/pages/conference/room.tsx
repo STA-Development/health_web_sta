@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import * as QB from 'quickblox/quickblox'
 import * as Sentry from '@sentry/nextjs'
 import QBConfig from '@fh-health/utils/qbConfig'
@@ -9,15 +9,15 @@ import getV3RecaptchaToken from '@fh-health/utils/getV3RecaptchaToken'
 import ConferenceContextStaticData from '@fh-health/static/conferenceContextStaticData'
 import {UseConfDataStateValue} from '@fh-health/contexts/conferenceContext'
 import {
+  callSessionInitialState,
   ICallListener,
   ICallListenerExtension,
-  IRemoteStreamListener,
-  callSessionInitialState,
   IQBMessage,
+  IRemoteStreamListener,
 } from '@fh-health/types/context/ConferenceContext'
-import ErrorNotification from '@fh-health/components/conference/partials/errorNotification'
-import MobileFinalViewModal from '@fh-health/components/conference/partials/finalViewModal'
-import MobileChatView from '@fh-health/components/conference/partials/mobileChatView'
+import ErrorNotification from '@fh-health/components/conference/errorNotification'
+import MobileFinalViewModal from '@fh-health/components/conference/finalViewModal'
+import MobileChatView from '@fh-health/components/conference/mobileChatView'
 import ChatWrapper from '@fh-health/components/conference/chat'
 import VideoWrapper from '@fh-health/components/conference/video'
 
@@ -29,7 +29,6 @@ const ConferenceRoomView = () => {
   const [isMuted, setIsMuted] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
-  // const [attachmentUrl, setAttachmentUrl] = useState<string>('')
   const messageToSend = useRef<HTMLInputElement>(null)
   const router = useRouter()
   const condition = useNetworkState()
@@ -88,6 +87,18 @@ const ConferenceRoomView = () => {
     }
   }
 
+  const formatMessagesList = (messages) =>
+    messages?.items.map((item: IQBMessage) => {
+      const attachment = item.attachments[0]
+      const attachmentUrl = QB.content.privateUrl(String(attachment?.uid))
+
+      return {
+        ...item,
+        attachmentUrl,
+        attachmentType: attachment?.type,
+      }
+    })
+
   const getMessagesList = () => {
     const chatParams = {
       chat_dialog_id: dialogId,
@@ -101,14 +112,7 @@ const ConferenceRoomView = () => {
         Sentry.captureException(error)
         setIsError(true)
       } else {
-        const formattedMessages = messages?.items.map((item: IQBMessage) => {
-          const fileUID = item.attachments[0]?.uid
-          const attachmentUrl = QB.content.privateUrl(fileUID)
-          return {
-            ...item,
-            attachmentUrl,
-          }
-        })
+        const formattedMessages = formatMessagesList(messages)
         setConfDataState({
           type: ConferenceContextStaticData.SET_MESSAGES,
           messages: formattedMessages,
@@ -191,8 +195,9 @@ const ConferenceRoomView = () => {
       created_at: new Date(),
       message: messageToSend.current.value,
       hasError: false,
-      attachments: null,
+      attachments: [],
       attachmentUrl: '',
+      attachmentType: '',
     }
 
     if (!condition.online) {

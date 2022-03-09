@@ -1,6 +1,6 @@
 import React from 'react'
 import {IChatWrapper} from '@fh-health/types/context/ConferenceContext'
-import ChatWrapper from '../chat'
+import ChatWrapper from './chat'
 
 const MobileChatView = ({
   loading,

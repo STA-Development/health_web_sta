@@ -3,8 +3,8 @@ import Image from 'next/image'
 import {UseConfDataStateValue} from '@fh-health/contexts/conferenceContext'
 import {IChatWrapper, IQBMessage} from '@fh-health/types/context/ConferenceContext'
 import ConferenceHeader from '@fh-health/components/utils/conferenceHeader'
-import Message from './partials/message'
-import ChatWrapperPreload from './partials/chatWrapperPreload'
+import Message from './message'
+import ChatWrapperPreload from './chatWrapperPreload'
 
 const ChatWrapper = ({sendMessage, loading, messageToSend, clearMessageToSend}: IChatWrapper) => {
   const {confDataState} = UseConfDataStateValue()

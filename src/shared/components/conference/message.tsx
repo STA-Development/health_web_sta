@@ -1,13 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import {format} from 'date-fns'
 import {UseConfDataStateValue} from '@fh-health/contexts/conferenceContext'
-import {IQBMessage} from '@fh-health/types/context/ConferenceContext'
+import {Attachment, IQBMessage} from '@fh-health/types/context/ConferenceContext'
+import ImageAttachment from '@fh-health/components/conference/imageAttachment'
+import FileAttachment from '@fh-health/components/conference/fileAttachement'
+import VideoAttachment from '@fh-health/components/conference/videoAttachment'
 import MessageError from './messageError'
 
 const Message = ({messageInfo}: {messageInfo: IQBMessage}) => {
   const {confDataState} = UseConfDataStateValue()
   const [isMyText, setIsMyText] = useState<boolean>(false)
   const [messageDate, setMessageDate] = useState<string>('')
+  const isFileAttachment =
+    messageInfo.attachmentType !== Attachment.Video &&
+    messageInfo.attachmentType !== Attachment.Image
 
   const compareSenderIds = () => {
     if (messageInfo?.sender_id === confDataState.myPersonalId) {
@@ -38,17 +44,28 @@ const Message = ({messageInfo}: {messageInfo: IQBMessage}) => {
 
   return (
     <div className={isMyText ? 'message message_me' : 'message'}>
-      {messageInfo?.attachments[0]?.uid ? (
-        <div className="message__body">
-          <span className="message_date">{messageDate}</span>
-          {messageInfo?.attachmentUrl && (
-            <div
-              className="message__attachment"
-              style={{backgroundImage: `url(${messageInfo.attachmentUrl})`}}
-            />
+      {messageInfo?.attachments.length && messageInfo?.attachments[0]?.uid ? (
+        <div>
+          {isFileAttachment && (
+            <FileAttachment messageInfo={messageInfo} messageDate={messageDate}>
+              {isMyText && messageInfo?.hasError && (
+                <MessageError text="Couldn’t Send. Click to try again." />
+              )}
+            </FileAttachment>
           )}
-          {isMyText && messageInfo?.hasError && (
-            <MessageError text="Couldn’t Send. Click to try again." />
+          {messageInfo.attachmentType === Attachment.Image && (
+            <ImageAttachment messageInfo={messageInfo} messageDate={messageDate}>
+              {isMyText && messageInfo?.hasError && (
+                <MessageError text="Couldn’t Send. Click to try again." />
+              )}
+            </ImageAttachment>
+          )}
+          {messageInfo.attachmentType === Attachment.Video && (
+            <VideoAttachment messageInfo={messageInfo} messageDate={messageDate}>
+              {isMyText && messageInfo?.hasError && (
+                <MessageError text="Couldn’t Send. Click to try again." />
+              )}
+            </VideoAttachment>
           )}
         </div>
       ) : (
