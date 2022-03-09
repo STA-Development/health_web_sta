@@ -1,0 +1,46 @@
+@import "src/styles/scss/abstracts/mixins";
+
+@media (max-width: $fhhealth-media-sm) {
+  .web-portal-results {
+    margin: 0;
+    padding: 26px 16px 50px;
+    .single-result {
+
+      .single-result__info {
+        line-height: 18px;
+        align-items: center;
+      }
+    }
+  }
+
+  .testResult-wrapper {
+    .testResult-text {
+      @include setFontSizes(17px, 1.29, 0.2px);
+      font-family: $fhhealth-font-DM-bold;
+      margin: 20px 26px;
+    }
+  }
+}
+
+
+.testResult-wrapper {
+  &_negative{
+    background-color: $fhhealth-color-green-bg;
+  }
+
+  &_positive{
+    background-color: $fhhealth-color-red-bg
+  }
+
+  &_inconclusive{
+    background-color: $fhhealth-color-blue-bg
+  }
+
+  &_presumptivepositive{
+    background-color: $fhhealth-color-red-bg
+  }
+
+  &_biorad-color{
+    background-color: rgba(206, 216, 229, 0.25);
+  }
+}

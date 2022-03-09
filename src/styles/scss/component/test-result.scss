@@ -1,0 +1,113 @@
+@import '../abstracts/mixins';
+
+.testResult-wrapper {
+  @include setDisplay(flex, center, center);
+  width: 100%;
+  margin: 1px 0 0;
+  background-color: $fhhealth-color-blue-bg;
+  .testResult-text {
+    @include setFontAppearance($fhhealth-font-DM-bold, bold, normal, normal);
+    @include setFontSizes(20px, 1.25, normal);
+    text-align: center;
+    color: $fhhealth-color-dark-black;
+    text-transform: uppercase;
+    margin: 24px 24px;
+  }
+}
+.vaccine-result {
+  background-color: rgba(45, 192, 172, 0.2);
+}
+
+.testResult-text__status {
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.GREEN {
+  background-color: $fhhealth-color-green-btn;
+}
+
+.RED {
+  background-color: $fhhealth-color-red-btn;
+}
+
+.YELLOW {
+  background-color: $fhhealth-color-dark-yellow;
+}
+
+.GOLD {
+  background-color: $fhhealth-color-gold;
+}
+
+.LIMEGREEN {
+  background-color: $fhhealth-color-lime-blue;
+}
+
+.GRAY {
+  background-color: $fhhealth-color-light-gray-text;
+}
+
+.BLUE {
+  background-color: $fhhealth-color-blue-btn;
+}
+
+.BLACK {
+  background-color: $fhhealth-color-black;
+}
+
+.testResult-wrapper {
+  &_negative {
+    background-color: $fhhealth-color-green-btn;
+  }
+
+  &_positive {
+    background-color: $fhhealth-color-red-bg
+  }
+
+  &_inconclusive {
+    background-color: $fhhealth-color-blue-bg
+  }
+
+  &_presumptivepositive {
+    background-color: $fhhealth-color-red-bg
+  }
+
+  &_biorad-color {
+    background-color:$fhhealth-color-neutral-bg;
+    border-bottom: 1px solid $fhhealth-color-test-analysis-data-border;
+  }
+
+  &_invalid {
+    background-color: $fhhealth-color-dark-grey-bg;
+  }
+
+  &_pending {
+    background-color: $fhhealth-color-dark-grey-bg;
+  }
+}
+
+.testResult-text__status {
+  &_presumptivepositive{
+    background-color: $fhhealth-color-red-btn;
+  }
+
+  &_negative {
+    background: $fhhealth-color-green-btn;
+  }
+
+  &_positive {
+    background-color: $fhhealth-color-danger;
+  }
+
+  &_inconclusive {
+    background-color: $fhhealth-color-dark-blue-bg;
+  }
+
+  &_indeterminate {
+    background-color: $fhhealth-color-dark-blue-bg;
+  }
+
+  &_invalid {
+    background-color: unset;
+  }
+}

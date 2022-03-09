@@ -1,0 +1,23 @@
+#carcassFocus {
+    height: 100%;
+    padding-top: 48px;
+    margin-top: -48px;
+}
+
+.carcass {
+    max-width: 828px;
+    margin: 48px auto 80px;
+    border: solid 1px #b9babd;
+    background-color: $fhhealth-color-white;
+}
+
+.middle-loader {
+    margin: 0 auto;
+    width: 150px;
+
+    svg {
+        path {
+            fill: $fhhealth-color-yellow;
+        }
+    }
+}

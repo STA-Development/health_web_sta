@@ -1,0 +1,55 @@
+@import 'src/styles/scss/abstracts/mixins';
+
+@font-face {
+  src: url("/fonts/SF-Pro/SFProText-Bold.eot");
+  src: url("/fonts/SF-Pro/SFProText-Bold.eot?#iefix") format("embedded-opentype"),
+  url("/fonts/SF-Pro/SFProText-Bold.woff2") format("woff2"),
+  url("/fonts/SF-Pro/SFProText-Bold.woff") format("woff"),
+  url("/fonts/SF-Pro/SFProText-Bold.ttf") format("truetype");
+  @include setFontAppearance("SF-Bold", 700, normal, unset);
+}
+
+@font-face {
+  src: url("/fonts/SF-Pro/SFProText-Medium.eot");
+  src: url("/fonts/SF-Pro/SFProText-Medium.eot?#iefix") format("embedded-opentype"),
+  url("/fonts/SF-Pro/SFProText-Medium.woff2") format("woff2"),
+  url("/fonts/SF-Pro/SFProText-Medium.woff") format("woff"),
+  url("/fonts/SF-Pro/SFProText-Medium.ttf") format("truetype");
+  @include setFontAppearance("SF-Medium", 500, normal, unset);
+}
+
+@font-face {
+  src: url("/fonts/PT-Serif/PTSerif-Bold.eot");
+  src: url("/fonts/PT-Serif/PTSerif-Bold.eot?#iefix") format("embedded-opentype"),
+  url("/fonts/PT-Serif/PTSerif-Bold.woff2") format("woff2"),
+  url("/fonts/PT-Serif/PTSerif-Bold.woff") format("woff"),
+  url("/fonts/PT-Serif/PTSerif-Bold.ttf") format("truetype");
+  @include setFontAppearance("PTSerif-Bold", 700, normal, unset);
+}
+
+@font-face {
+  src: url("/fonts/DM-Sans/DMSans-Bold.eot");
+  src: url("/fonts/DM-Sans/DMSans-Bold.eot?#iefix") format("embedded-opentype"),
+  url("/fonts/DM-Sans/DMSans-Bold.woff2") format("woff2"),
+  url("/fonts/DM-Sans/DMSans-Bold.woff") format("woff"),
+  url("/fonts/DM-Sans/DMSans-Bold.ttf") format("truetype");
+  @include setFontAppearance("DMSans-Bold", 700, normal, unset);
+}
+
+@font-face {
+  src: url("/fonts/DM-Sans/DMSans-Medium.eot");
+  src: url("/fonts/DM-Sans/DMSans-Medium.eot?#iefix") format("embedded-opentype"),
+  url("/fonts/DM-Sans/DMSans-Medium.woff2") format("woff2"),
+  url("/fonts/DM-Sans/DMSans-Medium.woff") format("woff"),
+  url("/fonts/DM-Sans/DMSans-Medium.ttf") format("truetype");
+  @include setFontAppearance("DMSans-Medium", 500, normal, unset);
+}
+
+@font-face {
+  src: url("/fonts/DM-Sans/DMSans-Regular.eot");
+  src: url("/fonts/DM-Sans/DMSans-Regular.eot?#iefix") format("embedded-opentype"),
+  url("/fonts/DM-Sans/DMSans-Regular.woff2") format("woff2"),
+  url("/fonts/DM-Sans/DMSans-Regular.woff") format("woff"),
+  url("/fonts/DM-Sans/DMSans-Regular.ttf") format("truetype");
+  @include setFontAppearance("DMSans-Regular", 400, normal, unset);
+}

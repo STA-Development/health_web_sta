@@ -1,0 +1,114 @@
+@import '../abstracts/mixins';
+
+.testResult-footer {
+  @include setFontAppearance(unset, unset, normal, normal);
+}
+
+.important-information {
+  padding: 24px;
+  width: 88%;
+}
+
+.important-information__content {
+  a {
+    color: #007aff;
+  }
+}
+
+.important-information__title{
+  @include setFontAppearance($fhhealth-font-SF-medium, unset, normal, normal);
+  @include setFontSizes(22px, 1.27, normal);
+  color: $fhhealth-color-dark-black;
+  margin-bottom: 18px;
+}
+
+.important-information__description {
+  @include setFontAppearance($fhhealth-font-DM-regular, unset, normal, normal);
+  @include setFontSizes(15px, -0.24, normal);
+  color: $fhhealth-color-dark-black;
+}
+
+.doctor-info {
+  @include setDisplay(flex, space-between, flex-end);
+  margin-top: 30px;
+  border-bottom: solid 1px $fhhealth-color-solid-border;
+  padding-bottom: 20px;
+}
+
+.doctor-info__signature {
+  margin-left: 24px;
+}
+
+.doctor-info__title {
+  @include setFontAppearance($fhhealth-font-PT-bold, unset, normal, normal);
+  @include setFontSizes(14px, normal, normal);
+  color: $fhhealth-color-black;
+  padding-left: 20px;
+  padding-top: 20px;
+}
+
+.legal-notice {
+  padding: 24px;
+  width: 88%;
+  color: $fhhealth-color-light-black;
+
+  h4 {
+    @include setFontAppearance($fhhealth-font-SF-medium, unset, normal, normal);
+    @include setFontSizes(22px, 1.27, normal);
+    margin-bottom: 8px;
+  }
+
+  .content {
+    @include setFontAppearance($fhhealth-font-DM-regular, unset, normal, normal);
+    @include setFontSizes(12px, 1.27, normal);
+
+    a {
+      color: #007aff;
+      text-decoration: underline;
+    }
+  }
+
+  .content:last-child {
+    margin-top: 16px;
+  }
+}
+
+.coupon-info {
+  margin-right: 24px;
+
+  &_mobile {
+    display: none;
+  }
+
+  p {
+    @include setFontSizes(17px, 22px, -0.41px);
+    color: $fhhealth-color-light-black;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+}
+
+.coupon-info__wrapper {
+  @include setDisplay(flex, unset, center);
+}
+
+.coupon-info__code {
+  @include setElementSize(220px, unset);
+  @include setFontSizes(15px, auto, -0.36px);
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  background-color: $fhhealth-color-grey-bg;
+  color: $fhhealth-color-black;
+  padding: 12px 16px;
+  text-align: center;
+}
+
+.coupon-info__button {
+  @include setFontSizes(15px, auto, -0.36px);
+  cursor: pointer;
+  padding: 12px 16px;
+  border-top-right-radius: 3px;
+  color: $fhhealth-color-white;
+  border-bottom-right-radius: 3px;
+  background-color: $fhhealth-color-dark-bg;
+}

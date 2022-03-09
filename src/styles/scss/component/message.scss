@@ -1,0 +1,64 @@
+@import '../abstracts/mixins';
+
+.messenger__body .message {
+  display: flex;
+  margin: 20px 0 12px;
+
+  &_me {
+    justify-content: flex-end;
+    text-align: right;
+
+    .message__text {
+      background-color: $fhhealth-color-carcass-border;
+      color: $fhhealth-color-black;
+      border-bottom-right-radius: unset;
+      border-bottom-left-radius: 18px;
+    }
+
+    .message__date {
+      right: 0;
+    }
+
+    .message__body {
+      align-items: flex-end;
+    }
+  }
+}
+
+.message__body {
+  @include setDisplay(flex, unset, flex-start, column);
+}
+
+.message_date {
+  margin-bottom: 20px;
+}
+
+.message__text {
+  @include setFontSizes(17px, 22px, unset);
+  color: $fhhealth-color-white;
+  padding: 8px 14px;
+  border-radius: 18px;
+  border-bottom-left-radius: unset;
+  background-color: $fhhealth-color-black;
+}
+
+.message__attachment {
+  @include setElementSize(300px, 300px);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.message-error {
+  @include setDisplay(flex, unset, center);
+  color: $fhhealth-color-dark-red-bg;
+  font-size: 12px;
+
+  span {
+    padding-left: 8px;
+  }
+}
+
+.message-error__img {
+  width: 20px;
+  height: 20px;
+}

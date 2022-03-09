@@ -1,0 +1,23 @@
+@import '../abstracts/mixins';
+
+.notification {
+  @include setDisplay(flex, unset, center);
+  @include setPosition(absolute, 0, unset, 0, 0);
+  padding: 20px 36px 20px 24px;
+
+  .notification-wrapper {
+    @include setElementSize(32px, 32px);
+  }
+
+  span {
+    margin-left: 24px;
+  }
+}
+
+.notify-warning {
+  background: $fhhealth-color-yellow;
+}
+
+.notify-error {
+  background: rgba(255, 57, 77, 0.25);
+}

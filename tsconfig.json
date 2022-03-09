@@ -22,28 +22,37 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      "@fh-health/context/*": [
-        "context/*"
+      "@fh-health/lib/*": [
+        "lib/*"
       ],
-      "@fh-health/component/*": [
-        "component/*"
+      "@fh-health/contexts/*": [
+        "store/contexts/*"
+      ],
+      "@fh-health/components/*": [
+        "shared/components/*"
       ],
       "@fh-health/manager/*": [
         "manager/*"
       ],
       "@fh-health/static/*": [
-        "static/*"
+        "store/static/*"
       ],
       "@fh-health/reducers/*": [
-        "reducers/*"
+        "store/reducers/*"
       ],
       "@fh-health/types/*": [
-        "types/*"
+        "shared/types/*"
       ],
       "@fh-health/utils/*": [
         "utils/*"
+      ],
+      "@fh-health/redux/*": [
+        "store/redux/*"
+      ],
+      "@fh-health/hooks/*": [
+        "shared/hooks/*"
       ]
     },
     "incremental": true

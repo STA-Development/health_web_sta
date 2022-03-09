@@ -1,0 +1,208 @@
+@import '../abstracts/mixins';
+
+.pure-block-wrapper {
+  @include setDisplay(flex, center, center);
+  height: 100%;
+
+  &_create-profile {
+
+    & > div {
+      margin-top: 58px;
+    }
+  }
+}
+
+.centerX {
+  justify-content: center;
+}
+
+.need-help-info {
+  text-align: center;
+  margin-top: 40px;
+  display: block;
+  color: rgba(39, 48, 59, 0.8);
+  font-size: 14px;
+
+  .link {
+    color: #007aff;
+    text-decoration: underline;
+  }
+}
+
+.contentOutline {
+  @include setDisplay(flex, unset, center);
+  @include setBorder(1px, rgba(151, 151, 151, 0.25));
+  max-width: 515px;
+  height: 366px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  border-radius: 8px;
+  background-color: $fhhealth-color-white;
+
+  &_flow {
+    height: auto;
+    padding: 48px 0;
+  }
+
+  .content {
+    @include setDisplay(grid, center, center);
+    text-align: center;
+    padding: 0 20px;
+
+    &_flow {
+      @include setDisplay(flex, flex-start, flex-start, column);
+      text-align: left;
+      flex: 1;
+      padding: 0 48px;
+    }
+
+    .header {
+      color: $fhhealth-color-dark-black;
+      font-weight: 500;
+      font-size: 32px;
+      font-family: $fhhealth-font-SF-medium;
+      margin-top: 48px;
+    }
+
+    .message {
+      @include setFontSizes(17px, 1.29, unset);
+      color: rgba(35, 35, 37, 0.6);
+      font-family: $fhhealth-font-DM-medium;
+      margin-top: 16px;
+    }
+
+    .inputGroup {
+      @include setDisplay(flex, unset, unset, column);
+      width: 100%;
+      grid-row-gap: 8px;
+      margin-top: 24px;
+
+      .codeInput-err input{
+        border: 1px solid $fhhealth-color-red-btn;
+        background-color: #fff0f0;
+
+
+        &:nth-child(even) {
+          border-left: 1px solid transparent;
+          border-right: 1px solid transparent;
+        }
+
+        &:last-child {
+          border-right: 1px solid $fhhealth-color-red-btn;
+        }
+      }
+
+      &_verify, &_kit-code {
+        align-items: center;
+        margin-top: 48px;
+      }
+
+      &_kit-code .kit-code-label {
+        @include setElementSize(348px, unset);
+      }
+
+      &_create-profile {
+        grid-row-gap: unset;
+
+        .inputGroup__field {
+          margin-bottom: 20px;
+
+          label {
+            @include setDisplay(flex, unset, unset, column);
+          }
+
+          input {
+            padding: 16px;
+            border-radius: 2.5px;
+            color: $fhhealth-color-black;
+            background-color: $fhhealth-color-white;
+            border: solid 1px $fhhealth-color-dark-grey-bg;
+          }
+
+          span {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: $fhhealth-color-black;
+          }
+
+          &_error {
+
+            input {
+              border-color: $fhhealth-color-red-btn;
+            }
+          }
+        }
+
+        .inputGroup__button {
+          margin-top: 50px;
+        }
+      }
+
+      em {
+        color: $fhhealth-color-red-btn;
+      }
+
+      .react-tel-input input {
+        width: 100%;
+      }
+    }
+
+    .inputGroup__create-error {
+      font-size: 14px;
+      text-align: center;
+      color: $fhhealth-color-red-btn;
+    }
+
+    .inputGroup__input {
+      padding: 16px;
+      border-radius: 2px;
+      border: 1px solid $fhhealth-border-color;
+
+      &_err {
+        border: 1px solid $fhhealth-color-red-btn;
+        border-radius: 6px;
+      }
+    }
+
+    .inputGroup__resend {
+      @include setDisplay(flex, unset, center, column);
+      margin-top: 24px;
+
+      span {
+        color: $fhhealth-color-dark-black;
+      }
+    }
+
+    .inputGroup__resend-counter {
+      margin-top: 24px;
+    }
+
+    .inputGroup__button {
+      width: 100%;
+      font-size: 20px;
+      padding: 16px 0;
+      margin-top: 82px;
+      border-radius: 5px;
+      color: $fhhealth-color-white;
+      background-color: $fhhealth-color-blue-btn;
+
+      &_disabled {
+        background-color: $fhhealth-color-dark-grey-bg;
+        pointer-events: none;
+      }
+    }
+
+    .inputGroup__resend_button {
+      font-size: 16px;
+      margin-top: 8px;
+      font-weight: 500;
+      color: $fhhealth-color-blue-btn;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+@media (max-width: $fhhealth-media-sm) {
+  .migration .content {
+
+    .inputGroup {
+      margin-top: 0;
+
+      .migration__button {
+        margin-top: 16px;
+      }
+    }
+  }
+
+  .migration__members {
+    margin-top: 16px;
+  }
+
+  .member__name {
+    font-size: 17px;
+  }
+}

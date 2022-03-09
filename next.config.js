@@ -49,6 +49,8 @@ const moduleExports = {
     FH_HEALTH_WEBSITE_URL: process.env.FH_HEALTH_WEBSITE_URL,
     SENTRY_DSN: process.env.SENTRY_DSN,
     GOOGLE_ANALYTICS_KEY: process.env.GOOGLE_ANALYTICS_KEY,
+    ACUITY_BOOKINGURL: process.env.ACUITY_BOOKINGURL,
+    SENTRY_ENVIRONMENT: process.env.SENTRY_ENVIRONMENT,
   },
   sentry: {
     disableServerWebpackPlugin: true,

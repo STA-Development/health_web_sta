@@ -1,0 +1,50 @@
+name: E2E cypress tests
+on:
+  push:
+    branches:
+      - feature/ci_cd
+
+  pull_request:
+    branches:
+      - master
+      - 'release/*'
+
+  workflow_dispatch:
+  schedule:
+    # EST: At 4:00 AM, 12:00 PM, 8:00 PM
+    - cron: '0 0,8,16 * * *'
+
+jobs:
+  cypress-run:
+    timeout-minutes: 30
+    runs-on: self-hosted-FE
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Get Week
+        id: get-week
+        run: |
+          echo "::set-output name=week::$(/bin/date -u "+%U")"
+        shell: bash
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+          key: ${{ runner.os }}-${{ steps.get-week.outputs.week }}-${{ hashFiles('yarn.lock') }}
+
+      - name: setup-nodejs
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.22.1
+          registry-url: https://npm.pkg.github.com/
+          scope: '@OWNER'
+
+      - uses: ./.github/actions/e2e-tests
+        name: E2E Testing
+        env:
+          dev_project_id: fh-health-dev
+          dev_service_account: ${{ secrets.DEV_GCP_SERVICE_ACCOUNT }}

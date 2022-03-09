@@ -1,0 +1,16 @@
+class AuthContextStaticData {
+  public static readonly UPDATE_AUTH_TOKEN = 'UPDATE_AUTH_TOKEN'
+
+  public static readonly UPDATE_RE_CAPTCHA = 'UPDATE_RE_CAPTCHA'
+
+  public static readonly UPDATE_PHONE_NUMBER = 'UPDATE_PHONE_NUMBER'
+
+  public static readonly UPDATE_PATIENT_ACCOUNT_INFORMATION = 'UPDATE_PATIENT_ACCOUNT_INFORMATION'
+
+  public static readonly UPDATE_PATIENT_ACCOUNT_INFORMATION_CALLED =
+    'UPDATE_PATIENT_ACCOUNT_INFORMATION_CALLED'
+
+  public static readonly UPDATE_MIGRATION_REQUIRED_STATE = 'UPDATE_MIGRATION_REQUIRED_STATE'
+}
+
+export default AuthContextStaticData

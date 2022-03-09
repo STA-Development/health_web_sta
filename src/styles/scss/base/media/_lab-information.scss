@@ -1,0 +1,23 @@
+@media (max-width: $fhhealth-media-sm) {
+  .labInfo-wrapper {
+    flex-direction: column;
+  }
+
+  .labInfo-wrapper__left {
+    padding: 24px 0 12px 20px;
+    border: solid 1px $fhhealth-color-lab-info-border;
+  }
+
+  .labInfo-wrapper__left-first-col {
+    width: 45%;
+  }
+
+  .labInfo-wrapper__right {
+    padding: 16px 0 12px 20px;
+    width: 100%;
+  }
+
+  .labInfo-wrapper__right-first-col {
+    width: 45%;
+  }
+}

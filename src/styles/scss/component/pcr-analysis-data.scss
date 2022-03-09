@@ -1,0 +1,75 @@
+@import '../abstracts/mixins';
+
+.analysis-wrapper {
+  border-bottom: 1px dashed $fhhealth-color-dashed-border;
+  background-color: $fhhealth-color-grey-bg;
+
+  &__title {
+    @include setFontAppearance($fhhealth-font-SF-medium, 500, normal, normal);
+    @include setFontSizes(22px, 1.27, normal);
+    padding: 24px 24px 14px 24px;
+    color: $fhhealth-color-dark-black;
+  }
+
+  &__top-part {
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: minmax(200px, max-content) repeat(auto-fill, 400px);
+    padding: 0 24px;
+  }
+
+  &__bottom-part {
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: minmax(200px, max-content) repeat(auto-fill, 400px);
+    padding: 24px 24px 24px 24px;
+  }
+
+  &__results {
+    display: flex;
+    margin-right: 10px;
+    //border: solid 1px $fhhealth-color-test-analysis-data-border;
+    //border-bottom: solid 1px $fhhealth-color-test-analysis-data-border;
+    //border-radius: 5px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    //background-color: $fhhealth-color-white;
+  }
+
+  &__result {
+    max-width: 80px;
+    min-width: 64px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    @include setFontAppearance($fhhealth-font-DM-medium, 500, normal, normal);
+    @include setFontSizes(15px, 1.2, -0.24);
+    @include setDisplay(block, unset, center);
+    color: $fhhealth-color-light-black;
+    border-left: solid 1px $fhhealth-color-test-analysis-data-border;
+    border-top: solid 1px $fhhealth-color-test-analysis-data-border;
+    border-bottom: solid 1px $fhhealth-color-test-analysis-data-border;
+    background-color: $fhhealth-color-white;
+    padding: 12px;
+
+    &:nth-child(1) {
+      @include setElementSize(120px, unset);
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      border-right: solid 1px $fhhealth-color-test-analysis-data-border;
+    }
+  }
+
+  &__bottom-title {
+    @include setFontAppearance($fhhealth-font-DM-bold, bold, normal, normal);
+    @include setFontSizes(13px, 1.38, -0.08);
+    color: $fhhealth-color-orange;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+}

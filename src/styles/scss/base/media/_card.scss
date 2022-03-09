@@ -1,0 +1,68 @@
+@import "src/styles/scss/abstracts/mixins";
+
+@media (max-width: $fhhealth-media-sm) {
+  .card {
+    max-width: 343px;
+    margin: 0 auto;
+  }
+
+  .card__close {
+    top: 16px;
+    right: 16px;
+  }
+
+  .card__body {
+    padding: 56px 32px 30px;
+
+    &_permissions {
+      padding: 24px 20px;
+
+      .card__header-title {
+        font-size: 22px;
+      }
+
+      .card__header-message {
+        font-size: 15px;
+      }
+
+      .card__content {
+        margin-top: 24px;
+        margin-bottom: 32px;
+
+        &-info {
+          padding: 24px;
+        }
+
+        &-info__title {
+          margin-bottom: 20px;
+        }
+
+        &_settings {
+          margin-top: 12px;
+          margin-bottom: 16px;
+
+          & + .card__button {
+            font-size: 14px;
+            padding: 12px 0;
+          }
+        }
+      }
+    }
+  }
+
+  .card__media {
+    @include setElementSize(279px, 176px);
+    margin: 0 auto;
+
+    &_sm {
+      width: auto;
+      height: auto;
+    }
+  }
+}
+
+@media (max-width: $fhhealth-media-xs) {
+  .card-wrapper {
+    margin-top: 10%;
+  }
+}
