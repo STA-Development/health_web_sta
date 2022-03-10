@@ -117,6 +117,7 @@ export interface IChatWrapper {
   loading: boolean
   isUploading: boolean
   sendMessage: () => void
+  attachmentSizeError: string
   clearMessageToSend: () => void
   messageToSend: RefObject<HTMLInputElement>
   handleAttachmentUpload: (event: unknown) => void

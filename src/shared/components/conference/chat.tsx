@@ -13,6 +13,7 @@ const ChatWrapper = ({
   isUploading,
   messageToSend,
   clearMessageToSend,
+  attachmentSizeError,
   handleAttachmentUpload,
 }: IChatWrapper) => {
   const {confDataState} = UseConfDataStateValue()
@@ -47,6 +48,11 @@ const ChatWrapper = ({
     <ChatWrapperPreload />
   ) : (
     <div className="chat-wrapper">
+      {attachmentSizeError && (
+        <div className="attachment-error">
+          <p>{attachmentSizeError}</p>
+        </div>
+      )}
       <div className="chat-wrapper__kit-info">
         <h4>
           {confDataState.patientInfo.testType} ({confDataState.patientInfo.kitCode})
@@ -66,10 +72,21 @@ const ChatWrapper = ({
         </div>
         <div className="messenger__footer">
           <form onSubmit={handleSendMessage}>
-            <div className="button messenger__footer-button">
+            <div
+              className={
+                process.env.ATTACHMENT_UPLOAD === 'true'
+                  ? 'button messenger__footer-button'
+                  : 'button messenger__footer-button messenger__footer-button_disabled'
+              }
+            >
               <label htmlFor="upload">
                 <Image src="/attach.svg" alt="upload" width={31} height={16} />
-                <input type="file" id="upload" onChange={(e) => handleAttachmentUpload(e)} />
+                <input
+                  type="file"
+                  id="upload"
+                  accept="image/gif, image/jpeg, image/vnd.sealedmedia.softseal.jpg, video/*, image/png, text/*, application/vnd.sealed.doc, application/pdf, application/vnd.sealed.xls, application/zip, audio/opus, image/heic"
+                  onChange={(e) => handleAttachmentUpload(e)}
+                />
               </label>
             </div>
             <input

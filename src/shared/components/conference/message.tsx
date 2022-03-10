@@ -11,9 +11,15 @@ const Message = ({messageInfo}: {messageInfo: IQBMessage}) => {
   const {confDataState} = UseConfDataStateValue()
   const [isMyText, setIsMyText] = useState<boolean>(false)
   const [messageDate, setMessageDate] = useState<string>('')
-  const isFileAttachment =
-    messageInfo.attachmentType !== Attachment.Video &&
-    messageInfo.attachmentType !== Attachment.Image
+
+  const isFileAttachment = !(
+    messageInfo.attachmentType?.includes(Attachment.Video) ||
+    messageInfo.attachmentType?.includes(Attachment.Image)
+  )
+
+  const messageHasAttachment =
+    (messageInfo?.attachments.length && messageInfo?.attachments[0]?.uid) ||
+    (messageInfo?.attachments.length && messageInfo?.attachments[0]?.id)
 
   const compareSenderIds = () => {
     if (messageInfo?.sender_id === confDataState.myPersonalId) {
@@ -44,7 +50,7 @@ const Message = ({messageInfo}: {messageInfo: IQBMessage}) => {
 
   return (
     <div className={isMyText ? 'message message_me' : 'message'}>
-      {messageInfo?.attachments.length && messageInfo?.attachments[0]?.uid ? (
+      {process.env.ATTACHMENT_UPLOAD === 'true' && messageHasAttachment ? (
         <div>
           {isFileAttachment && (
             <FileAttachment messageInfo={messageInfo} messageDate={messageDate}>
@@ -53,14 +59,14 @@ const Message = ({messageInfo}: {messageInfo: IQBMessage}) => {
               )}
             </FileAttachment>
           )}
-          {messageInfo.attachmentType === Attachment.Image && (
+          {messageInfo.attachmentType?.includes(Attachment.Image) && (
             <ImageAttachment messageInfo={messageInfo} messageDate={messageDate}>
               {isMyText && messageInfo?.hasError && (
                 <MessageError text="Couldn’t Send. Click to try again." />
               )}
             </ImageAttachment>
           )}
-          {messageInfo.attachmentType === Attachment.Video && (
+          {messageInfo.attachmentType?.includes(Attachment.Video) && (
             <VideoAttachment messageInfo={messageInfo} messageDate={messageDate}>
               {isMyText && messageInfo?.hasError && (
                 <MessageError text="Couldn’t Send. Click to try again." />

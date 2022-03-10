@@ -4,11 +4,12 @@ import ChatWrapper from './chat'
 
 const MobileChatView = ({
   loading,
+  isUploading,
   sendMessage,
   messageToSend,
   clearMessageToSend,
+  attachmentSizeError,
   handleAttachmentUpload,
-  isUploading,
 }: IChatWrapper) => (
   <div className="mobile-chat">
     <ChatWrapper
@@ -17,6 +18,7 @@ const MobileChatView = ({
       sendMessage={sendMessage}
       messageToSend={messageToSend}
       clearMessageToSend={clearMessageToSend}
+      attachmentSizeError={attachmentSizeError}
       handleAttachmentUpload={handleAttachmentUpload}
     />
   </div>

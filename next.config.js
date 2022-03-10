@@ -51,6 +51,7 @@ const moduleExports = {
     GOOGLE_ANALYTICS_KEY: process.env.GOOGLE_ANALYTICS_KEY,
     ACUITY_BOOKINGURL: process.env.ACUITY_BOOKINGURL,
     SENTRY_ENVIRONMENT: process.env.SENTRY_ENVIRONMENT,
+    ATTACHMENT_UPLOAD: process.env.ATTACHMENT_UPLOAD,
   },
   sentry: {
     disableServerWebpackPlugin: true,
