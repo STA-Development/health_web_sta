@@ -2,7 +2,15 @@
 
 .chat-wrapper {
   width: 35%;
+  position: relative;
   height: calc(100vh - 85px);
+
+  .attachment-preload {
+    @include setElementSize(100%, 100%);
+    @include setDisplay(flex, unset, center);
+    @include setPosition(absolute, 0, unset, 0, unset);
+    background-color: $fhhealth-color-preload-bg;
+  }
 }
 
 .chat-wrapper-modal {
@@ -105,7 +113,6 @@
 
   label {
     cursor: pointer;
-    pointer-events: none;
   }
 
   &_disabled {

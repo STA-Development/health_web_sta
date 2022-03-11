@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import * as QB from 'quickblox/quickblox'
 import * as Sentry from '@sentry/nextjs'
 import QBConfig from '@fh-health/utils/qbConfig'
@@ -9,15 +9,15 @@ import getV3RecaptchaToken from '@fh-health/utils/getV3RecaptchaToken'
 import ConferenceContextStaticData from '@fh-health/static/conferenceContextStaticData'
 import {UseConfDataStateValue} from '@fh-health/contexts/conferenceContext'
 import {
+  callSessionInitialState,
   ICallListener,
   ICallListenerExtension,
-  IRemoteStreamListener,
-  callSessionInitialState,
   IQBMessage,
+  IRemoteStreamListener,
 } from '@fh-health/types/context/ConferenceContext'
-import ErrorNotification from '@fh-health/components/conference/partials/errorNotification'
-import MobileFinalViewModal from '@fh-health/components/conference/partials/finalViewModal'
-import MobileChatView from '@fh-health/components/conference/partials/mobileChatView'
+import ErrorNotification from '@fh-health/components/conference/errorNotification'
+import MobileFinalViewModal from '@fh-health/components/conference/finalViewModal'
+import MobileChatView from '@fh-health/components/conference/mobileChatView'
 import ChatWrapper from '@fh-health/components/conference/chat'
 import VideoWrapper from '@fh-health/components/conference/video'
 
@@ -28,8 +28,9 @@ const ConferenceRoomView = () => {
   const [callSession, setCallSession] = useState(callSessionInitialState)
   const [isMuted, setIsMuted] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
+  const [isUploading, setIsUploading] = useState<boolean>(false)
   const [isError, setIsError] = useState<boolean>(false)
-  // const [attachmentUrl, setAttachmentUrl] = useState<string>('')
+  const [attachmentSizeError, setAttachmentSizeError] = useState<string>('')
   const messageToSend = useRef<HTMLInputElement>(null)
   const router = useRouter()
   const condition = useNetworkState()
@@ -88,6 +89,30 @@ const ConferenceRoomView = () => {
     }
   }
 
+  const formatMessagesList = (messages) =>
+    messages?.items.map((item: IQBMessage) => {
+      const attachment = item.attachments[0]
+      const uid = attachment?.uid || attachment?.id
+      const attachmentUrl = QB.content.privateUrl(String(uid))
+      const ATTACHMENT_UPLOAD_PERMISSION = process.env.ATTACHMENT_UPLOAD
+
+      if (ATTACHMENT_UPLOAD_PERMISSION) {
+        if (ATTACHMENT_UPLOAD_PERMISSION === 'true') {
+          return {
+            ...item,
+            attachmentUrl,
+            attachmentType: attachment?.type,
+          }
+        }
+      } else {
+        Sentry.captureException('ATTACHMENT_UPLOAD Variable Value is not correct')
+      }
+
+      return {
+        ...item,
+      }
+    })
+
   const getMessagesList = () => {
     const chatParams = {
       chat_dialog_id: dialogId,
@@ -101,14 +126,7 @@ const ConferenceRoomView = () => {
         Sentry.captureException(error)
         setIsError(true)
       } else {
-        const formattedMessages = messages?.items.map((item: IQBMessage) => {
-          const fileUID = item.attachments[0]?.uid
-          const attachmentUrl = QB.content.privateUrl(fileUID)
-          return {
-            ...item,
-            attachmentUrl,
-          }
-        })
+        const formattedMessages = formatMessagesList(messages)
         setConfDataState({
           type: ConferenceContextStaticData.SET_MESSAGES,
           messages: formattedMessages,
@@ -173,26 +191,30 @@ const ConferenceRoomView = () => {
     }
   }
 
-  const sendMessage = () => {
-    const message = {
+  const sendMessage = (attachmentData = []) => {
+    const dialogJid = QB.chat.helpers.getRoomJidFromDialogId(dialogId)
+    const uid = attachmentData[0]?.uid || attachmentData[0]?.id
+    const attachmentUrl = QB.content.privateUrl(String(uid))
+
+    const quickbloxMessage = {
       type: 'groupchat',
-      body: messageToSend.current.value,
+      body: attachmentData.length ? '' : messageToSend.current.value,
       extension: {
         save_to_history: 1,
         dialog_id: dialogId,
+        attachments: attachmentData,
       },
       markable: 1,
     }
-
-    const dialogJid = QB.chat.helpers.getRoomJidFromDialogId(dialogId)
 
     const newMessage = {
       sender_id: confDataState.myPersonalId,
       created_at: new Date(),
       message: messageToSend.current.value,
       hasError: false,
-      attachments: null,
-      attachmentUrl: '',
+      attachments: attachmentData,
+      attachmentUrl: attachmentData ? attachmentUrl : '',
+      attachmentType: attachmentData ? attachmentData[0]?.type : '',
     }
 
     if (!condition.online) {
@@ -208,7 +230,7 @@ const ConferenceRoomView = () => {
     }
 
     try {
-      QB.chat.send(dialogJid, message)
+      QB.chat.send(dialogJid, quickbloxMessage)
     } catch (err) {
       if (err.name === 'ChatNotConnectedError') {
         Sentry.captureException('ON_SEND_ERROR')
@@ -216,6 +238,38 @@ const ConferenceRoomView = () => {
         Sentry.captureException(err)
       }
     }
+  }
+
+  const handleAttachmentUpload = (event) => {
+    const attachment = event.target.files[0]
+
+    if (attachment.size > 100000000) {
+      setAttachmentSizeError('File exceed size limit 100 MB')
+      setTimeout(() => {
+        setAttachmentSizeError('')
+      }, 3000)
+      return
+    }
+
+    setIsUploading(true)
+
+    const fileParams = {
+      name: attachment.name,
+      file: attachment,
+      type: attachment.type,
+      size: attachment.size,
+      public: false,
+    }
+
+    QB.content.createAndUpload(fileParams, (error, result) => {
+      if (error) {
+        setIsUploading(false)
+        Sentry.captureException(error)
+      } else {
+        setIsUploading(false)
+        sendMessage([{id: result.uid, type: result.content_type}])
+      }
+    })
   }
 
   const joinToChat = async () => {
@@ -284,8 +338,9 @@ const ConferenceRoomView = () => {
   }
 
   useEffect(() => {
+    let isRequestHandled = true
     ;(async () => {
-      if (confDataState.waitingToken.length) {
+      if (confDataState.waitingToken.length && isRequestHandled) {
         await joinToChat()
       } else {
         await router.push(
@@ -293,6 +348,10 @@ const ConferenceRoomView = () => {
         )
       }
     })()
+
+    return () => {
+      isRequestHandled = false
+    }
   }, [confDataState.waitingToken])
 
   useEffect(() => {
@@ -315,16 +374,22 @@ const ConferenceRoomView = () => {
       <VideoWrapper triggerCallEnd={triggerCallEnd} switchAudioState={switchAudioState} />
       <ChatWrapper
         loading={loading}
+        isUploading={isUploading}
         sendMessage={sendMessage}
         messageToSend={messageToSend}
         clearMessageToSend={clearMessageToSend}
+        attachmentSizeError={attachmentSizeError}
+        handleAttachmentUpload={handleAttachmentUpload}
       />
       {confDataState.chatVisibility && (
         <MobileChatView
           loading={loading}
+          isUploading={isUploading}
           sendMessage={sendMessage}
           messageToSend={messageToSend}
           clearMessageToSend={clearMessageToSend}
+          handleAttachmentUpload={handleAttachmentUpload}
+          attachmentSizeError={attachmentSizeError}
         />
       )}
       <ErrorNotification isError={isError} setErrorState={setIsError} />

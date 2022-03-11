@@ -13,6 +13,10 @@
       color: $fhhealth-color-black;
       border-bottom-right-radius: unset;
       border-bottom-left-radius: 18px;
+
+      &_attachment {
+        background-color: $fhhealth-color-light-blue;
+      }
     }
 
     .message__date {
@@ -40,6 +44,35 @@
   border-radius: 18px;
   border-bottom-left-radius: unset;
   background-color: $fhhealth-color-black;
+
+  &_attachment {
+    @include setElementSize(150px, 150px);
+    @include setDisplay(flex, space-evenly, center, column);
+    text-decoration: underline;
+    color: $fhhealth-color-black;
+    background-color: $fhhealth-color-light-blue;
+
+    a {
+      width: 100%;
+      font-size: 14px;
+      text-align: center;
+      word-wrap: break-word;
+    }
+  }
+}
+
+.message__attachment {
+
+  &_image {
+    @include setElementSize(300px, 300px);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &_video video {
+    @include setElementSize(300px, 300px);
+  }
 }
 
 .message__attachment {
@@ -61,4 +94,22 @@
 .message-error__img {
   width: 20px;
   height: 20px;
+}
+
+.attachment-error {
+  @include setPosition(absolute, 20px, 0, 0, 0);
+  @include setElementSize(250px, 20px);
+  margin: 0 auto;
+  z-index: 9;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: $fhhealth-color-red-btn;
+
+  p {
+    text-align: center;
+    font-size: 15px;
+    line-height: 16px;
+    font-weight: bold;
+    color: $fhhealth-color-white;
+  }
 }

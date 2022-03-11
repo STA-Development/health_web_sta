@@ -3,10 +3,19 @@ import Image from 'next/image'
 import {UseConfDataStateValue} from '@fh-health/contexts/conferenceContext'
 import {IChatWrapper, IQBMessage} from '@fh-health/types/context/ConferenceContext'
 import ConferenceHeader from '@fh-health/components/utils/conferenceHeader'
-import Message from './partials/message'
-import ChatWrapperPreload from './partials/chatWrapperPreload'
+import CircleLoader from '@fh-health/components/utils/circleLoader'
+import Message from './message'
+import ChatWrapperPreload from './chatWrapperPreload'
 
-const ChatWrapper = ({sendMessage, loading, messageToSend, clearMessageToSend}: IChatWrapper) => {
+const ChatWrapper = ({
+  sendMessage,
+  loading,
+  isUploading,
+  messageToSend,
+  clearMessageToSend,
+  attachmentSizeError,
+  handleAttachmentUpload,
+}: IChatWrapper) => {
   const {confDataState} = UseConfDataStateValue()
   const messagesListEl = useRef(null)
   const [controlledMessage, setControlledMessage] = useState<string>('')
@@ -39,6 +48,11 @@ const ChatWrapper = ({sendMessage, loading, messageToSend, clearMessageToSend}: 
     <ChatWrapperPreload />
   ) : (
     <div className="chat-wrapper">
+      {attachmentSizeError && (
+        <div className="attachment-error">
+          <p>{attachmentSizeError}</p>
+        </div>
+      )}
       <div className="chat-wrapper__kit-info">
         <h4>
           {confDataState.patientInfo.testType} ({confDataState.patientInfo.kitCode})
@@ -58,10 +72,21 @@ const ChatWrapper = ({sendMessage, loading, messageToSend, clearMessageToSend}: 
         </div>
         <div className="messenger__footer">
           <form onSubmit={handleSendMessage}>
-            <div className="button messenger__footer-button">
+            <div
+              className={
+                process.env.ATTACHMENT_UPLOAD === 'true'
+                  ? 'button messenger__footer-button'
+                  : 'button messenger__footer-button messenger__footer-button_disabled'
+              }
+            >
               <label htmlFor="upload">
                 <Image src="/attach.svg" alt="upload" width={31} height={16} />
-                <input type="file" id="upload" />
+                <input
+                  type="file"
+                  id="upload"
+                  accept="image/gif, image/jpeg, image/vnd.sealedmedia.softseal.jpg, video/*, image/png, text/*, application/vnd.sealed.doc, application/pdf, application/vnd.sealed.xls, application/zip, audio/opus, image/heic"
+                  onChange={(e) => handleAttachmentUpload(e)}
+                />
               </label>
             </div>
             <input
@@ -84,6 +109,11 @@ const ChatWrapper = ({sendMessage, loading, messageToSend, clearMessageToSend}: 
           </form>
         </div>
       </div>
+      {isUploading && (
+        <div className="attachment-preload">
+          <CircleLoader className="middle-loader" />
+        </div>
+      )}
     </div>
   )
 }

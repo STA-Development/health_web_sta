@@ -5,13 +5,27 @@ export interface IPatientInfo {
   kitCode: string
 }
 
+interface IAttachment {
+  id: number
+  uid: number
+  type: string
+  name: string
+}
+
 export interface IQBMessage {
   sender_id: number
   created_at: Date
   message: string
   hasError: boolean
-  attachments: unknown
+  attachments: IAttachment[]
   attachmentUrl: string
+  attachmentType: string
+}
+
+export interface IUploadedAttachment {
+  messageDate: string
+  messageInfo: IQBMessage
+  children: JSX.Element | JSX.Element[]
 }
 
 export interface IConfState {
@@ -101,12 +115,20 @@ interface RefObject<T> {
 
 export interface IChatWrapper {
   loading: boolean
+  isUploading: boolean
   sendMessage: () => void
-  messageToSend: RefObject<HTMLInputElement>
+  attachmentSizeError: string
   clearMessageToSend: () => void
+  messageToSend: RefObject<HTMLInputElement>
+  handleAttachmentUpload: (event: unknown) => void
 }
 
 export enum Language {
   ENG = 'Eng',
   RUS = 'Rus',
+}
+
+export enum Attachment {
+  Image = 'image',
+  Video = 'video',
 }

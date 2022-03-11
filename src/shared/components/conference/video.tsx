@@ -1,10 +1,10 @@
 import {useNetworkState} from 'react-use'
 import React, {useEffect, useState} from 'react'
 import {UseConfDataStateValue} from '@fh-health/contexts/conferenceContext'
-import RippleLoader from './icon/rippleLoader'
-import NetworkConnectionLost from './partials/networkConnectionLost'
-import ConferenceFinalView from './partials/conferenceFinalView'
-import Consultation from './partials/consultation'
+import RippleLoader from './icons/rippleLoader'
+import NetworkConnectionLost from './networkConnectionLost'
+import ConferenceFinalView from './conferenceFinalView'
+import Consultation from './consultation'
 
 interface IVideoWrapper {
   triggerCallEnd: () => void
