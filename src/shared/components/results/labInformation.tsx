@@ -2,6 +2,7 @@ import React from 'react'
 
 import moment from 'moment'
 import {UseTestResultDataStateValue} from '@fh-health/contexts/testResultContext'
+import {TestTypes} from '@fh-health/types/context/testResultContext'
 
 const LabInformation = () => {
   const {testResultState} = UseTestResultDataStateValue()
@@ -50,12 +51,13 @@ const LabInformation = () => {
             </div>
           )}
 
-          {testResultState.testResult?.swabMethod && (
-            <div>
-              <p className="field">collection method</p>
-              <p className="answer test-answer">{testResultState.testResult.swabMethod}</p>
-            </div>
-          )}
+          {testResultState.testResult?.swabMethod &&
+            testResultState.testResult.testType !== TestTypes.Vaccine && (
+              <div>
+                <p className="field">collection method</p>
+                <p className="answer test-answer">{testResultState.testResult.swabMethod}</p>
+              </div>
+            )}
         </div>
         {testResultState?.testResult?.equipment && (
           <div>
