@@ -23,6 +23,9 @@ interface IFirebaseAuthProps {
   user?: {
     getIdToken: () => Promise<string>
   }
+  additionalUserInfo?: {
+    isNewUser: boolean
+  }
 }
 
 const Login = () => {
@@ -105,14 +108,16 @@ const Login = () => {
     } else if (verificationResult) {
       try {
         const result: IFirebaseAuthProps = await verificationResult.confirm(verificationCode)
-        const {user} = result
+        const {user, additionalUserInfo} = result
         if (user) {
           user.getIdToken().then((userToken: string) => {
             ;(async () => {
               dispatch(updateAuthToken(userToken))
               dispatch(updateAuthChecked(true))
               setLoading(false)
-              setSmsSuccessView(true)
+              if (additionalUserInfo) {
+                setSmsSuccessView(additionalUserInfo.isNewUser)
+              }
             })()
           })
         }

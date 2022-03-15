@@ -294,6 +294,12 @@ const ConferenceRoomView = () => {
       const mediaParams = {
         audio: true,
         video: true,
+        constraints: {
+          audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+          },
+        },
         options: {
           muted: false,
           mirror: true,
