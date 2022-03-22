@@ -28,6 +28,17 @@ runs:
         echo "::endgroup::"
       shell: bash
 
+    - name: Static code analysis and build
+      run: |
+        echo "::group::Run Eslint"
+        yarn run lint
+        echo "::endgroup::"
+
+        echo "::group::Build"
+        yarn build
+        echo "::endgroup::"
+      shell: bash
+
     - name: Define Deployment Variables
       run: |
         echo "::group::Define Deployment Variables"

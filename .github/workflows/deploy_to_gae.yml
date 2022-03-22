@@ -4,7 +4,7 @@ on:
     branches:
       - master
   release:
-    types: 
+    types:
       - prereleased
       - released
 
@@ -17,9 +17,9 @@ jobs:
       - name: setup-nodejs
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 12.22.1
           registry-url: https://npm.pkg.github.com/
-          scope: "@OWNER"
+          scope: '@OWNER'
 
       - uses: ./.github/actions/deploy-gae
         name: Deploy to GAE

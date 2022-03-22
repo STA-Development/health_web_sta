@@ -3,28 +3,44 @@ on:
   pull_request:
     branches:
       - master
+      - 'release/*'
+
+  workflow_dispatch:
+  schedule:
+    # EST: At 4:00 AM, 12:00 PM, 8:00 PM
+    - cron: '0 0,8,16 * * *'
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    timeout-minutes: 100
+    runs-on: self-hosted-FE
+
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Get Week
+        id: get-week
+        run: |
+          echo "::set-output name=week::$(/bin/date -u "+%U")"
+        shell: bash
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+          key: ${{ runner.os }}-${{ steps.get-week.outputs.week }}-${{ hashFiles('yarn.lock') }}
 
       - name: setup-nodejs
         uses: actions/setup-node@v1
         with:
-          node-version: 12.x
+          node-version: 12.22.1
           registry-url: https://npm.pkg.github.com/
-          scope: "@OWNER"
+          scope: '@OWNER'
 
-      - uses: ./.github/actions/deploy-gae
-        name: Validate Deployment
-        with:
-          only_validate_deployment: true
+      - uses: ./.github/actions/ci-validation
+        name: Validate Build
         env:
+          dev_project_id: fh-health-dev
           dev_service_account: ${{ secrets.DEV_GCP_SERVICE_ACCOUNT }}
-
-      - name: Check Audits
-        uses: luisfontes19/npm-audit-action@v0.1.0
-        with:
-          fix: true # To create pull requests with npm audit fix

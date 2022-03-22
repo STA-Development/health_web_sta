@@ -1,16 +1,12 @@
-name: "Deploy to Google App Engine"
+name: 'Deploy to Google App Engine'
 inputs:
   node_version:
-    description: "Node version"
+    description: 'Node version'
     required: false
     default: v12.18.4
-  only_validate_deployment:
-    description: "Validate Deployments"
-    required: false
-    default: false
 
 runs:
-  using: "composite"
+  using: 'composite'
   steps:
     - name: Install Modules
       run: |
@@ -50,7 +46,6 @@ runs:
 
     - name: Deploy to GAE
       run: |
-        ONLY_VALIDATE_DEPLOYMENT=${{ inputs.only_validate_deployment }}
         echo "::group::Auth with GCLOUD"
         cat >> service-account.json << EOF
         ${{ env[env.ENV_SERVICE_ACCOUNT] }}
@@ -67,14 +62,13 @@ runs:
         echo "::group::Run Eslint"
         yarn run lint
         echo "::endgroup::"
-        
+
         echo "::group::Build"
         yarn build
         echo "::endgroup::"
 
-        if [[ $ONLY_VALIDATE_DEPLOYMENT == 'false' ]]; then
-          echo "::group::Deploy to GAE"
-          gcloud app deploy ./dist --quiet ${{ env.PROMOTEFLAG }}
-          echo "::endgroup::"
-        fi
+        echo "::group::Deploy to GAE"
+        gcloud app deploy ./dist --quiet ${{ env.PROMOTEFLAG }}
+        echo "::endgroup::"
+
       shell: bash
