@@ -23,7 +23,7 @@ runs:
 
         echo "::group::Install yarn modules"
         echo "@shopthing-opn-shared:registry=https://npm.pkg.github.com/" > .npmrc
-        yarn install
+        yarn install --ignore-scripts
         npm install --prefix ./cypress/tools
         echo "::endgroup::"
       shell: bash

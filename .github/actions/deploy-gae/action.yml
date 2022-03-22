@@ -11,7 +11,7 @@ runs:
     - name: Install Modules
       run: |
         echo "::group::Install npm modules"
-        yarn install
+        yarn install --ignore-scripts
         echo "::endgroup::"
 
       shell: bash
