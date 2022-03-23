@@ -65,13 +65,17 @@ const AuthChecker = () => {
   }
 
   const isPageEnterPermitted = (authToken?: string, patientInfo?: IPatientAccountInformation) => {
-    const {testResultId} = router.query
+    const {testResultId, token: verifyToken} = router.query
     if (authToken && !testResultId && isRootPage) {
       router.push('/results/list')
     }
     if (!testResultId && !isConferencePage) {
       const firebaseToken = authToken || token
       const patientData = patientInfo || patientInformation
+
+      if (verifyToken) {
+        return
+      }
 
       if (!firebaseToken || checkAuthTokenExpiration(firebaseToken)) {
         router.push('/auth/login')
