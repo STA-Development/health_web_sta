@@ -10,6 +10,10 @@
 }
 
 .important-information__content {
+  b {
+    @include setFontAppearance($fhhealth-font-DM-bold, unset, bold, normal);
+  }
+
   a {
     color: #007aff;
   }
