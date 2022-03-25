@@ -3442,10 +3442,10 @@ csstype@^3.0.2, csstype@^3.0.6:
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.0.9.tgz#6410af31b26bd0520933d02cbc64fce9ce3fbf0b"
   integrity sha512-rpw6JPxK6Rfg1zLOYCSwle2GFOOsnjmDYDaBwEcwoOg4qlsIVCN789VkBZDJAGi4T07gI4YSutR43t9Zz4Lzuw==
 
-cy-verify-downloads@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/cy-verify-downloads/-/cy-verify-downloads-0.0.7.tgz#d5be498cabda26e44e2aafcca4c688063917c274"
-  integrity sha512-g8hYloVGq81leA0N6QYhRF2it/XqYUzqEhh+0E6qoDJMoREZNFObSbDn8ima0VwpJc5DeC/PtW0xrzHxg0AZSQ==
+cy-verify-downloads@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/cy-verify-downloads/-/cy-verify-downloads-0.1.2.tgz#f188f35e8c74a8408460b32cac2596c7777d29eb"
+  integrity sha512-F4LL52GvFVQgJFTjiHdEioiQoI3QLbdfEcGn22MxR1hE2JeN1gWri/Xgd+EqC6pIVebnYRkMJJ2dnoF8tImCzg==
 
 cypress@^9.5.1:
   version "9.5.1"
