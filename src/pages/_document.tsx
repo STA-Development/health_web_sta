@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react'
 import Document, {Html, Head, Main, NextScript} from 'next/document'
 
 export default class MyDocument extends Document {
@@ -7,6 +7,8 @@ export default class MyDocument extends Document {
       <Html>
         <Head>
           {/* Global Site Tag (gtag.js) - Google Analytics */}
+          <title>FH Health Portal</title>
+          <link rel="shortcut icon" href="/favicon.ico" />
           <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GOOGLE_ANALYTICS_KEY}`}
