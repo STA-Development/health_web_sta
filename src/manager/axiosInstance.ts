@@ -1,6 +1,7 @@
 import axios from 'axios'
 import guid from '@fh-health/utils/guid'
 
+import Config from '@fh-health/utils/envWrapper'
 import store from '../store/redux/store'
 
 store.subscribe(listener)
@@ -28,7 +29,7 @@ function listener() {
 
 const Axios = (parameters?: {token?: string; baseURL?: string}) => {
   const token = parameters?.token
-  const baseURL = parameters?.baseURL || process.env.USER_SERVICE_URL
+  const baseURL = parameters?.baseURL || Config.get('APP_SOURCE')
   const axiosInstance = axios.create({baseURL})
 
   axiosInstance.interceptors.request.use((config) => {
@@ -37,8 +38,8 @@ const Axios = (parameters?: {token?: string; baseURL?: string}) => {
     requestConfig.headers['opn-request-id'] = generateRequestId()
     requestConfig.headers['opn-lang'] = 'en'
     requestConfig.headers['captcha-token'] = token
-    requestConfig.headers['opn-source'] = process.env.APP_SOURCE
-    requestConfig.headers['opn-app-version'] = process.env.APP_VERSION
+    requestConfig.headers['opn-source'] = Config.get('APP_SOURCE')
+    requestConfig.headers['opn-app-version'] = Config.get('APP_VERSION')
     return requestConfig
   })
 

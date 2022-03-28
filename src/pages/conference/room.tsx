@@ -20,6 +20,7 @@ import MobileFinalViewModal from '@fh-health/components/conference/finalViewModa
 import MobileChatView from '@fh-health/components/conference/mobileChatView'
 import ChatWrapper from '@fh-health/components/conference/chat'
 import VideoWrapper from '@fh-health/components/conference/video'
+import Config from '@fh-health/utils/envWrapper'
 
 const ConferenceRoomView = () => {
   const {confDataState, setConfDataState} = UseConfDataStateValue()
@@ -70,9 +71,9 @@ const ConferenceRoomView = () => {
     try {
       QB.init(
         userToken,
-        parseInt(`${process.env.QB_APP_ID}`, 10),
+        parseInt(`${Config.get('QB_APP_ID')}`, 10),
         null,
-        process.env.QB_ACCOUNT_KEY,
+        Config.get('QB_ACCOUNT_KEY'),
         QBConfig,
       )
       QB.getSession((error: object, {session}: {session: {user_id: number}}) => {
@@ -94,18 +95,13 @@ const ConferenceRoomView = () => {
       const attachment = item.attachments[0]
       const uid = attachment?.uid || attachment?.id
       const attachmentUrl = QB.content.privateUrl(String(uid))
-      const ATTACHMENT_UPLOAD_PERMISSION = process.env.ATTACHMENT_UPLOAD
 
-      if (ATTACHMENT_UPLOAD_PERMISSION) {
-        if (ATTACHMENT_UPLOAD_PERMISSION === 'true') {
-          return {
-            ...item,
-            attachmentUrl,
-            attachmentType: attachment?.type,
-          }
+      if (Config.getBool('FEATURE_ATTACHMENT_UPLOAD')) {
+        return {
+          ...item,
+          attachmentUrl,
+          attachmentType: attachment?.type,
         }
-      } else {
-        Sentry.captureException('ATTACHMENT_UPLOAD Variable Value is not correct')
       }
 
       return {
@@ -138,7 +134,7 @@ const ConferenceRoomView = () => {
   const connectToChat = () => {
     const userId = QB.chat.helpers.getUserJid(
       confDataState.myPersonalId,
-      parseInt(`${process.env.QB_APP_ID}`, 10),
+      parseInt(`${Config.get('QB_APP_ID')}`, 10),
     )
     const dialogJid = QB.chat.helpers.getRoomJidFromDialogId(dialogId)
     const userCredentials = {

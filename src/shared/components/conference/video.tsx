@@ -1,6 +1,7 @@
 import {useNetworkState} from 'react-use'
 import React, {useEffect, useState} from 'react'
 import {UseConfDataStateValue} from '@fh-health/contexts/conferenceContext'
+import Config from '@fh-health/utils/envWrapper'
 import RippleLoader from './icons/rippleLoader'
 import NetworkConnectionLost from './networkConnectionLost'
 import ConferenceFinalView from './conferenceFinalView'
@@ -23,7 +24,7 @@ const VideoWrapper = ({triggerCallEnd, switchAudioState}: IVideoWrapper) => {
   }
 
   const returnHome = () => {
-    window.location.assign(process.env.FH_HEALTH_WEBSITE_URL)
+    window.location.assign(Config.get('FH_HEALTH_WEBSITE_URL'))
   }
 
   useEffect(() => {

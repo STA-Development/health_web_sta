@@ -1,10 +1,11 @@
 import {getInstance, load} from 'recaptcha-v3'
 import * as Sentry from '@sentry/nextjs'
+import Config from '@fh-health/utils/envWrapper'
 
-const RECAPTCHA_KEY = process.env.RECAPTCHA_V3_KEY
+const RECAPTCHA_KEY = Config.get('RECAPTCHA_V3_KEY')
 const initiateV3Recaptcha = async () => {
   if (RECAPTCHA_KEY) {
-    return load(process.env.RECAPTCHA_V3_KEY)
+    return load(Config.get('RECAPTCHA_V3_KEY'))
   }
   Sentry.captureException('Missing RECAPTCHA V3 KEY')
   return ''

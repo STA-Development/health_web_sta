@@ -5,6 +5,7 @@ import {Attachment, IQBMessage} from '@fh-health/types/context/ConferenceContext
 import ImageAttachment from '@fh-health/components/conference/imageAttachment'
 import FileAttachment from '@fh-health/components/conference/fileAttachement'
 import VideoAttachment from '@fh-health/components/conference/videoAttachment'
+import Config from '@fh-health/utils/envWrapper'
 import MessageError from './messageError'
 
 const Message = ({messageInfo}: {messageInfo: IQBMessage}) => {
@@ -50,7 +51,7 @@ const Message = ({messageInfo}: {messageInfo: IQBMessage}) => {
 
   return (
     <div className={isMyText ? 'message message_me' : 'message'}>
-      {process.env.ATTACHMENT_UPLOAD === 'true' && messageHasAttachment ? (
+      {Config.getBool('FEATURE_ATTACHMENT_UPLOAD') && messageHasAttachment ? (
         <div>
           {isFileAttachment && (
             <FileAttachment messageInfo={messageInfo} messageDate={messageDate}>

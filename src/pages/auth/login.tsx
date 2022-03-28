@@ -18,6 +18,7 @@ import Card from '@fh-health/components/utils/card'
 import Notification from '@fh-health/components/results/notification'
 import CircleLoader from '@fh-health/components/utils/circleLoader'
 import PureBlock from '@fh-health/components/results/pureBlock'
+import Config from '@fh-health/utils/envWrapper'
 
 interface IFirebaseAuthProps {
   user?: {
@@ -51,8 +52,7 @@ const Login = () => {
   const {authDataState, setAuthDataState} = UseAuthDataStateValue()
 
   const getFirebaseCaptcha = () => {
-    firebase.auth().settings.appVerificationDisabledForTesting =
-      process.env.APP_TESTING_MODE === 'true'
+    firebase.auth().settings.appVerificationDisabledForTesting = Config.getBool('APP_TESTING_MODE')
     const reCaptchaVerifier = new firebase.auth.RecaptchaVerifier('re-captcha', {
       size: 'invisible',
     })

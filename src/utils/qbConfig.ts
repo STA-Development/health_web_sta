@@ -1,10 +1,12 @@
+import Config from '@fh-health/utils/envWrapper'
+
 const QBConfig = {
   chatProtocol: {
     active: 2,
   },
   endpoints: {
-    api: process.env.QB_API_DOMAIN,
-    chat: process.env.QB_CHAT_DOMAIN,
+    api: Config.get('QB_API_DOMAIN'),
+    chat: Config.get('QB_CHAT_DOMAIN'),
   },
   streamManagement: {
     enable: true,

@@ -4,6 +4,7 @@ import {UseConfDataStateValue} from '@fh-health/contexts/conferenceContext'
 import {IChatWrapper, IQBMessage} from '@fh-health/types/context/ConferenceContext'
 import ConferenceHeader from '@fh-health/components/utils/conferenceHeader'
 import CircleLoader from '@fh-health/components/utils/circleLoader'
+import Config from '@fh-health/utils/envWrapper'
 import Message from './message'
 import ChatWrapperPreload from './chatWrapperPreload'
 
@@ -74,7 +75,7 @@ const ChatWrapper = ({
           <form onSubmit={handleSendMessage}>
             <div
               className={
-                process.env.ATTACHMENT_UPLOAD === 'true'
+                Config.getBool('FEATURE_ATTACHMENT_UPLOAD')
                   ? 'button messenger__footer-button'
                   : 'button messenger__footer-button messenger__footer-button_disabled'
               }

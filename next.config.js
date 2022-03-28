@@ -26,7 +26,11 @@ const moduleExports = {
   poweredByHeader: false,
   images,
   reactStrictMode: true,
-  env: {
+  sentry: {
+    disableServerWebpackPlugin: true,
+    disableClientWebpackPlugin: true,
+  },
+  publicRuntimeConfig: {
     RECAPTCHA_V3_KEY: process.env.RECAPTCHA_V3_KEY,
     APP_VERSION: process.env.APP_VERSION,
     USER_SERVICE_URL: process.env.USER_SERVICE_URL,
@@ -51,11 +55,7 @@ const moduleExports = {
     GOOGLE_ANALYTICS_KEY: process.env.GOOGLE_ANALYTICS_KEY,
     ACUITY_BOOKINGURL: process.env.ACUITY_BOOKINGURL,
     SENTRY_ENVIRONMENT: process.env.SENTRY_ENVIRONMENT,
-    ATTACHMENT_UPLOAD: process.env.ATTACHMENT_UPLOAD,
-  },
-  sentry: {
-    disableServerWebpackPlugin: true,
-    disableClientWebpackPlugin: true,
+    FEATURE_ATTACHMENT_UPLOAD: process.env.FEATURE_ATTACHMENT_UPLOAD,
   },
 }
 module.exports = withSentryConfig(moduleExports, SentryWebpackPluginOptions)

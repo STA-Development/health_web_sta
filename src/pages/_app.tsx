@@ -11,9 +11,10 @@ import FooterMenu from '@fh-health/components/base/footer/footerMenu'
 import HeaderMenu from '@fh-health/components/base/header/headerMenu'
 import ConferenceHeader from '@fh-health/components/utils/conferenceHeader'
 import AuthChecker from '@fh-health/components/base/authChecker'
+import Config from '@fh-health/utils/envWrapper'
 import * as ga from '../helpers/analytics/ga'
 
-// const virtualTestFlowRoutesPrefix = 'conference'
+const virtualTestFlowRoutesPrefix = 'conference'
 
 const MyApp = ({Component, pageProps}: AppProps) => {
   const currentPage = useRouter().route
@@ -36,13 +37,13 @@ const MyApp = ({Component, pageProps}: AppProps) => {
     setIsAuthChecked(authChecked)
   }
 
-  // useEffect(() => {
-  //   if (process.env.VIRTUAL_TEST_MODE === 'true') {
-  //     if (!currentPage.includes(virtualTestFlowRoutesPrefix)) {
-  //       window.location.assign(process.env.FH_HEALTH_WEBSITE_URL)
-  //     }
-  //   }
-  // }, [currentPage])
+  useEffect(() => {
+    if (Config.getBool('VIRTUAL_TEST_MODE')) {
+      if (!currentPage.includes(virtualTestFlowRoutesPrefix)) {
+        window.location.assign(Config.get('FH_HEALTH_WEBSITE_URL'))
+      }
+    }
+  }, [currentPage])
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {

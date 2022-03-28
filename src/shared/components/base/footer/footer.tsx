@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import {UseTestResultDataStateValue} from '@fh-health/contexts/testResultContext'
+import Config from '@fh-health/utils/envWrapper'
 
 const Footer = (isPublicUser: {isPublicUser?: boolean}) => {
   const {testResultState} = UseTestResultDataStateValue()
@@ -31,7 +32,9 @@ const Footer = (isPublicUser: {isPublicUser?: boolean}) => {
                 <div className="coupon-info__button">
                   <a
                     target="_blank"
-                    href={`${process.env.ACUITY_BOOKINGURL}&certificate=${testResultState.testResult.couponCode}`}
+                    href={`${Config.get('ACUITY_BOOKINGURL')}&certificate=${
+                      testResultState.testResult.couponCode
+                    }`}
                     rel="noreferrer noopener"
                   >
                     Book Now
@@ -46,7 +49,9 @@ const Footer = (isPublicUser: {isPublicUser?: boolean}) => {
                 <div className="coupon-info__button">
                   <a
                     target="_blank"
-                    href={`${process.env.ACUITY_BOOKINGURL}&certificate=${testResultState.testResult.couponCode}`}
+                    href={`${Config.get('ACUITY_BOOKINGURL')}&certificate=${
+                      testResultState.testResult.couponCode
+                    }`}
                     rel="noreferrer noopener"
                   >
                     Book Now

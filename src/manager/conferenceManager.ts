@@ -1,14 +1,17 @@
+import Config from '@fh-health/utils/envWrapper'
 import Axios from './axiosInstance'
+
+const baseURL = Config.get('SCHEDULE_SERVICE_URL')
 
 const conferenceManager = {
   getWaitingToken(captchaToken: string, kitCode: string, appointmentToken: string) {
     return Axios({
       token: captchaToken,
-      baseURL: process.env.SCHEDULE_SERVICE_URL,
+      baseURL,
     }).get('/scheduling/api/public/v1/kit-codes', {
       headers: {
         'appointment-token': appointmentToken,
-        'kit-code': kitCode
+        'kit-code': kitCode,
       },
     })
   },
@@ -16,7 +19,7 @@ const conferenceManager = {
   getAppointmentInfo(captchaToken: string, appointmentToken: string) {
     return Axios({
       token: captchaToken,
-      baseURL: process.env.SCHEDULE_SERVICE_URL,
+      baseURL,
     }).get('/scheduling/api/public/v1/appointment', {
       headers: {
         'appointment-token': appointmentToken,
@@ -27,7 +30,7 @@ const conferenceManager = {
   joinToDialog(captchaToken: string, waitingToken: string) {
     return Axios({
       token: captchaToken,
-      baseURL: process.env.SCHEDULE_SERVICE_URL,
+      baseURL,
     }).put('/scheduling/api/public/v1/appointment/waiting', {
       waitingToken,
     })

@@ -1,19 +1,22 @@
+import Config from '@fh-health/utils/envWrapper'
 import Axios from './axiosInstance'
+
+const baseURL = Config.get('USER_SERVICE_URL')
 
 const migrationManager = {
   getPatientsList() {
     return Axios({
-      baseURL: process.env.USER_SERVICE_URL,
+      baseURL,
     }).get('/user/api/v1/patients/unconfirmed')
   },
   getDependentsList() {
     return Axios({
-      baseURL: process.env.USER_SERVICE_URL,
+      baseURL,
     }).get('/user/api/v1/patients/dependants')
   },
   migrateSelectedPatients(patients: object[]) {
     return Axios({
-      baseURL: process.env.USER_SERVICE_URL,
+      baseURL,
     }).post('/user/api/v1/patients/migrate', {
       migrations: patients,
     })
