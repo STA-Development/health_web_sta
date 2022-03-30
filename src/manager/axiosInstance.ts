@@ -29,7 +29,7 @@ function listener() {
 
 const Axios = (parameters?: {token?: string; baseURL?: string}) => {
   const token = parameters?.token
-  const baseURL = parameters?.baseURL || Config.get('APP_SOURCE')
+  const baseURL = parameters?.baseURL || Config.get('USER_SERVICE_URL')
   const axiosInstance = axios.create({baseURL})
 
   axiosInstance.interceptors.request.use((config) => {
