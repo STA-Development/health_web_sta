@@ -12,6 +12,7 @@ import HeaderMenu from '@fh-health/components/base/header/headerMenu'
 import ConferenceHeader from '@fh-health/components/utils/conferenceHeader'
 import AuthChecker from '@fh-health/components/base/authChecker'
 import Config from '@fh-health/utils/envWrapper'
+import Head from 'next/head'
 import * as ga from '../helpers/analytics/ga'
 
 const virtualTestFlowRoutesPrefix = 'conference'
@@ -56,27 +57,36 @@ const MyApp = ({Component, pageProps}: AppProps) => {
   }, [router.events])
 
   return (
-    <Provider store={store}>
-      <AuthContextProvider>
-        <ConferenceContextProvider>
-          <AuthChecker />
-          {isAuthChecked && (
-            <>
-              {isLayoutVisible && <HeaderMenu />}
-              {isInChat && <ConferenceHeader isMobile={false} />}
-              <TestResultContextProvider>
-                <div
-                  className={isConference ? 'main-content main-content_conference' : 'main-content'}
-                >
-                  <Component {...pageProps} />
-                </div>
-              </TestResultContextProvider>
-              {isLayoutVisible && <FooterMenu />}
-            </>
-          )}
-        </ConferenceContextProvider>
-      </AuthContextProvider>
-    </Provider>
+    <>
+      <Head>
+        <title>FH Health Portal</title>
+        <link rel="shortcut icon" href="/favicon.ico" />
+      </Head>
+
+      <Provider store={store}>
+        <AuthContextProvider>
+          <ConferenceContextProvider>
+            <AuthChecker />
+            {isAuthChecked && (
+              <>
+                {isLayoutVisible && <HeaderMenu />}
+                {isInChat && <ConferenceHeader isMobile={false} />}
+                <TestResultContextProvider>
+                  <div
+                    className={
+                      isConference ? 'main-content main-content_conference' : 'main-content'
+                    }
+                  >
+                    <Component {...pageProps} />
+                  </div>
+                </TestResultContextProvider>
+                {isLayoutVisible && <FooterMenu />}
+              </>
+            )}
+          </ConferenceContextProvider>
+        </AuthContextProvider>
+      </Provider>
+    </>
   )
 }
 

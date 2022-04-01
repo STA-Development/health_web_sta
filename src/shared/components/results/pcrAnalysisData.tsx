@@ -26,16 +26,20 @@ const PcrAnalysisData = () => {
               <div className="analysis-wrapper__parameter" key={resultCount}>
                 <h3 className="analysis-wrapper__bottom-title">{analysis.channelName}</h3>
                 <div className="analysis-wrapper__results">
-                  {analysis.groups?.map((analyse) => {
+                  {analysis.groups?.map((analyse, index, list) => {
                     const resultStatus = getTestResultType(analyse.value)
 
                     return (
-                      <>
+                      <div key={index}>
                         <div className="analysis-wrapper__result">{analyse.label}</div>
-                        <div className={`analysis-wrapper__result ${resultStatus}`}>
+                        <div
+                          className={`analysis-wrapper__result ${resultStatus} ${
+                            list.length === 1 ? 'result_has-radius' : 'result_no-radius'
+                          }`}
+                        >
                           {analyse.value}
                         </div>
-                      </>
+                      </div>
                     )
                   })}
                 </div>
@@ -50,16 +54,20 @@ const PcrAnalysisData = () => {
               <div className="analysis-wrapper__parameter" key={resultCount}>
                 <h3 className="analysis-wrapper__bottom-title">{analysis.channelName}</h3>
                 <div className="analysis-wrapper__results">
-                  {analysis.groups?.map((analyse) => {
+                  {analysis.groups?.map((analyse, index, list) => {
                     const resultStatus = getTestResultType(analyse.value)
 
                     return (
-                      <>
+                      <div key={index}>
                         <div className="analysis-wrapper__result">{analyse.label}</div>
-                        <div className={`analysis-wrapper__result ${resultStatus}`}>
+                        <div
+                          className={`analysis-wrapper__result ${resultStatus} ${
+                            list.length === 1 ? 'result_has-radius' : 'result_no-radius'
+                          }`}
+                        >
                           {analyse.value}
                         </div>
-                      </>
+                      </div>
                     )
                   })}
                 </div>
