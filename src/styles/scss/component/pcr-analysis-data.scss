@@ -28,12 +28,36 @@
   &__results {
     display: flex;
     margin-right: 10px;
-    //border: solid 1px $fhhealth-color-test-analysis-data-border;
-    //border-bottom: solid 1px $fhhealth-color-test-analysis-data-border;
-    //border-radius: 5px;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    //background-color: $fhhealth-color-white;
+
+    & > div {
+      display: flex;
+      border-left: solid 1px $fhhealth-color-test-analysis-data-border;
+      border-top: solid 1px $fhhealth-color-test-analysis-data-border;
+      border-bottom: solid 1px $fhhealth-color-test-analysis-data-border;
+
+      .result_has-radius {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+
+      &:nth-child(1) {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+        border-right: solid 1px $fhhealth-color-test-analysis-data-border;
+
+        .result_no-radius {
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+        }
+      }
+    }
   }
 
   &__result {
@@ -46,9 +70,6 @@
     @include setFontSizes(15px, 1.2, -0.24);
     @include setDisplay(block, unset, center);
     color: $fhhealth-color-light-black;
-    border-left: solid 1px $fhhealth-color-test-analysis-data-border;
-    border-top: solid 1px $fhhealth-color-test-analysis-data-border;
-    border-bottom: solid 1px $fhhealth-color-test-analysis-data-border;
     background-color: $fhhealth-color-white;
     padding: 12px;
 
@@ -56,12 +77,6 @@
       @include setElementSize(120px, unset);
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
-    }
-
-    &:last-child {
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
-      border-right: solid 1px $fhhealth-color-test-analysis-data-border;
     }
   }
 

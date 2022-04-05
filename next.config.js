@@ -31,6 +31,7 @@ const moduleExports = {
     disableClientWebpackPlugin: true,
   },
   publicRuntimeConfig: {
+    NODE_ENV: process.env.NODE_ENV,
     RECAPTCHA_V3_KEY: process.env.RECAPTCHA_V3_KEY,
     APP_VERSION: process.env.APP_VERSION,
     USER_SERVICE_URL: process.env.USER_SERVICE_URL,

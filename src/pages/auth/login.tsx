@@ -19,6 +19,7 @@ import Notification from '@fh-health/components/results/notification'
 import CircleLoader from '@fh-health/components/utils/circleLoader'
 import PureBlock from '@fh-health/components/results/pureBlock'
 import Config from '@fh-health/utils/envWrapper'
+import ENVIRONMENTS from "@fh-health/types/environmentTypes";
 
 interface IFirebaseAuthProps {
   user?: {
@@ -47,12 +48,12 @@ const Login = () => {
   const authInformationUpdate = useSelector((state: IStore) => state.authInformationUpdate.value)
   const token = useSelector((state: IStore) => state.token.value)
   const [initiallyTokenChecked, setInitiallyTokenChecked] = useState<boolean>(false)
-
+  const currentEnvironment = Config.get('NODE_ENV')
+  const isTestEnvironment = currentEnvironment === ENVIRONMENTS.test
   const {displayDuration, startCountdown} = useCountdown()
   const {authDataState, setAuthDataState} = UseAuthDataStateValue()
-
   const getFirebaseCaptcha = () => {
-    firebase.auth().settings.appVerificationDisabledForTesting = Config.getBool('APP_TESTING_MODE')
+    firebase.auth().settings.appVerificationDisabledForTesting = isTestEnvironment
     const reCaptchaVerifier = new firebase.auth.RecaptchaVerifier('re-captcha', {
       size: 'invisible',
     })
