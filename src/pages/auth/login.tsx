@@ -251,6 +251,7 @@ const Login = () => {
                     <button
                       type="button"
                       onClick={handlePhoneSMSSend}
+                      disabled={!loginButtonState}
                       className={
                         loginButtonState
                           ? 'button inputGroup__button'
@@ -317,6 +318,7 @@ const Login = () => {
                     ) : (
                       <button
                         type="button"
+                        disabled={!(verifyButtonState && displayDuration === 0 && !errMessage)}
                         className={
                           verifyButtonState && displayDuration === 0 && !errMessage
                             ? 'button inputGroup__button'
