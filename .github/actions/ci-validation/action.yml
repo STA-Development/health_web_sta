@@ -83,7 +83,8 @@ runs:
         export CYPRESS_RECORD_KEY=$(read_var cypressRecordKey .env.e2e)
         echo "::endgroup::"
 
-        echo "::group::Run Project and Cypress"
+        echo "::group::Install and run Cypress"
+        yarn run cypress:init
         yarn run cypress:ci
         echo "::endgroup::"
 
