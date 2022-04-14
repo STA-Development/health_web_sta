@@ -31,7 +31,8 @@
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
 
-    & >  div {
+    & > div {
+      min-width: 174px;
       display: flex;
       border-left: solid 1px $fhhealth-color-test-analysis-data-border;
       border-top: solid 1px $fhhealth-color-test-analysis-data-border;
@@ -72,11 +73,13 @@
     color: $fhhealth-color-light-black;
     background-color: $fhhealth-color-white;
     padding: 12px;
+    border-left: solid 1px $fhhealth-color-test-analysis-data-border;
 
     &:nth-child(1) {
       @include setElementSize(120px, unset);
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
+      border-left: none;
     }
   }
 
