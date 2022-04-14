@@ -19,7 +19,7 @@
     "cypress:ci-record-all": "NODE_ENV=test start-server-and-test dev http://localhost:3000 cypress:record-all-video"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^1.8.0",
+    "@reduxjs/toolkit": "^1.8.1",
     "@sentry/nextjs": "^6.19.6",
     "@types/react-redux": "^7.1.23",
     "@zeit/next-sass": "^1.0.1",
