@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.0",
-    "@sentry/nextjs": "^6.19.2",
+    "@sentry/nextjs": "^6.19.6",
     "@types/react-redux": "^7.1.23",
     "@zeit/next-sass": "^1.0.1",
     "axios": "^0.26.0",
