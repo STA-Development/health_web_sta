@@ -73,7 +73,7 @@ const Verify = () => {
               </h4>
               <p className="card__content-message">
                 {isVerified
-                  ? 'Your Mobile Phone Number has been verified. Your results will be sent to you via SMS assoon as they are available'
+                  ? 'Your Mobile Phone Number has been verified. Your results will be sent to you via SMS as soon as they are available'
                   : 'QR code link has expired. Please contact us through the chat or fhhealth.com for any questions or concerns.'}
               </p>
             </div>
