@@ -23,6 +23,8 @@ runs:
         RELEASE_REF=refs/tags/release
         PRERELEASE_REF=refs/tags/prerelease
 
+        QA1_RELEASE_REF=refs/heads/release
+
         echo "::group::Define Deployment Variables"
         if [[ "$GITHUB_REF" == *"$PRERELEASE_REF"* ]] && [[ $EVENT_NAME == 'release' ]] && [[ $EVENT_ACTION == 'prereleased' ]]; then
           echo "Deploy to PREPROD"
@@ -34,6 +36,11 @@ runs:
           echo "PROJECT_ID=fh-health-ca-prod" > $GITHUB_ENV
           echo "ENV_SERVICE_ACCOUNT=prod_service_account" >> $GITHUB_ENV
           echo "PROMOTEFLAG=--no-promote" >> $GITHUB_ENV
+        elif [[ "$GITHUB_REF" == *"$QA1_RELEASE_REF"* ]]; then
+          echo "Deploy to QA1"
+          echo "PROJECT_ID=fh-health-qa1" > $GITHUB_ENV
+          echo "ENV_SERVICE_ACCOUNT=qa1_service_account" >> $GITHUB_ENV
+          echo "PROMOTEFLAG=--promote" >> $GITHUB_ENV
         else
           echo "Deploy to DEV"
           echo "PROJECT_ID=fh-health-dev" > $GITHUB_ENV
