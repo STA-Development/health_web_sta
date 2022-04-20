@@ -31,7 +31,7 @@
     "dotenv": "^16.0.0",
     "firebase": "^9.6.10",
     "jwt-decode": "^3.1.2",
-    "moment": "^2.29.1",
+    "moment": "^2.29.3",
     "next": "12.1.0",
     "quickblox": "^2.13.10",
     "react": "17.0.2",
