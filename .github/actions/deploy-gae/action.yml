@@ -12,6 +12,7 @@ runs:
       run: |
         echo "::group::Install npm modules"
         yarn install --ignore-scripts
+        npm install --prefix ./cypress/tools
         echo "::endgroup::"
 
       shell: bash
