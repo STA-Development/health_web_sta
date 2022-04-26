@@ -47,6 +47,10 @@ async function createUser() {
     const manager = getManager()
     await manager.query(`INSERT INTO patient(firebaseKey, firstName, lastName, isEmailVerified) VALUES('${userDocument.id}', '${userData.firstName}', '${userData.lastName}', ${userData.isEmailVerified}) ON DUPLICATE KEY UPDATE isEmailVerified = ${userData.isEmailVerified};`)
 
+    const [patient] = await manager.query(`SELECT * FROM patient WHERE patient.firebaseKey='${userDocument.id}' LIMIT 1`)
+
+    await manager.query(`INSERT INTO patientAuth(patientId, authUserId, email, phoneNumber) VALUES('${patient.idPatient}', '${authUser.uid}', '${userData.email}', ${userData.phoneNumber}) ON DUPLICATE KEY UPDATE patientAuth.authUserId='${authUser.uid}';`)
+
     await connection.close()
   } catch (error) {
     console.log(error)
