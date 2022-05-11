@@ -3,7 +3,9 @@
         "target": "es5",
         "lib": ["es5", "dom"],
         "types": ["cypress", "node"],
-        "noUnusedLocals": false
+        "noUnusedLocals": false,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true, /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
     },
     "include": ["**/*.ts"]
 }

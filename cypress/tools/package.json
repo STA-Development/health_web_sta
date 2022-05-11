@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "tool:create-user": "ts-node ./create-user.ts",
-    "tool:delete-user": "ts-node ./delete-user.ts"
+    "tool:create-test-data": "ts-node ./create-test-data.ts",
+    "tool:remove-test-data": "ts-node ./remove-test-data.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.0",
     "firebase-admin": "^10.0.2",
+    "moment": "2.29.2",
+    "moment-timezone": "^0.5.33",
     "mysql": "^2.18.1",
     "ts-node": "^10.7.0",
     "typeorm": "^0.2.45"

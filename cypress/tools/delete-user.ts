@@ -40,4 +40,4 @@ async function deleteUser() {
   }
 }
 
-deleteUser()
+export default deleteUser
