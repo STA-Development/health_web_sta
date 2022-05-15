@@ -1,5 +1,5 @@
 import axios from 'axios'
-import guid from '@fh-health/utils/guid'
+import {guid} from '@fh-health/utils/guid'
 
 import Config from '@fh-health/utils/envWrapper'
 import store from '../store/redux/store'
