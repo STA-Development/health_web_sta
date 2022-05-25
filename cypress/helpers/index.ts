@@ -6,7 +6,7 @@ export const doLoginTest = (phoneNumber: string, verificationCode: string) => {
     'https://user-service-dot-opn-platform-dev.nn.r.appspot.com/user/api/v1/patients*'
   cy.intercept(apiUrl).as('testResults')
   cy.intercept(patientInfoRequestUrl).as('patientInfoResults')
-  cy.visit('/#/login')
+  cy.visit('/auth/login')
   cy.location('pathname').should('eq', '/auth/login')
   cy.get('button[data-cy="next"]').should('be.disabled')
   cy.get('input[class="form-control "]').type(phoneNumber)
