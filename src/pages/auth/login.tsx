@@ -231,11 +231,12 @@ const Login = () => {
                 <h4 className="header">Login</h4>
                 <p className="message">Enter your mobile number to secure your access</p>
                 <div className="inputGroup">
-                  <span>
+                  <span data-cy="numberText">
                     Phone Number <em>*</em>
                   </span>
                   <PhoneInput
                     country="ca"
+                    data-cy="phoneNumber"
                     value={phoneNumber}
                     onChange={(phone) => {
                       handlePhoneNumberChange(phone)
@@ -282,7 +283,7 @@ const Login = () => {
                   <div>
                     <Image src="/logo.svg" width={136} height={16} alt="logo" />
                   </div>
-                  <h4 className="header">SMS Verification</h4>
+                  <h4 data-cy="smsVerificationHeader" className="header">SMS Verification</h4>
                   <p className="message">
                     A code has been sent to your Mobile Phone Number to login to the FH Health Web
                     Portal. Please enter it below to continue.
@@ -301,6 +302,7 @@ const Login = () => {
                       <div className="inputGroup__resend">
                         <span>Didn&apos;t receive the SMS?</span>
                         <button
+                          data-cy="resendButton"
                           type="button"
                           onClick={() => startCountdown(handlePhoneSMSSend)}
                           className="button inputGroup__resend_button"
